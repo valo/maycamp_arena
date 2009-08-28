@@ -1,0 +1,5 @@
+Here are located the news files. 
+
+They should named <name>.new and encoded in utf8. They are imported in filename order. The first line is the topic of the new, and the rest of the file are the new contents. 
+
+To import the files you should run something like spoj-control.pl sync-news. Once imported, you can delete the news.

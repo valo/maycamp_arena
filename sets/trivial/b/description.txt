@@ -1,0 +1,1 @@
+Write a program which reads multiple lines of two integers from the standard input, and for each of them prints a line with the sum of the numbers to the standard output.
