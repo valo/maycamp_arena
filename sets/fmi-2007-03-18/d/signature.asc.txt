@@ -1,0 +1,8 @@
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.6 (MingW32)
+Comment: Using GnuPG with Mozilla - http://enigmail.mozdev.org
+
+iD8DBQFF/GJVq1sq2wNA+BURApGjAKCO+/LYqXKQRdLluSMeoiBAfKeY1QCgoC7F
+06pzqSUloFehzCO+gRnFBvQ=
+=Wp9J
+-----END PGP SIGNATURE-----

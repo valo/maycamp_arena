@@ -8,32 +8,50 @@ use DBI;
 use spoj0;
 use CGI qw/:standard :html3/;
 
-
+my $LIMIT = 100;
 
 my $dbh = &SqlConnect;
+
+
+sub MakeField{
+	my $key = shift or die;
+	return td({-align=>'right'}, "$key:").
+		td({-align=>'left'}, textfield(-name=>$key, -default=>param($key)||"", -size=>8));
+	
+}
+
 
 sub PrintStatuses{
 
 	my @rows = (th([
 		'run_id', 
-		'user',
-		'contest', 
+		'user(id)',
+		'contest(id)', 
 		'problem(id)', 
 		'submit_time', 
-		'language', 
+		'lang', 
 		'about', 
 		'status', 
 		'action']),);
 
-	my $limit = 100;
+	my $limit = $LIMIT;
 	$limit = 10000 if(param('all'));	
+	
+	my $filter = " 1=1 ";
+	$filter .= " AND user_id=".$dbh->quote(param('user_id')) if param('user_id');
+	$filter .= " AND problem_id=".$dbh->quote(param('problem_id')) if param('problem_id');
+	$filter .= " AND contest_id=".$dbh->quote(param('contest_id')) if param('contest_id');
+	$filter .= " AND run_id<=".$dbh->quote(param('to_run_id')) if param('to_run_id');
+	
 	my $run_st = $dbh->prepare(qq( 
 		SELECT 
 			r.run_id, 
+			r.user_id,
+			r.problem_id,
 			u.display_name as uname,
 			c.set_code as ccode,
 			p.letter as pletter,
-			p.problem_id,
+			c.contest_id,
 			r.submit_time, 
 			r.language,
 			r.about,
@@ -42,6 +60,7 @@ sub PrintStatuses{
 		INNER JOIN users as u ON r.user_id = u.user_id
 		INNER JOIN problems as p ON r.problem_id = p.problem_id
 		INNER JOIN contests as c ON p.contest_id = c.contest_id
+		HAVING $filter
 		ORDER BY r.run_id desc
 		LIMIT $limit
 	));
@@ -51,8 +70,8 @@ sub PrintStatuses{
 		my $run_id = $$run{'run_id'};
 		push @rows, td([
 			$$run{'run_id'},
-			$$run{'uname'},
-			$$run{'ccode'},
+			$$run{'uname'}.'('.$$run{'user_id'}.')',
+			$$run{'ccode'}.'('.$$run{'contest_id'}.')',
 			$$run{'pletter'}." (".$$run{'problem_id'}.")",
 			$$run{'submit_time'},
 			$$run{'language'},
@@ -68,6 +87,9 @@ sub PrintStatuses{
         caption(strong('Submits')),
         Tr({-align=>'center',-valign=>'top'}, \@rows)
     );
+    my $count = scalar(@rows) - 1;
+    print p("$count results");
+    print p("*Note that at most $LIMIT results are shown!");
 }
 
 sub PrintStatus{
@@ -125,6 +147,25 @@ print header(-charset=>'utf-8'),
 	start_html("Status"),
 	WebNavMenu,
 	h1("Status");
+
+print 
+	start_form(-method=>'GET'),
+	table(
+		{'-border'=>0},
+		undef,
+		Tr({-align=>'center'}, [
+			td(b("Filters:")).
+			MakeField('user_id').
+			MakeField('problem_id').
+			MakeField('contest_id').
+			MakeField('to_run_id').
+			td({-align=>'center'}, submit(-label=>'Show')).
+				td({-align=>'left'}, "")
+		]
+		)
+	),
+	end_form;
+
 
 if(param('run_id')){
 	PrintStatus param('run_id');
