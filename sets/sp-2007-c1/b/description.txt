@@ -1,0 +1,19 @@
+== Problem B  - Brutal ==
+
+Stancho likes numbers. He also likes sets. Thats why he has lots of sets of numbers. He stores his sets of numbers in his personal computer. Unfortunately Pancho does not like numbers. He also does not like sets. As you can conclude he does not like sets of numbers also. One day Pancho used known vulnerability in Internet Explorer 6.0 which can lead to remote code execution. He gained access to Stancho's computer and hacked his sets of numbers. He changed some numbers into the sets in such way, that some of the sets had duplicate elements. We are not sure why Pancho is so brutal. However, Stancho is our hero (as he invented Stancho sort in PRANKA) so you have to help him. Your task is to write a program which for given numbers, counts how many different are in them. 
+
+=== Input ===
+
+On the standard input several sequences of numbers will be given. Each one is written on a line with some whitespaces (not neccessarily one) between them. 
+
+=== Output ===
+
+For each of the sequence, write to the standard output a single number on a line - how many different number there are in the sequence. 
+
+=== Sample Input ===
+1 2  3 3  3 4 2   1
+55 555 5555 55 55555 5
+
+=== Sample Output ===
+4
+5

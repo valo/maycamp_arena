@@ -40,7 +40,9 @@ $contest_st->finish;
 sub do_run {
   my $in_path = shift;
   my $ans_path = shift;
-  my $status;
+  my $status = 'ok';
+
+  print "Running test with input file $in_path and output file $ans_path";
   
   #copy input
   System "cp '$in_path' '$EXEC_DIR/test.in'";
@@ -53,7 +55,7 @@ sub do_run {
   my $run = "time timeout $time $exec < $EXEC_DIR/test.in >$EXEC_DIR/test.out 2>>$EXEC_DIR/run.err";
 
   my $megarun = "launchtool --tag=spoj0-grade --limit-process-count=30 "
-    ."--limit-open-files=60 --user=spoj0run '$run'";
+    ."--limit-open-files=60 --user=spoj0run --no-stats '$run'";
 
   my $exit = System $megarun;
   warn $exit;
@@ -61,7 +63,7 @@ sub do_run {
     #killed - timeout
     $status = 'tl';
   }
-  elsif($exit != 0 || -s "$EXEC_DIR/run.err"){
+  elsif($exit != 0){
     $status = 're';
   }
 
@@ -114,6 +116,7 @@ System "rm $EXEC_DIR/run.err";
 System "rm $EXEC_DIR/*.class";
 System "rm $EXEC_DIR/*.java";
 
+my $log = "";
 my $status = 'ok';
 my $lang = $$run{'language'};
 my $java_main = '';
@@ -133,7 +136,8 @@ if($lang eq 'cpp'){
 #   $status = 'ce' if(not -f "$EXEC_DIR/$java_main.class");
 # }
 else{
-  die "Unsupported language $lang!";
+  $log .= "Unsupported language $lang!\n";
+  $status = 'ce';
 }
 
 
@@ -147,20 +151,20 @@ else{
 # the runs. Something in the form: OK OK OK WA TL RE OK OK
 # There will be another tool for parsing the statuses and ouputing the final
 # results
-my $log = "";
 if($status eq 'ok'){ #run
   chdir($EXEC_DIR);
   
   # for each input file, run the program and return the status
   my $in_path = "$SETS_DIR/".$$contest{'set_code'}."/".$$problem{'letter'}."/test.in*";
   $status = "";
-  foreach (`$in_path`) {
+  foreach (`ls $in_path`) {
     my $in_file = $_;
+    chomp $in_file;
     my $out_file = $in_file;
-    $out_file =~ s/in([0-9]+)$/ans$1/;
+    $out_file =~ s/in([0-9]*)$/ans$1/;
     
     my ($stat, $run_log) = do_run($in_file, $out_file);
-    $status .= " ".$stat;
+    $status .= $stat." ";
     $log .= $run_log;
   }
 }

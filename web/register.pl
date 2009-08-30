@@ -95,6 +95,9 @@ sub SubmitForm{
 	if(Login($dbh, param('name'), param('password'))){
 		$error = "Вече има такъв потребител!";
 	}
+	elsif(length(param('display_name')) < 5){
+		$error = "Не сте въвели пълно име!";
+	}
 	else{
 		my %user_data = (
 			'name' => param('name'),

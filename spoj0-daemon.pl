@@ -80,9 +80,6 @@ while(!-f $stop_file){
 			warn "Affected $affected. Another deamon?";
 		}
 	}
-	else{
-		print ".\n";
-	}
 	sleep 1;
 	
 }
