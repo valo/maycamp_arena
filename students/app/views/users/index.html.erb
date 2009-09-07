@@ -1,0 +1,22 @@
+Welcome <%= @logged_user.display_name %>!
+<%= link_to "Log off", :action => "logoff" %>
+
+<h1>Currently running contests:</h1>
+<% if !Contest.current.blank? %>
+  <% for contest in Contest.current %>
+    <p>
+      <%= contest.name %>
+    </p>
+  <% end %>
+<% else %>
+  No currently running contests
+<% end %>
+
+<h1>Your last submissions:</h1>
+<% if !Run.find_by_user_id(@logged_user.id).blank? %>
+  <% for run in Run.find_by_user_id(@logged_user.id) %>
+  <% end %>
+<% else %>
+  No submissions
+<% end %>
+
