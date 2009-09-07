@@ -1,0 +1,27 @@
+<h1>Register</h1>
+<% form_for @user do |f| -%>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name, "Username:" %>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :display_name, "Display Name:" %>
+    <%= f.text_field :display_name %>
+  </p>
+  <p>
+    <%= f.label :password, "Password:" %>
+    <%= f.text_field :password %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation, "Password Confirmation:" %>
+    <%= f.text_field :password_confirmation %>
+  </p>
+  <p>
+    <%= f.label :About, "About:" %>
+    <%= f.text_area :about %>
+  </p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end -%>
