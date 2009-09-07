@@ -54,8 +54,8 @@ sub do_run {
 
   my $run = "time timeout $time $exec < $EXEC_DIR/test.in >$EXEC_DIR/test.out 2>>$EXEC_DIR/run.err";
 
-  my $megarun = "launchtool --tag=spoj0-grade --limit-process-count=30 "
-    ."--limit-open-files=60 --user=spoj0run --no-stats '$run'";
+  my $megarun = "launchtool --tag=spoj0-grade --limit-process-count=1 "
+    ."--limit-open-files=5 --user=spoj0run --no-stats '$run'";
 
   my $exit = System $megarun;
   warn $exit;
