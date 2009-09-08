@@ -1,0 +1,16 @@
+<h1>Welcome to spoj0 for students!</h1>
+<% if @current_user %>
+<p>You are logged with the user <%= @current_user.login %></p>
+<%= link_to "Logout", logout_path %>
+<% else %>
+<p>You are not logged into the system. You have to <%= link_to "login", login_path %> if you want to submit solutions. If you don't have an account you can create one <%= link_to "here", signup_path %>.</p>
+<% end %>
+
+<h1>Currently running contests</h1>
+<% if !Contest.current.blank? %>
+  <% for contest in Contest.current %>
+    <p><%= contest.name %></p>
+  <% end %>
+<% else %>
+  No currently running contests
+<% end %>

@@ -28,7 +28,7 @@ sub PrintBoard{
 	#get all runs related to the contest
 	my $run_st = $dbh->prepare(qq(
 		SELECT 
-			r.run_id, 
+			r.id, 
 			u.display_name as u_name,
 			u.user_id,
 			u.hidden as u_hidden,
@@ -44,7 +44,7 @@ sub PrintBoard{
 		INNER JOIN problems as p ON r.problem_id = p.problem_id
 		INNER JOIN contests as c ON p.contest_id = c.contest_id
 		HAVING contest_id = ?
-		ORDER BY r.run_id
+		ORDER BY r.id
 	));
 	$run_st->execute($contest_id);
 

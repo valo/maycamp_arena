@@ -76,7 +76,7 @@ elsif($cmd eq 'kill'){
 elsif($cmd eq 'rejudge-run'){
 	my $run_id = shift @ARGV or Usage;
 	my $res = $dbh->do(
-		"UPDATE runs SET status='waiting' WHERE run_id=?", 
+		"UPDATE runs SET status='waiting' WHERE id=?", 
 		undef, $run_id);
 	print "Affected $res\n";
 }

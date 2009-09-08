@@ -19,7 +19,7 @@ my $run_id = shift or die;
 
 my $dbh = SqlConnect;
 
-my $run_st = $dbh->prepare("SELECT * FROM runs WHERE run_id=?");
+my $run_st = $dbh->prepare("SELECT * FROM runs WHERE id=?");
 $run_st->bind_param(1, $run_id);
 $run_st->execute() or die "Unable to execute statment : $!";
 my $run = $run_st->fetchrow_hashref;
@@ -170,7 +170,7 @@ if($status eq 'ok'){ #run
 }
 
 
-my $final_st = $dbh->prepare("UPDATE runs SET status=?, log=? WHERE run_id=?");
+my $final_st = $dbh->prepare("UPDATE runs SET status=?, log=? WHERE id=?");
 $final_st->bind_param(1, $status);
 $final_st->bind_param(2, $log);
 $final_st->bind_param(3, $run_id);
