@@ -264,7 +264,7 @@ where contest_id=?;
 sub GetRunInfo{
 	my $dbh = shift or die;
 	my $run_id = shift or die;
-	my $run_st = $$dbh->prepare(	"SELECT * from runs where run_id=?");
+	my $run_st = $$dbh->prepare(	"SELECT * FROM runs WHERE id=?");
 	$run_st->execute($run_id) or die "Unable to execute statment!";
 	my $run = $run_st->fetchrow_hashref;
 	$run_st->finish;

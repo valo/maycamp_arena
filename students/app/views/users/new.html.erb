@@ -1,27 +1,19 @@
-<h1>Register</h1>
-<% form_for @user do |f| -%>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :name, "Username:" %>
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :display_name, "Display Name:" %>
-    <%= f.text_field :display_name %>
-  </p>
-  <p>
-    <%= f.label :password, "Password:" %>
-    <%= f.text_field :password %>
-  </p>
-  <p>
-    <%= f.label :password_confirmation, "Password Confirmation:" %>
-    <%= f.text_field :password_confirmation %>
-  </p>
-  <p>
-    <%= f.label :About, "About:" %>
-    <%= f.text_area :about %>
-  </p>
-  <p>
-    <%= f.submit "Create" %>
-  </p>
+<h1>Sign up as a new user</h1>
+<% @user.password = @user.password_confirmation = nil %>
+
+<%= error_messages_for :user %>
+<% form_for :user, :url => users_path do |f| -%>
+<p><%= label_tag 'login' %><br/>
+<%= f.text_field :login %></p>
+
+<p><%= label_tag 'email' %><br/>
+<%= f.text_field :email %></p>
+
+<p><%= label_tag 'password' %><br/>
+<%= f.password_field :password %></p>
+
+<p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
+<%= f.password_field :password_confirmation %></p>
+
+<p><%= submit_tag 'Sign up' %></p>
 <% end -%>

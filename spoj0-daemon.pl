@@ -44,7 +44,7 @@ sub Grade{
 print "Beware.... spoj0-deamon running!";
 
 while(!-f $stop_file){
-	my $sql = "SELECT run_id, status FROM runs WHERE status='$WAITING' LIMIT 1";
+	my $sql = "SELECT id, status FROM runs WHERE status='$WAITING' LIMIT 1";
 	my $st = $dbh->prepare($sql);
 	$st->execute() or die "Unable to execute $sql : $!";
 	my $hash_ref = $st->fetchrow_hashref;
@@ -54,7 +54,7 @@ while(!-f $stop_file){
 		my $run_id = $$hash_ref{'run_id'};
 		#mark as judging
 		my $update_st = $dbh->prepare(
-			"UPDATE runs SET status='judging' WHERE run_id=? AND status='$WAITING'");
+			"UPDATE runs SET status='judging' WHERE id=? AND status='$WAITING'");
 		#warn;
 		$update_st->bind_param(1, $run_id);
 		my $affected = $update_st->execute;

@@ -9,55 +9,74 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20090908080904) do
 
-  create_table "contests", :primary_key => "contest_id", :force => true do |t|
+  create_table "contests", :force => true do |t|
     t.string   "set_code",     :limit => 64,  :null => false
     t.string   "name",         :limit => 128, :null => false
     t.datetime "start_time",                  :null => false
     t.integer  "duration",                    :null => false
     t.integer  "show_sources",                :null => false
     t.text     "about",                       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "news", :primary_key => "new_id", :force => true do |t|
-    t.datetime "new_time",                :null => false
-    t.string   "file",     :limit => 64,  :null => false
-    t.string   "topic",    :limit => 128, :null => false
-    t.text     "content",                 :null => false
+  create_table "news", :force => true do |t|
+    t.datetime "new_time",                  :null => false
+    t.string   "file",       :limit => 64,  :null => false
+    t.string   "topic",      :limit => 128, :null => false
+    t.text     "content",                   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "problems", :primary_key => "problem_id", :force => true do |t|
-    t.integer "contest_id",               :null => false
-    t.string  "letter",     :limit => 16, :null => false
-    t.string  "name",       :limit => 64, :null => false
-    t.integer "time_limit",               :null => false
-    t.text    "about",                    :null => false
+    t.integer  "contest_id",               :null => false
+    t.string   "letter",     :limit => 16, :null => false
+    t.string   "name",       :limit => 64, :null => false
+    t.integer  "time_limit",               :null => false
+    t.text     "about",                    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "problems", ["contest_id"], :name => "new_fk_constraint"
-
-  create_table "runs", :primary_key => "run_id", :force => true do |t|
-    t.integer  "problem_id",                      :null => false
-    t.integer  "user_id",                         :null => false
-    t.datetime "submit_time",                     :null => false
-    t.string   "language",    :limit => 16,       :null => false
-    t.text     "source_code", :limit => 16777215, :null => false
-    t.string   "source_name", :limit => 32,       :null => false
-    t.text     "about",                           :null => false
-    t.string   "status",      :limit => 16,       :null => false
-    t.text     "log",                             :null => false
+  create_table "runs", :force => true do |t|
+    t.integer  "problem_id",                :null => false
+    t.integer  "user_id",                   :null => false
+    t.datetime "submit_time",               :null => false
+    t.string   "language",    :limit => 16, :null => false
+    t.text     "source_code",               :null => false
+    t.string   "source_name", :limit => 32, :null => false
+    t.text     "about",                     :null => false
+    t.string   "status",      :limit => 16, :null => false
+    t.text     "log",                       :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "runs", ["problem_id"], :name => "fk_problems"
-  add_index "runs", ["user_id"], :name => "fk_users"
-
-  create_table "users", :primary_key => "user_id", :force => true do |t|
-    t.string  "name",         :limit => 16,                :null => false
-    t.string  "pass_md5",     :limit => 64,                :null => false
-    t.string  "display_name", :limit => 64,                :null => false
-    t.text    "about",                                     :null => false
-    t.integer "hidden",                     :default => 0, :null => false
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "users", :force => true do |t|
+    t.string   "login",                     :limit => 40
+    t.string   "name",                      :limit => 100, :default => ""
+    t.string   "email",                     :limit => 100
+    t.string   "crypted_password",          :limit => 40
+    t.string   "salt",                      :limit => 40
+    t.string   "remember_token",            :limit => 40
+    t.datetime "remember_token_expires_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["login"], :name => "index_users_on_login", :unique => true
 
 end

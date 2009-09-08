@@ -41,11 +41,11 @@ sub PrintStatuses{
 	$filter .= " AND user_id=".$dbh->quote(param('user_id')) if param('user_id');
 	$filter .= " AND problem_id=".$dbh->quote(param('problem_id')) if param('problem_id');
 	$filter .= " AND contest_id=".$dbh->quote(param('contest_id')) if param('contest_id');
-	$filter .= " AND run_id<=".$dbh->quote(param('to_run_id')) if param('to_run_id');
+	$filter .= " AND r.id<=".$dbh->quote(param('to_run_id')) if param('to_run_id');
 	
 	my $run_st = $dbh->prepare(qq( 
 		SELECT 
-			r.run_id, 
+			r.id, 
 			r.user_id,
 			r.problem_id,
 			u.display_name as uname,
@@ -61,7 +61,7 @@ sub PrintStatuses{
 		INNER JOIN problems as p ON r.problem_id = p.problem_id
 		INNER JOIN contests as c ON p.contest_id = c.contest_id
 		HAVING $filter
-		ORDER BY r.run_id desc
+		ORDER BY r.id desc
 		LIMIT $limit
 	));
 	$run_st->execute() or die "Unable to execute statment!";
@@ -96,7 +96,7 @@ sub PrintStatus{
 	my $run_id = shift or die;
 	my $run_st = $dbh->prepare(qq( 
 		SELECT 
-			r.run_id, 
+			r.id, 
 			r.submit_time, 
 			r.language,
 			r.about,
@@ -115,7 +115,7 @@ sub PrintStatus{
 		INNER JOIN users as u ON r.user_id = u.user_id
 		INNER JOIN problems as p ON r.problem_id = p.problem_id
 		INNER JOIN contests as c ON p.contest_id = c.contest_id
-		HAVING r.run_id=?
+		HAVING r.id=?
 	));
 	$run_st->execute($run_id) or die "Unable to execute statment!";
 	my $run = $run_st->fetchrow_hashref;
