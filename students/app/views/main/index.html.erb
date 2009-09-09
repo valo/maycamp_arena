@@ -14,3 +14,20 @@
 <% else %>
   No currently running contests
 <% end %>
+
+<h1>Previous contests</h1>
+<% if !Contest.finished.blank? %>
+  <table>
+  <% for contest in Contest.finished %>
+    <tr>
+      <td><%= contest.name %></td>
+      <td>
+        <%= link_to "Problems", :controller => :contest, :id => contest.id, :action => "problems" %>
+        <%= link_to "Results", :controller => :contest, :id => contest.id, :action => "results" %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+<% else %>
+  No past contests
+<% end %>
