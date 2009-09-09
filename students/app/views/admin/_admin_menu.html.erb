@@ -1,0 +1,4 @@
+<ul>
+  <li><%= link_to_if controller_name != 'users', "Manage users", :controller => 'admin/users', :action => "index" %></li>
+  <li><%= link_to_if controller_name != 'contests', "Manage contests", :controller => 'admin/contests', :action => "index" %></li>
+</ul>

@@ -1,0 +1,24 @@
+<h1>Users</h1>
+<% if !@users.blank? %>
+  <table>
+    <tr>
+      <th>Login</th>
+      <th>Email</th>
+      <th>Is Admin?</th>
+      <th>Actions</th>
+    </tr>
+  <% for user in @users %>
+    <tr>
+      <td><%= user.login %></td>
+      <td><%= user.email %></td>
+      <td><%= check_box_tag user.login, "1", user.admin?, :disabled => true %></td>
+      <td>
+        <%= link_to "Edit", edit_admin_user_path(user.id) %>
+        <%= link_to "Delete", :action => 'destroy', :id => user.id %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+<% else %>
+  
+<% end %>
