@@ -1,0 +1,17 @@
+  <p>
+    <%= f.label :name, "Name:" %>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :about, "About:" %>
+    <%= f.text_area :about, :rows => 5 %>
+  </p>
+  <p>
+    <%= f.label :start_time, "Start Time:" %>
+    <%= f.datetime_select :start_time %>
+  </p>
+  <p>
+    <%= f.label :duration, "Duration:" %>
+    <%= f.text_field :duration %>
+    <em>In minutes</em>
+  </p>

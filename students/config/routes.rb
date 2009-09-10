@@ -40,7 +40,15 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace :admin do |admin|
     admin.resources :users
-    admin.resources :contests
+    admin.resources :contests do |contests|
+      contests.resources :problems, :member => { 
+                                      :upload_tests => :get, 
+                                      :do_upload_tests => :post, 
+                                      :download_file => :get, 
+                                      :upload_file => :get, 
+                                      :do_upload_file => :post
+                                    }
+    end
   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.

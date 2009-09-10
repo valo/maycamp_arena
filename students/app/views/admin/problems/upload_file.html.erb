@@ -1,0 +1,10 @@
+<h1>Upload a file for problem <%= @problem.name %></h1>
+<% form_tag do_upload_file_admin_contest_problem_path(@problem.contest, @problem), :multipart => true do %>
+  <p>
+    <%= label :tests, "Tests bundle:" %>
+    <%= file_field :tests, :file %>
+  </p>
+  <p>
+    <%= submit_tag "Upload" %>
+  </p>
+<% end %>

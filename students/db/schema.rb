@@ -9,15 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090909164752) do
+ActiveRecord::Schema.define(:version => 20090910084149) do
 
   create_table "contests", :force => true do |t|
-    t.string   "set_code",     :limit => 64,  :null => false
-    t.string   "name",         :limit => 128, :null => false
-    t.datetime "start_time",                  :null => false
-    t.integer  "duration",                    :null => false
-    t.integer  "show_sources",                :null => false
-    t.text     "about",                       :null => false
+    t.string   "set_code",     :limit => 64,                 :null => false
+    t.string   "name",         :limit => 128,                :null => false
+    t.datetime "start_time",                                 :null => false
+    t.integer  "duration",                                   :null => false
+    t.integer  "show_sources",                :default => 0, :null => false
+    t.text     "about",                                      :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -31,9 +31,9 @@ ActiveRecord::Schema.define(:version => 20090909164752) do
     t.datetime "updated_at"
   end
 
-  create_table "problems", :primary_key => "problem_id", :force => true do |t|
+  create_table "problems", :force => true do |t|
     t.integer  "contest_id",               :null => false
-    t.string   "letter",     :limit => 16, :null => false
+    t.string   "letter"
     t.string   "name",       :limit => 64, :null => false
     t.integer  "time_limit",               :null => false
     t.text     "about",                    :null => false

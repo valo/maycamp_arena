@@ -1,0 +1,10 @@
+<h1>Edit contest</h1>
+<% form_for [:admin, @contest] do |f| -%>
+  <p>
+    <%= f.error_messages %>
+  </p>
+  <%= render :partial => "contest_fields", :locals => { :f => f } %>
+  <p>
+    <%= f.submit "Update" %><%= link_to "Cancel", :action => "index" %>
+  </p>
+<% end -%>
