@@ -1,0 +1,32 @@
+<h1>Problem <%= @problem.name %></h1>
+<p>
+  Name: <%= @problem.name %>
+</p>
+<p>
+  Description: <%= @problem.about %>
+</p>
+<p>
+  Time limit: <%= @problem.time_limit %>
+</p>
+<% if !@problem.input_files.blank? %>
+  <h2>Input files</h2>
+  <% for file in @problem.input_files %>
+    <p><%= link_to File.basename(file), download_file_admin_contest_problem_path(@problem.contest, @problem, :file => File.basename(file)) %></p>
+  <% end %>
+<% end %>
+<% if !@problem.output_files.blank? %>
+  <h2>Output files</h2>
+  <% for file in @problem.output_files %>
+    <p><%= link_to File.basename(file), download_file_admin_contest_problem_path(@problem.contest, @problem, :file => File.basename(file)) %></p>
+  <% end %>
+<% end %>
+<% if !@problem.other_files.blank? %>
+  <h2>Other files</h2>
+  <% for file in @problem.other_files %>
+    <p><%= link_to File.basename(file), download_file_admin_contest_problem_path(@problem.contest, @problem, :file => File.basename(file)) %></p>
+  <% end %>
+<% end %>
+
+<p>
+  <%= link_to "Back", admin_contest_problems_path(@problem.contest) %>
+</p>

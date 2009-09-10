@@ -1,1 +1,30 @@
 <h1>Contests</h1>
+
+<% if !@contests.blank? %>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>About</th>
+      <th>Start time</th>
+      <th>Duration</th>
+      <th>Actions</th>
+    </tr>
+  <% for contest in @contests %>
+    <tr>
+      <td><%= contest.name %></td>
+      <td><%= contest.about %></td>
+      <td><%= contest.start_time %></td>
+      <td><%= contest.duration %></td>
+      <td>
+        <%= link_to "Edit", edit_admin_contest_path(contest.id) %>
+        <%= link_to "Delete", { :action => :destroy, :id => contest.id }, :confirm => "Are you sure you want to delete this contest?", :method => :delete %>
+        <%= link_to "Problems", admin_contest_problems_path(contest) %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+<% else %>
+  No contests in the system
+<% end %>
+
+<p><%= link_to "Create contest", new_admin_contest_path %></p>
