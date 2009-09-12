@@ -25,13 +25,13 @@ $run_st->execute() or die "Unable to execute statment : $!";
 my $run = $run_st->fetchrow_hashref;
 $run_st->finish;
 
-my $problem_st = $dbh->prepare( "SELECT * from problems where problem_id=?");
+my $problem_st = $dbh->prepare( "SELECT * from problems where id=?");
 $problem_st->bind_param(1, $$run{'problem_id'});
 $problem_st->execute() or die "Unable to execute statment : $!";
 my $problem = $problem_st->fetchrow_hashref;
 $problem_st->finish;
 
-my $contest_st = $dbh->prepare( "SELECT * from contests where contest_id=?");
+my $contest_st = $dbh->prepare( "SELECT * from contests where id=?");
 $contest_st->bind_param(1, $$problem{'contest_id'});
 $contest_st->execute() or die "Unable to execute statment : $!";
 my $contest = $contest_st->fetchrow_hashref;
@@ -54,8 +54,8 @@ sub do_run {
 
   my $run = "time timeout $time $exec < $EXEC_DIR/test.in >$EXEC_DIR/test.out 2>>$EXEC_DIR/run.err";
 
-  my $megarun = "launchtool --tag=spoj0-grade --limit-process-count=1 "
-    ."--limit-open-files=5 --user=spoj0run --no-stats '$run'";
+  my $megarun = "launchtool --tag=spoj0-grade --limit-process-count=10 "
+    ."--limit-open-files=50 --user=spoj0run --no-stats '$run'";
 
   my $exit = System $megarun;
   warn $exit;
@@ -120,7 +120,7 @@ my $log = "";
 my $status = 'ok';
 my $lang = $$run{'language'};
 my $java_main = '';
-if($lang eq 'cpp'){
+if($lang eq 'cpp' || $lang eq 'C/C++'){
   WriteFile "$EXEC_DIR/program.cpp", $$run{'source_code'};
 
   System "g++ -O2 $EXEC_DIR/program.cpp -o $EXEC_DIR/program ";
@@ -155,7 +155,9 @@ if($status eq 'ok'){ #run
   chdir($EXEC_DIR);
   
   # for each input file, run the program and return the status
-  my $in_path = "$SETS_DIR/".$$contest{'set_code'}."/".$$problem{'letter'}."/test.in*";
+  my $name = lc($$problem{'name'});
+  $name =~ s/\s+/_/g;
+  my $in_path = "$SETS_DIR/".$$contest{'set_code'}."/".$name."/test.in*";
   $status = "";
   foreach (`ls $in_path`) {
     my $in_file = $_;

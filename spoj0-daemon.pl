@@ -35,7 +35,7 @@ my $stop_file = $STOP_DAEMON_FILE;
 sub Grade{
 	my $run = shift or die; #hash ref
 	
-	my $run_id = $$run{'run_id'};
+	my $run_id = $$run{'id'};
 	return (System "perl spoj0-grade.pl $run_id >$EXEC_DIR/grade.log 2>$EXEC_DIR/grade.err") == 0;
 	
 }
@@ -51,7 +51,7 @@ while(!-f $stop_file){
 	$st->finish;
 	#warn;
 	if(defined($hash_ref)){
-		my $run_id = $$hash_ref{'run_id'};
+		my $run_id = $$hash_ref{'id'};
 		#mark as judging
 		my $update_st = $dbh->prepare(
 			"UPDATE runs SET status='judging' WHERE id=? AND status='$WAITING'");

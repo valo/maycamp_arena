@@ -159,8 +159,8 @@ sub SqlNow{
 }
 
 sub SqlConnect{
-	return DBI->connect('DBI:mysql:spoj0:localhost:3306',
-		'spoj0_admin', 'stancho3', { RaiseError => 1, AutoCommit => 1 });
+	return DBI->connect('DBI:mysql:spoj0_dev:192.168.1.104:3306',
+		'spoj0_admin', '', { RaiseError => 1, AutoCommit => 1 });
 }
 
 sub System{
