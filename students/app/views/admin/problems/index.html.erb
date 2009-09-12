@@ -11,8 +11,9 @@
       <td><%= problem.name %></td>
       <td><%= problem.time_limit %></td>
       <td>
+        <%= link_to "Runs", admin_contest_problem_runs_path(@contest, problem) %>
         <%= link_to "View", admin_contest_problem_path(@contest, problem) %>
-        <%= link_to "Upload tests", upload_tests_admin_contest_problem_path(@contest, problem) %>
+        <%= link_to "Purge files", purge_files_admin_contest_problem_path(@contest, problem) %>
         <%= link_to "Upload file", upload_file_admin_contest_problem_path(@contest, problem) %>
         <%= link_to "Edit", edit_admin_contest_problem_path(@contest, problem) %>
         <%= link_to "Delete", admin_contest_problem_path(@contest, problem), :method => :delete, :confirm => "Are you sure you want to delete this problem?" %>

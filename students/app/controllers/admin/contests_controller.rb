@@ -27,6 +27,7 @@ class Admin::ContestsController < ApplicationController
     @contest.attributes = params[:contest]
     
     if @contest.save
+      flash[:notice] = "Contest updated successfully"
       redirect_to edit_admin_contest_path(@contest.id)
     else
       render :action => "edit"

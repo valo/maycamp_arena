@@ -42,18 +42,15 @@ class Admin::ProblemsController < ApplicationController
     end
   end
   
-  def upload_tests
+  def purge_files
     @problem = Problem.find(params[:id])
-  end
-  
-  def do_upload_tests
-    @problem = Problem.find(params[:id])
-    Dir[File.join(@problem.tests_dir, "*.{in,ans}*")].each do |filename|
+    Dir[File.join(@problem.tests_dir, "*")].each do |filename|
+      next unless File.file?(filename)
       logger.warn "Deleting file #{filename}"
       File.delete filename
     end
     
-    do_upload_file
+    redirect_to admin_contest_problem_path(@problem.contest, @problem)
   end
   
   def upload_file
@@ -74,7 +71,7 @@ class Admin::ProblemsController < ApplicationController
       if @upload.original_filename.ends_with("zip")
         # Extract the bundle
         Zip::ZipFile.foreach(@upload.local_path) do |filename|
-          if filename.file?
+          if filename.file? and !filename.name.include?('/')
             dest = File.join(@problem.tests_dir, filename.name)
             FileUtils.rm(dest) if File.exists?(dest)
             filename.extract dest

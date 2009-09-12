@@ -41,13 +41,21 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.resources :users
     admin.resources :contests do |contests|
+      contests.resources :runs, :member => {
+        :queue => :get
+      }, :collection => {
+        :queue => :get
+      }
       contests.resources :problems, :member => { 
-                                      :upload_tests => :get, 
-                                      :do_upload_tests => :post, 
-                                      :download_file => :get, 
-                                      :upload_file => :get, 
-                                      :do_upload_file => :post
-                                    }
+        :purge_files => :get, 
+        :download_file => :get, 
+        :upload_file => :get, 
+        :do_upload_file => :post
+      } do |problem|
+        problem.resources :runs, :collection => {
+          :queue => :get
+        }
+      end
     end
   end
 

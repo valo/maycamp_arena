@@ -1,14 +1,14 @@
-<h1>Log In</h1>
-
+<h1>Вход</h1>
+<p class="error"><%= flash[:error] %></p>
 <% form_tag session_path do -%>
-<p><%= label_tag 'login' %><br />
+<p><%= label_tag 'login', "Потребителско име" %><br />
 <%= text_field_tag 'login', @login %></p>
 
-<p><%= label_tag 'password' %><br/>
+<p><%= label_tag 'password', "Парола" %><br/>
 <%= password_field_tag 'password', nil %></p>
 
-<p><%= label_tag 'remember_me', 'Remember me' %>
+<p><%= label_tag 'remember_me', 'Запомни ме' %>
 <%= check_box_tag 'remember_me', '1', @remember_me %></p>
 
-<p><%= submit_tag 'Log in' %></p>
+<p><%= submit_tag 'Влез' %></p>
 <% end -%>

@@ -21,6 +21,10 @@ class Problem < ActiveRecord::Base
     Dir[File.join(tests_dir, "*")].select { |f| File.file?(f) } - input_files - output_files
   end
   
+  def all_files
+    input_files + output_files + other_files
+  end
+  
   def filesystem_name
     name.downcase.gsub(/\s+/, "_")
   end

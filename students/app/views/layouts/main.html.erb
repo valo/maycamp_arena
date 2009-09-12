@@ -1,0 +1,16 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <title>Spoj0 Student Competition</title>
+  <%= stylesheet_link_tag "highlight/idea.css", :cache => true %>
+  <%= stylesheet_link_tag "main.css", :cache => true %>
+  <%= javascript_include_tag "highlight.pack", :cache => true %>
+  <% javascript_tag do %>
+    // Syntax highlighting
+    hljs.initHighlightingOnLoad();
+  <% end %>
+  <body>
+    <%= yield %>
+  </body>
+</head>

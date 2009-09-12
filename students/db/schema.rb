@@ -9,15 +9,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090910075449) do
+ActiveRecord::Schema.define(:version => 20090911211133) do
+
+  create_table "contest_start_events", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "contest_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "contest_start_events", ["user_id", "contest_id"], :name => "index_contest_start_events_on_user_id_and_contest_id", :unique => true
 
   create_table "contests", :force => true do |t|
-    t.string   "set_code",     :limit => 64,                 :null => false
-    t.string   "name",         :limit => 128,                :null => false
-    t.datetime "start_time",                                 :null => false
-    t.integer  "duration",                                   :null => false
-    t.integer  "show_sources",                :default => 0, :null => false
-    t.text     "about",                                      :null => false
+    t.string   "set_code",                    :null => false
+    t.string   "name",                        :null => false
+    t.datetime "start_time",                  :null => false
+    t.datetime "end_time",                    :null => false
+    t.integer  "duration",                    :null => false
+    t.integer  "show_sources", :default => 0, :null => false
+    t.text     "about",                       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -42,15 +52,12 @@ ActiveRecord::Schema.define(:version => 20090910075449) do
   end
 
   create_table "runs", :force => true do |t|
-    t.integer  "problem_id",                :null => false
-    t.integer  "user_id",                   :null => false
-    t.datetime "submit_time",               :null => false
-    t.string   "language",    :limit => 16, :null => false
-    t.text     "source_code",               :null => false
-    t.string   "source_name", :limit => 32, :null => false
-    t.text     "about",                     :null => false
-    t.string   "status",      :limit => 16, :null => false
-    t.text     "log",                       :null => false
+    t.integer  "problem_id",                         :null => false
+    t.integer  "user_id",                            :null => false
+    t.string   "language",                           :null => false
+    t.text     "source_code",                        :null => false
+    t.string   "status",      :default => "pending", :null => false
+    t.text     "log"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

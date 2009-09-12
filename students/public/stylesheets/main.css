@@ -1,0 +1,29 @@
+body {
+  font-family: Lucida Grande, Arial, "MS Trebuchet", sans-serif;
+}
+
+label {
+  display: block;
+}
+
+table {
+  border-right: 1px solid #999;
+  border-top: 1px solid #999;
+  border-collapse: collapse;
+}
+
+td, th {
+  border-left: 1px solid #999;
+  border-bottom: 1px solid #999;
+  padding: 4px;
+}
+
+.notice {
+  font-weight: bold;
+  color: green;
+}
+
+.error {
+  font-weight: bold;
+  color: red;
+}
