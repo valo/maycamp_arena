@@ -3,6 +3,9 @@
   <p>
     <%= f.error_messages %>
   </p>
+  <p class="notice">
+    <%= flash[:notice] %>
+  </p>
   <%= render :partial => "contest_fields", :locals => { :f => f } %>
   <p>
     <%= f.submit "Update" %><%= link_to "Cancel", :action => "index" %>

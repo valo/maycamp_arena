@@ -1,33 +1,61 @@
-<h1>Welcome to spoj0 for students!</h1>
-<% if @current_user %>
-<p>You are logged with the user <%= @current_user.login %></p>
+<h1>Добре дошли в Spoj0 за ученици!</h1>
+<p class="notice"><%= flash[:notice] %></p>
+<% if current_user %>
+<p>В момента сте влезли с потребител <%= current_user.login %></p>
 <%= link_to "Logout", logout_path %>
 <% else %>
-<p>You are not logged into the system. You have to <%= link_to "login", login_path %> if you want to submit solutions. If you don't have an account you can create one <%= link_to "here", signup_path %>.</p>
+<p>Не сте влезли в системата. Трябва да <%= link_to "влезете", login_path %> ако искате да пращате задачи. Ако нямате потребител можете да си създадете от <%= link_to "тук", signup_path %>.</p>
 <% end %>
 
-<h1>Currently running contests</h1>
-<% if !Contest.current.blank? %>
-  <% for contest in Contest.current %>
-    <p><%= contest.name %></p>
+<% if current_user %>
+  <h1>Състезания течащи в момента</h1>
+  <% if !Contest.current.blank? %>
+    <table>
+      <tr>
+        <th>Име на състезанието</th>
+        <th>Започнало</th>
+        <th>Приключва</th>
+        <th>Продължителност</th>
+        <th></th>
+      </tr>
+    <% for contest in Contest.current %>
+      <tr>
+        <td><%= contest.name %></td>
+        <td><%= contest.start_time.to_s :long %></td>
+        <td><%= contest.end_time.to_s :long %></td>
+        <td><%= duration_in_words contest.duration.minutes %></td>
+        <td>
+          <% if contest.user_open_time(current_user) and contest.allow_user_submit(current_user) %>
+            Оставащо време: <%= duration_in_words(contest.duration.minutes - (Time.now - contest.user_open_time(current_user))) %>
+            <br/>
+            <%= link_to "Отвори", :action => :open_contest, :contest_id => contest.id %>
+          <% elsif !contest.allow_user_submit(current_user) %>
+            Състезанието е свършило за вас
+          <% else %>
+            <%= link_to "ЗАПОЧНИ СЪСТЕЗАНИЕТО!", :action => :open_contest, :contest_id => contest.id %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+  <% else %>
+    Няма състезания, които текат в момента
   <% end %>
-<% else %>
-  No currently running contests
-<% end %>
 
-<h1>Previous contests</h1>
-<% if !Contest.finished.blank? %>
-  <table>
-  <% for contest in Contest.finished %>
-    <tr>
-      <td><%= contest.name %></td>
-      <td>
-        <%= link_to "Problems", :controller => :contest, :id => contest.id, :action => "problems" %>
-        <%= link_to "Results", :controller => :contest, :id => contest.id, :action => "results" %>
-      </td>
-    </tr>
+  <h1>Предишни състезания</h1>
+  <% if !Contest.finished.blank? %>
+    <table>
+    <% for contest in Contest.finished %>
+      <tr>
+        <td><%= contest.name %></td>
+        <td>
+          <%= link_to "Отвори", :action => :open_contest, :contest_id => contest.id %>
+          <%= link_to "Резултати", :action => :results, :id => contest.id %>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+  <% else %>
+    Няма предишни състезание
   <% end %>
-  </table>
-<% else %>
-  No past contests
 <% end %>

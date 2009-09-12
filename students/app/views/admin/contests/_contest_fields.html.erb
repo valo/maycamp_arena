@@ -11,6 +11,10 @@
     <%= f.datetime_select :start_time %>
   </p>
   <p>
+    <%= f.label :start_time, "End Time:" %>
+    <%= f.datetime_select :end_time %>
+  </p>
+  <p>
     <%= f.label :duration, "Duration:" %>
     <%= f.text_field :duration %>
     <em>In minutes</em>

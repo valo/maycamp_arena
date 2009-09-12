@@ -1,0 +1,69 @@
+<h1>Състезание <%= @contest.name %></h1>
+
+<h2>Задачи</h2>
+<% if !@contest.problems.blank? %>
+  <table>
+    <tr>
+      <th>Условие</th>
+      <th>Time limit</th>
+    </tr>
+  <% for problem in @contest.problems %>
+    <tr>
+      <td><%= link_to problem.name, :action => "get_problem_description", :problem_id => problem.id %></td>
+      <td><%= problem.time_limit %> sec.</td>
+    </tr>
+  <% end %>
+  </table>
+<% else %>
+  Няма задачи в това състезание
+<% end %>
+
+<h2>Решения</h2>
+<em>Последното пратени решение за всяка задача ще се има предвид при оценяването.</em>
+<% if !@contest.runs.find_all_by_user_id(current_user.id).blank? %>
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>Пратено на</th>
+      <th>Задача</th>
+      <th>Език</th>
+      <th>Статус</th>
+      <th></th>
+    </tr>
+  <% for run in @contest.runs.find_all_by_user_id(current_user.id) %>
+    <tr>
+      <td><%= run.id %></td>
+      <td><%= run.created_at.to_s :long %></td>
+      <td><%= run.problem.name %></td>
+      <td><%= run.language %></td>
+      <td><%= run.status %></td>
+      <td>
+        <%= link_to "Виж сорс кода", :action => :view_source, :run_id => run.id %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+<% else %>
+  <p>Няма пратени решения</p>
+<% end %>
+
+
+<h2>Прати решение</h2>
+<% form_for @run, :url => { :action => :submit_solution, :contest_id => @contest.id } do |f| -%>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :problem_id, "Задача:" %>
+    <%= f.select :problem_id, @contest.problems.map { |p| [p.name, p.id] } %>
+  </p>
+  <p>
+    <%= f.label :language, "Език:" %>
+    <%= f.select :language, Run.languages %>
+  </p>
+  <p>
+    <%= f.label :source_code, "Сорс код:" %>
+    <%= f.text_area :source_code %>
+  </p>
+  <p>
+    <%= f.submit "Прати" %>
+  </p>
+<% end -%>
