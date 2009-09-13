@@ -11,6 +11,8 @@
     hljs.initHighlightingOnLoad();
   <% end %>
   <body>
+    <p class="notice"><%= flash[:notice] %></p>
+    <p class="error"><%= flash[:error] %></p>
     <%= render :partial => 'admin/admin_menu' %>
     <%= yield %>
   </body>

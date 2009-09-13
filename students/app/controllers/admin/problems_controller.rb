@@ -50,6 +50,8 @@ class Admin::ProblemsController < ApplicationController
       File.delete filename
     end
     
+    flash[:notice] = "Files successfully purged"
+    
     redirect_to admin_contest_problem_path(@problem.contest, @problem)
   end
   
@@ -81,6 +83,8 @@ class Admin::ProblemsController < ApplicationController
         FileUtils.cp @upload.local_path, File.join(@problem.tests_dir, @upload.original_filename)
       end
     end
+    
+    flash[:notice] = "File successfully upoaded"
     
     redirect_to admin_contest_problem_path(@problem.contest, @problem)
   ensure

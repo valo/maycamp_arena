@@ -18,3 +18,8 @@ td, th {
   font-weight: bold;
   color: green;
 }
+
+form p > em {
+  display: block;
+  font-size: 0.8em;
+}
