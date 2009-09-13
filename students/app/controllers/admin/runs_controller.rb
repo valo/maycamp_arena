@@ -13,8 +13,13 @@ class Admin::RunsController < ApplicationController
   def queue
     @runs = Run.scoped(:include => :problem)
     @runs = @runs.scoped(:conditions => { :problem_id => params[:problem_id] }) unless params[:problem_id].blank?
+    @runs = @runs.scoped(:conditions => { :id => params[:id] }) unless params[:id].blank?
     @runs = @runs.scoped(:conditions => ["problems.contest_id = ?", params[:contest_id]]) unless params[:contest_id].blank?
     @runs.each { |run| run.update_attributes(:status => Run::WAITING) }
     redirect_to :back
+  end
+  
+  def show
+    @run = Run.find(params[:id])
   end
 end

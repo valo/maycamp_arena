@@ -1,0 +1,15 @@
+<h1>Run <%= @run.id %></h1>
+
+<p>Submitted at: <%= @run.created_at.to_s :long %></p>
+
+<h2>Source code</h2>
+<pre>
+  <code>
+<%= h @run.source_code %>
+  </code>
+</pre>
+
+<p>Log:</p>
+<pre>
+<%= @run.log %>
+</pre>

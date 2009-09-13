@@ -1,10 +1,11 @@
 class Contest < ActiveRecord::Base
   has_many :problems
-  has_many :runs, :through => :problems
+  has_many :runs, :through => :problems, :order => :created_at
   has_many :contest_start_events
   
   named_scope :current, :conditions => ['? > start_time AND ? < end_time', Time.now.to_s(:db), Time.now.to_s(:db)]
   named_scope :finished, :conditions => ['? > end_time', Time.now.to_s(:db)]
+  named_scope :practicable, :conditions => { :practicable => true }
   
   validates_presence_of :name, :duration, :start_time, :about
   validates_numericality_of :duration
@@ -15,13 +16,17 @@ class Contest < ActiveRecord::Base
     File.join($config[:sets_root], set_code)
   end
   
-  def expired?
+  def finished?
     Time.now > end_time
+  end
+  
+  def current?
+    Time.now > start_time && Time.now < end_time
   end
   
   # True if the user is allowed to submit solutions for this competition
   def allow_user_submit(user)
-    Time.now > start_time or user_open_time(user).nil? or Time.now < user_open_time(user) + duration.minutes
+    current? and !expired_for_user(user)
   end
   
   def user_open_time(user)
@@ -29,7 +34,11 @@ class Contest < ActiveRecord::Base
   end
   
   def expired_for_user(user)
-    !expired? and user_open_time(user) + duration.minutes > Time.now
+    !finished? and !user_open_time(user).nil? and user_open_time(user) + duration.minutes > Time.now
+  end
+  
+  def max_score
+    100 * problems.count
   end
   
   private
