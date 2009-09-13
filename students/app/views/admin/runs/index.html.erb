@@ -18,6 +18,7 @@
       <td><%= run.status %></td>
       <td>
         <%= link_to "Queue for testing", queue_admin_contest_run_path(run.problem.contest, run) %>
+        <%= link_to "View", admin_contest_run_path(run.problem.contest, run) %>
       </td>
     </tr>
   <% end %>

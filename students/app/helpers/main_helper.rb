@@ -3,6 +3,19 @@ module MainHelper
     hours = (duration / 1.hour).to_i
     minutes = ((duration % 1.hours) / 1.minute).to_i
     
-    (hours > 0 ? pluralize(hours, "hours") + " " : "") + (minutes > 0 ? pluralize(minutes, "minutes") : "")
+    result = ""
+    if hours == 1
+      result += "1 час"
+    elsif hours > 1
+      result += "#{hours} часа"
+    end
+
+    if minutes == 1
+      result += " 1 минута"
+    elsif minutes > 1
+      result += " #{minutes} минути"
+    end
+    
+    result
   end
 end

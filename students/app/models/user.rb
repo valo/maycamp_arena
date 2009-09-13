@@ -47,9 +47,13 @@ class User < ActiveRecord::Base
   def email=(value)
     write_attribute :email, (value ? value.downcase : nil)
   end
-
-  protected
-    
-
-
+  
+  def best_practice_score(contest)
+    Run.send :with_scope, :find => {:conditions => { :user_id => self.id } } do
+      contest.problems.map do |problem|
+        # Find the max run for each problem
+        problem.runs.map(&:total_points).max
+      end.sum
+    end
+  end
 end
