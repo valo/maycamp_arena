@@ -1,10 +1,11 @@
 <h1>Upload a file for problem <%= @problem.name %></h1>
 <% form_tag do_upload_file_admin_contest_problem_path(@problem.contest, @problem), :multipart => true do %>
   <p>
-    <%= label :tests, "Tests bundle:" %>
+    <%= label :tests, "File to upload:" %>
     <%= file_field :tests, :file %>
+    <em>If you upload a zip archive it will be extracted and the top level files will be added to the problem's files</em>
   </p>
   <p>
-    <%= submit_tag "Upload" %>
+    <%= submit_tag "Upload" %><%= link_to "Back", admin_contest_problems_path(@problem.contest) %>
   </p>
 <% end %>
