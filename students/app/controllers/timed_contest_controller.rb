@@ -2,6 +2,8 @@ class TimedContestController < ApplicationController
   before_filter :login_required
   before_filter :verify_contest
   
+  layout "main"
+  
   def open_contest
     @run = Run.new
   end
@@ -31,6 +33,7 @@ class TimedContestController < ApplicationController
       @contest = Contest.find_by_id(params[:contest_id])
       if @contest.nil? or @contest.expired_for_user(current_user)
         redirect_to root_path
+        return
       end
       
       # Start the time of the contest

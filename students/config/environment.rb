@@ -44,6 +44,6 @@ Rails::Initializer.run do |config|
   # config.i18n.default_locale = :de
 
   $config = {
-    :sets_root => '/Users/valentinmihov/workspace/github/spoj0/sets'
+    :sets_root => Pathname.new(File.join(File.dirname(__FILE__), "../../sets")).realpath.to_s
   }
 end
