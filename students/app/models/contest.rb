@@ -34,7 +34,7 @@ class Contest < ActiveRecord::Base
   end
   
   def expired_for_user(user)
-    !finished? and !user_open_time(user).nil? and user_open_time(user) + duration.minutes > Time.now
+    !finished? and !user_open_time(user).nil? and user_open_time(user) + duration.minutes < Time.now
   end
   
   def max_score
