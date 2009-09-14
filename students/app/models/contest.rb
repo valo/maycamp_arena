@@ -13,7 +13,7 @@ class Contest < ActiveRecord::Base
   before_validation :generate_code
   
   def root_dir
-    File.join($config[:sets_root], set_code)
+    File.join($config[:sets_root], id)
   end
   
   def finished?
