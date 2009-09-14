@@ -26,6 +26,6 @@ class Problem < ActiveRecord::Base
   end
   
   def filesystem_name
-    name.downcase.gsub(/\s+/, "_")
+    id
   end
 end
