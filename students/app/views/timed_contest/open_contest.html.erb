@@ -38,7 +38,7 @@
       <td><%= run.language %></td>
       <td><%= run.status %></td>
       <td>
-        <%= link_to "Виж сорс кода", :action => :view_source, :run_id => run.id %>
+        <%= link_to "Виж сорс кода", :action => :view_source, :contest_id => @contest.id, :run_id => run.id %>
       </td>
     </tr>
   <% end %>
