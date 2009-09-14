@@ -1,0 +1,246 @@
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing MainController#index (for 127.0.0.1 at 2009-09-13 19:58:57) [GET]
+  Parameters: {"action"=>"index", "controller"=>"main"}
+Rendering template within layouts/main
+Rendering main/index
+  [4;35;1mUser Columns (1.5ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;35;1mContest Load (0.4ms)[0m   [0mSELECT * FROM `contests` WHERE ('2009-09-13 19:58:57' > start_time AND '2009-09-13 19:58:57' < end_time) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contests` WHERE ('2009-09-13 19:58:57' > start_time AND '2009-09-13 19:58:57' < end_time) [0m
+  [4;35;1mContest Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `contests`[0m
+  [4;36;1mContestStartEvent Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `contest_start_events`[0m
+  [4;35;1mContestStartEvent Load (0.3ms)[0m   [0mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;35;1mContest Load (0.2ms)[0m   [0mSELECT * FROM `contests` WHERE ('2009-09-13 19:58:57' > end_time) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contests` WHERE ('2009-09-13 19:58:57' > end_time) [0m
+  [4;35;1mContest Load (0.2ms)[0m   [0mSELECT * FROM `contests` WHERE (`contests`.`practicable` = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contests` WHERE (`contests`.`practicable` = 1) [0m
+  [4;35;1mProblem Load (0.4ms)[0m   [0mSELECT * FROM `problems` WHERE (`problems`.contest_id = 1) [0m
+  [4;36;1mProblem Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `problems`[0m
+  [4;35;1mRun Load (0.2ms)[0m   [0mSELECT * FROM `runs` WHERE (`runs`.problem_id = 1) AND (`runs`.`user_id` = 1) [0m
+  [4;36;1mRun Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `runs`[0m
+  [4;35;1mRun Load (0.1ms)[0m   [0mSELECT * FROM `runs` WHERE (`runs`.problem_id = 2) AND (`runs`.`user_id` = 1) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT count(*) AS count_all FROM `problems` WHERE (`problems`.contest_id = 1) [0m
+Completed in 139ms (View: 128, DB: 9) | 200 OK [http://localhost/]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing MainController#index (for 127.0.0.1 at 2009-09-14 00:06:37) [GET]
+  Parameters: {"action"=>"index", "controller"=>"main"}
+Rendering template within layouts/main
+Rendering main/index
+  [4;36;1mUser Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;36;1mContest Load (0.3ms)[0m   [0;1mSELECT * FROM `contests` WHERE ('2009-09-14 00:06:37' > start_time AND '2009-09-14 00:06:37' < end_time) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contests` WHERE ('2009-09-14 00:06:37' > start_time AND '2009-09-14 00:06:37' < end_time) [0m
+  [4;36;1mContest Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `contests`[0m
+  [4;35;1mContestStartEvent Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `contest_start_events`[0m
+  [4;36;1mContestStartEvent Load (0.1ms)[0m   [0;1mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;36;1mContest Load (0.3ms)[0m   [0;1mSELECT * FROM `contests` WHERE ('2009-09-14 00:06:37' > end_time) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contests` WHERE ('2009-09-14 00:06:37' > end_time) [0m
+  [4;36;1mContest Load (0.1ms)[0m   [0;1mSELECT * FROM `contests` WHERE (`contests`.`practicable` = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contests` WHERE (`contests`.`practicable` = 1) [0m
+  [4;36;1mProblem Load (0.1ms)[0m   [0;1mSELECT * FROM `problems` WHERE (`problems`.contest_id = 1) [0m
+  [4;35;1mProblem Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `problems`[0m
+  [4;36;1mRun Load (0.6ms)[0m   [0;1mSELECT * FROM `runs` WHERE (`runs`.problem_id = 1) AND (`runs`.`user_id` = 1) [0m
+  [4;35;1mRun Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `runs`[0m
+  [4;36;1mRun Load (0.2ms)[0m   [0;1mSELECT * FROM `runs` WHERE (`runs`.problem_id = 2) AND (`runs`.`user_id` = 1) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `problems` WHERE (`problems`.contest_id = 1) [0m
+Completed in 57ms (View: 46, DB: 8) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TimedContestController#open_contest (for 127.0.0.1 at 2009-09-14 00:06:41) [GET]
+  Parameters: {"action"=>"open_contest", "controller"=>"timed_contest", "contest_id"=>"2"}
+  [4;35;1mUser Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.9ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;35;1mContest Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `contests`[0m
+  [4;36;1mContest Load (0.4ms)[0m   [0;1mSELECT * FROM `contests` WHERE (`contests`.`id` = '2') LIMIT 1[0m
+  [4;35;1mContestStartEvent Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `contest_start_events`[0m
+  [4;36;1mContestStartEvent Load (0.1ms)[0m   [0;1mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mBEGIN[0m
+  [4;35;1mContestStartEvent Create (0.4ms)[0m   [0mINSERT INTO `contest_start_events` (`created_at`, `updated_at`, `user_id`, `contest_id`) VALUES('2009-09-13 21:06:41', '2009-09-13 21:06:41', 1, 2)[0m
+  [4;36;1mSQL (1.2ms)[0m   [0;1mCOMMIT[0m
+  [4;35;1mRun Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `runs`[0m
+
+ActionView::MissingTemplate (Missing template timed_contest/open_contest.erb in view path app/views):
+  
+
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing MainController#index (for 127.0.0.1 at 2009-09-14 00:06:47) [GET]
+  Parameters: {"action"=>"index", "controller"=>"main"}
+Rendering template within layouts/main
+Rendering main/index
+  [4;35;1mUser Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;35;1mContest Load (0.3ms)[0m   [0mSELECT * FROM `contests` WHERE ('2009-09-14 00:06:47' > start_time AND '2009-09-14 00:06:47' < end_time) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contests` WHERE ('2009-09-14 00:06:47' > start_time AND '2009-09-14 00:06:47' < end_time) [0m
+  [4;35;1mContest Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `contests`[0m
+  [4;36;1mContestStartEvent Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `contest_start_events`[0m
+  [4;35;1mContestStartEvent Load (0.2ms)[0m   [0mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;36;1mContest Load (0.3ms)[0m   [0;1mSELECT * FROM `contests` WHERE ('2009-09-14 00:06:47' > end_time) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contests` WHERE ('2009-09-14 00:06:47' > end_time) [0m
+  [4;36;1mContest Load (0.2ms)[0m   [0;1mSELECT * FROM `contests` WHERE (`contests`.`practicable` = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contests` WHERE (`contests`.`practicable` = 1) [0m
+  [4;36;1mProblem Load (0.1ms)[0m   [0;1mSELECT * FROM `problems` WHERE (`problems`.contest_id = 1) [0m
+  [4;35;1mProblem Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `problems`[0m
+  [4;36;1mRun Load (0.1ms)[0m   [0;1mSELECT * FROM `runs` WHERE (`runs`.problem_id = 1) AND (`runs`.`user_id` = 1) [0m
+  [4;35;1mRun Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `runs`[0m
+  [4;36;1mRun Load (0.1ms)[0m   [0;1mSELECT * FROM `runs` WHERE (`runs`.problem_id = 2) AND (`runs`.`user_id` = 1) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `problems` WHERE (`problems`.contest_id = 1) [0m
+Completed in 129ms (View: 119, DB: 8) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing MainController#index (for 127.0.0.1 at 2009-09-14 00:06:57) [GET]
+  Parameters: {"action"=>"index", "controller"=>"main"}
+Rendering template within layouts/main
+Rendering main/index
+  [4;35;1mUser Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;35;1mContest Load (0.3ms)[0m   [0mSELECT * FROM `contests` WHERE ('2009-09-14 00:06:57' > start_time AND '2009-09-14 00:06:57' < end_time) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contests` WHERE ('2009-09-14 00:06:57' > start_time AND '2009-09-14 00:06:57' < end_time) [0m
+  [4;35;1mContest Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `contests`[0m
+  [4;36;1mContestStartEvent Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `contest_start_events`[0m
+  [4;35;1mContestStartEvent Load (0.1ms)[0m   [0mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;36;1mContest Load (0.3ms)[0m   [0;1mSELECT * FROM `contests` WHERE ('2009-09-14 00:06:57' > end_time) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contests` WHERE ('2009-09-14 00:06:57' > end_time) [0m
+  [4;36;1mContest Load (0.1ms)[0m   [0;1mSELECT * FROM `contests` WHERE (`contests`.`practicable` = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contests` WHERE (`contests`.`practicable` = 1) [0m
+  [4;36;1mProblem Load (0.1ms)[0m   [0;1mSELECT * FROM `problems` WHERE (`problems`.contest_id = 1) [0m
+  [4;35;1mProblem Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `problems`[0m
+  [4;36;1mRun Load (0.2ms)[0m   [0;1mSELECT * FROM `runs` WHERE (`runs`.problem_id = 1) AND (`runs`.`user_id` = 1) [0m
+  [4;35;1mRun Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `runs`[0m
+  [4;36;1mRun Load (0.1ms)[0m   [0;1mSELECT * FROM `runs` WHERE (`runs`.problem_id = 2) AND (`runs`.`user_id` = 1) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `problems` WHERE (`problems`.contest_id = 1) [0m
+Completed in 132ms (View: 122, DB: 8) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing MainController#results (for 127.0.0.1 at 2009-09-14 00:07:00) [GET]
+  Parameters: {"action"=>"results", "controller"=>"main", "contest_id"=>"1"}
+  [4;35;1mContest Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `contests`[0m
+  [4;36;1mContest Load (1.4ms)[0m   [0;1mSELECT * FROM `contests` WHERE (`contests`.`id` = 1) [0m
+  [4;35;1mRun Load (2.5ms)[0m   [0mSELECT `runs`.* FROM `runs` INNER JOIN `problems` ON `runs`.problem_id = `problems`.id WHERE ((`problems`.contest_id = 1)) ORDER BY created_at[0m
+  [4;36;1mRun Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `runs`[0m
+  [4;35;1mUser Columns (1.4ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.4ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mProblem Load (0.1ms)[0m   [0mSELECT * FROM `problems` WHERE (`problems`.contest_id = 1) [0m
+  [4;36;1mProblem Columns (1.0ms)[0m   [0;1mSHOW FIELDS FROM `problems`[0m
+  [4;35;1mRun Load (0.6ms)[0m   [0mSELECT * FROM `runs` WHERE (`runs`.problem_id = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mRun Load (0.2ms)[0m   [0mSELECT * FROM `runs` WHERE (`runs`.problem_id = 2) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+Rendering template within layouts/main
+Rendering main/results
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contests` WHERE (`contests`.`id` = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contests` WHERE (`contests`.`id` = 1) [0m
+Completed in 51ms (View: 6, DB: 10) | 200 OK [http://localhost/main/results?contest_id=1]
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing MainController#index (for 127.0.0.1 at 2009-09-14 00:07:40) [GET]
+  Parameters: {"action"=>"index", "controller"=>"main"}
+Rendering template within layouts/main
+Rendering main/index
+  [4;35;1mUser Columns (1.5ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;35;1mContest Load (0.4ms)[0m   [0mSELECT * FROM `contests` WHERE ('2009-09-14 00:07:40' > start_time AND '2009-09-14 00:07:40' < end_time) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contests` WHERE ('2009-09-14 00:07:40' > start_time AND '2009-09-14 00:07:40' < end_time) [0m
+  [4;35;1mContest Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `contests`[0m
+  [4;36;1mContestStartEvent Columns (1.5ms)[0m   [0;1mSHOW FIELDS FROM `contest_start_events`[0m
+  [4;35;1mContestStartEvent Load (0.1ms)[0m   [0mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;36;1mContest Load (0.3ms)[0m   [0;1mSELECT * FROM `contests` WHERE ('2009-09-14 00:07:40' > end_time) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contests` WHERE ('2009-09-14 00:07:40' > end_time) [0m
+  [4;36;1mContest Load (0.1ms)[0m   [0;1mSELECT * FROM `contests` WHERE (`contests`.`practicable` = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM `contests` WHERE (`contests`.`practicable` = 1) [0m
+  [4;36;1mProblem Load (0.1ms)[0m   [0;1mSELECT * FROM `problems` WHERE (`problems`.contest_id = 1) [0m
+  [4;35;1mProblem Columns (1.2ms)[0m   [0mSHOW FIELDS FROM `problems`[0m
+  [4;36;1mRun Load (0.2ms)[0m   [0;1mSELECT * FROM `runs` WHERE (`runs`.problem_id = 1) AND (`runs`.`user_id` = 1) [0m
+  [4;35;1mRun Columns (1.1ms)[0m   [0mSHOW FIELDS FROM `runs`[0m
+  [4;36;1mRun Load (0.1ms)[0m   [0;1mSELECT * FROM `runs` WHERE (`runs`.problem_id = 2) AND (`runs`.`user_id` = 1) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT count(*) AS count_all FROM `problems` WHERE (`problems`.contest_id = 1) [0m
+Completed in 304ms (View: 292, DB: 10) | 200 OK [http://localhost/]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mContestStartEvent Load (0.3ms)[0m   [0mSELECT * FROM `contest_start_events` ORDER BY contest_start_events.id DESC LIMIT 1[0m
+  [4;36;1mContestStartEvent Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `contest_start_events`[0m
+  [4;35;1mContestStartEvent Load (0.1ms)[0m   [0mSELECT * FROM `contest_start_events` ORDER BY contest_start_events.id DESC LIMIT 1[0m
+  [4;36;1mContest Columns (1.7ms)[0m   [0;1mSHOW FIELDS FROM `contests`[0m
+  [4;35;1mContest Load (0.2ms)[0m   [0mSELECT * FROM `contests` WHERE (`contests`.`id` = 2) [0m
+  [4;36;1mContestStartEvent Load (0.1ms)[0m   [0;1mSELECT * FROM `contest_start_events` ORDER BY contest_start_events.id DESC LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mContestStartEvent Destroy (0.3ms)[0m   [0;1mDELETE FROM `contest_start_events` WHERE `id` = 2[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mCOMMIT[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing MainController#index (for 127.0.0.1 at 2009-09-14 00:08:13) [GET]
+  Parameters: {"action"=>"index", "controller"=>"main"}
+Rendering template within layouts/main
+Rendering main/index
+  [4;35;1mUser Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (1.2ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;35;1mContest Load (0.3ms)[0m   [0mSELECT * FROM `contests` WHERE ('2009-09-14 00:08:13' > start_time AND '2009-09-14 00:08:13' < end_time) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contests` WHERE ('2009-09-14 00:08:13' > start_time AND '2009-09-14 00:08:13' < end_time) [0m
+  [4;35;1mContest Columns (1.3ms)[0m   [0mSHOW FIELDS FROM `contests`[0m
+  [4;36;1mContestStartEvent Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `contest_start_events`[0m
+  [4;35;1mContestStartEvent Load (0.2ms)[0m   [0mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;35;1mContest Load (0.2ms)[0m   [0mSELECT * FROM `contests` WHERE ('2009-09-14 00:08:13' > end_time) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contests` WHERE ('2009-09-14 00:08:13' > end_time) [0m
+  [4;35;1mContest Load (0.1ms)[0m   [0mSELECT * FROM `contests` WHERE (`contests`.`practicable` = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contests` WHERE (`contests`.`practicable` = 1) [0m
+  [4;35;1mProblem Load (0.2ms)[0m   [0mSELECT * FROM `problems` WHERE (`problems`.contest_id = 1) [0m
+  [4;36;1mProblem Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `problems`[0m
+  [4;35;1mRun Load (0.1ms)[0m   [0mSELECT * FROM `runs` WHERE (`runs`.problem_id = 1) AND (`runs`.`user_id` = 1) [0m
+  [4;36;1mRun Columns (1.1ms)[0m   [0;1mSHOW FIELDS FROM `runs`[0m
+  [4;35;1mRun Load (0.1ms)[0m   [0mSELECT * FROM `runs` WHERE (`runs`.problem_id = 2) AND (`runs`.`user_id` = 1) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT count(*) AS count_all FROM `problems` WHERE (`problems`.contest_id = 1) [0m
+Completed in 130ms (View: 119, DB: 9) | 200 OK [http://localhost/]
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing TimedContestController#open_contest (for 127.0.0.1 at 2009-09-14 00:08:15) [GET]
+  Parameters: {"action"=>"open_contest", "controller"=>"timed_contest", "contest_id"=>"2"}
+  [4;36;1mUser Columns (1.4ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (1.0ms)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;36;1mContest Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `contests`[0m
+  [4;35;1mContest Load (0.1ms)[0m   [0mSELECT * FROM `contests` WHERE (`contests`.`id` = '2') LIMIT 1[0m
+  [4;36;1mContestStartEvent Columns (1.2ms)[0m   [0;1mSHOW FIELDS FROM `contest_start_events`[0m
+  [4;35;1mContestStartEvent Load (0.1ms)[0m   [0mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `contest_start_events` WHERE (`contest_start_events`.`contest_id` = 2) AND (`contest_start_events`.user_id = 1) LIMIT 1[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mBEGIN[0m
+  [4;36;1mContestStartEvent Create (0.2ms)[0m   [0;1mINSERT INTO `contest_start_events` (`created_at`, `updated_at`, `user_id`, `contest_id`) VALUES('2009-09-13 21:08:15', '2009-09-13 21:08:15', 1, 2)[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mCOMMIT[0m
+  [4;36;1mRun Columns (1.3ms)[0m   [0;1mSHOW FIELDS FROM `runs`[0m
+
+ActionView::MissingTemplate (Missing template timed_contest/open_contest.erb in view path app/views):
+  
+
+Rendering rescues/layout (internal_server_error)
