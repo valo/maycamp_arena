@@ -20,11 +20,14 @@ Installation and usage
 Follow these steps:
 
 * Run the spoj0-install.sh script, which is going to create some new users and mysql databases.
+
 * Go into students folder and run
-   rake db:drop db:create db:migrate
+
+  rake db:drop db:create db:migrate
    
 * Run the rails app with
-   ./start/server
+
+  ./start/server
    
 The admin user is with login "root" and password "123123"
 
