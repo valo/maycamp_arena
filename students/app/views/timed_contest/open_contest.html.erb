@@ -9,7 +9,7 @@
     </tr>
   <% for problem in @contest.problems %>
     <tr>
-      <td><%= link_to problem.name, :action => "get_problem_description", :problem_id => problem.id %></td>
+      <td><%= link_to problem.name, :action => "get_problem_description", :contest_id => @contest.id, :problem_id => problem.id %></td>
       <td><%= problem.time_limit %> sec.</td>
     </tr>
   <% end %>
