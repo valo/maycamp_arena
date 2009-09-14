@@ -26,6 +26,6 @@ class Problem < ActiveRecord::Base
   end
   
   def filesystem_name
-    id
+    id.to_s
   end
 end
