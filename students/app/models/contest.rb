@@ -3,7 +3,7 @@ class Contest < ActiveRecord::Base
   has_many :runs, :through => :problems, :order => :created_at
   has_many :contest_start_events
   
-  named_scope :current, :conditions => ['? > start_time AND ? < end_time', Time.now.to_s(:db), Time.now.to_s(:db)]
+  named_scope :current, :conditions => ['? > start_time AND ? < end_time', Time.now.utc, Time.now.utc]
   named_scope :finished, :conditions => ['? > end_time', Time.now.to_s(:db)]
   named_scope :practicable, :conditions => { :practicable => true }
   
