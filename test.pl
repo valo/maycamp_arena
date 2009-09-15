@@ -1,27 +1,9 @@
 #!/usr/bin/perl
-use strict;
-use Time::localtime;
-use DBI;
-# use spoj;
+use BSD::Resource;
 
-# my $dbh = SqlConnect;
-# 
-# warn $dbh->quote("Don't\""), " -- should be quoted correctly";
+setrlimit(RLIMIT_VMEM, 1024, 1024) or die "Cannot set VMEM limit";
+setrlimit(RLIMIT_NPROC, 1, 1) or die "Cannot set NPROC limit";
+setrlimit(RLIMIT_OFILE, 1, 1) or die "Cannot set OFILE limit";
+setrlimit(RLIMIT_CPU, 1, 1) or die "Cannot set CPU limit";
 
-my $test = 'ls';
-foreach (`$test`) {
-  print $_;
-}
-
-my $str = 'This is a test';
-$str =~ s/(test)/$1er/;
-print $str."\n";
-
-sub test_func {
-  # print "This is a test func\n";
-  return "a", "b";
-}
-
-my ($a, $b) = test_func;
-
-print $a, $b;
+exec 'wc -l'
