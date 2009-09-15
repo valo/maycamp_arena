@@ -52,10 +52,10 @@ sub do_run {
 
   my $exec = "$EXEC_DIR/program";
 
-  my $run = "time timeout $time $exec < $EXEC_DIR/test.in >$EXEC_DIR/test.out 2>>$EXEC_DIR/run.err";
+  my $run = "ulimit -t $time -v 1024 -u 1 -n 3 && $exec < $EXEC_DIR/test.in >$EXEC_DIR/test.out 2>>$EXEC_DIR/run.err";
 
-  my $megarun = "launchtool --tag=spoj0-grade --limit-process-count=10 "
-    ."--limit-open-files=50 --user=spoj0run --no-stats '$run'";
+  my $megarun = "launchtool --tag=spoj0-grade "
+    ."--user=spoj0run --no-stats '$run'";
 
   my $exit = System $megarun;
   warn $exit;
