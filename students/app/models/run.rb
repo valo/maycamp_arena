@@ -1,6 +1,7 @@
 class Run < ActiveRecord::Base
   LANGUAGES = ["C/C++"]
   WAITING = "waiting"
+  JUDGING = "judging"
   
   belongs_to :user
   belongs_to :problem
