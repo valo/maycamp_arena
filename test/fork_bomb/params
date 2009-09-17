@@ -1,2 +1,2 @@
---time 1 --mem 1000000 --procs 30
+--time 1 --mem 16000000 --procs 1 --user spoj0run
 re
