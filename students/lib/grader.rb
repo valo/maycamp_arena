@@ -1,13 +1,34 @@
 class Grader
   attr_reader :root, :user, :runner
-  
+
+  class << self
+    def with_stdout_and_stderr(new_stdout, new_stderr, &block)
+      old_stdout, old_stderr = $stdout.dup, $stderr.dup
+      STDOUT.reopen(new_stdout)
+      STDERR.reopen(new_stderr)
+      
+      yield
+    ensure
+      STDOUT.reopen(old_stdout)
+      STDERR.reopen(old_stderr)
+    end
+  end
+
   def initialize(root, user)
     @root = root
     @user = user
   end
   
   def run
-    while true do
+    running = true
+    puts "Ready to grade"
+    
+    while running do
+      Signal.trap(0) do
+        puts "Stopping..."
+        running = false
+      end
+      
       sleep 1
       run = Run.find_by_status(Run::WAITING)
       next unless run
@@ -17,17 +38,24 @@ class Grader
       @runner = Pathname.new("../runner.pl").realpath.to_s
       
       Dir.chdir @root do
-        # Compile
-        compile(run)
+        old_stdout, old_stderr = $stdout, $stderr
         
-        if $? != 0
-          run.update_attributes(:status => "ce", :log => File.read("grader.log"))
-          next
+        File.open("grader.log", "w") do |f|
+          f.sync = true
+          self.class.with_stdout_and_stderr(f, f) do
+            # Compile
+            compile(run)
+
+            if $? != 0
+              run.update_attributes(:status => "ce", :log => File.read("grader.log"))
+              next
+            end
+
+            status = run_tests(run)
+            puts "final result: #{status.inspect}"
+            run.update_attributes(:status => status, :log => File.read("grader.log"))
+          end
         end
-        
-        status = run_tests(run)
-        puts "final result: #{status.inspect}"
-        run.update_attributes(:status => status, :log => File.read("grader.log"))
       end
     end
   end
