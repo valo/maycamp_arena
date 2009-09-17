@@ -49,6 +49,7 @@ while (my $dir = <test/*>) {
 
     if ($stat == 0) {
       $stat = system "diff $output $dir/result";
+      print "\n";
       if ($stat != 0) {
         $stat = "wa"
       }

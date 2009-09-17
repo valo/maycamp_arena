@@ -33,7 +33,6 @@ $> = getpwnam($user) if $user;
 
 if ($pid = fork) {
   waitpid $pid, 0;
-  print "Child process with $pid terminated. Trying to kill its children\n";
   kill 'KILL', -$pid;
 } else {
   setpgrp(0, $$) or die "Cannot create a process group with id $$";
