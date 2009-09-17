@@ -24,7 +24,12 @@ class Grader
     puts "Ready to grade"
     
     while running do
-      Signal.trap(0) do
+      Signal.trap("TERM") do
+        puts "Stopping..."
+        running = false
+      end
+      
+      Signal.trap("INT") do
         puts "Stopping..."
         running = false
       end
@@ -75,7 +80,7 @@ class Grader
     def run_tests(run)
       # for each test, run the program
       run.problem.input_files.zip(run.problem.output_files).map { |input_file, output_file|
-        puts cmd = "#{@runner} --user #{@user} --time #{run.problem.time_limit} -- ./program < #{input_file} > output"
+        puts cmd = "#{@runner} --user #{@user} --time #{run.problem.time_limit} -- './program < #{input_file} > output'"
         system cmd
         puts "status: #{$?}"
         
