@@ -1,6 +1,8 @@
 #include <stdio.h>
 
 int main() {
-  getchar();
+  while (true) {
+    getchar();
+  }
   return 0;
 }
