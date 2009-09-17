@@ -9,9 +9,7 @@ sub compile {
   my $source = shift;
   print "Compiling $source...\n";
   print "g++ -O2 -o $source.out $source\n";
-  system "g++ -O2 -o $source.out $source";
-  
-  return 0;
+  return system "g++ -O2 -o $source.out $source";
 }
 
 sub parse_config {
@@ -38,24 +36,28 @@ while (my $dir = <test/*>) {
   
   $total_tests++;
   print "Testing $dir\n";
-  compile($source);
   my ($params, $result) = parse_config($config);
   
-  # Run the code
-  my $run_cmd = "./runner.pl $params ./$source.out < $input > $dir/result";
-  print $run_cmd."\n";
-  my $stat = system $run_cmd;
-  
-  if ($stat == 0) {
-    $stat = system "diff $output $dir/result";
-    if ($stat != 0) {
-      $stat = "wa"
-    }
-    else {
-      $stat = "ok"
-    }
+  my $stat = compile($source);
+  if ($stat != 0) {
+    $stat = "ce"
   } else {
-    $stat = "re";
+    # Run the code
+    my $run_cmd = "./runner.pl $params ./$source.out < $input > $dir/result";
+    print $run_cmd."\n";
+    $stat = system $run_cmd;
+
+    if ($stat == 0) {
+      $stat = system "diff $output $dir/result";
+      if ($stat != 0) {
+        $stat = "wa"
+      }
+      else {
+        $stat = "ok"
+      }
+    } else {
+      $stat = "re";
+    }
   }
   
   if ($stat eq $result) {

@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+use POSIX;
 use Getopt::Long;
 use BSD::Resource;
 
@@ -30,4 +31,11 @@ chroot($root) or die "Cannot chroot to $root" if $root;
 
 $> = getpwnam($user) if $user;
 
-exec @ARGV
+if ($pid = fork) {
+  waitpid $pid, 0;
+  print "Child process with $pid terminated. Trying to kill its children\n";
+  kill 'KILL', -$pid;
+} else {
+  setpgrp(0, $$) or die "Cannot create a process group with id $$";
+  exec @ARGV;
+}
