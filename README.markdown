@@ -43,10 +43,12 @@ Currently there is one grader implemented in perl. The idea is to completely rep
 I implemented a runner.pl script, which can be used to run an executable in a sandbox. Also a Grader class for grading solutions completely in Ruby. This should be enough as infrastructure.
 
 To be done:
-1. More tests for the runner.pl script, so we can be sure that the grader could not be crashed or exploited
-2. Improve the Grader class to recognize exist statuses for memory limit exceeded and time limit exceeded.
-3. Measure the used resources by the graded solutions
+
+* More tests for the runner.pl script, so we can be sure that the grader could not be crashed or exploited
+* Improve the Grader class to recognize exist statuses for memory limit exceeded and time limit exceeded.
+* Measure the used resources by the graded solutions
 
 Far future:
-1. Make pluggable compilers for different languages
-2. Make pluggable testers for different types of problems
+
+* Make pluggable compilers for different languages
+* Make pluggable testers for different types of problems
