@@ -14,9 +14,13 @@ class Grader
     end
   end
 
-  def initialize(root, user)
+  def initialize(root, user, grader_app = nil)
     @root = root
     @user = user
+    
+    if grader_app
+      SetsSync.sync_sets(grader_app)
+    end
   end
   
   def run
