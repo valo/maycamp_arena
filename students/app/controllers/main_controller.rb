@@ -21,4 +21,18 @@ class MainController < ApplicationController
     
     @results.sort { |a,b| b[-1] <=> a[-1] }
   end
+  
+  def download_tests
+    Dir.chdir $config[:sets_root] do
+      FileUtils.rm "sets.zip" if File.file?("sets.zip")
+      Zip::ZipFile.open("sets.zip", Zip::ZipFile::CREATE) do |zipfile|
+        Dir.glob("**/*") do |entry|
+          zipfile.mkdir(entry) if File.directory?(entry)
+          zipfile.add entry, entry if File.file?(entry)
+        end
+      end
+    end
+
+    send_file File.join($config[:sets_root], "sets.zip")
+  end
 end
