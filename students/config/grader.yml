@@ -1,0 +1,8 @@
+judge:
+  host: http://arena.maycamp.com
+  root: ../../sandbox
+  user: maycamp
+valo:
+  host: http://localhost:3000
+  root: /tmp
+  user: valentinmihov
