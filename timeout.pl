@@ -4,11 +4,10 @@ use BSD::Resource;
 local $SIG{ALRM} = sub { die "Timeout!" };
 alarm 2;
 if ($pid = fork) {
-  wait;
-  alarm 0;
-  $usage = getrusage(RUSAGE_CHILDREN);
+  waitpid($pid, 0);
+  $usage = getrusage(RUSAGE_SELF);
   print "Time used: ".$usage->stime."\n";
-  print "Mem used: ".$usage->maxrss."\n";
+  print "Mem used: ".$usage->idrss + $usage->isrss."\n";
 } else {
   exec @ARGV;
 }
