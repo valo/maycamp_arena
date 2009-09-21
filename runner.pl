@@ -37,10 +37,10 @@ if ($pid = fork) {
     alarm 5 * $time;
   }
 
-  $exit = waitpid $pid, 0;
+  waitpid($pid, 0);
   kill 'KILL', -$pid;
-
-  exit $exit;
+  
+  exit($? & 127);
 } else {
   setpgrp(0, $$) or die "Cannot create a process group with id $$";
   exec @ARGV;

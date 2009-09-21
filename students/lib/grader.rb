@@ -88,18 +88,27 @@ class Grader
         system cmd
         puts "status: #{$?}"
         
+        case $?
+          when 9
+            "tl"
+	  when 127
+	    "ml"
+	  when 0
+            puts cmd = "diff #{output_file} output"
+            system cmd
+            puts "status: #{$?}"
+          
+            if $? != 0
+              "wa"
+            else
+              "ok"
+            end
+          else
+	    "re"
+	end
         if $? != 0
           "re"
         else
-          puts cmd = "diff #{output_file} output"
-          system cmd
-          puts "status: #{$?}"
-          
-          if $? != 0
-            "wa"
-          else
-            "ok"
-          end
         end
       }.join(" ")
     end

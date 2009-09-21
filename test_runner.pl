@@ -46,7 +46,7 @@ while (my $dir = <test/*>) {
     my $run_cmd = "./runner.pl $params ./$source.out < $input > $dir/result";
     print $run_cmd."\n";
     $stat = system $run_cmd;
-    print "Exited with status $stat\n"; 
+    print "Exited with status $stat. Exit status ".($stat >> 8)."\n"; 
 
     if ($stat == 0) {
       $stat = system "diff $output $dir/result";
