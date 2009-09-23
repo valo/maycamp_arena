@@ -46,15 +46,15 @@ while (my $dir = <test/*>) {
     my $run_cmd = "./runner.pl $params ./$source.out < $input > $dir/result";
     print $run_cmd."\n";
     $stat = system $run_cmd;
+    print "Exited with status $stat. Exit status ".($stat >> 8)."\n"; 
 
     if ($stat == 0) {
       $stat = system "diff $output $dir/result";
-      print "\n";
       if ($stat != 0) {
-        $stat = "wa"
+        $stat = "wa";
       }
       else {
-        $stat = "ok"
+        $stat = "ok";
       }
     } else {
       $stat = "re";
@@ -65,9 +65,8 @@ while (my $dir = <test/*>) {
     print "PASSED!\n";
     $passed++;
   } else {
-    print "FAILED! Expected $result, got $stat\n"
+    print "FAILED! Expected $result, got $stat\n";
   }
-  print $!;
 }
 
 print "Total tests: $total_tests\nPassed: $passed\n";
