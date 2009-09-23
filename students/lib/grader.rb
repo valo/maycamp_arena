@@ -105,7 +105,6 @@ class Grader
             end
           else
             "re"
-          end
         end
       }.join(" ")
     end
