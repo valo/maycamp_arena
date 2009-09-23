@@ -6,3 +6,7 @@ valo:
   host: http://localhost:3000
   root: /tmp
   user: valentinmihov
+grader:
+  host: http://localhost:3000
+  root: /home/spoj0run
+  user: spoj0run

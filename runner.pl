@@ -32,8 +32,15 @@ chroot($root) or die "Cannot chroot to $root" if $root;
 $> = getpwnam($user) if $user;
 
 if ($pid = fork) {
-  waitpid $pid, 0;
+  if($time) {
+    $SIG{ALRM} = sub { kill 'KILL', $pid };
+    alarm 5 * $time;
+  }
+
+  waitpid($pid, 0);
   kill 'KILL', -$pid;
+  
+  exit($? & 127);
 } else {
   setpgrp(0, $$) or die "Cannot create a process group with id $$";
   exec @ARGV;
