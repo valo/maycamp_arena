@@ -10,19 +10,19 @@ class Problem < ActiveRecord::Base
   end
   
   def input_files
-    Dir[File.join(tests_dir, "*.in*")]
+    Dir[File.join(tests_dir, "*.in*")].sort
   end
   
   def output_files
-    Dir[File.join(tests_dir, "*.ans*")]
+    Dir[File.join(tests_dir, "*.ans*")].sort
   end
   
   def other_files
-    Dir[File.join(tests_dir, "*")].select { |f| File.file?(f) } - input_files - output_files
+    (Dir[File.join(tests_dir, "*")].select { |f| File.file?(f) } - input_files - output_files).sort
   end
   
   def all_files
-    input_files + output_files + other_files
+    (input_files + output_files + other_files).sort
   end
   
   def filesystem_name
