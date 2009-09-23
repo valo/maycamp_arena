@@ -91,9 +91,9 @@ class Grader
         case $?
           when 9
             "tl"
-	  when 127
-	    "ml"
-	  when 0
+          when 127
+            "ml"
+          when 0
             puts cmd = "diff #{output_file} output"
             system cmd
             puts "status: #{$?}"
@@ -104,11 +104,8 @@ class Grader
               "ok"
             end
           else
-	    "re"
-	end
-        if $? != 0
-          "re"
-        else
+            "re"
+          end
         end
       }.join(" ")
     end
