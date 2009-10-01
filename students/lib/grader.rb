@@ -55,7 +55,7 @@ class Grader
             # Compile
             compile(run)
 
-            if $? != 0
+            if $?.exitstatus != 0
               run.update_attributes(:status => "ce", :log => File.read("grader.log"))
               next
             end
@@ -78,7 +78,7 @@ class Grader
       puts "Compiling..."
       puts cmd = "#{@runner} --user #{@user} -- g++ program.cpp -o program"
       system cmd
-      puts "status: #{$?}"
+      puts "status: #{$?.exitstatus}"
     end
     
     def run_tests(run)
@@ -86,7 +86,7 @@ class Grader
       run.problem.input_files.zip(run.problem.output_files).map { |input_file, output_file|
         puts cmd = "#{@runner} --user #{@user} --time #{run.problem.time_limit} -- ./program < #{input_file} > output"
         system cmd
-        puts "status: #{$?}"
+        puts "status: #{$?.exitstatus}"
         
         case $?.exitstatus
           when 9
@@ -96,9 +96,9 @@ class Grader
           when 0
             puts cmd = "diff #{output_file} output"
             system cmd
-            puts "status: #{$?}"
+            puts "status: #{$?.exitstatus}"
           
-            if $? != 0
+            if $?.exitstatus != 0
               "wa"
             else
               "ok"
