@@ -56,7 +56,14 @@ while (my $dir = <test/*>) {
       else {
         $stat = "ok";
       }
-    } else {
+    }
+    elsif (($stat >> 8) == 127) {
+      $stat = "ml";
+    }
+    elsif (($stat >> 8) == 9) {
+      $stat = "tl";
+    }
+    else {
       $stat = "re";
     }
   }
