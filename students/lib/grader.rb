@@ -88,7 +88,7 @@ class Grader
         system cmd
         puts "status: #{$?}"
         
-        case $? << 8
+        case $?.exitstatus
           when 9
             "tl"
           when 127
