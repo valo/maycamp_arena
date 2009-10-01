@@ -55,7 +55,7 @@ class Grader
             # Compile
             compile(run)
 
-            if $? != 0
+            if $?.exitstatus != 0
               run.update_attributes(:status => "ce", :log => File.read("grader.log"))
               next
             end
@@ -78,7 +78,7 @@ class Grader
       puts "Compiling..."
       puts cmd = "#{@runner} --user #{@user} -- g++ program.cpp -o program"
       system cmd
-      puts "status: #{$?.inspect}"
+      puts "status: #{$?.exitstatus}"
     end
     
     def run_tests(run)
@@ -98,7 +98,7 @@ class Grader
             system cmd
             puts "status: #{$?.exitstatus}"
           
-            if $? != 0
+            if $?.exitstatus != 0
               "wa"
             else
               "ok"
