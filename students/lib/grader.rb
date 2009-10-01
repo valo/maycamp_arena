@@ -76,7 +76,7 @@ class Grader
       end
       
       puts "Compiling..."
-      puts cmd = "#{@runner} --user #{@user} -- g++ program.cpp -o program"
+      puts cmd = "g++ program.cpp -o program"
       system cmd
       puts "status: #{$?.exitstatus}"
     end
