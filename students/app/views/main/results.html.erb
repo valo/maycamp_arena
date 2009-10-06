@@ -3,7 +3,7 @@
   <tr>
     <th rowspan="2">Участник</th>
     <% @contest.problems.each do |problem| %>
-      <th colspan="<%= problem.input_files.count + 1 %>"><%= problem.name %></th>
+      <th colspan="<%= problem.number_of_tests + 1 %>"><%= problem.name %></th>
     <% end %>
     <th rowspan="2">Общо точки</th>
   </tr>
