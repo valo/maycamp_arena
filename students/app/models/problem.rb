@@ -25,6 +25,10 @@ class Problem < ActiveRecord::Base
     (input_files + output_files + other_files).sort
   end
   
+  def number_of_tests
+    input_files.count
+  end
+  
   def text_memory_limit
     "%s MB" % (memory_limit / (1024 * 1024)).round
   end

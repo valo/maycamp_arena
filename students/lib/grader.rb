@@ -56,7 +56,7 @@ class Grader
             compile(run)
 
             if $?.exitstatus != 0
-              run.update_attributes(:status => "ce", :log => File.read("grader.log"))
+              run.update_attributes(:status => (["ce"] * run.problem.number_of_tests).join(" "), :log => File.read("grader.log"))
               next
             end
 
