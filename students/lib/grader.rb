@@ -84,7 +84,7 @@ class Grader
     def run_tests(run)
       # for each test, run the program
       run.problem.input_files.zip(run.problem.output_files).map { |input_file, output_file|
-        puts cmd = "#{@runner} --user #{@user} --time #{run.problem.time_limit} -- ./program < #{input_file} > output"
+        puts cmd = "#{@runner} --user #{@user} --time #{run.problem.time_limit} --mem #{run.problem.memory_limit} -- ./program < #{input_file} > output"
         system cmd
         puts "status: #{$?.exitstatus}"
         

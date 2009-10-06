@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090913152018) do
+ActiveRecord::Schema.define(:version => 20091006174459) do
 
   create_table "contest_start_events", :force => true do |t|
     t.integer  "user_id"
@@ -43,13 +43,14 @@ ActiveRecord::Schema.define(:version => 20090913152018) do
   end
 
   create_table "problems", :force => true do |t|
-    t.integer  "contest_id",               :null => false
-    t.string   "letter",     :limit => 16
-    t.string   "name",       :limit => 64, :null => false
-    t.integer  "time_limit",               :null => false
-    t.text     "about",                    :null => false
+    t.integer  "contest_id",                                       :null => false
+    t.string   "letter",       :limit => 16
+    t.string   "name",         :limit => 64,                       :null => false
+    t.integer  "time_limit",                                       :null => false
+    t.text     "about",                                            :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "memory_limit",               :default => 16777216
   end
 
   create_table "runs", :force => true do |t|
