@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091006174459) do
+ActiveRecord::Schema.define(:version => 20091006180008) do
 
   create_table "contest_start_events", :force => true do |t|
     t.integer  "user_id"
@@ -21,16 +21,17 @@ ActiveRecord::Schema.define(:version => 20091006174459) do
   add_index "contest_start_events", ["user_id", "contest_id"], :name => "index_contest_start_events_on_user_id_and_contest_id", :unique => true
 
   create_table "contests", :force => true do |t|
-    t.string   "set_code",                        :null => false
-    t.string   "name",                            :null => false
-    t.datetime "start_time",                      :null => false
-    t.datetime "end_time",                        :null => false
-    t.integer  "duration",                        :null => false
-    t.integer  "show_sources", :default => 0,     :null => false
-    t.text     "about",                           :null => false
+    t.string   "set_code",                           :null => false
+    t.string   "name",                               :null => false
+    t.datetime "start_time",                         :null => false
+    t.datetime "end_time",                           :null => false
+    t.integer  "duration",                           :null => false
+    t.integer  "show_sources",    :default => 0,     :null => false
+    t.text     "about",                              :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "practicable",  :default => false
+    t.boolean  "practicable",     :default => false
+    t.boolean  "results_visible", :default => false
   end
 
   create_table "news", :force => true do |t|

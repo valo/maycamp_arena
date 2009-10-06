@@ -42,7 +42,7 @@
   <% end %>
 
   <h2>Предишни състезания</h2>
-  <% if !Contest.finished.blank? %>
+  <% unless (contests = Contest.finished.select { |contest| contest.results_visible? or current_user.admin? }).blank? %>
     <table>
       <tr>
         <th>Име</th>
@@ -51,7 +51,7 @@
         <th>Продължителност</th>
         <th></th>
       </tr>
-    <% for contest in Contest.finished %>
+    <% for contest in contests %>
       <tr>
         <td><%= contest.name %></td>
         <td><%= contest.start_time.to_s :long %></td>
