@@ -3,7 +3,7 @@ class Problem < ActiveRecord::Base
   belongs_to :contest
   
   validates_presence_of :name, :time_limit, :about
-  validates_numericality_of :time_limit
+  validates_numericality_of :time_limit, :memory_limit
   
   def tests_dir
     File.join(contest.root_dir, filesystem_name)
@@ -23,6 +23,10 @@ class Problem < ActiveRecord::Base
   
   def all_files
     (input_files + output_files + other_files).sort
+  end
+  
+  def text_memory_limit
+    "%s MB" % (memory_limit / (1024 * 1024)).round
   end
   
   def filesystem_name
