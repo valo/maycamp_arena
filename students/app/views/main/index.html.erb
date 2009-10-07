@@ -7,7 +7,7 @@
 <% end %>
 
 <% if current_user %>
-  <h2>Състезания течащи в момента</h2>
+  <h2>Състезания, течащи в момента</h2>
   <% if !Contest.current.blank? %>
     <table>
       <tr>
@@ -29,7 +29,7 @@
             <br/>
             <%= link_to "Отвори", :controller => :timed_contest, :action => :open_contest, :contest_id => contest.id %>
           <% elsif !contest.allow_user_submit(current_user) %>
-            Състезанието е свършило за вас
+            Състезанието е свършило за вас.
           <% else %>
             <%= link_to "ЗАПОЧНИ СЪСТЕЗАНИЕТО!", :controller => :timed_contest, :action => :open_contest, :contest_id => contest.id %>
           <% end %>
@@ -38,7 +38,7 @@
     <% end %>
     </table>
   <% else %>
-    Няма състезания, които текат в момента
+    Няма състезания, които текат в момента.
   <% end %>
 
   <h2>Предишни състезания</h2>
@@ -64,14 +64,14 @@
     <% end %>
     </table>
   <% else %>
-    Няма предишни състезания
+    Няма предишни състезания.
   <% end %>
 <% end %>
 <%
 =begin %>
 <% if current_user %>
   <h2>Практика</h2>
-  <p>Тук можете да се упражнявате на вече минали състезания</p>
+  <p>Тук можете да се упражнявате на вече минали състезания.</p>
   <% if !Contest.practicable.blank? %>
     <table>
       <tr>
@@ -92,7 +92,7 @@
       <% end %>
     </table>
   <% else %>
-    В момента няма състезания, на които да можете да се упражнявате
+    В момента няма състезания, на които да можете да се упражнявате.
   <% end %>
 <% end %>
 <%
