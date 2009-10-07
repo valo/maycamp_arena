@@ -1,8 +1,8 @@
 #include <stdio.h>
-
-int arr[512];
+#include <stdlib.h>
 
 int main() {
+  int *arr = (int*)malloc(1024 * 512 * sizeof(int));
   arr[0] = 0;
   arr[1] = 1;
   for (int i = 2;i < 512;i++) {
