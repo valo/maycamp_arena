@@ -3,8 +3,8 @@
 # Spacial status codes:
 # 127 - memory limit
 # 15 - time limit
-
 require 'getoptlong'
+require 'etc'
 
 PAGE_SIZE = 4092
 
@@ -30,11 +30,13 @@ opts = GetoptLong.new(
 mem = nil
 timelimit = nil
 proclimit = nil
+user = nil
 opts.each do |opt, value|
   case opt
     when '--mem' then mem = value.to_i
     when '--time' then timelimit = value.to_i
     when '--procs' then proclimit = value.to_i
+    when '--user' then user = value
   end
 end
 
@@ -49,6 +51,9 @@ pid = fork do
   Process.setrlimit(Process::RLIMIT_CPU, timelimit, timelimit) if timelimit
   Process.setrlimit(Process::RLIMIT_NPROC, proclimit, proclimit) if proclimit
   Process.setpriority(Process::PRIO_PROCESS, 0, 19)
+  
+  # FIXME: the user change is not working right now
+  # Process::UID.change_privilege(Etc.getpwnam(user).uid) if user
   Kernel.exec cmd
 end
 
