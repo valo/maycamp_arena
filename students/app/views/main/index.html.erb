@@ -1,9 +1,12 @@
 ﻿<h1>Добре дошли в Spoj0 за ученици!</h1>
 <% if current_user %>
-<p>В момента сте влезли с потребител <%= current_user.login %>.</p>
-<%= link_to "Logout", logout_path %>
+  <p>В момента сте влезли с потребител <%= current_user.login %>.</p>
+  <%= link_to "Logout", logout_path %>
+  <% if current_user.admin %>
+    <%= link_to "Admin Panel", :controller => :admin %>
+  <% end %>
 <% else %>
-<p>Не сте влезли в системата. Трябва да <%= link_to "влезете", login_path %> ако искате да пращате задачи. Ако нямате потребител можете да си създадете от <%= link_to "тук", signup_path %>.</p>
+  <p>Не сте влезли в системата. Трябва да <%= link_to "влезете", :controller => :admin %> ако искате да пращате задачи. Ако нямате потребител можете да си създадете от <%= link_to "тук", signup_path %>.</p>
 <% end %>
 
 <% if current_user %>
