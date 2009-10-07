@@ -44,7 +44,7 @@ class Grader
       
       run.update_attributes(:status => Run::JUDGING)
       puts "Judging run with id #{run.id}"
-      @runner = Pathname.new("../runner.pl").realpath.to_s
+      @runner = Pathname.new("../runner.rb").realpath.to_s
       
       Dir.chdir @root do
         old_stdout, old_stderr = $stdout, $stderr
