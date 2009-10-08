@@ -1,4 +1,4 @@
-class Admin::RunsController < ApplicationController
+class Admin::RunsController < Admin::BaseController
   layout 'admin'
   
   def index

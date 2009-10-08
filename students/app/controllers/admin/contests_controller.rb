@@ -1,4 +1,4 @@
-class Admin::ContestsController < ApplicationController
+class Admin::ContestsController < Admin::BaseController
   layout 'admin'
   def index
     @contests = Contest.all

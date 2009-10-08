@@ -1,6 +1,6 @@
 require 'zip/zip'
 
-class Admin::ProblemsController < ApplicationController
+class Admin::ProblemsController < Admin::BaseController
   layout "admin"
   
   def new
