@@ -28,7 +28,6 @@ class User < ActiveRecord::Base
   # This will also let us return a human error message.
   #
   def self.authenticate(login, password)
-    return nil if login.blank? || password.blank?
     user = find_by_login(login.downcase) # need to get the salt
     
     if user.password == encrypt_password(password)
