@@ -27,3 +27,12 @@ td, th {
   font-weight: bold;
   color: red;
 }
+
+#new_user label {
+  display: block;
+}
+
+#new_user em {
+  display: block;
+  font-size: 0.8em;
+}
