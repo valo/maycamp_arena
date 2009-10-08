@@ -44,7 +44,7 @@ class Grader
       
       run.update_attributes(:status => Run::JUDGING)
       puts "Judging run with id #{run.id}"
-      @runner = Pathname.new("../runner.pl").realpath.to_s
+      @runner = Pathname.new("../runner.rb").realpath.to_s
       
       Dir.chdir @root do
         old_stdout, old_stderr = $stdout, $stderr
@@ -84,7 +84,7 @@ class Grader
     def run_tests(run)
       # for each test, run the program
       run.problem.input_files.zip(run.problem.output_files).map { |input_file, output_file|
-        puts cmd = "#{@runner} --user #{@user} --time #{run.problem.time_limit} --mem #{run.problem.memory_limit} -- ./program < #{input_file} > output"
+        puts cmd = "#{@runner} --user #{@user} --time #{run.problem.time_limit} --mem #{run.problem.memory_limit} --procs 1 -- ./program < #{input_file} > output"
         system cmd
         puts "status: #{$?.exitstatus}"
         
