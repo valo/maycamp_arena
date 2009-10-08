@@ -7,7 +7,6 @@ class SessionsController < ApplicationController
   end
 
   def create
-    logout_keeping_session!
     user = User.authenticate(params[:login], params[:password])
     if user
       # Protects against session fixation attacks, causes request forgery
@@ -15,8 +14,6 @@ class SessionsController < ApplicationController
       # button. Uncomment if you understand the tradeoffs.
       # reset_session
       self.current_user = user
-      new_cookie_flag = (params[:remember_me] == "1")
-      handle_remember_cookie! new_cookie_flag
       if user.admin?
         redirect_to :controller => :admin, :action => "index"
       else
@@ -32,9 +29,9 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    logout_killing_session!
+    reset_session
     flash[:notice] = "You have been logged out."
-    redirect_back_or_default('/')
+    redirect_to root_path
   end
 
 protected
