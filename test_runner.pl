@@ -43,7 +43,7 @@ while (my $dir = <test/*>) {
     $stat = "ce"
   } else {
     # Run the code
-    my $run_cmd = "./runner.pl $params -- ./$source.out < $input > $dir/result";
+    my $run_cmd = "./runner.rb $params -- ./$source.out < $input > $dir/result";
     print $run_cmd."\n";
     $stat = system $run_cmd;
     print "Exited with status $stat. Exit status ".($stat >> 8)."\n"; 
