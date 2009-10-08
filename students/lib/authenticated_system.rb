@@ -1,10 +1,5 @@
 module AuthenticatedSystem
   protected
-    # Returns true or false if the user is logged in.
-    # Preloads @current_user with the user model if they're logged in.
-    def logged_in?
-      !!current_user
-    end
 
     # Accesses the current user from the session.
     # Future calls avoid the database because nil is not equal to false.

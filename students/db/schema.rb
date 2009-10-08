@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091006180008) do
+ActiveRecord::Schema.define(:version => 20091008203516) do
 
   create_table "contest_start_events", :force => true do |t|
     t.integer  "user_id"
@@ -76,16 +76,13 @@ ActiveRecord::Schema.define(:version => 20091006180008) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
-    t.string   "login",                     :limit => 40
-    t.string   "name",                      :limit => 100, :default => ""
-    t.string   "email",                     :limit => 100
-    t.string   "crypted_password",          :limit => 40
-    t.string   "salt",                      :limit => 40
-    t.string   "remember_token",            :limit => 40
-    t.datetime "remember_token_expires_at"
+    t.string   "login",      :limit => 40
+    t.string   "name",       :limit => 100, :default => ""
+    t.string   "email",      :limit => 100
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "admin",                                    :default => false
+    t.boolean  "admin",                     :default => false
+    t.string   "password",   :limit => 40,                     :null => false
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

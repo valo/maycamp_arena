@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
  
   def create
-    logout_keeping_session!
+    reset_session
     @user = User.new(params[:user])
     success = @user && @user.save
     if success && @user.errors.empty?
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       # button. Uncomment if you understand the tradeoffs.
       # reset session
       self.current_user = @user # !! now logged in
-      redirect_back_or_default('/')
+      redirect_to root_path
       flash[:notice] = "Благодаря за регистрацията."
     else
       flash[:error]  = "Регистрацията не може да бъде завършена. Моля вижте описанието на проблемите по-долу."
