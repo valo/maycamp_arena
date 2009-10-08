@@ -4,6 +4,11 @@ class MainController < ApplicationController
   
   def results
     @contest = Contest.find(params[:contest_id])
+    if !(@contest.results_visible? or current_user.andand.admin?)
+      redirect_to root_path
+      return
+    end
+    
     students = @contest.runs.map(&:user).uniq
     # Results are in the form:
     # [
