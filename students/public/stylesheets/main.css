@@ -6,6 +6,10 @@ label {
   display: block;
 }
 
+h1 {
+  margin-top: 0;
+}
+
 table {
   border-right: 1px solid #999;
   border-top: 1px solid #999;
@@ -28,11 +32,11 @@ td, th {
   color: red;
 }
 
-#new_user label {
+#new_user label, #edit_user label {
   display: block;
 }
 
-#new_user em {
+#new_user em, #edit_user em {
   display: block;
   font-size: 0.8em;
 }

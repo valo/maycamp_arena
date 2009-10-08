@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, :on => :create
   
   attr_accessor :password_confirmation
+  attr_protected :password, :password_confirmation, :admin
 
   has_many :contest_start_events
   has_many :runs
@@ -31,7 +32,7 @@ class User < ActiveRecord::Base
     user = find_by_login(login.downcase) # need to get the salt
     
     if user.password == encrypt_password(password)
-      return u
+      return user
     end
     
     nil
@@ -54,12 +55,17 @@ class User < ActiveRecord::Base
     end
   end
   
+  def password=(value)
+    write_attribute(:password, self.class.encrypt_password(value))
+  end
+  
+  def password_confirmation=(value)
+    @password_confirmation = self.class.encrypt_password(value)
+  end
+  
   private
-    def encrypt_password(password)
+    def self.encrypt_password(password)
+      return nil unless password
       Digest::SHA1.hexdigest(password)
-    end
-    
-    def crypt_password
-      self.password = encrypt_password(self.password)
     end
 end

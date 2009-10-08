@@ -2,11 +2,9 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  helper :all # include all helpers, all the time
   # protect_from_forgery # See ActionController::RequestForgeryProtection for details
   filter_parameter_logging :password
-
-  I18n.locale = :bg
+  before_filter :set_locale
 
   protected
     # Returns true or false if the user is logged in.
@@ -31,8 +29,16 @@ class ApplicationController < ActionController::Base
       self.current_user = User.find_by_id(session[:user_id]) if session[:user_id]
     end
     
+    def authorized?
+      true
+    end
+    
     def login_required
-      redirect_to new_session_path if !logged_in?
+      redirect_to new_session_path unless (logged_in? and authorized?)
+    end
+    
+    def set_locale
+      I18n.locale = :bg
     end
 
     helper_method :current_user, :logged_in?
