@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   def self.authenticate(login, password)
     user = find_by_login(login.downcase) # need to get the salt
     
-    if user.password == encrypt_password(password)
+    if user and user.password == encrypt_password(password)
       return user
     end
     
