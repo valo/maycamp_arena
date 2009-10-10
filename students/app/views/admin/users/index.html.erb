@@ -1,11 +1,12 @@
-<h1>Users</h1>
+<h1>Потребители</h1>
+<br />
 <% if !@users.blank? %>
   <table>
     <tr>
       <th>Login</th>
       <th>Email</th>
-      <th>Is Admin?</th>
-      <th>Actions</th>
+      <th>Администратор?</th>
+      <th>Действия</th>
     </tr>
   <% for user in @users %>
     <tr>
@@ -13,12 +14,15 @@
       <td><%= user.email %></td>
       <td><%= check_box_tag user.login, "1", user.admin?, :disabled => true %></td>
       <td>
-        <%= link_to "Edit", edit_admin_user_path(user.id) %>
-        <%= link_to "Delete", :action => 'destroy', :id => user.id %>
+        <%= link_to "Промяна", edit_admin_user_path(user.id) %> |
+        <%= link_to "Изтриване", :action => 'destroy', :id => user.id %>
       </td>
     </tr>
   <% end %>
   </table>
 <% end %>
-
-<p><%= link_to "New user", :action => "new" %></p>
+<br />
+<p>
+  <%= link_to "Нов потребител", :action => "new" %> |
+  <%= link_to "Начална страница", root_path %>
+</p>

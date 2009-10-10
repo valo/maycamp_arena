@@ -3,9 +3,11 @@
 <html>
 <head>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-  <title>Spoj0 Student Competition</title>
+  <title>maycamp arena - състезания по алгоритми</title>
   <%= stylesheet_link_tag "highlight/idea.css" %>
   <%= stylesheet_link_tag "main.css" %>
+  <%= stylesheet_link_tag "inove.css" %>
+  <%= stylesheet_link_tag "inove_admin.css" %>
   <%= javascript_include_tag "highlight.pack" %>
   <% javascript_tag do %>
     // Syntax highlighting
@@ -13,12 +15,50 @@
   <% end %>
 </head>
 <body>
-  <%- if flash[:notice] -%>
-    <p class="notice"><%= flash[:notice] %></p>
-  <%- end -%>
-  <%- if flash[:error] -%>
-    <p class="error"><%= flash[:error] %></p>
-  <%- end -%>
-  <%= yield %>
+<!-- wrap START -->
+<div id="wrap">
+
+<!-- container START -->
+<div id="container" class="one-column" >
+
+<%= render :partial => "main/header" %>
+<%= render :partial => "main/navigation", :locals => { :current_user => current_user } %>
+
+<!-- content START -->
+<div id="content">
+
+	<!-- main START -->
+	<div id="main">
+
+	<div class="post">
+      <%- if flash[:notice] -%>
+        <p class="notice"><%= flash[:notice] %></p>
+      <%- end -%>
+      <%- if flash[:error] -%>
+        <p class="error"><%= flash[:error] %></p>
+      <%- end -%>
+      <%= yield %>
+	</div>
+
+	</div>
+	<!-- main END -->
+
+	<div class="fixed"></div>
+</div>
+<!-- content END -->
+
+<%= render :partial => "main/footer" %>
+
+</div>
+<!-- container END -->
+
+</div>
+<!-- wrap END -->
+
+
 </body>
 </html>
+
+
+
+
