@@ -1,7 +1,7 @@
 require 'zip/zip'
 
 class Admin::ProblemsController < Admin::BaseController
-  layout "admin"
+  layout "main"
   
   def new
     @contest = Contest.find params[:contest_id]

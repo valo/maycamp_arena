@@ -1,6 +1,6 @@
 <h1>Състезание <%= @contest.name %></h1>
-
 <h2>Задачи</h2>
+<br />
 <% if !@contest.problems.blank? %>
   <table>
     <tr>
@@ -18,9 +18,13 @@
   Няма задачи в това състезание
 <% end %>
 
+<br />
 <h2>Решения</h2>
-<em>Последното пратено решение за всяка задача ще се има предвид при оценяването.</em>
+<br />
 <% if !@contest.runs.find_all_by_user_id(current_user.id).blank? %>
+  <em>Само последното изпратено решение за всяка задача ще се има предвид при оценяването.</em>
+  <br />
+  <br />
   <table>
     <tr>
       <th>Id</th>
@@ -44,26 +48,31 @@
   <% end %>
   </table>
 <% else %>
-  <p>Няма пратени решения</p>
+  <p>Няма изпратени решения.</p>
 <% end %>
 
-
-<h2>Прати решение</h2>
+<br />
+<h2>Изпрати решение</h2>
+<br />
 <% form_for @run, :url => { :action => :submit_solution, :contest_id => @contest.id } do |f| -%>
   <%= f.error_messages %>
   <p>
     <%= f.label :problem_id, "Задача:" %>
     <%= f.select :problem_id, @contest.problems.map { |p| [p.name, p.id] } %>
   </p>
+  <br />
   <p>
     <%= f.label :language, "Език:" %>
     <%= f.select :language, Run.languages %>
   </p>
+  <br />
   <p>
     <%= f.label :source_code, "Сорс код:" %>
     <%= f.text_area :source_code %>
   </p>
+  <br />
   <p>
-    <%= f.submit "Прати" %>
+    <%= f.submit "Изпрати" %>
   </p>
+  <%= link_to "Обратно към списъка със състезания", :action => :index %>
 <% end -%>

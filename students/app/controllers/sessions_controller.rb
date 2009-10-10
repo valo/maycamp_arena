@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:login], params[:password])
     if user
       self.current_user = user
-      flash[:notice] = "Вие влязохте успешно"
+      # flash[:notice] = "Вие влязохте успешно"
       
       if user.admin?
         redirect_to :controller => :admin, :action => "index"
@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    flash[:notice] = "You have been logged out."
+    # flash[:notice] = "Вие излязохте успешно от системата."
     redirect_to root_path
   end
 end

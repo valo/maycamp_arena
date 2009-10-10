@@ -1,5 +1,5 @@
 class Admin::RunsController < Admin::BaseController
-  layout 'admin'
+  layout 'main'
   
   def index
     @runs = Run.scoped(:include => :problem)
