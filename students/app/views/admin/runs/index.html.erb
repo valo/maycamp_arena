@@ -1,13 +1,14 @@
-<h1>Runs</h1>
+<h1>Решения</h1>
+<br />
 <% if !@runs.blank? %>
   <table>
     <tr>
-      <th>id</th>
-      <th>Time submitted</th>
-      <th>Problem name</th>
-      <th>Contest name</th>
+      <th>#</th>
+      <th>Изпратено на</th>
+      <th>Задача</th>
+      <th>Състезание</th>
       <th>Status</th>
-      <th>Actions</th>
+      <th>Действия</th>
     </tr>
   <% for run in @runs %>
     <tr>
@@ -17,28 +18,26 @@
       <td><%= link_to run.problem.contest.name, admin_contest_path(run.problem.contest) %></td>
       <td><%= run.status %></td>
       <td>
-        <%= link_to "Queue for testing", queue_admin_contest_run_path(run.problem.contest, run) %>
-        <%= link_to "View", admin_contest_run_path(run.problem.contest, run) %>
+        <%= link_to "Тестване", queue_admin_contest_run_path(run.problem.contest, run) %> |
+        <%= link_to "Разглеждане", admin_contest_run_path(run.problem.contest, run) %>
       </td>
     </tr>
   <% end %>
   </table>
 <% else %>
-  No runs found
+  Все още няма изпратени решения на задачите от това състезание.
 <% end %>
-
+<br />
 <p>
   <% if @problem and @contest %>
-    <%= link_to "Queue all", queue_admin_contest_problem_runs_path(@contest, @problem) %>
+    <%= link_to "Тестване на всички", queue_admin_contest_problem_runs_path(@contest, @problem) %>
   <% elsif @contest %>
-    <%= link_to "Queue all", queue_admin_contest_runs_path(@contest) %>
+    <%= link_to "Тестване на всички", queue_admin_contest_runs_path(@contest) %>
   <% end %>
-</p>
-
-<p>
+  |
   <% if @problem %>
-    <%= link_to "Back", admin_contest_problems_path(@contest) %>
+    <%= link_to "Списък със състезания", admin_contest_problems_path(@contest) %>
   <% else %>
-    <%= link_to "Back", admin_contests_path %>
+    <%= link_to "Списък със състезания", admin_contests_path %>
   <% end %>
 </p>

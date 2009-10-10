@@ -1,10 +1,12 @@
-<h1>Edit contest</h1>
+<h1>Редактиране на състезание</h1>
+<br />
 <% form_for [:admin, @contest] do |f| -%>
   <p>
     <%= f.error_messages %>
   </p>
   <%= render :partial => "contest_fields", :locals => { :f => f } %>
+  <br />
   <p>
-    <%= f.submit "Update" %><%= link_to "Cancel", :action => "index" %>
+    <%= f.submit "Обновяване" %><%= link_to "Отказ", :action => "index" %>
   </p>
 <% end -%>
