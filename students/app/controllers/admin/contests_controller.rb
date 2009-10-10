@@ -1,5 +1,5 @@
 class Admin::ContestsController < Admin::BaseController
-  layout 'admin'
+  layout 'main'
   def index
     @contests = Contest.all
   end
@@ -27,7 +27,7 @@ class Admin::ContestsController < Admin::BaseController
     @contest.attributes = params[:contest]
     
     if @contest.save
-      flash[:notice] = "Contest updated successfully"
+      flash[:notice] = "Състезанието е обновено успешно."
       redirect_to edit_admin_contest_path(@contest.id)
     else
       render :action => "edit"

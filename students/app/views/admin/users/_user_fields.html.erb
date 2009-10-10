@@ -2,24 +2,29 @@
     <%= f.label :login %>
     <%= f.text_field :login %>
 </p>
+<br />
 <p>
-    <%= f.label :name %>
+    <%= f.label :name, "Име:" %>
     <%= f.text_field :name %>
 </p>
+<br />
 <p>
     <%= f.label :email %>
     <%= f.text_field :email %>
 </p>
+<br />
 <p>
-    <%= f.label :password %>
+    <%= f.label :password, "Парола:" %>
     <%= f.password_field :password %>
-    <em>Don't set if you don't want to change</em>
+    <em>Не въвеждайте нищо ако не желаете да я променяте.</em>
 </p>
+<br />
 <p>
-    <%= f.label :password_confirmation %>
+    <%= f.label :password_confirmation, "Паролата отново:" %>
     <%= f.password_field :password_confirmation %>
 </p>
+<br />
 <p>
-  <%= f.label :admin %>
+  <%= f.label :admin, "Администратор?" %>
   <%= f.check_box :admin %>
 </p>
