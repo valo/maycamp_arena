@@ -10,7 +10,6 @@
           <li class="page_item"><a href="http://cs.maycamp.com/?page_id=3" title="Форум">Форум</a></li>
           <li class="page_item"><a href="http://cs.maycamp.com/?page_id=2" title="За нас">За нас</a></li>
         <% else %>
-        <% # Special admin menu %>
 		<li class="page_item"><%= link_to "Home", root_path, :class => "home" %></li>
         <li class="page_item"><%= link_to "Състезания", admin_contests_path %></li>
         <li class="page_item"><%= link_to "Потребители", admin_users_path %></li>
