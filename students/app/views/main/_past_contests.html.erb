@@ -16,7 +16,7 @@
         <td><%= contest.end_time.to_s :long %></td>
         <td><%= duration_in_words contest.duration.minutes %></td>
         <td>
-          <% if contest.results_visible? %>
+          <% if contest.results_visible? or current_user.admin? %>
             <%= link_to "Резултати", :action => :results, :contest_id => contest.id %>
           <% else %>
             Очаквайте скоро
