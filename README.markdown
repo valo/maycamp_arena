@@ -12,14 +12,12 @@ The system contains two main components:
  
 The web part is a rails app contained in the students folder.
 
-The grader is written in the spoj* perl scripts.
+The grader is a simple ruby class, which compiles the programs with g++ and runs them using a ruby runner, which observes the resources they use. The runner is runner.rb
 
 Installation and usage
 ----------------------
 
 Follow these steps:
-
-* Run the spoj0-install.sh script, which is going to create some new users and mysql databases.
 
 * Go into students folder and run
 
@@ -29,26 +27,12 @@ Follow these steps:
 
   ./start/server
    
-The admin user is with login "root" and password "123123"
+The admin user is with login "root" and password "" (empty string)
 
-In order to grade the solutions, run ./spoj0-control start-here as root.
+In order to grade the solutions, run
+
+  rake grader:start
+  
+in the students folder.
 
 [IOI]: http://olympiads.win.tue.nl/ioi/
-
-TODO
-----
-
-Currently there is one grader implemented in perl. The idea is to completely replace it, because there is too much SQL inside and this doesn't fit well with the Rails ORM classes.
-
-I implemented a runner.pl script, which can be used to run an executable in a sandbox. Also a Grader class for grading solutions completely in Ruby. This should be enough as infrastructure.
-
-To be done:
-
-* More tests for the runner.pl script, so we can be sure that the grader could not be crashed or exploited
-* Improve the Grader class to recognize exist statuses for memory limit exceeded and time limit exceeded.
-* Measure the used resources by the graded solutions
-
-Far future:
-
-* Make pluggable compilers for different languages
-* Make pluggable testers for different types of problems
