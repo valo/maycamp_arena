@@ -11,6 +11,12 @@ class TimedContestController < ApplicationController
   def submit_solution
     @run = Run.new(params[:run].merge(:user => current_user))
     
+    @contest = Contest.find_by_id(params[:contest_id])
+    if @contest.auto_test?
+      # If auto_test is true, we need to automatically put the run in WAITING (gradable) mode.
+      @run.status = Run::WAITING
+    end
+    
     if @run.save
       redirect_to :action => "open_contest", :contest_id => params[:contest_id]
     else
