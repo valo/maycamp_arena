@@ -28,14 +28,11 @@ class Grader
     puts "Ready to grade"
     
     while running do
-      Signal.trap("TERM") do
-        puts "Stopping..."
-        running = false
-      end
-      
-      Signal.trap("INT") do
-        puts "Stopping..."
-        running = false
+      ["INT", "TERM"].each do |signal|
+        Signal.trap(signal) do
+          puts "Stopping..."
+          running = false
+        end
       end
       
       sleep 1
@@ -76,17 +73,13 @@ class Grader
       end
       
       puts "Compiling..."
-      puts cmd = "g++ program.cpp -o program -O2 -s -static -lm -x c++"
-      system cmd
-      puts "status: #{$?.exitstatus}"
+      verbose_system "g++ program.cpp -o program -O2 -s -static -lm -x c++"
     end
     
     def run_tests(run)
       # for each test, run the program
       run.problem.input_files.zip(run.problem.output_files).map { |input_file, output_file|
-        puts cmd = "#{@runner} --user #{@user} --time #{run.problem.time_limit} --mem #{run.problem.memory_limit} --procs 1 -- ./program < #{input_file} > output"
-        system cmd
-        puts "status: #{$?.exitstatus}"
+        verbose_system "#{@runner} --user #{@user} --time #{run.problem.time_limit} --mem #{run.problem.memory_limit} --procs 1 -- ./program < #{input_file} > output"
         
         case $?.exitstatus
           when 9
@@ -94,9 +87,7 @@ class Grader
           when 127
             "ml"
           when 0
-            puts cmd = "diff #{output_file} output"
-            system cmd
-            puts "status: #{$?.exitstatus}"
+            verbose_system "diff #{output_file} output"
           
             if $?.exitstatus != 0
               "wa"
@@ -107,5 +98,11 @@ class Grader
             "re"
         end
       }.join(" ")
+    end
+    
+    def verbose_system(cmd)
+      puts cmd
+      system cmd
+      puts "status: #{$?.exitstatus}"
     end
 end

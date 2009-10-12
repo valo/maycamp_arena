@@ -1,5 +1,5 @@
 ﻿<% if !current_user %>
-  <%= render :partial => "welcome_message", :locals => { :current_user => current_user } %>
+  <%= render :partial => "welcome_message" %>
   <br />
   <p>Не сте влезли в системата. Трябва да <%= link_to "влезете", :controller => :admin %> ако искате да участвате в състезанията.
   <br />
@@ -9,10 +9,10 @@
 
 <% if current_user %>
 
-  <%= render :partial => "current_contests", :locals => { :current_user => current_user } %>
+  <%= render :partial => "current_contests" %>
   <br />
   <br />  
-  <%= render :partial => "past_contests", :locals => { :current_user => current_user } %>
+  <%= render :partial => "past_contests" %>
 <% end %>
 
 <%
