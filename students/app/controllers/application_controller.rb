@@ -37,6 +37,10 @@ class ApplicationController < ActionController::Base
       redirect_to new_session_path unless (logged_in? and authorized?)
     end
     
+    def logoff
+      reset_session
+    end
+    
     def set_locale
       I18n.locale = :bg
     end
