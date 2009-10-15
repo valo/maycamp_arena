@@ -1,7 +1,8 @@
 <h1>Регистрация</h1>
 <% @user.password = @user.password_confirmation = nil %>
 
-<%= error_messages_for :user %>
+<em><%= error_messages_for :user %></em>
+<br />
 <% form_for @user do |f| -%>
 <p>
     <%= f.label :login, 'Потребителско име:' %>
