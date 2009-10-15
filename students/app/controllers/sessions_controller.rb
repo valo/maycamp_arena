@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    reset_session
+    logoff
     # flash[:notice] = "Вие излязохте успешно от системата."
     redirect_to root_path
   end
