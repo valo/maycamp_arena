@@ -14,12 +14,10 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, :on => :create
   
   attr_accessor :password_confirmation
-  attr_protected :password, :password_confirmation, :admin
+  attr_protected :password_confirmation, :admin
 
   has_many :contest_start_events
   has_many :runs
-  
-  before_create :crypt_password
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
