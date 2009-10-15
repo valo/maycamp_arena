@@ -8,21 +8,39 @@ Story: Submit solution
     I want to be able to submit solutions
     
     Scenario: Open a running contest
-        Given there is a logged student with login "Valo" and password "secret"
+        Given there is a user with attributes:
+          | login                 | valo                      |
+          | name                  | Valentin Mihov            |
+          | email                 | valentin.mihov@gmail.com  |
+          | password              | secret                    |
         And there is a running contest named "Test contest"
         And the contest "Test contest" has a task named "Task"
-        When I go to the homepage
+        When I am on the login page
+        And I fill in the following:
+          | login                 | valo                      |
+          | password              | secret                    |
+        And I press "Влез"
         And I follow "ЗАПОЧНИ СЪСТЕЗАНИЕТО!"
-        Then I should see "Прати решение"
+        Then I should see "Изпрати решение"
         And I should see "Task"
         
     Scenario: Submit a solution to a running contest
-        Given there is a logged student with login "Valo" and password "secret"
+        Given there is a user with attributes:
+          | login                 | valo                      |
+          | name                  | Valentin Mihov            |
+          | email                 | valentin.mihov@gmail.com  |
+          | password              | secret                    |
         And there is a running contest named "Test contest"
         And the contest "Test contest" has a task named "Task"
-        When I go to the homepage
+        When I am on the login page
+        And I fill in the following:
+          | login                 | valo                      |
+          | password              | secret                    |
+        And I press "Влез"
         And I follow "ЗАПОЧНИ СЪСТЕЗАНИЕТО!"
         When I fill in the following:
-          | Задача:   | Таск       |
-          | Език:     | C/C++ |
-          | Сорс код: | printf("Hello")   |
+          | problem_id   | Таск       |
+          | language     | C/C++ |
+          | source_code | printf("Hello")   |
+        And I press "Изпрати"
+        Then I should see "waiting"
