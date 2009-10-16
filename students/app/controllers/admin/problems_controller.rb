@@ -23,6 +23,12 @@ class Admin::ProblemsController < Admin::BaseController
     end
   end
   
+  def destroy
+    @contest = Contest.find params[:contest_id]
+    Problem.destroy(params[:id])
+    redirect_to admin_contest_problems_path(@contest)
+  end
+  
   def show
     @problem = Problem.find params[:id]
   end
