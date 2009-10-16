@@ -16,8 +16,15 @@ Given /^I am not logged in$/ do
 end
 
 Given /^there is a user with attributes:$/ do |table|
-  User.create! table.transpose.hashes
+  User.create! table.transpose.hashes.first
 end
+
+Given /^there is an admin user with attributes:$/ do |table|
+  user = User.new(table.transpose.hashes.first)
+  user.admin = true
+  user.save!
+end
+
 
 def login_user(user)
   post session_path, :login => user.login, :password => user.password
