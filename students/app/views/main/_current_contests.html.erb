@@ -16,8 +16,8 @@
         <td><%= contest.end_time.to_s :long %></td>
         <td><%= duration_in_words contest.duration.minutes %></td>
         <td>
-          <% if contest.user_open_time(current_user) and contest.allow_user_submit(current_user) %>
-            Оставащо време: <%= duration_in_words(contest.duration.minutes - (Time.now - contest.user_open_time(current_user))) %>
+          <% if can_user_submit_in_contest?(current_user, contest) %>
+            Оставащо време: <%= time_left_for_user_in_contest(current_user, contest) %>
             <br/>
             <%= link_to "Отвори", :controller => :timed_contest, :action => :open_contest, :contest_id => contest.id %>
           <% elsif !contest.allow_user_submit(current_user) %>
