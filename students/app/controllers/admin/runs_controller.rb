@@ -6,7 +6,7 @@ class Admin::RunsController < Admin::BaseController
     @runs = @runs.scoped(:conditions => { :problem_id => params[:problem_id] }) unless params[:problem_id].blank?
     @runs = @runs.scoped(:conditions => ['problems.contest_id = ?', params[:contest_id]]) unless params[:contest_id].blank?
     
-    @contest = Problem.find(params[:contest_id]) unless params[:contest_id].blank?
+    @contest = Contest.find(params[:contest_id]) unless params[:contest_id].blank?
     @problem = Problem.find(params[:problem_id]) unless params[:problem_id].blank?
   end
   
@@ -21,5 +21,26 @@ class Admin::RunsController < Admin::BaseController
   
   def show
     @run = Run.find(params[:id])
+  end
+  
+  def new
+    @contest = Contest.find(params[:contest_id])
+    @problem = Problem.find(params[:problem_id])
+    
+    @run = Run.new
+  end
+  
+  def create
+    @contest = Contest.find(params[:contest_id])
+    @problem = Problem.find(params[:problem_id])
+    
+    @run = @problem.runs.build(params[:run])
+    
+    if @run.save
+      flash[:notice] = "Решението е пратено успешно"
+      redirect_to admin_contest_problem_runs_path(@contest, @problem)
+    else
+      render :action => "new"
+    end
   end
 end

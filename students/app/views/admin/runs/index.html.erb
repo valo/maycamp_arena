@@ -40,4 +40,6 @@
   <% else %>
     <%= link_to "Списък със състезания", admin_contests_path %>
   <% end %>
+  |
+  <%= link_to "Пращане на решение", new_admin_contest_problem_run_path(@contest, @problem) %>
 </p>
