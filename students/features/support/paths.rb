@@ -22,6 +22,8 @@ module NavigationHelpers
       admin_contest_problems_path
     when /the problem view page in the admin panel/
       admin_contest_problem_path
+    when /the runs list on the admin panel/
+      admin_contest_problem_runs_path
     # Add more mappings here.
     # Here is a more fancy example:
     #
