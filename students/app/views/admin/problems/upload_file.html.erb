@@ -1,11 +1,11 @@
 <h1>Upload a file for problem <%= @problem.name %></h1>
 <% form_tag do_upload_file_admin_contest_problem_path(@problem.contest, @problem), :multipart => true do %>
   <p>
-    <%= label :tests, "File to upload:" %>
+    <%= label :tests, "Файл за качване:" %>
     <%= file_field :tests, :file %>
-    <em>If you upload a zip archive it will be extracted and the top level files will be added to the problem's files</em>
+    <em>Ако качите zip архив, той ще бъде разархивиран и всички файлове в основната директория ще бъдат прибавени към файловете на задачата</em>
   </p>
   <p>
-    <%= submit_tag "Upload" %><%= link_to "Back", admin_contest_problems_path(@problem.contest) %>
+    <%= submit_tag "Качване" %><%= link_to "Отказ", admin_contest_problems_path(@problem.contest) %>
   </p>
 <% end %>

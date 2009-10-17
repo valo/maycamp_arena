@@ -38,9 +38,31 @@ Story: Submit solution
           | password              | secret                    |
         And I press "Влез"
         And I follow "ЗАПОЧНИ СЪСТЕЗАНИЕТО!"
-        When I fill in the following:
-          | problem_id   | Таск       |
-          | language     | C/C++ |
-          | source_code | printf("Hello")   |
+        When I select "C/C++" from "run_language"
+        And I select "Task" from "run_problem_id"
+        And I fill in "#include <stdio.h>" for "run_source_code"
         And I press "Изпрати"
-        Then I should see "waiting"
+        Then I should see "pending"
+        And I should see "Виж сорс кода"
+
+    Scenario: View source code
+        Given there is a user with attributes:
+          | login                 | valo                      |
+          | name                  | Valentin Mihov            |
+          | email                 | valentin.mihov@gmail.com  |
+          | password              | secret                    |
+        And there is a running contest named "Test contest"
+        And the contest "Test contest" has a task named "Task"
+        When I am on the login page
+        And I fill in the following:
+          | login                 | valo                      |
+          | password              | secret                    |
+        And I press "Влез"
+        And I follow "ЗАПОЧНИ СЪСТЕЗАНИЕТО!"
+        When I select "C/C++" from "run_language"
+        And I select "Task" from "run_problem_id"
+        And I fill in "#include <stdio.h>" for "run_source_code"
+        And I press "Изпрати"
+        And I follow "Виж сорс кода"
+        Then I should see "#include <stdio.h>"
+                    
