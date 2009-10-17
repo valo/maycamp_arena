@@ -1,12 +1,12 @@
-<h1>Problem <%= @problem.name %></h1>
+<h1>Задача <%= @problem.name %></h1>
 <p>
-  Name: <%= @problem.name %>
+  Име: <%= @problem.name %>
 </p>
 <p>
-  Description: <%= @problem.about %>
+  Описание: <%= @problem.about %>
 </p>
 <p>
-  Time limit: <%= @problem.time_limit %>
+  Time limit: <%= @problem.time_limit %> sec.
 </p>
 <p>
   Memory limit: <%= @problem.text_memory_limit %>
@@ -18,11 +18,11 @@
       <%= link_to File.basename(file), download_file_admin_contest_problem_path(@problem.contest, @problem, :file => File.basename(file)) %>
     <% end %>
   </p>
-  <p><%= link_to "Purge files", purge_files_admin_contest_problem_path(@problem.contest, @problem) %></p>
+  <p><%= link_to "Изтриване на всички файлове", purge_files_admin_contest_problem_path(@problem.contest, @problem) %></p>
 <% end %>
 <p>
-  <%= link_to "Upload file", upload_file_admin_contest_problem_path(@problem.contest, @problem) %>
+  <%= link_to "Качване на файл", upload_file_admin_contest_problem_path(@problem.contest, @problem) %>
 </p>
 <p>
-  <%= link_to "Back", admin_contest_problems_path(@problem.contest) %>
+  <%= link_to "Назад", admin_contest_problems_path(@problem.contest) %>
 </p>

@@ -14,6 +14,16 @@ module NavigationHelpers
       login_path
     when /the signup page/
       signup_path
+    when /the contest list in the admin panel/
+      admin_contests_path
+    when /the contest edit page in the admin panel/
+      edit_admin_contest_path
+    when /the problem list in the admin panel/
+      admin_contest_problems_path
+    when /the problem view page in the admin panel/
+      admin_contest_problem_path
+    when /the runs list on the admin panel/
+      admin_contest_problem_runs_path
     # Add more mappings here.
     # Here is a more fancy example:
     #
