@@ -32,6 +32,13 @@ Given /^the user "([^\"]*)" submits a source for problem "([^\"]*)"$/ do |user, 
               :language => "C/C++")
 end
 
-def login_user(user)
-  post session_path, :login => user.login, :password => user.password
+Given /^there is a finished contest with attributes:$/ do |contest_attrs|
+  Contest.create!(contest_attrs.transpose.hashes.first.merge(:start_time => 2.days.ago, :end_time => 1.day.ago))
+end
+
+Given /^the user "([^\"]*)" submit a run for problem "([^\"]*)" with attributes:$/ do |user_login, problem_name, run_attrs|
+  Run.create!(run_attrs.transpose.hashes.first.merge(
+                :user_id => User.find_by_login(user_login).id, 
+                :problem_id => Problem.find_by_name(problem_name).id)
+              )
 end
