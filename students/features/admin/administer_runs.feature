@@ -45,7 +45,7 @@ Story: Administer runs
     Then I should be on the runs list on the admin panel
     And I should see "A+B problem"
     And I should see "pending"
-    And I should see "Valentin Mihov" within "table#runs"
+    And I should see "Valentin Mihov" within "table.runs_list"
   
   Scenario: Viewing all the runs for a given contest
     Given I am on the contest list in the admin panel
