@@ -19,8 +19,12 @@ class MainController < ApplicationController
       [student.name] + @contest.problems.map do |problem|
         last_run = problem.runs.select { |r| r.user == student }.last
         
-        total += last_run.total_points
-        last_run.points + [last_run.total_points]
+        if last_run
+          total += last_run.total_points
+          last_run.points + [last_run.total_points]
+        else
+          ["0"] * problem.number_of_tests + ["0"]
+        end
       end + [total]
     end
     
