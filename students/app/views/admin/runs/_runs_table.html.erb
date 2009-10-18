@@ -3,6 +3,7 @@
         <th>Пратено на</th>
         <th>Състезание</th>
         <th>Задача</th>
+        <th>Потребител</th>
         <th>Език</th>
         <th>Статус</th>
         <th></th>
@@ -12,6 +13,7 @@
         <td><%= run.created_at %></td>
         <td><%= link_to run.problem.contest.name, admin_contest_path(run.problem.contest) %></td>
         <td><%= link_to run.problem.name, admin_contest_problem_path(run.problem.contest,run.problem) %></td>
+        <td><%= link_to run.user.name, admin_user_path(run.user) %></td>
         <td><%= run.language %></td>
         <td><%= run.status %></td>
         <td>
