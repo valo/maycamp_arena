@@ -4,6 +4,10 @@ class Admin::ContestsController < Admin::BaseController
     @contests = Contest.all
   end
   
+  def show
+    redirect_to admin_contest_problems_path(params[:id])
+  end
+  
   def new
     @contest = Contest.new
   end
