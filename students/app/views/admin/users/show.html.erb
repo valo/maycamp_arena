@@ -1,0 +1,22 @@
+<h2>Потребител <%= @user.name %></h2>
+<h3>Пратени решения</h3>
+<%= render :partial => 'admin/runs/runs_table', :locals => { :runs => @user.runs } %>
+<h3>Отворени състезания</h3>
+<table>
+    <tr>
+        <th>Състезание</th>
+        <th>Отворено на</th>
+        <th>Оставащо време</th>
+        <th></th>
+    </tr>
+    <% for start_event in @user.contest_start_events %>
+        <tr>
+            <td><%= link_to start_event.contest.name, admin_contest_path(start_event.contest) %></td>
+            <td><%= start_event.created_at %></td>
+            <td><%= time_left_for_user_in_contest(@user, start_event.contest) %></td>
+            <td>
+                <%= link_to "Рестартирай таймера", restart_time_admin_user_path(@user, :contest_id => start_event.contest.id) %>
+            </td>
+        </tr>
+    <% end %>
+</table>

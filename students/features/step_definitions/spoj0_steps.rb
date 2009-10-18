@@ -25,6 +25,12 @@ Given /^there is an admin user with attributes:$/ do |table|
   user.save!
 end
 
+Given /^the user "([^\"]*)" submits a source for problem "([^\"]*)"$/ do |user, problem|
+  Run.create!(:user_id => User.find_by_login(user).id, 
+              :problem_id => Problem.find_by_name(problem).id,
+              :source_code => '#include <stdio.h>',
+              :language => "C/C++")
+end
 
 def login_user(user)
   post session_path, :login => user.login, :password => user.password

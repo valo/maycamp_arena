@@ -41,4 +41,17 @@ class Admin::UsersController < Admin::BaseController
       render :action => "new"
     end
   end
+  
+  def show
+    @user = User.find(params[:id])
+  end
+  
+  def restart_time
+    @event = ContestStartEvent.find_by_user_id_and_contest_id(params[:id], params[:contest_id])
+    @event.andand.destroy
+    
+    ContestStartEvent.create(:user_id => params[:id], :contest_id => params[:contest_id])
+    
+    redirect_to admin_user_path(params[:id])
+  end
 end

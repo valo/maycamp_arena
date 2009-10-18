@@ -1,17 +1,17 @@
+@admin @runs
 Story: Administer runs
   In order to be able to control the system
   As a administrator
   I want to be able to administer the runs
-
-  @admin @runs
-  Scenario: Submitting a run
+  
+  Background:
     Given there is an admin user with attributes:
       | login                 | valo                      |
       | name                  | Valentin Mihov            |
       | email                 | valentin.mihov@gmail.com  |
       | password              | secret                    |
     And I am not logged in
-    When I am on the login page
+    And I am on the login page
     And I fill in the following:
       | login                 | valo                      |
       | password              | secret                    |
@@ -31,6 +31,10 @@ Story: Administer runs
       | Описание: | Прочетете от входа 2 числа и изведете сборът им |
       | Time limit: | 1 |
     And I press "Създаване"
+
+  Scenario: Submitting a run
+    Given I am on the contest list in the admin panel
+    And I follow "Задачи"
     And I follow "Решения"
     And I follow "Пращане на решение"
     And I select "Valentin Mihov" from "Потребител:"
@@ -41,4 +45,20 @@ Story: Administer runs
     Then I should be on the runs list on the admin panel
     And I should see "A+B problem"
     And I should see "pending"
-    
+    And I should see "Valentin Mihov" within "table#runs"
+  
+  Scenario: Viewing all the runs for a given contest
+    Given I am on the contest list in the admin panel
+    And I follow "Задачи"
+    And I follow "Решения"
+    And I follow "Пращане на решение"
+    And I select "Valentin Mihov" from "Потребител:"
+    And I fill in the following:
+      | Език: | C/C++ |
+      | Сорс код: | #include <stdio.h> |
+    And I press "Изпрати"
+    When I am on the contest list in the admin panel
+    And I follow "Решения"
+    Then I should see "pending"
+    And I should see "A+B problem"
+    And I should not see "Пращане на решение"

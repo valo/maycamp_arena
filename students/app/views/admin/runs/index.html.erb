@@ -1,32 +1,6 @@
 <h1>Решения</h1>
 <br />
-<% if !@runs.blank? %>
-  <table>
-    <tr>
-      <th>#</th>
-      <th>Изпратено на</th>
-      <th>Задача</th>
-      <th>Състезание</th>
-      <th>Status</th>
-      <th>Действия</th>
-    </tr>
-  <% for run in @runs %>
-    <tr>
-      <td><%= run.id %></td>
-      <td><%= run.created_at.to_s :long %></td>
-      <td><%= link_to run.problem.name, admin_contest_problem_path(run.problem.contest, run.problem) %></td>
-      <td><%= link_to run.problem.contest.name, admin_contest_path(run.problem.contest) %></td>
-      <td><%= run.status %></td>
-      <td>
-        <%= link_to "Тестване", queue_admin_contest_run_path(run.problem.contest, run) %> |
-        <%= link_to "Разглеждане", admin_contest_run_path(run.problem.contest, run) %>
-      </td>
-    </tr>
-  <% end %>
-  </table>
-<% else %>
-  Все още няма изпратени решения на задачите от това състезание.
-<% end %>
+<%= render :partial => 'runs_table', :locals => { :runs => @runs } %>
 <br />
 <p>
   <% if @problem and @contest %>
@@ -41,5 +15,7 @@
     <%= link_to "Списък със състезания", admin_contests_path %>
   <% end %>
   |
-  <%= link_to "Пращане на решение", new_admin_contest_problem_run_path(@contest, @problem) %>
+  <% if @problem and @contest %>
+    <%= link_to "Пращане на решение", new_admin_contest_problem_run_path(@contest, @problem) %>
+  <% end %>
 </p>
