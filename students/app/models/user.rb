@@ -16,8 +16,8 @@ class User < ActiveRecord::Base
   attr_accessor :password_confirmation
   attr_protected :password_confirmation, :admin
 
-  has_many :contest_start_events
-  has_many :runs
+  has_many :contest_start_events, :dependent => :destroy
+  has_many :runs, :dependent => :destroy
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
