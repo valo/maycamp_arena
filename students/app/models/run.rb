@@ -1,4 +1,6 @@
 class Run < ActiveRecord::Base
+  default_scope :order => 'runs.created_at DESC'
+  
   LANGUAGES = ["C/C++"]
   WAITING = "waiting"
   JUDGING = "judging"
