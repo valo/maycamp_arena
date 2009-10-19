@@ -19,8 +19,8 @@
       <td><%= contest.end_time.to_s :long %></td>
       <td><%= duration_in_words contest.duration.minutes  %></td>
       <td>
-        <%= link_to "Промяна", edit_admin_contest_path(contest.id) %> |
-        <%= link_to "Изтриване", { :action => :destroy, :id => contest.id }, :confirm => "Сигурни ли сте, че желаете да изтриете това състезание?", :method => :delete %> |
+        <%= link_to "Промяна", edit_admin_contest_path(contest) %> |
+        <%= link_to "Изтриване", admin_contest_path(contest), :confirm => "Сигурни ли сте, че желаете да изтриете това състезание?", :method => :delete %> |
         <%= link_to "Задачи", admin_contest_problems_path(contest) %> |
         <%= link_to "Решения", admin_contest_runs_path(contest) %>
       </td>

@@ -38,9 +38,7 @@ class Admin::ContestsController < Admin::BaseController
   end
   
   def destroy
-    @contest = Contest.find(params[:id])
-    
-    @contest.destroy
+    @contest = Contest.destroy(params[:id])
     
     redirect_to :action => "index"
   end

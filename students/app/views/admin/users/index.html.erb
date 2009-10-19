@@ -14,9 +14,9 @@
       <td><%= user.email %></td>
       <td><%= check_box_tag "is_admin_#{user.login}", "1", user.admin?, :disabled => true %></td>
       <td>
-        <%= link_to "Покажи", admin_user_path(user.id) %> |
-        <%= link_to "Промяна", edit_admin_user_path(user.id) %> |
-        <%= link_to "Изтриване", :action => 'destroy', :id => user.id %>
+        <%= link_to "Покажи", admin_user_path(user) %> |
+        <%= link_to "Промяна", edit_admin_user_path(user) %> |
+        <%= link_to "Изтриване", admin_user_path(user), :confirm => "Сигурни ли сте, че искате да изтриете този потребител?", :method => :delete %>
       </td>
     </tr>
   <% end %>
