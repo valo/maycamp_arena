@@ -52,4 +52,9 @@ class Admin::UsersController < Admin::BaseController
     
     redirect_to admin_user_path(params[:id])
   end
+  
+  def destroy
+    User.destroy(params[:id])
+    redirect_to :action => "index"
+  end
 end
