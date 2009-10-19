@@ -1,7 +1,7 @@
 class Contest < ActiveRecord::Base
   has_many :problems, :dependent => :destroy
-  has_many :runs, :through => :problems, :order => :created_at
-  has_many :contest_start_events
+  has_many :runs, :through => :problems
+  has_many :contest_start_events, :dependent => :destroy
   
   named_scope :current, lambda { {:conditions => ['? > start_time AND ? < end_time', Time.now.utc, Time.now.utc]} }
   named_scope :finished, lambda { {:conditions => ['? > end_time', Time.now.utc]} }
