@@ -1,6 +1,4 @@
 class Admin::RunsController < Admin::BaseController
-  layout 'main'
-  
   def index
     @runs = Run.scoped(:include => :problem)
     @runs = @runs.scoped(:conditions => { :problem_id => params[:problem_id] }) unless params[:problem_id].blank?

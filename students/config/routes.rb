@@ -39,7 +39,15 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   map.namespace :admin do |admin|
-    admin.resources :users, :member => { :restart_time => :get }
+    admin.resource :status
+    admin.resources :users, :member => { :restart_time => :get } do |user|
+      user.resources :runs, :member => {
+        :queue => :get
+      }, :collection => {
+        :queue => :get
+      }
+    end
+    
     admin.resources :contests do |contests|
       contests.resources :runs, :member => {
         :queue => :get

@@ -1,5 +1,4 @@
 class Admin::ContestsController < Admin::BaseController
-  layout 'main'
   def index
     @contests = Contest.all
   end
