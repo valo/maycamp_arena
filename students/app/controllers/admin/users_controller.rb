@@ -1,6 +1,4 @@
 class Admin::UsersController < Admin::BaseController
-  layout 'main'
-  
   def index
     @users = User.all
   end
