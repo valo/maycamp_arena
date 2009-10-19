@@ -1,6 +1,7 @@
 class Admin::BaseController < ApplicationController
   before_filter :login_required
   layout 'main'
+  helper :admin
   
   protected
     def authorized?

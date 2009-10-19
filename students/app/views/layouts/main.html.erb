@@ -31,6 +31,7 @@
 	<div id="main">
 
 	<div class="post">
+	    <%= %Q{<p id="breadcrumbs"><strong>Вие сте тук:</strong> #{get_bread_crumb(request.path)}</p>} if current_user.andand.admin? and controller.is_a?(Admin::BaseController) %>
       <%- if flash[:notice] -%>
         <p class="notice"><%= flash[:notice] %></p>
       <%- end -%>
