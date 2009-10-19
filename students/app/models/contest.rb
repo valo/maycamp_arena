@@ -1,5 +1,5 @@
 class Contest < ActiveRecord::Base
-  has_many :problems
+  has_many :problems, :dependent => :destroy
   has_many :runs, :through => :problems, :order => :created_at
   has_many :contest_start_events
   

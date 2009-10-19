@@ -1,5 +1,5 @@
 class Problem < ActiveRecord::Base
-  has_many :runs
+  has_many :runs, :dependent => :destroy
   belongs_to :contest
   
   validates_presence_of :name, :time_limit, :about
