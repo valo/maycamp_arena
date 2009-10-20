@@ -31,3 +31,8 @@ td, th {
   font-weight: bold;
   color: red;
 }
+
+textarea.source_code {
+    width: 600px;
+    height: 600px;
+}
