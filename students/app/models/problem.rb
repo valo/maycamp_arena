@@ -26,7 +26,7 @@ class Problem < ActiveRecord::Base
   end
   
   def number_of_tests
-    input_files.count
+    input_files.length
   end
   
   def text_memory_limit

@@ -20,7 +20,7 @@ class Run < ActiveRecord::Base
   end
   
   def points_float
-    total_tests = status.split(/\s+/).count
+    total_tests = status.split(/\s+/).length
     status.split(/\s+/).map { |out| out == "ok" ? (BigDecimal("100") / total_tests) : out }
   end
   

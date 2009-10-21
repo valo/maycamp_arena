@@ -33,6 +33,7 @@ class MainController < ApplicationController
     end
     
     @results.sort! { |a,b| b[-1] <=> a[-1] }
+    render :action => :results, :layout => "results"
   end
   
   def download_tests
