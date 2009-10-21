@@ -14,7 +14,7 @@ class MainController < ApplicationController
     # [
     #   [student_name, [task1_test1_pts, task1_test2_pts], [task2_test1_pts, ...]]
     # ]
-    @results = students.map do |student|
+    @results = students.reject(&:admin?).map do |student|
       total = 0
       [student.name] + @contest.problems.map do |problem|
         last_run = problem.runs.select { |r| r.user == student }.last
@@ -28,7 +28,7 @@ class MainController < ApplicationController
       end + [total]
     end
     
-    @results.sort { |a,b| b[-1] <=> a[-1] }
+    @results.sort! { |a,b| b[-1] <=> a[-1] }
   end
   
   def download_tests
