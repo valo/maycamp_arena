@@ -10,7 +10,7 @@
   <tr>
     <% @contest.problems.each do |problem| %>
       <% problem.input_files.each_with_index do |test, index| %>
-        <th>Тест <%= index + 1 %></th>
+        <th><%= index + 1 %></th>
       <% end %>
       <th>Общо</th>
     <% end %>
