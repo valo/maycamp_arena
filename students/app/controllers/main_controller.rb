@@ -1,4 +1,6 @@
 class MainController < ApplicationController
+  layout "main", :except => :results
+  
   def index
   end
   
