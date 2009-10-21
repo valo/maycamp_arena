@@ -19,7 +19,9 @@ class MainController < ApplicationController
     @results = students.reject(&:admin?).map do |student|
       total = 0
       [student.name] + @contest.problems.map do |problem|
-        last_run = problem.runs.select { |r| r.user == student }.last
+        # FIXME: We should improve that for the practice area to take only the
+        # runs submitted during the contest
+        last_run = problem.runs.select { |r| r.user == student }.first
         
         if last_run
           total += last_run.total_points
