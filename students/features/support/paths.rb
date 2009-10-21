@@ -26,6 +26,8 @@ module NavigationHelpers
       admin_contest_problem_runs_path
     when /the user list in the admin panel/
       admin_users_path
+    when /the results page for contest "([^\"]+)"/
+      url_for :controller => :main, :action => :results, :contest_id => Contest.find_by_name!($1)
     # Add more mappings here.
     # Here is a more fancy example:
     #
