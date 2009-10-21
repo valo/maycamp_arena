@@ -23,9 +23,11 @@ begin
 
   task :default => :cucumber
 
-  task :features => :cucumber do
-    STDERR.puts "*** The 'features' task is deprecated. See rake -T cucumber ***"
+  Cucumber::Rake::Task.new(:features) do |t|
+    t.cucumber_opts = "--format pretty"
+    t.rcov = true
   end
+  task :features => 'db:test:prepare'
 rescue LoadError
   desc 'cucumber rake task not available (cucumber not installed)'
   task :cucumber do
