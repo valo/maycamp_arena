@@ -1,7 +1,7 @@
 Rake.application.options.trace = true
 
 task :cucumber do
-  exec "cd students; rake db:migrate cucumber RAILS_ENV=test"
+  exec "cd students; rake db:migrate cucumber RAILS_ENV=cucumber"
 end
 
 task :create_db do
