@@ -5,6 +5,7 @@ end
 task :create_db do
   cmd_string = %[mysqladmin create spoj0_development -u build]
   system cmd_string
+  system "mkdir sets"
 end
  
 def runcoderun?
