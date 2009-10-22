@@ -1,5 +1,5 @@
 class Grader
-  attr_reader :root, :user, :runner
+  attr_reader :root, :user, :runner, :tests_updated_at
 
   class << self
     def with_stdout_and_stderr(new_stdout, new_stderr, &block)
@@ -20,6 +20,7 @@ class Grader
     
     if grader_app
       SetsSync.sync_sets(grader_app)
+      self.tests_updated_at = Time.now
     end
   end
   
@@ -36,6 +37,7 @@ class Grader
       end
       
       sleep 1
+      check_durty_tests
       run = Run.find_by_status(Run::WAITING)
       next unless run
       
@@ -104,5 +106,13 @@ class Grader
       puts cmd
       system cmd
       puts "status: #{$?.exitstatus}"
+    end
+
+    def check_durty_tests
+      if (last_update = Configuration.get(Configuration::TESTS_UPDATED_AT)) and last_update > self.tests_updated_at
+        # Download the tests again
+        SetsSync.sync_sets(grader_app)
+        self.tests_updated_at = last_update
+      end
     end
 end

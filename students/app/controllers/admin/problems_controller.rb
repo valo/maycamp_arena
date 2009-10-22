@@ -54,6 +54,7 @@ class Admin::ProblemsController < Admin::BaseController
       File.delete filename
     end
     
+    Configuration.set!(Configuration::TESTS_UPDATED_AT, Time.now)
     flash[:notice] = "Files successfully purged"
     
     redirect_to admin_contest_problem_path(@problem.contest, @problem)
@@ -78,7 +79,7 @@ class Admin::ProblemsController < Admin::BaseController
         # Extract the bundle
         Zip::ZipFile.foreach(@upload.local_path) do |filename|
           if filename.file? and !filename.name.include?('/')
-            dest = File.join(@problem.tests_dir, filename.name)
+            dest = File.join(@problem.tests_dir, filename.name).downcase
             FileUtils.rm(dest) if File.exists?(dest)
             filename.extract dest
           end
@@ -87,7 +88,7 @@ class Admin::ProblemsController < Admin::BaseController
         FileUtils.cp @upload.local_path, File.join(@problem.tests_dir, @upload.original_filename)
       end
     end
-    
+    Configuration.set!(Configuration::TESTS_UPDATED_AT, Time.now)
     flash[:notice] = "File successfully upoaded"
     
     redirect_to admin_contest_problem_path(@problem.contest, @problem)
