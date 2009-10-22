@@ -1,1 +1,0 @@
-Write a program which prints "Hello World" on a single line to the standard output.
