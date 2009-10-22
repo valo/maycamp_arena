@@ -2,6 +2,7 @@ class MainController < ApplicationController
   layout "main", :except => :results
   
   def index
+    @contests = Contest.current.select {|contest| contest.visible or current_user.andand.admin?}
   end
   
   def results
