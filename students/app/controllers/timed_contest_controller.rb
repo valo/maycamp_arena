@@ -37,7 +37,7 @@ class TimedContestController < ApplicationController
   private
     def verify_contest
       @contest = Contest.find_by_id(params[:contest_id])
-      if @contest.nil? or @contest.expired_for_user(current_user)
+      if @contest.nil? or @contest.expired_for_user(current_user) or (!@contest.visible and !current_user.admin?)
         redirect_to root_path
         return
       end
