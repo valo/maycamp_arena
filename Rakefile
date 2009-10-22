@@ -1,3 +1,5 @@
+Rake.application.options.trace = true
+
 task :cucumber do
   exec "cd students; rake db:migrate cucumber RAILS_ENV=runcoderun"
 end
