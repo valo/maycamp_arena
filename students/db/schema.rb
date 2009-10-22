@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091011060434) do
+ActiveRecord::Schema.define(:version => 20091022093551) do
 
   create_table "contest_start_events", :force => true do |t|
     t.integer  "user_id"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20091011060434) do
     t.boolean  "practicable",     :default => false
     t.boolean  "results_visible", :default => false
     t.boolean  "auto_test",       :default => false
+    t.boolean  "visible",         :default => true
   end
 
   create_table "news", :force => true do |t|
