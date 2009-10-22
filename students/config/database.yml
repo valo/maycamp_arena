@@ -12,7 +12,7 @@ development:
 test: &TEST
   adapter: mysql
   database: spoj0_test
-  username: root
+  username: build
   password:
 
 production:
@@ -23,10 +23,3 @@ production:
 
 cucumber:
   <<: *TEST
-  
-runcoderun:
-  adapter: mysql
-  database: spoj0_runcoderun
-  username: build
-  password:
-  

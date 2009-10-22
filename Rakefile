@@ -1,11 +1,11 @@
 Rake.application.options.trace = true
 
 task :cucumber do
-  exec "cd students; rake db:migrate cucumber RAILS_ENV=runcoderun"
+  exec "cd students; rake db:migrate cucumber RAILS_ENV=test"
 end
 
 task :create_db do
-  cmd_string = %[mysqladmin create spoj0_runcoderun -u build]
+  cmd_string = %[mysqladmin create spoj0_test -u build]
   system cmd_string
   system "mkdir sets"
 end
