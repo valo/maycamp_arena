@@ -1,4 +1,4 @@
-class ContestStartEvent < ActiveRecord::Migration
+class CreateContestStartEvent < ActiveRecord::Migration
   def self.up
     create_table :contest_start_events, :force => true do |t|
       t.references :user
