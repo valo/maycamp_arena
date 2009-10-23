@@ -21,14 +21,14 @@ Feature: Administer users
     Given I am on the user list in the admin panel
     And I follow "Нов потребител"
     When I fill in the following:
-      | Потребителско име:  | valo                      |
-      | Истинско име:       | Valentin Mihov            |
-      | Email:              | valentin.mihov@gmail.com  |
-      | Парола              | secret                    |
-      | Паролата отново:    | secret                    |
+      | Потребителско име: | pesho                  |
+      | Истинско име:      | Pesho Peshev           |
+      | Email:             | pesho.peshev@gmail.com |
+      | Парола             | secret                 |
+      | Паролата отново:   | secret                 |
     And I press "Създаване"
     Then I should be on the user list in the admin panel
-    And I should see "Valentin Mihov"
+    And I should see "pesho"
     
   Scenario: View a user
     Given there is a running contest named "Fall championship"
@@ -37,4 +37,19 @@ Feature: Administer users
     When I am on the user list in the admin panel
     And I follow "Покажи"
     Then I should see "A+B Problem" within "table.runs_list"
-    
+
+  Scenario: Update a user
+    Given I am on the user list in the admin panel
+    When I follow "Промяна"
+    And I fill in the following:
+      | Истинско име:      | Pesho Peshev           |
+    And I press "Обновяване"
+    And I am not logged in
+    And I am on the login page
+    And I fill in the following:
+      | login                 | valo                      |
+      | password              | secret                    |
+    And I press "Влез"
+    Then I should be on the contest list in the admin panel
+    And I should see "Pesho Peshev (Изход)"
+  

@@ -24,7 +24,7 @@ class Admin::UsersController < Admin::BaseController
   def update
     @user = User.find params[:id]
     
-    @user.attributes = params[:user]
+    @user.attributes = params[:user].except(:password, :password_confirmation)
     
     @user.admin = params[:user][:admin]
     unless params[:user][:password].blank?
