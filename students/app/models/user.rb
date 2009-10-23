@@ -10,11 +10,11 @@ class User < ActiveRecord::Base
   validates_presence_of     :email
   validates_length_of       :email,    :within => 6..100 #r@a.wk
   
-  validates_presence_of     :password, :on => :create
-  validates_confirmation_of :password, :on => :create
+  validates_presence_of     :unencrypted_password, :on => :create
+  validates_confirmation_of :unencrypted_password, :on => :create
   
-  attr_accessor :password_confirmation
-  attr_protected :password_confirmation, :admin
+  attr_accessor :unencrypted_password
+  attr_protected :unencrypted_password, :unencrypted_password_confirmation, :admin
 
   has_many :contest_start_events, :dependent => :destroy
   has_many :runs, :dependent => :destroy
@@ -52,12 +52,9 @@ class User < ActiveRecord::Base
     end
   end
   
-  def password=(value)
+  def unencrypted_password=(value)
+    @unencrypted_password = value
     write_attribute(:password, self.class.encrypt_password(value))
-  end
-  
-  def password_confirmation=(value)
-    @password_confirmation = self.class.encrypt_password(value)
   end
   
   private

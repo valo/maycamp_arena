@@ -8,12 +8,10 @@ class UsersController < ApplicationController
   def create
     reset_session
     @user = User.new(params[:user])
-    success = @user && @user.save
-    if success && @user.errors.empty?
-      # Protects against session fixation attacks, causes request forgery
-      # protection if visitor resubmits an earlier form using back
-      # button. Uncomment if you understand the tradeoffs.
-      # reset session
+    @user.unencrypted_password = params[:user][:unencrypted_password]
+    @user.unencrypted_password_confirmation = params[:user][:unencrypted_password_confirmation]
+    
+    if @user.save
       self.current_user = @user # !! now logged in
       redirect_to root_path
       flash[:notice] = "Благодаря за регистрацията."

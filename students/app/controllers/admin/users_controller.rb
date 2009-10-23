@@ -9,6 +9,8 @@ class Admin::UsersController < Admin::BaseController
   
   def create
     @user = User.new params[:user]
+    @user.unencrypted_password = params[:user][:unencrypted_password]
+    @user.unencrypted_password_confirmation = params[:user][:unencrypted_password_confirmation]
     
     if @user.save
       redirect_to :action => "index"
@@ -24,12 +26,12 @@ class Admin::UsersController < Admin::BaseController
   def update
     @user = User.find params[:id]
     
-    @user.attributes = params[:user].except(:password, :password_confirmation)
+    @user.attributes = params[:user].except(:unencrypted_password, :unencrypted_password_confirmation)
     
     @user.admin = params[:user][:admin]
-    unless params[:user][:password].blank?
-      @user.password = params[:user][:password]
-      @user.password_confirmation = params[:user][:password_confirmation]
+    unless params[:user][:unencrypted_password].blank?
+      @user.unencrypted_password = params[:user][:unencrypted_password]
+      @user.unencrypted_password_confirmation = params[:user][:unencrypted_password_confirmation]
     end
     
     if @user.save
