@@ -1,7 +1,5 @@
 <h1>Редактиране на потребител</h1>
 <br />
-<% @user.password = @user.password_confirmation = nil %>
-
 <%= error_messages_for :user %>
 <% form_for [:admin, @user] do |f| -%>
 

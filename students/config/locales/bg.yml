@@ -2,7 +2,6 @@
 # by Samson Behar <master.webmaster.master@gmail.com>
 #
 # Минимална локализация на приложения за поддръжка на български език.
- 
 bg:
   date:
     formats:
@@ -179,7 +178,10 @@ bg:
         even: "може да е единствено нечетно"
     models:
       user: Потребител
-      user_login: Потребителско име
+    attributes:
+      user:
+        login: Потребителското име
+        unencrypted_password: Паролата
   support:
     array:
       # Rails 2.2

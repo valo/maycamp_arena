@@ -29,6 +29,25 @@ Feature: Administer users
     And I press "Създаване"
     Then I should be on the user list in the admin panel
     And I should see "pesho"
+
+  Scenario: Create new user and login
+    Given I am on the user list in the admin panel
+    And I follow "Нов потребител"
+    When I fill in the following:
+      | Потребителско име: | pesho                  |
+      | Истинско име:      | Pesho Peshev           |
+      | Email:             | pesho.peshev@gmail.com |
+      | Парола             | secret                 |
+      | Паролата отново:   | secret                 |
+    And I press "Създаване"
+    And I follow "Valentin Mihov (Изход)"
+    And I am on the login page
+    And I fill in the following:
+      | login | pesho |
+      | password | secret |
+    And I press "Влез"
+    Then I should be on the homepage
+    And I should see "Pesho Peshev (Изход)"
     
   Scenario: View a user
     Given there is a running contest named "Fall championship"

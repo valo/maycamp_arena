@@ -1,6 +1,7 @@
 Factory.define :user do |u|
   u.email "valentin.mihov@gmail.com"
-  u.password "secret"
+  u.unencrypted_password "secret"
+  u.unencrypted_password_confirmation "secret"
   u.admin false
   u.name "Valentin Mihov"
 end
