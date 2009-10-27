@@ -28,6 +28,19 @@ class Admin::RunsController < Admin::BaseController
     @run = Run.new
   end
   
+  def edit
+    @run = Run.find(params[:id])
+  end
+  
+  def update
+    @run = Run.find(params[:id])
+    if @run.update_attributes(params[:run])
+      redirect_to(admin_contest_problem_run_path(@run.problem.contest, @run.problem, @run))
+    else
+      render :action => "edit"
+    end
+  end
+  
   def create
     @contest = Contest.find(params[:contest_id])
     @problem = Problem.find(params[:problem_id])

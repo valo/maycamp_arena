@@ -62,3 +62,24 @@ Story: Administer runs
     Then I should see "pending"
     And I should see "A+B problem"
     And I should not see "Пращане на решение"
+
+  Scenario: Editing a run
+    Given I am on the contest list in the admin panel
+    And I follow "Задачи"
+    And I follow "Решения"
+    And I follow "Пращане на решение"
+    And I select "Valentin Mihov" from "Потребител:"
+    And I fill in the following:
+      | Език: | C/C++ |
+      | Сорс код: | #include <stdio.h> |
+    And I press "Изпрати"
+    When I am on the contest list in the admin panel
+    And I follow "Решения"
+    And I follow "Редактиране"
+    And I fill in the following:
+      | Език: | C/C++ |
+      | Сорс код: | #include <iostream> |
+    And I press "Промени"
+    Then I should see "#include <iostream>"
+    And I should see "Source code"
+    And I should see "Log"
