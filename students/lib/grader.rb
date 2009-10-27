@@ -20,7 +20,7 @@ class Grader
     
     if grader_app
       SetsSync.sync_sets(grader_app)
-      self.tests_updated_at = Time.now
+      @tests_updated_at = Time.now
     end
   end
   
@@ -109,10 +109,10 @@ class Grader
     end
 
     def check_durty_tests
-      if (last_update = Configuration.get(Configuration::TESTS_UPDATED_AT)) and last_update > self.tests_updated_at
+      if (last_update = Configuration.get(Configuration::TESTS_UPDATED_AT)) and last_update > @tests_updated_at
         # Download the tests again
         SetsSync.sync_sets(grader_app)
-        self.tests_updated_at = last_update
+        @tests_updated_at = last_update
       end
     end
 end
