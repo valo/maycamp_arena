@@ -35,3 +35,8 @@ Given /^the user "([^\"]*)" submit a run for problem "([^\"]*)" with attributes:
                 :user_id => User.find_by_login(user_login).id, 
                 :problem_id => Problem.find_by_name(problem_name).id))
 end
+
+Given /^the contest "([^\"]*)" is finished$/ do |contest_name|
+  Time.stubs(:now => Contest.find_by_name!(contest_name).end_time + 1.second)
+end
+
