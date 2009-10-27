@@ -7,4 +7,11 @@
 <%= h @run.source_code %>
 </code>
 </pre>
+
+<% if @run.status.include?("ce") %>
+    <p>Log:</p>
+    <pre>
+<%= @run.log %>
+    </pre>
+<% end %>
 <%= link_to "Обратно към състезанието", :action => :open_contest, :contest_id => @run.problem.contest.id %>
