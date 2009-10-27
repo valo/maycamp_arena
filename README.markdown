@@ -23,9 +23,9 @@ Follow these steps:
 
   rake db:drop db:create db:migrate
    
-* Run the rails app with
+* Run the rails app from the students folder with
 
-  ./start/server
+  ./script/server
    
 The admin user is with login "root" and password "" (empty string)
 
