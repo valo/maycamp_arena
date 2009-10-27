@@ -2,80 +2,10 @@
 <br />
 <p><em>Оставащо време:</em> <strong><%= time_left_for_user_in_contest(current_user, @contest) -%></strong></p>
 <br />
-<h2>Задачи</h2>
-<br />
-<% if !@contest.problems.blank? %>
-  <table>
-    <tr>
-      <th>Условие</th>
-      <th>Time limit</th>
-    </tr>
-  <% for problem in @contest.problems %>
-    <tr>
-      <td><%= link_to problem.name, :action => "get_problem_description", :contest_id => @contest.id, :problem_id => problem.id %></td>
-      <td><%= problem.time_limit %> sec.</td>
-    </tr>
-  <% end %>
-  </table>
-<% else %>
-  Няма задачи в това състезание
-<% end %>
+<%= render :partial => 'tasks' %>
 
 <br />
-<h2>Решения</h2>
-<br />
-<% if !@contest.runs.find_all_by_user_id(current_user.id).blank? %>
-  <em>Само последното изпратено решение за всяка задача ще се има предвид при оценяването.</em>
-  <br />
-  <br />
-  <table>
-    <tr>
-      <th>Id</th>
-      <th>Пратено на</th>
-      <th>Задача</th>
-      <th>Език</th>
-      <th>Статус</th>
-      <th></th>
-    </tr>
-  <% for run in @contest.runs.find_all_by_user_id(current_user.id) %>
-    <tr>
-      <td><%= run.id %></td>
-      <td><%= run.created_at.to_s :long %></td>
-      <td><%= run.problem.name %></td>
-      <td><%= run.language %></td>
-      <td><%= run.status %></td>
-      <td>
-        <%= link_to "Виж сорс кода", :action => :view_source, :contest_id => @contest.id, :run_id => run.id %>
-      </td>
-    </tr>
-  <% end %>
-  </table>
-<% else %>
-  <p>Няма изпратени решения.</p>
-<% end %>
+<%= render :partial => 'user_runs' %>
 
 <br />
-<h2>Изпрати решение</h2>
-<br />
-<% form_for @run, :url => { :action => :submit_solution, :contest_id => @contest.id } do |f| -%>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :problem_id, "Задача:" %>
-    <%= f.select :problem_id, @contest.problems.map { |p| [p.name, p.id] } %>
-  </p>
-  <br />
-  <p>
-    <%= f.label :language, "Език:" %>
-    <%= f.select :language, Run.languages %>
-  </p>
-  <br />
-  <p>
-    <%= f.label :source_code, "Сорс код:" %>
-    <%= f.text_area :source_code, :class => "source_code" %>
-  </p>
-  <br />
-  <p>
-    <%= f.submit "Изпрати" %>
-  </p>
-  <%= link_to "Обратно към списъка със състезания", :action => :index %>
-<% end -%>
+<%= render :partial => 'send_solution' %>

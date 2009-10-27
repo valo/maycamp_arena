@@ -12,7 +12,7 @@ class MainController < ApplicationController
       return
     end
     
-    students = @contest.runs.map(&:user).uniq
+    students = @contest.runs.during_contest.map(&:user).uniq
     # Results are in the form:
     # [
     #   [student_name, [task1_test1_pts, task1_test2_pts], [task2_test1_pts, ...]]
@@ -22,7 +22,7 @@ class MainController < ApplicationController
       [student.name] + @contest.problems.map do |problem|
         # FIXME: We should improve that for the practice area to take only the
         # runs submitted during the contest
-        last_run = problem.runs.select { |r| r.user == student }.first
+        last_run = problem.runs.during_contest.select { |r| r.user == student }.first
         
         if last_run
           total += last_run.total_points

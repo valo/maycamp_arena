@@ -3,8 +3,10 @@
 
 class ApplicationController < ActionController::Base
   # protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  filter_parameter_logging :password
+  # filter_parameter_logging :password
   before_filter :set_locale
+
+  layout "main"
 
   protected
     # Returns true or false if the user is logged in.
