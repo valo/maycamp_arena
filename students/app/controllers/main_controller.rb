@@ -3,6 +3,7 @@ class MainController < ApplicationController
   
   def index
     @contests = Contest.current.select {|contest| contest.visible or current_user.andand.admin?}
+    @practice_contests = Contest.practicable.select {|contest| contest.visible or current_user.andand.admin?}
   end
   
   def results
