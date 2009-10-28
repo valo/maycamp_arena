@@ -15,7 +15,7 @@ class Configuration < ActiveRecord::Base
       when "int" then self.value.to_i
       when "float" then self.value.to_f
       when "bool" then self.value == "true" or self.value == "1"
-      when "datetime" then Time.parse(self.value)
+      when "datetime" then self.value.to_time(:local)
       else self.value
     end
   end
