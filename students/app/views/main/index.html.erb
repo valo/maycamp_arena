@@ -12,31 +12,7 @@
   <br />
   <br />  
   <%= render :partial => "past_contests" %>
-<% end %>
-
-<% if current_user %>
-  <h2>Практика</h2>
-  <p>Тук можете да се упражнявате на вече минали състезания.</p>
-  <% if !Contest.practicable.blank? %>
-    <table>
-      <tr>
-        <th>Име</th>
-        <th>Текущ резултат</th>
-        <th>Максимален резултат</th>
-        <th></th>
-      </tr>
-      <% for contest in Contest.practicable %>
-        <tr>
-          <td><%= contest.name %></td>
-          <td><%= current_user.best_practice_score(contest) %></td>
-          <td><%= contest.max_score %></td>
-          <td>
-            <%= link_to "Практикувай", practice_path(:action => :open_contest, :contest_id => contest.id) %>
-          </td>
-        </tr>
-      <% end %>
-    </table>
-  <% else %>
-    В момента няма състезания, на които да можете да се упражнявате.
-  <% end %>
+  <br />
+  <br />
+  <%= render :partial => "practice_area" %>
 <% end %>
