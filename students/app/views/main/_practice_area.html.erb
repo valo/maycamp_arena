@@ -6,15 +6,13 @@
 <table>
   <tr>
     <th>Име</th>
-    <th>Текущ резултат</th>
-    <th>Максимален резултат</th>
+    <th>Вашите точки</th>
     <th></th>
   </tr>
   <% for contest in @practice_contests %>
     <tr>
       <td><%= contest.name %></td>
-      <td><%= current_user.best_practice_score(contest) %></td>
-      <td><%= contest.max_score %></td>
+      <td><strong><%= current_user.best_practice_score(contest) %></strong> от максимално <%= contest.max_score %></td>
       <td>
         <%= link_to "Практикувай", practice_path(:action => :open_contest, :contest_id => contest.id) %>
       </td>
