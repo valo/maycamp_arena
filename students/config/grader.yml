@@ -3,7 +3,7 @@ judge:
   root: ../../sandbox
   user: maycamp
 valo:
-  host: http://localhost:3000
+  host: http://arena.maycamp.com
   root: /tmp
   user: valentinmihov
 grader:
