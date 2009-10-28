@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
       contest.problems.map do |problem|
         # Find the max run for each problem
         problem.runs.map(&:total_points).max
-      end.sum
+      end.compact.sum
     end
   end
   
