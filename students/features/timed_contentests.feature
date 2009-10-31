@@ -34,6 +34,16 @@ Story: Submit solution
     Then I should see "pending"
     And I should see "Виж сорс кода"
 
+  Scenario: Submit a solution to a running contest with a source file
+    Given I am on the homepage
+    And I follow "ЗАПОЧНИ СЪСТЕЗАНИЕТО!"
+    When I select "C/C++" from "run_language"
+    And I select "Task" from "run_problem_id"
+    And I attach the file at "test/fixtures/source_code.c" to "Качи решение:"
+    And I press "Изпрати"
+    Then I should see "pending"
+    And I should see "Виж сорс кода"
+
   Scenario: View source code
     Given I am on the homepage
     And I follow "ЗАПОЧНИ СЪСТЕЗАНИЕТО!"
