@@ -1,9 +1,12 @@
+require 'ostruct'
+
 class MainController < ApplicationController
   layout "main", :except => :results
   
   def index
     @contests = Contest.current.select {|contest| contest.visible or current_user.andand.admin?}
     @practice_contests = Contest.practicable.select {|contest| contest.visible or current_user.andand.admin?}
+    @top_scores = calc_rankings[0..2]
   end
   
   def results
@@ -38,6 +41,10 @@ class MainController < ApplicationController
     render :action => :results, :layout => "results"
   end
   
+  def rankings
+    @rankings = calc_rankings
+  end
+  
   def download_tests
     Dir.chdir $config[:sets_root] do
       FileUtils.rm "sets.zip" if File.file?("sets.zip")
@@ -51,4 +58,25 @@ class MainController < ApplicationController
 
     send_file File.join($config[:sets_root], "sets.zip")
   end
+
+  private
+    def calc_rankings
+      User.all(:conditions => { :admin => false }, :include => {:runs => :problem}).map do |user|
+        rank = OpenStruct.new(:user => user)
+
+        rank.total_points = user.runs.group_by(&:problem).map do |problem, runs|
+          runs.map(&:total_points).max
+        end.sum
+
+        rank.full_solutions = user.runs.group_by(&:problem).map do |problem, runs|
+          runs.map(&:total_points).max == 100 ? 1 : 0
+        end.sum
+
+        rank.total_runs = user.runs.count
+
+        rank
+      end.sort! do |x,y|
+        [y.total_points, y.full_solutions, x.total_runs, x.user.name] <=> [x.total_points, x.full_solutions, y.total_runs, y.user.name]
+      end
+    end
 end

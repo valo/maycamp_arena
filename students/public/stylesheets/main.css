@@ -36,3 +36,15 @@ textarea.source_code {
     width: 600px;
     height: 600px;
 }
+
+.rank_1 {
+  background-color: yellow;
+}
+
+.rank_2 {
+  background-color: silver;
+}
+
+.rank_3 {
+  background-color: #C93;
+}
