@@ -28,6 +28,8 @@ module NavigationHelpers
       admin_users_path
     when /the results page for contest "([^\"]+)"/
       url_for :controller => :main, :action => :results, :contest_id => Contest.find_by_name!($1)
+    when /the rankings page/
+      url_for :controller => :main, :action => :rankings
     # Add more mappings here.
     # Here is a more fancy example:
     #
