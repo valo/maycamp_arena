@@ -15,7 +15,7 @@
       <th>Общо</th>
     <% end %>
   </tr>
-  <% @results.each do |result| %>
+  <% @results.each_with_index do |result, index| %>
     <tr>
       <td><%= result.first %></td>
       <% result[1..-2].each do |problem_pts| %>

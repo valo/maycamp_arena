@@ -1,15 +1,12 @@
-  <p>
-    <%= f.label :user_id, "Потребител:" %>
-    <%= f.select :user_id, User.all.map { |p| [p.name, p.id] } %>
-  </p>
-  <br />
-  <p>
-    <%= f.label :language, "Език:" %>
-    <%= f.select :language, Run.languages %>
-  </p>
-  <br />
-  <p>
-    <%= f.label :source_code, "Сорс код:" %>
-    <%= f.text_area :source_code %>
-  </p>
-  <br />
+<p>
+  <%= f.label :user_id, "Потребител:" %>
+  <%= f.select :user_id, User.all.map { |p| [p.name, p.id] } %>
+</p>
+<p>
+  <%= f.label :language, "Език:" %>
+  <%= f.select :language, Run.languages %>
+</p>
+<p>
+  <%= f.label :source_code, "Сорс код:" %>
+  <%= f.text_area :source_code %>
+</p>

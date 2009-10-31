@@ -48,3 +48,7 @@ textarea.source_code {
 .rank_3 {
   background-color: #C93;
 }
+
+.new_run p, .edit_contest p, .new_contest p, .new_user p, .edit_user p, .new_problem p, .edit_problem p {
+  margin-top: 1em;
+}

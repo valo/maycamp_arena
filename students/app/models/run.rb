@@ -28,6 +28,10 @@ class Run < ActiveRecord::Base
     status.split(/\s+/).map { |out| out == "ok" ? (BigDecimal("100") / total_tests) : out }
   end
   
+  def source_file=(file)
+    self.source_code = file.read
+  end
+  
   def total_points
     points_float.sum { |test| test.is_a?(BigDecimal) ? test : 0 }.round.to_i
   end
