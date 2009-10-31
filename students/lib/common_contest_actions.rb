@@ -1,6 +1,6 @@
 module CommonContestActions
   def submit_solution
-    @run = Run.new(params[:run].merge(:user => current_user))
+    @run = Run.new(params[:run].merge(:user => current_user).reject { |key, value| value.blank? })
     
     @contest = Contest.find_by_id(params[:contest_id])
     if @contest.auto_test?

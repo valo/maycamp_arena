@@ -2,28 +2,23 @@
     <%= f.label :login, "Потребителско име:" %>
     <%= f.text_field :login %>
 </p>
-<br />
 <p>
     <%= f.label :name, "Истинско име:" %>
     <%= f.text_field :name %>
 </p>
-<br />
 <p>
     <%= f.label :email, "Email:" %>
     <%= f.text_field :email %>
 </p>
-<br />
 <p>
     <%= f.label :unencrypted_password, "Парола:" %>
     <%= f.password_field :unencrypted_password %>
     <em>Не въвеждайте нищо ако не желаете да я променяте.</em>
 </p>
-<br />
 <p>
     <%= f.label :unencrypted_password_confirmation, "Паролата отново:" %>
     <%= f.password_field :unencrypted_password_confirmation %>
 </p>
-<br />
 <p>
   <%= f.label :admin, "Администратор?" %>
   <%= f.check_box :admin %>
