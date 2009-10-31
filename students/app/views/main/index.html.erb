@@ -7,6 +7,12 @@
   Ако нямате потребител можете да си създадете от <%= link_to "тук", signup_path %>.</p>
 <% end %>
 
+<h2>Текущо класиране</h2>
+<br />
+<p>Това са текущите топ трима в системата. За пълно класиране кликни <%= link_to "тук", :action => :rankings %>.</p>
+<br/>
+<%= render :partial => "rankings", :locals => { :rankings => @top_scores } %>
+
 <% if current_user %>
   <%= render :partial => "current_contests" %>
   <br />
