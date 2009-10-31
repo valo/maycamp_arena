@@ -36,3 +36,18 @@ textarea.source_code {
     width: 600px;
     height: 600px;
 }
+
+#rules_page_main {
+    margin-left: 20px; 
+    margin-right: 120px;
+}
+
+#rules_page_main li {
+    margin-left: 25px;
+}
+
+#rules_page_main .notice_box {
+    background: #F7F7F7;
+    border: 1px solid #CCCCCC;
+    padding: 5px 5px 5px 5px;
+}
