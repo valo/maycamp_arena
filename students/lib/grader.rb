@@ -1,5 +1,10 @@
+require File.join(File.dirname(__FILE__), "shell_utils")
+
 class Grader
-  attr_reader :root, :user, :runner, :tests_updated_at
+  include ShellUtils
+  attr_reader :root, :user, :runner, :tests_updated_at, :grader_app
+  
+  LANG_TO_COMPILER = {}
 
   class << self
     def with_stdout_and_stderr(new_stdout, new_stderr, &block)
@@ -17,11 +22,9 @@ class Grader
   def initialize(root, user, grader_app = nil)
     @root = root
     @user = user
+    @grader_app = grader_app
     
-    if grader_app
-      SetsSync.sync_sets(grader_app)
-      @tests_updated_at = Time.now
-    end
+    sync_tests if @grader_app
   end
   
   def run
@@ -101,18 +104,16 @@ class Grader
         end
       }.join(" ")
     end
-    
-    def verbose_system(cmd)
-      puts cmd
-      system cmd
-      puts "status: #{$?.exitstatus}"
+
+    def sync_tests
+      SetsSync.sync_sets(@grader_app)
+      @tests_updated_at = Time.now
     end
 
     def check_durty_tests
       if (last_update = Configuration.get(Configuration::TESTS_UPDATED_AT)) and last_update > @tests_updated_at
         # Download the tests again
-        SetsSync.sync_sets(grader_app)
-        @tests_updated_at = last_update
+        sync_tests
       end
     end
 end
