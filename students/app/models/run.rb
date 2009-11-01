@@ -1,9 +1,16 @@
 class Run < ActiveRecord::Base
   default_scope :order => 'runs.created_at DESC'
   
-  LANGUAGES = ["C/C++"]
-  WAITING = "waiting"
-  JUDGING = "judging"
+  module Constants
+    LANG_C_CPP = "C/C++"
+    LANG_PAS = "Pascal"
+    
+    LANGUAGES = [LANG_C_CPP, LANG_PAS]
+    WAITING = "waiting"
+    JUDGING = "judging"
+  end
+  
+  include Constants
   
   belongs_to :user
   belongs_to :problem
