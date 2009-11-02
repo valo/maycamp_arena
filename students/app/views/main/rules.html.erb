@@ -61,11 +61,11 @@
     <br />
     <ul>
       <li><strong>0</strong> - не е изпратил решение на задачата
-      <li><strong>ce</strong> - решението не се компилира
-      <li><strong>wa</strong> - отговорът му е грешен
-      <li><strong>tl</strong> - използва повече от обявеното в условието разрешено време
-      <li><strong>ml</strong> - използва повече от обявената в условието памет
-      <li><strong>re</strong> - решението е crash-нало
+      <li><strong>ce</strong> - решението не се компилира (<em>compilation error</em>)
+      <li><strong>wa</strong> - отговорът му е грешен (<em>wrong answer</em>)
+      <li><strong>tl</strong> - използва повече от обявеното в условието разрешено време (<em>time limit exceeded</em>)
+      <li><strong>ml</strong> - използва повече от обявената в условието памет (<em>memory limit exceeded</em>)
+      <li><strong>re</strong> - решението е crash-нало (<em>runtime error - най-често при излизане извън масивите</em>)
       <li><strong>ok</strong> - тестът е бил успешен
     </ul>
     <br />
@@ -78,13 +78,22 @@
     g++ program.cpp -o program -O2 -s -static -lm -x c++
     </pre>
     <br />
-    <p>Тестовата машина е с процесор <strong>Intel(R) Pentium(R) 4 CPU 1.80GHz</strong> на операционна система Linux version 2.6.18-6-486 (Debian 2.6.18.dfsg.1-18etch1).</p>
+    <p>Версията на компилатора е <strong>g++ (Debian 4.3.2-1.1) 4.3.2</strong>. Тестовата машина е с процесор 
+    <strong>Intel(R) Pentium(R) 4 CPU 1.80GHz</strong> на операционна система Linux version 2.6.18-6-486 (Debian 2.6.18.dfsg.1-18etch1).</p>
+    <br />
+    
+    <div class="notice_box">
+        <p><strong>Важно:</strong> Различните компилатори имат различни особености и е напълно възможно решението ви
+        да се компилира или да работи без проблеми под Visual Studio, но да не работи или дори да не се компилира на арената.</p>
+    </div>
     <br />
     
     <h3>За писането на решения</h3>
     <br />
-    <p>В задачи с големи вход и изход използвайте printf и scanf за вход и изход, понеже потоците са доста по-бавни.</p>
+    <p>В задачи с големи вход и изход използвайте printf и scanf за вход и изход, понеже потоците са доста по-бавни (което може
+    да доведе до това иначе вярно решение да получи статус "tl").</p>
     <br />
+
     <p>За да четете long long и за да пишете long long използвайте %lld:</p>
     <br />
     <pre>
