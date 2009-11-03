@@ -9,8 +9,8 @@ require 'getoptlong'
 require 'etc'
 
 def print_stats(used_mem, used_time)
-  puts "Used time: #{used_time}"
-  puts "Used mem: #{used_mem}"
+  $stderr.puts "Used time: #{used_time}"
+  $stderr.puts "Used mem: #{used_mem}"
 end
 
 opts = GetoptLong.new(
