@@ -59,7 +59,7 @@ end
 used_memory = used_time = 0
 loop {
   used_memory = [used_memory, RProcFS.data(pid)].max
-  used_time = [used_time, [:utime, :stime, :cutime, :cstime].map { |m| RProcFS.send(m) }.inject(0) { |a, sum| a + sum }]
+  used_time = [used_time, [:utime, :stime, :cutime, :cstime].map { |m| RProcFS.send(m, pid) }.inject(0) { |a, sum| a + sum }]
   
   if mem and RProcFS.data(pid) > mem
     Process.kill "KILL", pid
