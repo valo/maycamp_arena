@@ -85,7 +85,13 @@ class Admin::ProblemsController < Admin::BaseController
           end
         end
       else
-        FileUtils.cp @upload.local_path, File.join(@problem.tests_dir, @upload.original_filename)
+        dest = File.join(@problem.tests_dir, @upload.original_filename)
+        FileUtils.cp @upload.local_path, dest
+        # Set the permissions of the copied file to the right ones. This is
+        # because the uploads are created with 0600 permissions in the /tmp
+        # folder. The 0666 & ~File.umask will set the permissions to the default
+        # ones of the current user. See the umask man page for details
+        FileUtils.chmod 0666 & ~File.umask, dest
       end
     end
     Configuration.set!(Configuration::TESTS_UPDATED_AT, Time.now.utc)
