@@ -14,13 +14,13 @@ namespace :grader do
   desc "Start the grader"
   task :start do
     grader_conf = get_config
-    Grader.new(grader_conf["root"], grader_conf["user"]).run
+    Grader.new(grader_conf.with_indifferent_access).run
   end
   
   desc "Start the grader without sync"
   task :start_nosync do
     grader_conf = get_config
-    Grader.new(grader_conf["root"], grader_conf["user"]).run
+    Grader.new(grader_conf.with_indifferent_access).run
   end
   
   desc "Syncronize the local tests with the remote tests"
