@@ -19,12 +19,11 @@ class Grader
     end
   end
 
-  def initialize(root, user, grader_app = nil)
+  def initialize(root, user)
     @root = root
     @user = user
-    @grader_app = grader_app
     
-    sync_tests if @grader_app
+    sync_tests
   end
   
   def run
@@ -106,7 +105,7 @@ class Grader
     end
 
     def sync_tests
-      SetsSync.sync_sets(@grader_app)
+      SetsSync.sync_sets(get_config)
       @tests_updated_at = Time.now
     end
 
