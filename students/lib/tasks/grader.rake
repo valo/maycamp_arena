@@ -26,6 +26,6 @@ namespace :grader do
   desc "Syncronize the local tests with the remote tests"
   task :sync do
     grader_conf = get_config
-    SetsSync.sync_sets(grader_conf.with_indifferent_access)
+    SetsSync.sync_sets(grader_conf)
   end
 end

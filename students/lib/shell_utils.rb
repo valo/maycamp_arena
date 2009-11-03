@@ -13,6 +13,6 @@ module ShellUtils
       puts "Cannot find configuration for #{config}. Check your config/grader.yml"
       exit 1
     end
-    grader_conf[config]
+    grader_conf[config].with_indifferent_access
   end
 end
