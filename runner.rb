@@ -3,20 +3,14 @@
 # Spacial status codes:
 # 127 - memory limit
 # 15 - time limit
+require 'rubygems'
+require 'rprocfs'
 require 'getoptlong'
 require 'etc'
 
-PAGE_SIZE = 4092
-
-def total_runtime(pid)
-  # stats = File.read("/proc/#{pid}/stat").chomp.split(/\s+/)
-  # stats[13].to_i + stat
-  t = Process.times
-  t.utime + t.stime
-end
-
-def process_state(pid)
-  File.read("/proc/#{pid}/stat").chomp.split(/\s+/)[2]
+def print_stats(used_mem, used_time)
+  puts "Used time: #{used_time}"
+  puts "Used mem: #{used_mem}"
 end
 
 opts = GetoptLong.new(
@@ -34,7 +28,7 @@ user = nil
 opts.each do |opt, value|
   case opt
     when '--mem' then mem = value.to_i
-    when '--time' then timelimit = value.to_i
+    when '--time' then timelimit = value.to_f
     when '--procs' then proclimit = value.to_i
     when '--user' then user = value
   end
@@ -48,7 +42,7 @@ end
 cmd = ARGV.shift
 
 pid = fork do
-  Process.setrlimit(Process::RLIMIT_CPU, timelimit, timelimit) if timelimit
+  # Process.setrlimit(Process::RLIMIT_CPU, timelimit, timelimit) if timelimit
   Process.setrlimit(Process::RLIMIT_NPROC, proclimit, proclimit) if proclimit
   Process.setpriority(Process::PRIO_PROCESS, 0, 20)
   
@@ -62,23 +56,30 @@ if !pid
   exit 1
 end
 
+used_memory = used_time = 0
 loop {
-  data_size = File.read("/proc/#{pid}/statm").chomp.split(/\s+/)[5]
+  used_memory = [used_memory, RProcFS.data(pid)].max
+  used_time = [used_time, [:utime, :stime, :cutime, :cstime].map { |m| RProcFS.send(m) }.sum]
   
-  if mem and data_size.to_i * PAGE_SIZE > mem
+  if mem and RProcFS.data(pid) > mem
     Process.kill "KILL", pid
     Process.waitall
+    print_stats(used_memory, used_time)
     exit 127
   end
   
-  if timelimit and process_state(pid) == "S"
+  if timelimit and (RProcFS.state(pid) == "S" or used_time > timelimit)
     Process.kill "KILL", pid
     Process.waitall
+    print_stats(used_memory, used_time)
     exit 9
   end
   
   status = Process.wait(pid, Process::WNOHANG)
-  exit($?.exitstatus || $?.termsig || $?.stopsig) if status
+  if status
+    print_stats(used_memory, used_time)
+    exit($?.exitstatus || $?.termsig || $?.stopsig)
+  end
   
   sleep 0.001
 }
