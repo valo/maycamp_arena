@@ -6,28 +6,26 @@ puts "Running in #{RAILS_ENV} environment"
 
 require File.expand_path(File.dirname(__FILE__) + "/../../config/environment")
 require 'grader'
+require 'shell_utils'
 
 namespace :grader do
-  def get_config
-    config = `hostname`.chomp
-    grader_conf = YAML.load_file(File.join(RAILS_ROOT, "config/grader.yml"))
-    puts "Starting the grader for #{config}"
-    if !grader_conf[config]
-      puts "Cannot find configuration for #{config}. Check your config/grader.yml"
-      exit 1
-    end
-    grader_conf[config]
-  end
+  include ShellUtils
   
   desc "Start the grader"
   task :start do
     grader_conf = get_config
-    Grader.new(grader_conf["root"], grader_conf["user"], grader_conf["host"]).run
+    Grader.new(grader_conf["root"], grader_conf["user"]).run
   end
   
   desc "Start the grader without sync"
   task :start_nosync do
     grader_conf = get_config
     Grader.new(grader_conf["root"], grader_conf["user"]).run
+  end
+  
+  desc "Syncronize the local tests with the remote tests"
+  task :sync do
+    grader_conf = get_config
+    SetsSync.sync_sets(grader_conf)
   end
 end
