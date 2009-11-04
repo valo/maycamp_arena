@@ -56,6 +56,8 @@ if !pid
   exit 1
 end
 
+sleep([timelimit / 2, 0.1].min) if timelimit
+
 used_memory = used_time = 0
 loop {
   used_memory = [used_memory, RProcFS.data(pid)].max
