@@ -91,7 +91,7 @@ class Grader
       # for each test, run the program
       count = 0;
       run.problem.input_files.zip(run.problem.output_files).map { |input_file, output_file|
-        return if count > tests
+        break if count > tests
         count += 1
         
         verbose_system "#{@runner} --user #{@user} --time #{run.problem.time_limit} --mem #{run.problem.memory_limit} --procs 1 -- ./program < #{input_file} > output"
