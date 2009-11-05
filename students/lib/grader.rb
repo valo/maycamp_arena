@@ -41,15 +41,24 @@ class Grader
       sleep 1
       check_durty_tests
       run = Run.find_by_status(Run::WAITING)
-      next unless run
       
+      if run
+        grade(run)
+      else
+        run = Run.find_by_status(Run::CHECKING)
+        grade(run, 1) if run
+      end
+    end
+  end
+  
+  private
+    def grade(run, tests = nil)
+      tests ||= run.problem.number_of_tests
       run.update_attributes(:status => Run::JUDGING)
       puts "Judging run with id #{run.id}"
       @runner = Pathname.new("../runner.rb").realpath.to_s
       
       Dir.chdir @root do
-        old_stdout, old_stderr = $stdout, $stderr
-        
         File.open("grader.log", "w") do |f|
           f.sync = true
           self.class.with_stdout_and_stderr(f, f) do
@@ -57,20 +66,18 @@ class Grader
             compile(run)
 
             if $?.exitstatus != 0
-              run.update_attributes(:status => (["ce"] * run.problem.number_of_tests).join(" "), :log => File.read("grader.log"))
+              run.update_attributes(:status => (["ce"] * tests).join(" "), :log => File.read("grader.log"))
               next
             end
 
-            status = run_tests(run)
+            status = run_tests(run, tests)
             puts "final result: #{status.inspect}"
             run.update_attributes(:status => status, :log => File.read("grader.log"))
           end
         end
       end
     end
-  end
-  
-  private
+    
     def compile(run)
       File.open("program.cpp", "w") do |f|
         f.write(run.source_code)
@@ -80,9 +87,13 @@ class Grader
       verbose_system "g++ program.cpp -o program -O2 -s -static -lm -x c++"
     end
     
-    def run_tests(run)
+    def run_tests(run, tests)
       # for each test, run the program
+      count = 0;
       run.problem.input_files.zip(run.problem.output_files).map { |input_file, output_file|
+        return if count > tests
+        count += 1
+        
         verbose_system "#{@runner} --user #{@user} --time #{run.problem.time_limit} --mem #{run.problem.memory_limit} --procs 1 -- ./program < #{input_file} > output"
         
         case $?.exitstatus

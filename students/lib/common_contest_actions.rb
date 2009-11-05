@@ -6,6 +6,8 @@ module CommonContestActions
     if @contest.auto_test?
       # If auto_test is true, we need to automatically put the run in WAITING (gradable) mode.
       @run.status = Run::WAITING
+    elsif @contest.current?
+      @run.status = Run::CHECKING
     end
     
     if @run.save

@@ -8,6 +8,7 @@ class Run < ActiveRecord::Base
     LANGUAGES = [LANG_C_CPP, LANG_PAS]
     WAITING = "waiting"
     JUDGING = "judging"
+    CHECKING = "checking"
   end
   
   include Constants
