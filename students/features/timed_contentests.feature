@@ -31,7 +31,7 @@ Story: Submit solution
     And I select "Task" from "run_problem_id"
     And I fill in "#include <stdio.h>" for "run_source_code"
     And I press "Изпрати"
-    Then I should see "pending"
+    Then I should see "checking"
     And I should see "Виж сорс кода"
 
   Scenario: Submit a solution to a running contest with a source file
@@ -41,7 +41,7 @@ Story: Submit solution
     And I select "Task" from "run_problem_id"
     And I attach the file at "test/fixtures/source_code.c" to "Качи решение:"
     And I press "Изпрати"
-    Then I should see "pending"
+    Then I should see "checking"
     And I should see "Виж сорс кода"
 
   Scenario: View source code
