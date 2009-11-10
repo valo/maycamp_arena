@@ -65,11 +65,11 @@ class MainController < ApplicationController
         rank = OpenStruct.new(:user => user)
 
         rank.total_points = user.runs.group_by(&:problem).map do |problem, runs|
-          runs.map(&:total_points).max
+          runs.select { |run| run.problem.contest.results_visible? }.map(&:total_points).max || 0
         end.sum
 
         rank.full_solutions = user.runs.group_by(&:problem).map do |problem, runs|
-          runs.map(&:total_points).max == 100 ? 1 : 0
+          runs.select { |run| run.problem.contest.results_visible? }.map(&:total_points).max == 100 ? 1 : 0
         end.sum
 
         rank.total_runs = user.runs.count
