@@ -1,6 +1,7 @@
 class PracticeController < ApplicationController
   include CommonContestActions
   
+  before_filter :login_required
   before_filter :validate_contest
   
   def open_contest
