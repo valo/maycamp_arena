@@ -36,9 +36,11 @@ class MainController < ApplicationController
     end
     
     @results.sort! { |a,b| b[-1] <=> a[-1] }
-    diff_scores = @results.map(&:last).uniq
+    
+    # Compute the unique scores and the number people with each score
+    diff_scores = @results.map(&:last).uniq.map { |score| [score, @results.select { |res| res.last == score }.count] }
     @results.each do |row|
-      row.unshift diff_scores.index(row.last) + 1
+      row.unshift diff_scores.map { |score, number| score > row.last ? number : 0 }.sum + 1
     end
     render :action => :results, :layout => "results"
   end
