@@ -24,8 +24,6 @@ class MainController < ApplicationController
     @results = students.reject(&:admin?).map do |student|
       total = 0
       [student.name] + @contest.problems.map do |problem|
-        # FIXME: We should improve that for the practice area to take only the
-        # runs submitted during the contest
         last_run = problem.runs.during_contest.select { |r| r.user == student }.first
         
         if last_run
@@ -38,6 +36,10 @@ class MainController < ApplicationController
     end
     
     @results.sort! { |a,b| b[-1] <=> a[-1] }
+    diff_scores = @results.map(&:last).uniq
+    @results.each do |row|
+      row.unshift diff_scores.index(row.last) + 1
+    end
     render :action => :results, :layout => "results"
   end
   

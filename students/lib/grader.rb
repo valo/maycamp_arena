@@ -98,7 +98,7 @@ class Grader
           when 127
             "ml"
           when 0
-            verbose_system "diff #{output_file} output --strip-trailing-cr"
+            verbose_system "diff #{output_file} output --strip-trailing-cr -q"
           
             if $?.exitstatus != 0
               "wa"
