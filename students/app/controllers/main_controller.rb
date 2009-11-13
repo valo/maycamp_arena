@@ -65,7 +65,8 @@ class MainController < ApplicationController
 
   private
     def calc_rankings
-      User.all(:conditions => { :admin => false }, :include => {:runs => { :problem => :contest }}).map do |user|
+      rankings = []
+      User.find_each(:batch_size => 5, :conditions => { :admin => false }, :include => {:runs => { :problem => :contest }}) do |user|
         rank = OpenStruct.new(:user => user)
 
         rank.total_points = user.runs.group_by(&:problem).map do |problem, runs|
@@ -79,7 +80,10 @@ class MainController < ApplicationController
         rank.total_runs = user.runs.length
 
         rank
-      end.sort! do |x,y|
+        rankings << rank
+      end
+      
+      rankings.sort! do |x,y|
         [y.total_points, y.full_solutions, x.total_runs, x.user.name] <=> [x.total_points, x.full_solutions, y.total_runs, y.user.name]
       end
     end
