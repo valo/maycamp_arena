@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091022201338) do
+ActiveRecord::Schema.define(:version => 20091113141628) do
 
   create_table "configurations", :force => true do |t|
     t.string   "key",                              :null => false
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(:version => 20091022201338) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "runs", ["user_id", "problem_id"], :name => "index_runs_on_user_id_and_problem_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
