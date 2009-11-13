@@ -18,7 +18,7 @@ module CommonContestActions
   end
   
   def view_source
-    @run = current_user.runs.find(params[:run_id])
+    @run = current_user.runs_with_log.find(params[:run_id])
     render :action => "view_source"
   end
   

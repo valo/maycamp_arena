@@ -66,7 +66,7 @@ class MainController < ApplicationController
   private
     def calc_rankings
       rankings = []
-      User.find_each(:batch_size => 5, :conditions => { :admin => false }, :include => {:runs => { :problem => :contest }}) do |user|
+      User.find_each(:batch_size => 5, :conditions => { :admin => false }, :include => :runs) do |user|
         rank = OpenStruct.new(:user => user)
 
         rank.total_points = user.runs.group_by(&:problem).map do |problem, runs|
