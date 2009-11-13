@@ -68,14 +68,14 @@ class MainController < ApplicationController
       rankings = []
       User.find_each(:batch_size => 5, :conditions => { :admin => false }, :include => :runs) do |user|
         rank = OpenStruct.new(:user => user)
+        rank.total_points = 0
+        rank.full_solutions = 0
 
-        rank.total_points = user.runs.group_by(&:problem).map do |problem, runs|
-          runs.select { |run| run.problem.contest.results_visible? }.map(&:total_points).max || 0
-        end.sum
-
-        rank.full_solutions = user.runs.group_by(&:problem).map do |problem, runs|
-          runs.select { |run| run.problem.contest.results_visible? }.map(&:total_points).max == 100 ? 1 : 0
-        end.sum
+        user.runs.group_by(&:problem).each do |problem, runs|
+          points = runs.select { |run| problem.contest.results_visible? }.map(&:total_points).max || 0
+          rank.total_points += points
+          rank.full_solutions += 1 if points == 100
+        end
 
         rank.total_runs = user.runs.length
 

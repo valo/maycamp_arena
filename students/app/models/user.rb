@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   attr_protected :unencrypted_password, :unencrypted_password_confirmation, :admin
 
   has_many :contest_start_events, :dependent => :destroy
-  has_many :runs, :dependent => :destroy, :select => (Run.column_names - ["log"]).join(",")
+  has_many :runs, :dependent => :destroy, :select => (Run.column_names - ["log", "source_code"]).join(",")
   has_many :runs_with_log, :class_name => 'Run'
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
