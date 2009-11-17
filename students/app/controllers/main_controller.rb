@@ -38,7 +38,7 @@ class MainController < ApplicationController
     @results.sort! { |a,b| b[-1] <=> a[-1] }
     
     # Compute the unique scores and the number people with each score
-    diff_scores = @results.map(&:last).uniq.map { |score| [score, @results.select { |res| res.last == score }.count] }
+    diff_scores = @results.map(&:last).uniq.map { |score| [score, @results.select { |res| res.last == score }.length] }
     @results.each do |row|
       row.unshift diff_scores.map { |score, number| score > row.last ? number : 0 }.sum + 1
     end
@@ -87,7 +87,7 @@ class MainController < ApplicationController
         value
       end
       
-      rankings.sort! do |x,y|
+      rankings.reject { |rank| rank.user.admin? }.sort! do |x,y|
         [y.total_points, y.full_solutions, x.total_runs, x.user.name] <=> [x.total_points, x.full_solutions, y.total_runs, y.user.name]
       end
     end
