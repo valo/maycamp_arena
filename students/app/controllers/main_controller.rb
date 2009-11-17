@@ -81,9 +81,13 @@ class MainController < ApplicationController
         end
       end
       
+      Run.count(:id, :group => :user_id).each do |user_id, runs|
+        rankings[user_id].total_runs = runs
+      end
+      
       rankings = rankings.map do |key, value|
-        value.user = User.find(key) unless value.user
-        value.total_runs = value.user.runs.count unless value.total_runs
+        value.user = User.find(key, :select => 'name,id') unless value.user
+        value.total_runs = 0 unless value.total_runs
         value
       end
       
