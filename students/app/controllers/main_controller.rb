@@ -6,7 +6,7 @@ class MainController < ApplicationController
   def index
     @contests = Contest.current.select {|contest| contest.visible or current_user.andand.admin?}
     @practice_contests = Contest.practicable.select {|contest| contest.visible or current_user.andand.admin?}
-    @top_scores = calc_rankings[0..2]
+    @top_scores = calc_rankings(false)[0..2]
   end
   
   def results
@@ -64,23 +64,27 @@ class MainController < ApplicationController
   end
 
   private
-    def calc_rankings
-      rankings = []
-      User.find_each(:batch_size => 5, :conditions => { :admin => false }, :include => :runs) do |user|
-        rank = OpenStruct.new(:user => user)
-        rank.total_points = 0
-        rank.full_solutions = 0
+    def calc_rankings(include_zeros = true)
+      rankings = {}
 
-        user.runs.group_by(&:problem).each do |problem, runs|
-          points = runs.select { |run| problem.contest.results_visible? }.map(&:total_points).max || 0
-          rank.total_points += points
-          rank.full_solutions += 1 if points == 100
+      Problem.find_each(:include => :contest, :conditions => ["contests.results_visible = TRUE"]) do |problem|
+        Run.maximum(:total_points, :conditions => { :problem_id => problem.id }, :group => :user_id).each do |user_id, score|
+          rank = rankings[user_id] ||= OpenStruct.new(:total_points => 0, :full_solutions => 0)
+          rank.total_points += score.to_i
+          rank.full_solutions += 1 if score == 100
         end
-
-        rank.total_runs = user.runs.length
-
-        rank
-        rankings << rank
+      end
+      
+      if include_zeros
+        User.find_each(:include => :runs, :conditions => ["runs.id IS NULL"], :group => "users.id") do |user|
+          rankings[user.id] = OpenStruct.new(:user => user, :total_points => 0, :full_solutions => 0, :total_runs => 0)
+        end
+      end
+      
+      rankings = rankings.map do |key, value|
+        value.user = User.find(key) unless value.user
+        value.total_runs = value.user.runs.count unless value.total_runs
+        value
       end
       
       rankings.sort! do |x,y|
