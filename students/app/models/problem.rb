@@ -3,7 +3,7 @@ class Problem < ActiveRecord::Base
   belongs_to :contest
   
   validates_presence_of :name, :time_limit, :about
-  validates_numericality_of :time_limit, :memory_limit
+  validates_numericality_of :time_limit, :memory_limit, :greater_than => 0
   
   def tests_dir
     File.join(contest.root_dir, filesystem_name)
