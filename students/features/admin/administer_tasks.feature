@@ -29,7 +29,7 @@ Story: Administer tasks
     And I fill in the following:
       | Име: | A+B problem |
       | Описание: | Прочетете от входа 2 числа и изведете сборът им |
-      | Time limit: | 1 |
+      | Time limit: | 1.0 |
     And I press "Създаване"
 
   Scenario: Create new task
