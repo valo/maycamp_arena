@@ -49,7 +49,7 @@ Story: Administer tasks
     And I follow "Преглед"
     Then I should see "Име: A+B problem"
     And I should see "Описание: Прочетете от входа 2 числа и изведете сборът им"
-    And I should see "Time limit: 1 sec"
+    And I should see "Time limit: 1.0 sec"
     And I should see "Memory limit: 16 MB"
 
   Scenario: Edit task
