@@ -6,7 +6,7 @@ class MainController < ApplicationController
   def index
     @contests = Contest.current.select {|contest| contest.visible or current_user.andand.admin?}
     @practice_contests = Contest.practicable.select {|contest| contest.visible or current_user.andand.admin?}
-    @top_scores = calc_rankings(false)[0..2]
+    @top_scores = calc_rankings(:limit => 3)
   end
   
   def results
@@ -64,35 +64,13 @@ class MainController < ApplicationController
   end
 
   private
-    def calc_rankings(include_zeros = true)
-      rankings = {}
-
-      Problem.find_each(:include => :contest, :conditions => ["contests.results_visible = TRUE"]) do |problem|
-        Run.maximum(:total_points, :conditions => { :problem_id => problem.id }, :group => :user_id).each do |user_id, score|
-          rank = rankings[user_id] ||= OpenStruct.new(:total_points => 0, :full_solutions => 0)
-          rank.total_points += score.to_i
-          rank.full_solutions += 1 if score == 100
-        end
-      end
-      
-      if include_zeros
-        User.find_each(:include => :runs, :conditions => ["runs.id IS NULL"], :group => "users.id") do |user|
-          rankings[user.id] = OpenStruct.new(:user => user, :total_points => 0, :full_solutions => 0, :total_runs => 0)
-        end
-      end
-      
-      Run.count(:id, :group => :user_id).each do |user_id, runs|
-        rankings[user_id].total_runs = runs if rankings[user_id]
-      end
-      
-      rankings = rankings.map do |key, value|
-        value.user = User.find(key, :select => 'admin,name,id') unless value.user
-        value.total_runs = 0 unless value.total_runs
-        value
-      end
-      
-      rankings.reject { |rank| rank.user.admin? }.sort! do |x,y|
-        [y.total_points, y.full_solutions, x.total_runs, x.user.name] <=> [x.total_points, x.full_solutions, y.total_runs, y.user.name]
+    def calc_rankings(options = {})
+      rankings = User.generate_ranklist(options).map do |row|
+        OpenStruct.new(
+          :user => row[0],
+          :total_points => row[1].to_i,
+          :total_runs => row[2],
+          :full_solutions => row[3])
       end
     end
 end

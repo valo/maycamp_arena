@@ -58,6 +58,42 @@ class User < ActiveRecord::Base
     write_attribute(:password, self.class.encrypt_password(value))
   end
   
+  class << self
+    def generate_ranklist(options = {})
+      query = %Q{SELECT 
+                    users.id, 
+                    name, 
+                    admin, 
+                    SUM(max_points_per_problem) as score, 
+                    SUM(CASE WHEN max_points_per_problem IS NULL THEN 0 ELSE runs_per_problem END) as runs_count,
+                    SUM(CASE max_points_per_problem WHEN 100 THEN 1 ELSE 0 END) as full_solutions
+                 FROM users
+                 LEFT JOIN
+                  (
+                    SELECT
+                      MAX(total_points) as max_points_per_problem,
+                      user_id,
+                      COUNT(runs.id) as runs_per_problem
+                    FROM runs
+                    JOIN problems ON problems.id = problem_id
+                    JOIN contests ON contests.id = problems.contest_id
+                    WHERE contests.results_visible = TRUE
+                    GROUP BY user_id, problem_id
+                  ) as problem_points
+                ON problem_points.user_id = users.id
+                WHERE
+                  admin = FALSE
+                GROUP BY users.id
+                ORDER BY score DESC, full_solutions DESC, runs_count ASC, name ASC
+        }
+      query += " LIMIT #{options[:limit]}" if options[:limit]
+      
+      User.connection.select_all(query).inject([]) do |ranklist, row|
+        ranklist << [User.send(:instantiate, row), row['score'], row['runs_count'], row['full_solutions']]
+      end
+    end
+  end
+  
   private
     def self.encrypt_password(password)
       return nil unless password
