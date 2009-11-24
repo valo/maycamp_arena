@@ -33,6 +33,12 @@ class Run < ActiveRecord::Base
     points_float.map { |pts| pts.is_a?(BigDecimal) ? pts.round(0).to_i : pts }
   end
   
+  # Converting the total points to integer. This is what it is most of the time.
+  # We sohuld consider converting this column to integer
+  def total_points
+    self.read_attribute(:total_points).to_i
+  end
+  
   def source_file=(file)
     self.source_code = file.read
   end
