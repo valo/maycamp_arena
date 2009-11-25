@@ -10,9 +10,12 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:login], params[:password])
     if user
       self.current_user = user
-      # flash[:notice] = "Вие влязохте успешно"
       
-      if user.admin?
+      if session[:back]
+        back_path = session[:back]
+        session[:back] = nil
+        redirect_to back_path
+      elsif user.admin?
         redirect_to :controller => :admin, :action => "index"
       else
         redirect_to root_path
