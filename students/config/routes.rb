@@ -62,6 +62,8 @@ ActionController::Routing::Routes.draw do |map|
       } do |problem|
         problem.resources :runs, :member => {
           :queue => :get
+        }, :collection => {
+          :queue => :get
         }
       end
     end
