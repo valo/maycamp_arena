@@ -30,7 +30,13 @@ class Problem < ActiveRecord::Base
   end
   
   def text_memory_limit
-    "%s MB" % (memory_limit / (1024 * 1024)).round
+    if memory_limit < 1024
+      "%s bytes" % memory_limit
+    elsif memory_limit < 1024 * 1024
+      "%s KB" % (memory_limit / 1024).round
+    else
+      "%s MB" % (memory_limit / (1024 * 1024)).round
+    end
   end
   
   def filesystem_name
