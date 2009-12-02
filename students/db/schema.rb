@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091113141628) do
+ActiveRecord::Schema.define(:version => 20091121170204) do
 
   create_table "configurations", :force => true do |t|
     t.string   "key",                              :null => false
@@ -54,25 +54,26 @@ ActiveRecord::Schema.define(:version => 20091113141628) do
   end
 
   create_table "problems", :force => true do |t|
-    t.integer  "contest_id",                                       :null => false
+    t.integer  "contest_id",                                                                     :null => false
     t.string   "letter",       :limit => 16
-    t.string   "name",         :limit => 64,                       :null => false
-    t.integer  "time_limit",                                       :null => false
-    t.text     "about",                                            :null => false
+    t.string   "name",         :limit => 64,                                                     :null => false
+    t.decimal  "time_limit",                 :precision => 5, :scale => 2,                       :null => false
+    t.text     "about",                                                                          :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "memory_limit",               :default => 16777216
+    t.integer  "memory_limit",                                             :default => 16777216
   end
 
   create_table "runs", :force => true do |t|
-    t.integer  "problem_id",                         :null => false
-    t.integer  "user_id",                            :null => false
-    t.string   "language",                           :null => false
-    t.text     "source_code",                        :null => false
-    t.string   "status",      :default => "pending", :null => false
+    t.integer  "problem_id",                                                         :null => false
+    t.integer  "user_id",                                                            :null => false
+    t.string   "language",                                                           :null => false
+    t.text     "source_code",                                                        :null => false
+    t.string   "status",                                      :default => "pending", :null => false
     t.text     "log"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "total_points", :precision => 10, :scale => 2
   end
 
   add_index "runs", ["user_id", "problem_id"], :name => "index_runs_on_user_id_and_problem_id"

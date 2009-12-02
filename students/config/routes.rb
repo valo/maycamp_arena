@@ -60,7 +60,7 @@ ActionController::Routing::Routes.draw do |map|
         :upload_file => :get, 
         :do_upload_file => :post
       } do |problem|
-        problem.resources :runs, :collection => {
+        problem.resources :runs, :member => {
           :queue => :get
         }
       end

@@ -1,7 +1,9 @@
 <h1>Run <%= @run.id %></h1>
 
-<p>Submitted at: <%= @run.created_at.to_s :long %></p>
+<p>Пратено на: <%= @run.created_at.to_s :long %></p>
+<p>Статус: <b><%= @run.status %></b></p>
 <p><%= link_to "Редактиране", edit_admin_contest_problem_run_path(@run.problem.contest, @run.problem, @run) %></p>
+<p><%= link_to "Тестване", queue_admin_contest_problem_run_path(@run.problem.contest, @run.problem, @run) %></p>
 
 <h2>Source code</h2>
 <pre>
