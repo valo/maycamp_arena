@@ -5,11 +5,13 @@
     <tr>
       <th>Условие</th>
       <th>Time limit</th>
+      <th>Memory limit</th>
     </tr>
   <% for problem in @contest.problems %>
     <tr>
       <td><%= link_to problem.name, :action => "get_problem_description", :contest_id => @contest.id, :problem_id => problem.id %></td>
       <td><%= problem.time_limit %> sec.</td>
+      <td><%= problem.text_memory_limit %></td>
     </tr>
   <% end %>
   </table>

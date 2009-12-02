@@ -90,7 +90,7 @@ class Grader
     def run_tests(run, tests)
       # for each test, run the program
       run.problem.input_files[0...tests].zip(run.problem.output_files).map { |input_file, output_file|
-        verbose_system "#{@runner} --user #{@user} --time #{run.problem.time_limit} --mem #{run.problem.memory_limit} --procs 1 -- ./program < #{input_file} > output"
+        verbose_system "#{@runner} --user #{@user} --time #{run.problem.time_limit.to_f} --mem #{run.problem.memory_limit} --procs 1 -- ./program < #{input_file} > output"
         
         case $?.exitstatus
           when 9
