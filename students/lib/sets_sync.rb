@@ -9,7 +9,7 @@ class SetsSync
         to = File.join($config[:sets_root], "/")
       
         puts "Syncing tests from #{from} to #{to}"
-        system "rsync -az -e ssh --delete #{from} #{to}"
+        system "rsync -azv -e ssh --delete #{from} #{to}"
       else
         # Use regular download
         grader_app_url = configuration[:host]
