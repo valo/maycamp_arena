@@ -23,7 +23,7 @@ class Grader
     @root = root
     @user = user
     
-    sync_tests
+    sync_tests(Time.now)
   end
   
   def run
@@ -111,17 +111,17 @@ class Grader
       }.join(" ")
     end
 
-    def sync_tests
+    def sync_tests(update_time)
       SetsSync.sync_sets(get_config)
-      @tests_updated_at = Time.now
-      puts "Tests synced at #{@tests_updated_at}"
+      @tests_updated_at = update_time
+      puts "Tests synced for time #{@tests_updated_at} on #{Time.now}"
     end
 
     def check_durty_tests
       if (last_update = Configuration.get(Configuration::TESTS_UPDATED_AT)) and last_update > @tests_updated_at
         # Download the tests again
         puts "Tests changed at #{last_update}, while the current version is from #{@tests_updated_at}. Syncing..."
-        sync_tests
+        sync_tests(last_update)
       end
     end
 end
