@@ -16,9 +16,11 @@
 <% if current_user %>
   <%= render :partial => "current_contests" %>
   <br />
-  <br />  
+  <br />
+<% end %>
   <%= render :partial => "past_contests" %>
   <br />
   <br />
+<% if current_user %>
   <%= render :partial => "practice_area" %>
 <% end %>
