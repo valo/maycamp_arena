@@ -67,3 +67,7 @@ textarea.source_code {
     border: 1px solid #CCCCCC;
     padding: 5px 5px 5px 5px;
 }
+
+#results {
+  font-size: 0.75em;
+}
