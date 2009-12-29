@@ -27,7 +27,7 @@ class Problem < ActiveRecord::Base
   
   def checker
     checker_file = other_files.detect { |file| file =~ /checker/ }
-    if File.exist?(checker_file)
+    if checker_file and File.exist?(checker_file)
       # Make the checker excutable
       File.chmod 0755, checker_file, true
       return checker_file
