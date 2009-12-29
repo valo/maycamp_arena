@@ -38,15 +38,14 @@ class Grader
         end
       end
       
-      sleep 1
       check_durty_tests
-      run = Run.find_by_status(Run::WAITING)
       
-      if run
+      if run = Run.find_by_status(Run::WAITING)
         grade(run)
+      elsif run = Run.find_by_status(Run::CHECKING)
+        grade(run, 1)
       else
-        run = Run.find_by_status(Run::CHECKING)
-        grade(run, 1) if run
+        sleep 1
       end
     end
   end
@@ -89,7 +88,7 @@ class Grader
     
     def run_tests(run, tests)
       # for each test, run the program
-      run.problem.input_files[0...tests].zip(run.problem.output_files).map { |input_file, output_file|
+      run.problem.input_files[0...tests].zip(run.problem.output_files).map { |input_file, answer_file|
         verbose_system "#{@runner} --user #{@user} --time #{run.problem.time_limit.to_f} --mem #{run.problem.memory_limit} --procs 1 -- ./program < #{input_file} > output"
         
         case $?.exitstatus
@@ -98,13 +97,7 @@ class Grader
           when 127
             "ml"
           when 0
-            verbose_system "diff #{output_file} output --strip-trailing-cr -q"
-          
-            if $?.exitstatus != 0
-              "wa"
-            else
-              "ok"
-            end
+            check_output(run, answer_file)
           else
             "re"
         end
@@ -123,5 +116,17 @@ class Grader
         puts "Tests changed at #{last_update}, while the current version is from #{@tests_updated_at}. Syncing..."
         sync_tests(last_update)
       end
+    end
+    
+    def check_output(run, answer_file)
+      checker = run.problem.checker || "diff --strip-trailing-cr -q"
+      verbose_system "#{checker} #{answer_file} output"
+      
+      if $?.exitstatus != 0
+        "wa"
+      else
+        "ok"
+      end
+      
     end
 end

@@ -25,6 +25,17 @@ class Problem < ActiveRecord::Base
     (input_files + output_files + other_files).sort
   end
   
+  def checker
+    checker_file = other_files.detect { |file| file == "checker" }
+    if File.exist?(checker_file)
+      # Make the checker excutable
+      File.chmod 0755, checker_file, true
+      return checker_file
+    end
+    
+    nil
+  end
+  
   def number_of_tests
     input_files.length
   end
