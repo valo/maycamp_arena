@@ -1,0 +1,10 @@
+<h1>Редактиране на информация</h1>
+<%= error_messages_for :user %>
+<% form_for @user do |f| -%>
+
+<%= render :partial => 'user_fields', :locals => { :f => f } %>
+<br />
+<p>
+  <%= submit_tag 'Обновяване' %>
+</p>
+<% end -%>

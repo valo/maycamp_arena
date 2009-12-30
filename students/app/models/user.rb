@@ -6,12 +6,15 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :login
 
   validates_length_of       :name,     :maximum => 100
+  validates_presence_of     :name
 
   validates_presence_of     :email
   validates_length_of       :email,    :within => 6..100 #r@a.wk
   
   validates_presence_of     :unencrypted_password, :on => :create
-  validates_confirmation_of :unencrypted_password, :on => :create
+  validates_confirmation_of :unencrypted_password
+  
+  validates_presence_of :city
   
   attr_accessor :unencrypted_password
   attr_protected :unencrypted_password, :unencrypted_password_confirmation, :admin
@@ -56,6 +59,11 @@ class User < ActiveRecord::Base
   def unencrypted_password=(value)
     @unencrypted_password = value
     write_attribute(:password, self.class.encrypt_password(value))
+  end
+  
+  def reset_token!
+    self.token = (1..16).to_a.map { (('0'..'9').to_a + ('a'..'z').to_a).rand }.join
+    self.save!
   end
   
   class << self
