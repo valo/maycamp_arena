@@ -182,6 +182,7 @@ bg:
       user:
         login: Потребителското име
         unencrypted_password: Паролата
+        city: Град
   support:
     array:
       # Rails 2.2
@@ -192,3 +193,5 @@ bg:
       words_connector: ", "
       two_words_connector: " и "
       last_word_connector: " и "
+    select:
+      prompt: "Моля изберете"

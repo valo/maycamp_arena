@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091121170204) do
+ActiveRecord::Schema.define(:version => 20091226203818) do
 
   create_table "configurations", :force => true do |t|
     t.string   "key",                              :null => false
@@ -96,6 +96,8 @@ ActiveRecord::Schema.define(:version => 20091121170204) do
     t.datetime "updated_at"
     t.boolean  "admin",                     :default => false
     t.string   "password",   :limit => 40,                     :null => false
+    t.string   "city"
+    t.string   "token",      :limit => 16
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

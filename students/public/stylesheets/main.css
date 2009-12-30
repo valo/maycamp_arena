@@ -71,3 +71,31 @@ textarea.source_code {
 #results {
   font-size: 0.75em;
 }
+
+#errorExplanation {
+  margin-top: 20px;
+}
+
+#errorExplanation p {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+#errorExplanation h2 {
+  font-weight: bold;
+  font-size: 1.1em;
+  border-style: none;
+  padding: 0;
+}
+
+#errorExplanation ul {
+  list-style-type: none;
+}
+
+#errorExplanation li {
+  padding-left: 10px;
+}
+
+.fieldWithErrors input {
+  border: 2px solid #f00;
+}

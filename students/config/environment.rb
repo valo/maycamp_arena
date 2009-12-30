@@ -47,4 +47,6 @@ Rails::Initializer.run do |config|
   $config = {
     :sets_root => Pathname.new(File.join(File.dirname(__FILE__), "../../sets")).realpath.to_s
   }
+  
+  BG_CITIES = YAML.load_file(File.join(File.dirname(__FILE__), "bg_cities.yml"))['cities'].freeze
 end

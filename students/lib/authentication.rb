@@ -31,8 +31,9 @@ module Authentication
     end
     
     def login_required
+      session[:back] = nil
       if !logged_in? or !authorized?
-        session[:back] = request.url
+        session[:back] = request.url if !logged_in?
         redirect_to new_session_path
       end
     end
