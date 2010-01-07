@@ -97,7 +97,7 @@ class Grader
           when 127
             "ml"
           when 0
-            check_output(run, answer_file)
+            check_output(run, answer_file, input_file)
           else
             "re"
         end
