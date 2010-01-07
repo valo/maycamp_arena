@@ -118,9 +118,13 @@ class Grader
       end
     end
     
-    def check_output(run, answer_file)
-      checker = run.problem.checker || "diff --strip-trailing-cr -q"
-      verbose_system "#{checker} #{answer_file} output"
+    def check_output(run, answer_file, input_file)
+      if checker = run.problem.checker
+        verbose_system "#{checker} #{input_file} #{answer_file} output"
+      else
+        checker = "diff --strip-trailing-cr -q"
+        verbose_system "#{checker} #{answer_file} output"
+      end
       
       if $?.exitstatus != 0
         "wa"
