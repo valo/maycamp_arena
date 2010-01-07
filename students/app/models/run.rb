@@ -5,7 +5,7 @@ class Run < ActiveRecord::Base
     LANG_C_CPP = "C/C++"
     LANG_PAS = "Pascal"
     
-    LANGUAGES = [LANG_C_CPP, LANG_PAS]
+    LANGUAGES = [LANG_C_CPP]
     WAITING = "waiting"
     JUDGING = "judging"
     CHECKING = "checking"
