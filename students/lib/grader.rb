@@ -122,7 +122,7 @@ class Grader
       if checker = run.problem.checker
         verbose_system "#{checker} #{input_file} #{answer_file} output"
       else
-        checker = "diff --strip-trailing-cr -q"
+        checker = File.join(RAILS_ROOT, "ext/diff.rb")
         verbose_system "#{checker} #{answer_file} output"
       end
       
