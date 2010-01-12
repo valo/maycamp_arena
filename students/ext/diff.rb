@@ -6,4 +6,4 @@ IO.popen("diff --strip-trailing-cr #{ARGV[0]} #{ARGV[1]}") do |diff|
   end
 end
 
-exit $?
+exit $?.exitstatus
