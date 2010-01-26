@@ -14,7 +14,7 @@ class Problem < ActiveRecord::Base
   end
   
   def output_files
-    Dir[File.join(tests_dir, "*.ans*")].sort
+    Dir[File.join(tests_dir, "*.{ans, sol}*")].sort
   end
   
   def other_files
