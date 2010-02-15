@@ -71,3 +71,7 @@ textarea.source_code {
 #results {
   font-size: 0.75em;
 }
+
+.no_bullets {
+  list-style-type: none;
+}

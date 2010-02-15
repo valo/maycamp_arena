@@ -62,6 +62,13 @@ class MainController < ApplicationController
 
     send_file File.join($config[:sets_root], "sets.zip")
   end
+  
+  def status
+    @runs = Run.paginate(:per_page => 50,
+                         :joins => { :problem => :contest },
+                         :page => params[:page],
+                         :conditions => ["contests.practicable AND contests.visible"])
+  end
 
   private
     def calc_rankings(options = {})

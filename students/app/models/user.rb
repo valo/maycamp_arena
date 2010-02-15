@@ -53,9 +53,40 @@ class User < ActiveRecord::Base
     end
   end
   
+  def full_tasks
+    Run.count('problem_id', :conditions => { :user_id => self.id, :total_points => 100 }, :distinct => true)
+  end
+  
   def unencrypted_password=(value)
     @unencrypted_password = value
     write_attribute(:password, self.class.encrypt_password(value))
+  end
+  
+  def total_points
+    query = %Q{SELECT 
+                  users.id, 
+                  name, 
+                  admin, 
+                  SUM(max_points_per_problem) as score, 
+                  SUM(CASE WHEN max_points_per_problem IS NULL THEN 0 ELSE runs_per_problem END) as runs_count,
+                  SUM(CASE max_points_per_problem WHEN 100 THEN 1 ELSE 0 END) as full_solutions
+               FROM users
+               LEFT JOIN
+                (
+                  SELECT
+                    MAX(total_points) as max_points_per_problem,
+                    user_id,
+                    COUNT(runs.id) as runs_per_problem
+                  FROM runs
+                  JOIN problems ON problems.id = problem_id
+                  JOIN contests ON contests.id = problems.contest_id
+                  WHERE contests.results_visible = TRUE
+                  GROUP BY user_id, problem_id
+                ) as problem_points
+              ON problem_points.user_id = users.id
+              WHERE users.id = #{self.id}
+      }
+      User.connection.select_one(query)["score"].to_i
   end
   
   class << self
