@@ -14,6 +14,7 @@
       <li class="sub_navigation"><%= link_to "Статус", admin_status_path %></li>
       <li class="sub_navigation"><%= link_to "Потребители", admin_users_path %></li>
       <li class="sub_navigation"><%= link_to "Състезания", admin_contests_path %></li>
+      <li class="sub_navigation"><%= link_to "Доклади", admin_reports_path %></li>
     <% elsif current_user %>
       <li class="sub_navigation"><%= link_to "#{current_user.name} (Изход)", logout_path %></li>
       <li class="sub_navigation"><%= link_to "Статус", :controller => :main, :action => :status %></li>
