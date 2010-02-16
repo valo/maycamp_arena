@@ -122,7 +122,7 @@ end
 # Adds support for validates_attachment_content_type. Without the mime-type getting
 # passed to attach_file() you will get a "Photo file is not one of the allowed file types."
 # error message 
-When /^(?:|I )attach the file "([^\"]*)" to "([^\"]*)"$/ do |path, field|
+When /^(?:|I )attach the file at "([^\"]*)" to "([^\"]*)"$/ do |path, field|
   type = path.split(".")[1]
 
   case type
