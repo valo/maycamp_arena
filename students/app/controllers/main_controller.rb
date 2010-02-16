@@ -65,9 +65,9 @@ class MainController < ApplicationController
   
   def status
     @runs = Run.paginate(:per_page => 50,
-                         :joins => { :problem => :contest },
+                         :joins => [:user, { :problem => :contest } ],
                          :page => params[:page],
-                         :conditions => ["contests.practicable AND contests.visible"])
+                         :conditions => ["contests.practicable AND contests.visible AND NOT users.admin"])
   end
 
   private
