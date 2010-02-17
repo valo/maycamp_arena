@@ -1,0 +1,34 @@
+<h1>Потребители</h1>
+<br />
+<p>
+  <%= link_to "Изпращане на съобщения", admin_emails_path %>
+</p>
+<% if !@users.blank? %>
+  <table>
+    <tr>
+      <th>Login</th>
+      <th>Име</th>
+      <th>Email</th>
+      <th>Админ?</th>
+      <th>Действия</th>
+    </tr>
+  <% for user in @users %>
+    <tr>
+      <td><%= user.login %></td>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= check_box_tag "is_admin_#{user.login}", "1", user.admin?, :disabled => true %></td>
+      <td>
+        <%= link_to "Покажи", admin_user_path(user) %> |
+        <%= link_to "Промяна", edit_admin_user_path(user) %> |
+        <%= link_to "Изтриване", admin_user_path(user), :confirm => "Сигурни ли сте, че искате да изтриете този потребител?", :method => :delete %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>
+<br />
+<p>
+  <%= link_to "Нов потребител", :action => "new" %> |
+  <%= link_to "Начална страница", root_path %>
+</p>

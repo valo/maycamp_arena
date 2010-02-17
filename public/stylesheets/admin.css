@@ -1,0 +1,34 @@
+body {
+  font-family: Lucida Grande, Arial, "MS Trebuchet", sans-serif;
+}
+
+table {
+  border-right: 1px solid #999;
+  border-top: 1px solid #999;
+  border-collapse: collapse;
+}
+
+td, th {
+  border-left: 1px solid #999;
+  border-bottom: 1px solid #999;
+  padding: 4px;
+}
+
+.notice {
+  font-weight: bold;
+  color: green;
+}
+
+form p > em {
+  display: block;
+  font-size: 0.8em;
+}
+
+#new_user label, .edit_user label {
+  display: block;
+}
+
+#new_user em, .edit_user em {
+  display: block;
+  font-size: 0.8em;
+}

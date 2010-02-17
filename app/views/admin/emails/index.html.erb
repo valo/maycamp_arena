@@ -1,0 +1,17 @@
+<h1>Изпращане на мейли</h1>
+<p>
+  Изпращане на email до всички:
+</p>
+<% form_for @email, :url => admin_emails_path do |f| -%>
+  <p>
+    <%= f.label :subject, "Заглавие:" %>
+    <%= f.text_field :subject %>
+  </p>
+  <p>
+    <%= f.label :body, "Съобщение:" %>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit "Прати" %>
+  </p>
+<% end -%>

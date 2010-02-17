@@ -1,0 +1,30 @@
+<h1>Регистрация</h1>
+<em><%= error_messages_for :user %></em>
+<br />
+<% form_for @user do |f| -%>
+<p>
+    <%= f.label :login, 'Потребителско име:' %>
+    <%= f.text_field :login %>
+    <em>С това име ще влизате в системата</em>
+</p>
+<p>
+    <%= f.label :name, 'Истинско име:' %>
+    <%= f.text_field :name %>
+    <em>Това име ще се появява в класиранията на състезанията</em>
+</p>
+<p>
+    <%= f.label :email, "Email:" %>
+    <%= f.text_field :email %>
+</p>
+<p>
+    <%= f.label :unencrypted_password, "Парола:" %>
+    <%= f.password_field :unencrypted_password %>
+</p>
+<p>
+    <%= f.label :unencrypted_password_confirmation, 'Потвърди паролата:' %>
+    <%= f.password_field :unencrypted_password_confirmation %>
+</p>
+<p>
+  <%= submit_tag 'Създай нов потребител' %>
+</p>
+<% end -%>

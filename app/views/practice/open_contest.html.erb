@@ -1,0 +1,12 @@
+<h1>Практикуване на <%= @contest.name %></h1>
+
+<br />
+<%= render :partial => 'common/tasks' %>
+
+<br />
+<%= render :partial => 'user_runs' %>
+
+<br />
+<%= render :partial => 'common/send_solution' %>
+
+<%= link_to "Обратно към списъка със състезания", root_path %>
