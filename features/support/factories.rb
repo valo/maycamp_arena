@@ -4,6 +4,7 @@ Factory.define :user do |u|
   u.unencrypted_password_confirmation "secret"
   u.admin false
   u.name "Valentin Mihov"
+  u.city { BG_CITIES.first }
 end
 
 Factory.define :contest do |c|

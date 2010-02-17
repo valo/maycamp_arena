@@ -26,6 +26,7 @@ Feature: Administer users
       | Email:             | pesho.peshev@gmail.com |
       | Парола             | secret                 |
       | Паролата отново:   | secret                 |
+      | Град:              | София                  |
     And I press "Създаване"
     Then I should be on the user list in the admin panel
     And I should see "pesho"
@@ -39,6 +40,7 @@ Feature: Administer users
       | Email:             | pesho.peshev@gmail.com |
       | Парола             | secret                 |
       | Паролата отново:   | secret                 |
+      | Град:              | София                  |
     And I press "Създаване"
     And I follow "Valentin Mihov (Изход)"
     And I am on the login page
