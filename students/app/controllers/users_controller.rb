@@ -43,45 +43,7 @@ class UsersController < ApplicationController
     end
   end
   
-  def password_forgot
-    if request.post?
-      @user = User.find_by_login(params[:login])
-      if @user
-        @user.reset_token!
-        UserMails.deliver_password_forgot(@user)
-        flash.now[:notice] = "Email с линк за рестартиране на паролата Ви беше изпратен успешно!"
-      else
-        flash.now[:error] = "Няма потребител с това потребителско име"
-      end
-    end
+  def show
+    @user = User.find(params[:id])
   end
-  
-  def reset_password
-    get_user_and_verify_token or return
-  end
-  
-  def do_reset_password
-    get_user_and_verify_token or return
-    
-    @user.unencrypted_password = params[:user][:unencrypted_password]
-    @user.unencrypted_password_confirmation = params[:user][:unencrypted_password_confirmation]
-
-    if @user.save
-      redirect_to new_session_path
-    else
-      render :action => "reset_password"
-    end
-  end
-  
-  private
-  
-    def get_user_and_verify_token
-      @user = User.find(params[:id])
-      if @user.token != params[:token]
-        redirect_to root_path
-        return false
-      end
-      
-      return true
-    end
 end

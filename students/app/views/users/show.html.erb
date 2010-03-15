@@ -1,10 +1,8 @@
-<h1>Редактиране на информация</h1>
-<%= error_messages_for :user %>
-<% form_for @user do |f| -%>
-
-<%= render :partial => 'user_fields', :locals => { :f => f } %>
-<br />
-<p>
-  <%= submit_tag 'Обновяване' %>
-</p>
-<% end -%>
+<h1><%= @user.name %></h1>
+<ul class="no_bullets">
+  <li><strong>Общ брой точки:</strong> <%= @user.total_points %></li>
+  <li><strong>Пратени решения:</strong> <%= @user.runs.count %></li>
+  <li><strong>Решения за 100 точки:</strong> <%= @user.full_tasks %></li>
+  <li><strong>Участия в състезания:</strong> <%= @user.contest_start_events.count %></li>
+</ul>
+<%= link_to "Назад", :back %>
