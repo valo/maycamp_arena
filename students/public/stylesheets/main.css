@@ -99,3 +99,7 @@ textarea.source_code {
 .fieldWithErrors input {
   border: 2px solid #f00;
 }
+
+.no_bullets {
+  list-style-type: none;
+}

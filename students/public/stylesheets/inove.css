@@ -232,6 +232,18 @@ textarea {
 	float:left;
 	z-index:1;
 }
+#menus li.sub_navigation a {
+	background:transparent url(/images/inove/menu.gif) no-repeat;
+	display:block;
+	color:#382E1F;
+	height:31px;
+	line-height:31px;
+	padding:0 20px;
+	margin-left:-10px;
+	text-decoration:none;
+	font-size:11px;
+	float:right;
+}
 #menus li a:hover, 
 #menus li a.current {
 	background-position:0 -31px;
