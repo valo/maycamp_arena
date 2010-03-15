@@ -21,7 +21,7 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem 'rubyzip', :lib => "zip/zip"
   config.gem 'andand'
-  config.gem 'rack', :version => '1.0.0'
+  config.gem 'rack'
   config.gem 'hoptoad_notifier'
   config.gem 'will_paginate'
 
