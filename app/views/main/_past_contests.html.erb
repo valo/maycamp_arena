@@ -1,0 +1,30 @@
+<h2>Предишни състезания</h2>
+<br />
+<% unless (contests = Contest.finished).blank? %>
+<table>
+  <tr>
+    <th>Име</th>
+    <th>Начало</th>
+    <th>Край</th>
+    <th>Продължителност</th>
+    <th>Резултати</th>
+  </tr>
+<% for contest in contests %>
+  <tr>
+    <td><%= contest.name %></td>
+    <td><%= contest.start_time.to_s :long %></td>
+    <td><%= contest.end_time.to_s :long %></td>
+    <td><%= duration_in_words contest.duration.minutes %></td>
+    <td>
+      <% if contest.results_visible? or current_user.andand.admin? %>
+        <%= link_to "Резултати", :action => :results, :contest_id => contest.id %>
+      <% else %>
+        Очаквайте скоро
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+<% else %>
+Няма предишни състезания.
+<% end %>

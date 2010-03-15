@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <title>maycamp arena - състезания по алгоритми</title>
+  <%= stylesheet_link_tag "highlight/idea.css" %>
+  <%= stylesheet_link_tag "main.css" %>
+  <%= stylesheet_link_tag "inove.css" %>
+  <%= stylesheet_link_tag "inove_admin.css" %>
+  <%= javascript_include_tag "highlight.pack" %>
+  <%= javascript_include_tag "FusionCharts" %>
+  <% javascript_tag do %>
+    // Syntax highlighting
+    hljs.initHighlightingOnLoad();
+    hljs.addLineNumbers();
+  <% end %>
+</head>
+<body>
+<!-- wrap START -->
+<div id="wrap">
+
+<!-- container START -->
+<div id="container" class="one-column" >
+
+<%= render :partial => "main/header" %>
+<%= render :partial => "main/navigation" %>
+
+<!-- content START -->
+<div id="content">
+
+	<!-- main START -->
+	<div id="main">
+
+	<div class="post">
+	    <%= %Q{<p id="breadcrumbs"><strong>Вие сте тук:</strong> #{get_bread_crumb(request.path)}</p>} if current_user.andand.admin? and controller.is_a?(Admin::BaseController) %>
+      <%- if flash[:notice] -%>
+        <p class="notice"><%= flash[:notice] %></p>
+      <%- end -%>
+      <%- if flash[:error] -%>
+        <p class="error"><%= flash[:error] %></p>
+      <%- end -%>
+      <%= yield %>
+	</div>
+
+	</div>
+	<!-- main END -->
+
+	<div class="fixed"></div>
+</div>
+<!-- content END -->
+
+<%= render :partial => "main/footer" %>
+
+</div>
+<!-- container END -->
+
+</div>
+<!-- wrap END -->
+
+<%= render :partial => "common/google_analytics" %>
+</body>
+</html>
+
+
+
+

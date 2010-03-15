@@ -1,0 +1,105 @@
+body {
+  font-family: Lucida Grande, Arial, "MS Trebuchet", sans-serif;
+}
+
+label {
+  display: block;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+table {
+  border-right: 1px solid #999;
+  border-top: 1px solid #999;
+  border-collapse: collapse;
+}
+
+td, th {
+  border-left: 1px solid #999;
+  border-bottom: 1px solid #999;
+  padding: 4px;
+}
+
+.notice {
+  font-weight: bold;
+  color: green;
+}
+
+.error {
+  font-weight: bold;
+  color: red;
+}
+
+textarea.source_code {
+    width: 600px;
+    height: 600px;
+}
+
+.rank_1 {
+  background-color: yellow;
+}
+
+.rank_2 {
+  background-color: silver;
+}
+
+.rank_3 {
+  background-color: #C93;
+}
+
+.new_run p, .edit_contest p, .new_contest p, .new_user p, .edit_user p, .new_problem p, .edit_problem p {
+  margin-top: 1em;
+}
+
+#rules_page_main {
+    margin-left: 20px; 
+    margin-right: 120px;
+}
+
+#rules_page_main li {
+    margin-left: 25px;
+}
+
+#rules_page_main .notice_box {
+    background: #F7F7F7;
+    border: 1px solid #CCCCCC;
+    padding: 5px 5px 5px 5px;
+}
+
+#results {
+  font-size: 0.75em;
+}
+
+#errorExplanation {
+  margin-top: 20px;
+}
+
+#errorExplanation p {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+#errorExplanation h2 {
+  font-weight: bold;
+  font-size: 1.1em;
+  border-style: none;
+  padding: 0;
+}
+
+#errorExplanation ul {
+  list-style-type: none;
+}
+
+#errorExplanation li {
+  padding-left: 10px;
+}
+
+.fieldWithErrors input {
+  border: 2px solid #f00;
+}
+
+.no_bullets {
+  list-style-type: none;
+}

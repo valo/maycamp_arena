@@ -1,0 +1,11 @@
+<h1>Създаване на нов потребител</h1>
+<%= error_messages_for :user %>
+<% form_for [:admin, @user] do |f| -%>
+
+<%= render :partial => 'user_fields', :locals => { :f => f } %>
+<br />
+<p>
+  <%= submit_tag 'Създаване' %>
+  <%= link_to "Отказ", admin_users_path %>
+</p>
+<% end -%>

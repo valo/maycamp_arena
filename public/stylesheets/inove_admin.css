@@ -1,0 +1,12 @@
+#new_user label, #edit_user label {
+  display: block;
+}
+
+#new_user em, #edit_user em {
+  display: block;
+  font-size: 0.8em;
+}
+
+#breadcrumbs {
+  margin-bottom: 1em;
+}
