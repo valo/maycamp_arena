@@ -1,0 +1,15 @@
+judge:
+  host: http://arena.maycamp.com
+  root: ../sandbox
+  user: maycamp
+  rsync: mcvalo@maycamp.com:/home/maycamp/arena.maycamp.com/git/sets
+valo:
+  host: http://arena.maycamp.com
+  root: /tmp
+  user: valentinmihov
+  rsync: mcvalo@maycamp.com:/home/maycamp/arena.maycamp.com/git/sets
+grader:
+  host: http://localhost:3000
+  root: /home/spoj0run
+  user: spoj0run
+  rsync: valo@localhost:/home/valo/spoj0/sets
