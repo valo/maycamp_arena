@@ -15,6 +15,11 @@ Given /^there is a ([^\s]*) with attributes:$/ do |model, table|
   Factory(model.to_sym, table.transpose.hashes.first)
 end
 
+Given /^there is an invalid ([^\s]*) with attributes:$/ do |model, table|
+  user = Factory.build(model.to_sym, table.transpose.hashes.first)
+  user.save(false)
+end
+
 Given /^there is an admin user with attributes:$/ do |table|
   user = Factory.build(:user, table.transpose.hashes.first)
   user.admin = true

@@ -1,21 +1,26 @@
 <p>
-    <%= f.label :name, "Истинско име:" %>
+    <%= f.label :login, 'Потребителско име:' %>
+    <%= f.text_field :login %>
+    <em>С това име ще влизате в системата</em>
+</p>
+<p>
+    <%= f.label :name, 'Истинско име:' %>
     <%= f.text_field :name %>
+    <em>Това име ще се появява в класиранията на състезанията</em>
+</p>
+<p>
+    <%= f.label :city, 'Град:' %>
+    <%= f.text_field :city %>
 </p>
 <p>
     <%= f.label :email, "Email:" %>
     <%= f.text_field :email %>
 </p>
 <p>
-  <%= f.label :city, "Град:" %>
-  <%= f.collection_select :city, BG_CITIES, :to_s, :to_s, :prompt => true %>
-</p>
-<p>
     <%= f.label :unencrypted_password, "Парола:" %>
     <%= f.password_field :unencrypted_password %>
-    <em>Не въвеждайте нищо ако не желаете да я променяте.</em>
 </p>
 <p>
-    <%= f.label :unencrypted_password_confirmation, "Паролата отново:" %>
+    <%= f.label :unencrypted_password_confirmation, 'Потвърди паролата:' %>
     <%= f.password_field :unencrypted_password_confirmation %>
 </p>

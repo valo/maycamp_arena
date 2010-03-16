@@ -10,6 +10,11 @@ class UsersController < ApplicationController
     @user = current_user
   end
   
+  def edit
+    @user = current_user
+    current_user.valid?
+  end
+  
   def update
     @user = current_user
     
@@ -41,9 +46,5 @@ class UsersController < ApplicationController
       flash[:error]  = "Регистрацията не може да бъде завършена. Моля вижте описанието на проблемите по-долу."
       render :action => 'new'
     end
-  end
-  
-  def show
-    @user = User.find(params[:id])
   end
 end
