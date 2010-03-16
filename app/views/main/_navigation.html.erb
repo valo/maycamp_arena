@@ -18,6 +18,7 @@
     <% elsif current_user %>
       <li class="sub_navigation"><%= link_to "#{current_user.name} (Изход)", logout_path %></li>
       <li class="sub_navigation"><%= link_to "Статус", :controller => :main, :action => :status %></li>
+      <li class="sub_navigation"><%= link_to "Профил", edit_user_path(current_user) %></li>
     <% else %>
       <li class="sub_navigation"><%= link_to "Вход", login_path %></li>
       <li class="sub_navigation"><%= link_to "Статус", :controller => :main, :action => :status %></li>

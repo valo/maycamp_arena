@@ -2,6 +2,7 @@ require 'ostruct'
 
 class MainController < ApplicationController
   layout "main", :except => :results
+  before_filter :check_user_profile
   
   def index
     @contests = Contest.current.select {|contest| contest.visible or current_user.andand.admin?}

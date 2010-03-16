@@ -36,6 +36,15 @@ module Authentication
         session[:back] = request.url if !logged_in?
         redirect_to new_session_path
       end
+      
+      check_user_profile
+    end
+    
+    def check_user_profile
+      if logged_in? and !current_user.valid?
+        flash[:error] = "Данните в профила Ви не са пълни. Моле попълнете липсващите данни."
+        redirect_to edit_user_path(current_user)
+      end
     end
     
     def logoff

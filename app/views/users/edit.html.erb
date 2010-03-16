@@ -1,9 +1,9 @@
-<h1>Регистрация</h1>
+<h1>Профил</h1>
 <em><%= error_messages_for :user %></em>
 <br />
 <% form_for @user do |f| -%>
 <%= render :partial => 'user_fields', :locals => { :f => f } %>
 <p>
-  <%= submit_tag 'Създай нов потребител' %>
+  <%= submit_tag 'Обнови' %><%= link_to "Отказ", :back %>
 </p>
 <% end -%>
