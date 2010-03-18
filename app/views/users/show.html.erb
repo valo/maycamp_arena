@@ -5,4 +5,5 @@
   <li><strong>Решения за 100 точки:</strong> <%= @user.full_tasks %></li>
   <li><strong>Участия в състезания:</strong> <%= @user.contest_start_events.count %></li>
 </ul>
+<%= @daily_submits_report %>
 <%= link_to "Назад", :back %>

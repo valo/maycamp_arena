@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.register '/register', :controller => 'users', :action => 'create'
   map.signup '/signup', :controller => 'users', :action => 'new'
   
-  map.resources :users, :collection => { :password_forgot => :get }, 
+  map.resources :users, :collection => { :password_forgot => [:get, :post] }, 
                         :member => {
                           :reset_password => :get, 
                           :do_reset_password => :put

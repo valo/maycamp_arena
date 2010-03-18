@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
   
   def reset_token!
     self.token = (1..16).to_a.map { (('0'..'9').to_a + ('a'..'z').to_a).rand }.join
-    self.save!
+    self.save(false)
   end
   
   def total_points
