@@ -4,7 +4,7 @@ class Admin::ReportsController < Admin::BaseController
                                                    :div_name => "daily_submits_report",
                                                    :c_type => "line",
                                                    :precision => 0,
-                                                   :caption => "Брой събмити на ден - Поседни 3 седмици")
+                                                   :caption => "Брой събмити на ден - Последни 3 седмици")
     @daily_submits_report.data = Run.count(:id, 
                                            :conditions => ["created_at > ?", 3.weeks.ago.to_s(:db)], 
                                            :select => "id",
