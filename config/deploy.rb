@@ -4,7 +4,8 @@ set :repository,  "git://github.com/valo/spoj0.git"
 set :scm, :git
 set :branch, "v0.2RC"
 set :user, "maycamp"
-set :deploy_to, "/home/maycamp/#{application}"
+set :home_path, "/home/maycamp"
+set :deploy_to, File.join(home_path, application)
 set :use_sudo, false
 set :database_name, "sarena"
 
@@ -12,10 +13,13 @@ role :web, application                          # Your HTTP server, Apache/etc
 role :app, application                          # This may be the same as your `Web` server
 role :db,  application, :primary => true # This is where Rails migrations will run
 
-namespace :db do
-  task :backup, :roles => :db do
-    
-  end
+def get_settings
+  get(File.join(shared_path, "config/database.yml"), "tmp/database.yml")
+  stage_db_settings = YAML.load_file("tmp/database.yml")["production"]
+  prod_db_settings = YAML.load_file("tmp/database.yml")["arena_production"]
+  FileUtils.rm "tmp/database.yml"
+  
+  [stage_db_settings, prod_db_settings]
 end
 
 # If you are using Passenger mod_rails uncomment this:
@@ -36,13 +40,15 @@ namespace :db do
   end
   
   task :sync do
-    run "mysqldump spoj0_prod -h mysql.maycamp.com -u admin_spoj0 -pparola | mysql sarena -u admin_staging -pparola -h mysql.maycamp.com"
+    stage_db_settings, prod_db_settings = get_settings
+    run "mysqldump #{prod_db_settings["database"]} -h #{prod_db_settings["host"]} -u #{prod_db_settings["username"]} -p#{prod_db_settings["password"]} | mysql #{stage_db_settings["database"]} -u #{stage_db_settings["username"]} -p#{stage_db_settings["password"]} -h #{stage_db_settings["host"]}"
   end
   
   task :backup do
-    backup_file = "#{shared_path}/backup_#{Time.now.utc.strftime("%Y%m%d%H%M%S")}"
-    run "mysqldump spoj0_prod -h mysql.maycamp.com -u admin_spoj0 -pparola > #{backup_file}"
-    get backup_file, "backup"
+    stage_db_settings, prod_db_settings = get_settings
+    backup_file = "#{shared_path}/backup_#{Time.now.utc.strftime("%Y%m%d%H%M%S")}.bz2"
+    run "mysqldump #{prod_db_settings["database"]} -h #{prod_db_settings["host"]} -u #{prod_db_settings["username"]} -p#{prod_db_settings["password"]} | bzip2 > #{backup_file}"
+    get backup_file, File.join("tmp", File.basename(backup_file))
   end
 end
 
