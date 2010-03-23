@@ -30,13 +30,16 @@ module Authentication
       true
     end
     
-    def login_required
+    def login_required_without_data_check
       session[:back] = nil
       if !logged_in? or !authorized?
         session[:back] = request.url if !logged_in?
         redirect_to new_session_path
       end
-      
+    end
+    
+    def login_required
+      login_required_without_data_check
       check_user_profile
     end
     
