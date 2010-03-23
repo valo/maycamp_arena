@@ -56,7 +56,7 @@ Feature: Administer users
     And the contest "Fall championship" has a task named "A+B Problem"
     And the user "valo" submits a source for problem "A+B Problem"
     When I am on the user list in the admin panel
-    And I follow "Покажи"
+    And I follow "Админ преглед"
     Then I should see "A+B Problem" within "table.runs_list"
 
   Scenario: Update a user

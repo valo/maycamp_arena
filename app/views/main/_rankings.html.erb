@@ -9,7 +9,7 @@
   <% rankings.each_with_index do |rank, index| %>
     <tr class="rank_<%= index + 1 %>">
       <td><%= index + 1 %></td>
-      <td><%= rank.user.name %></td>
+      <td><%= link_to rank.user.name, user_path(rank.user) %></td>
       <td><%= rank.total_points %></td>
       <td><%= rank.full_solutions %></td>
       <td><%= rank.total_runs %></td>

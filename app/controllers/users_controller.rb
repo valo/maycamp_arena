@@ -8,15 +8,28 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @daily_submits_report = Ezgraphix::Graphic.new(:w => 900, 
-                                                   :div_name => "daily_submits_report",
-                                                   :c_type => "line",
-                                                   :precision => 0,
-                                                   :caption => "Брой събмити на ден - Последни 3 седмици")
-    @daily_submits_report.data = Run.count(:id, 
-                                           :conditions => ["created_at > ? AND user_id = ?", 3.weeks.ago.to_s(:db), @user.id], 
-                                           :select => "id",
-                                           :group => "DATE_FORMAT(created_at, '%m/%d')")
+    @daily_submits_report = Ezgraphix::Graphic.new(
+                             :w => 900, 
+                             :div_name => "daily_submits_report",
+                             :c_type => "line",
+                             :precision => 0,
+                             :rotate => "1",
+                             :caption => "Брой събмити на ден - Последни 3 седмици",
+                             :data => Run.count(:id, 
+                                                :conditions => ["created_at > ? AND user_id = ?", 3.weeks.ago.to_s(:db), @user.id], 
+                                                :select => "id",
+                                                :group => "DATE_FORMAT(created_at, '%m/%d')"))
+    @total_submits_report = Ezgraphix::Graphic.new(
+                             :w => 900, 
+                             :div_name => "total_submits_report",
+                             :c_type => "area2d",
+                             :rotate => "1",
+                             :precision => 0,
+                             :caption => "Брой събмити на ден",
+                             :data => Run.count(:id, 
+                                                :conditions => ["user_id = ?", @user.id], 
+                                                :select => "id",
+                                                :group => "DATE_FORMAT(created_at, '%Y/%m/%d')"))
   end
   
   def edit
@@ -28,7 +41,7 @@ class UsersController < ApplicationController
     @user = current_user
     
     @user.attributes = params[:user]
-    if params[:user][:unencrypted_password]
+    if !params[:user][:unencrypted_password].blank?
       @user.unencrypted_password = params[:user][:unencrypted_password]
       @user.unencrypted_password_confirmation = params[:user][:unencrypted_password_confirmation]
     end

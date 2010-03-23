@@ -26,6 +26,10 @@ def get_settings
   [stage_db_settings, prod_db_settings]
 end
 
+def timestamp
+  Time.now.utc.strftime("%Y%m%d%H%M%S")
+end
+
 # If you are using Passenger mod_rails uncomment this:
 # if you're still using the script/reapear helper you will need
 # these http://github.com/rails/irs_process_scripts
@@ -38,9 +42,19 @@ namespace :deploy do
   end
 end
 
+namespace :sets do
+  task :sync_local do
+    local_backup = File.expand_path("tmp/sets")
+    remote_loc = File.join(shared_path, "sets")
+    FileUtils.mkdir_p local_backup
+    system "rsync -azv -e ssh --delete #{user}@#{application}:#{remote_loc} #{local_backup}"
+  end
+end
+
 namespace :db do
   task :symlink, :except => { :no_release => true } do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/sets #{release_path}/sets"
   end
   
   task :sync do
@@ -50,9 +64,10 @@ namespace :db do
   
   task :backup do
     stage_db_settings, prod_db_settings = get_settings
-    backup_file = "#{shared_path}/backup_#{Time.now.utc.strftime("%Y%m%d%H%M%S")}.bz2"
+    backup_file = "#{shared_path}/backup_#{timestamp}.bz2"
     run "mysqldump #{prod_db_settings["database"]} -h #{prod_db_settings["host"]} -u #{prod_db_settings["username"]} -p#{prod_db_settings["password"]} | bzip2 > #{backup_file}"
     get backup_file, File.join("tmp", File.basename(backup_file))
+    run "rm #{backup_file}"
   end
   
   task :sync_local do
