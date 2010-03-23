@@ -13,10 +13,14 @@ role :web, application                          # Your HTTP server, Apache/etc
 role :app, application                          # This may be the same as your `Web` server
 role :db,  application, :primary => true # This is where Rails migrations will run
 
+def read_db_config(file, env)
+  YAML.load_file(file)[env]
+end
+
 def get_settings
   get(File.join(shared_path, "config/database.yml"), "tmp/database.yml")
-  stage_db_settings = YAML.load_file("tmp/database.yml")["production"]
-  prod_db_settings = YAML.load_file("tmp/database.yml")["arena_production"]
+  stage_db_settings = read_db_config("tmp/database.yml", "production")
+  prod_db_settings = read_db_config("tmp/database.yml", "arena_production")
   FileUtils.rm "tmp/database.yml"
   
   [stage_db_settings, prod_db_settings]
@@ -49,6 +53,13 @@ namespace :db do
     backup_file = "#{shared_path}/backup_#{Time.now.utc.strftime("%Y%m%d%H%M%S")}.bz2"
     run "mysqldump #{prod_db_settings["database"]} -h #{prod_db_settings["host"]} -u #{prod_db_settings["username"]} -p#{prod_db_settings["password"]} | bzip2 > #{backup_file}"
     get backup_file, File.join("tmp", File.basename(backup_file))
+  end
+  
+  task :sync_local do
+    backup
+    latest_backup = Dir["tmp/backup_*.bz2"].sort.last
+    local_db_settings = read_db_config("config/database.yml", "development")
+    system "bzcat #{latest_backup} | mysql #{local_db_settings["database"]} -u #{local_db_settings["username"]} -p #{local_db_settings["password"]}"
   end
 end
 
