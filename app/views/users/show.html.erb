@@ -1,4 +1,4 @@
-<h1><%= @user.name %></h1>
+<h1><%= @user.name %> <%= @user.city.blank? ? "" : "(#{@user.city})" %></h1>
 <ul class="no_bullets">
   <li><strong>Общ брой точки:</strong> <%= @user.total_points %></li>
   <li><strong>Пратени решения:</strong> <%= @user.runs.count %></li>

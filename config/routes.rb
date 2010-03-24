@@ -72,7 +72,7 @@ ActionController::Routing::Routes.draw do |map|
       end
     end
 
-    admin.resources :emails
+    admin.resources :messages
 
     admin.resource :reports
   end

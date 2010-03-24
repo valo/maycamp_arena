@@ -1,9 +1,7 @@
 <h1>Потребители</h1>
+<p><%= link_to "Нов потребител", :action => "new" %></p>
 <br />
-<p>
-  <%= link_to "Изпращане на съобщения", admin_emails_path %>
-</p>
-<% if !@users.blank? %>
+</p><% if !@users.blank? %>
   <table>
     <tr>
       <th>Login</th>
@@ -29,7 +27,3 @@
   </table>
 <% end %>
 <br />
-<p>
-  <%= link_to "Нов потребител", :action => "new" %> |
-  <%= link_to "Начална страница", root_path %>
-</p>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100322210621) do
+ActiveRecord::Schema.define(:version => 20100324223436) do
 
   create_table "configurations", :force => true do |t|
     t.string   "key",                              :null => false
@@ -42,6 +42,14 @@ ActiveRecord::Schema.define(:version => 20100322210621) do
     t.boolean  "results_visible", :default => false
     t.boolean  "auto_test",       :default => false
     t.boolean  "visible",         :default => true
+  end
+
+  create_table "messages", :force => true do |t|
+    t.string   "subject",     :null => false
+    t.text     "body",        :null => false
+    t.text     "emails_sent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "news", :force => true do |t|

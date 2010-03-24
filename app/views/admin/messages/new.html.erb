@@ -1,0 +1,38 @@
+<h1>Съобщения</h1>
+<h2>Изпращане на съобщение до всички</h2>
+<% form_for [:admin, @message] do |f| -%>
+  <p><%= f.error_messages %></p>
+  <p>
+    <%= f.label :subject, "Заглавие:" %>
+    <%= f.text_field :subject %>
+  </p>
+  <p>
+    <%= f.label :body, "Съобщение:" %>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit "Прати" %>
+  </p>
+<% end -%>
+
+<h2>История на изпратени съобщения</h2>
+<% if Message.count > 0 %>
+  <table>
+    <tr>
+      <th>Заглавие</th>
+      <th>Съобщение</th>
+      <th>Получатели</th>
+      <th>Дата</th>
+    </tr>
+  <% Message.all.each do |msg| %>
+    <tr>
+      <td><%= msg.subject %></td>
+      <td><%= msg.body %></td>
+      <td><%= msg.emails_sent %></td>
+      <td><%= msg.created_at %></td>
+    </tr>
+  <% end %>
+  </table>
+<% else %>
+  <p>Няма изпратени съобщения до сега</p>
+<% end %>

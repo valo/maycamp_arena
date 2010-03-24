@@ -6,6 +6,7 @@ set :branch, "v0.2RC"
 set :user, "maycamp"
 set :home_path, "/home/maycamp"
 set :deploy_to, File.join(home_path, application)
+set :deploy_via, :remote_cache
 set :use_sudo, false
 set :database_name, "sarena"
 

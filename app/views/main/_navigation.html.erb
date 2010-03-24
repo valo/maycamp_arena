@@ -1,27 +1,41 @@
 <div id="navigation">
   <!-- menus START -->
   <ul id="menus">
-      <li class="page_item"><a class="home" title="Home" href="http://cs.maycamp.com/">Home</a></li>
-      <li class="page_item"><a href="http://cs.maycamp.com/?page_id=168" title="Анализи">Анализи</a></li>
-      <li class="page_item"><a href="http://cs.maycamp.com/?page_id=83" title="Статии">Статии</a></li>
+    <li class="page_item"><a class="home" title="Home" href="http://cs.maycamp.com/">Home</a></li>
+    <li class="page_item"><a href="http://cs.maycamp.com/?page_id=168" title="Анализи">Анализи</a></li>
+    <li class="page_item"><a href="http://cs.maycamp.com/?page_id=83" title="Статии">Статии</a></li>
 <!--          <li class="page_item"><a href="http://cs.maycamp.com/?page_id=89" title="Задачи">Задачи</a></li> -->
-      <li class="current_page_item"><a href="http://arena.maycamp.com/" title="Aрена">Aрена</a></li>
-      <li class="page_item"><a href="http://cs.maycamp.com/?page_id=13" title="Календар">Календар</a></li>
-      <li class="page_item"><a href="http://cs.maycamp.com/?page_id=3" title="Форум">Форум</a></li>
-      <li class="page_item"><a href="http://cs.maycamp.com/?page_id=2" title="За нас">За нас</a></li>
+    <li class="current_page_item"><a href="<%= root_path %>" title="Aрена">Aрена</a></li>
+    <li class="page_item"><a href="http://cs.maycamp.com/?page_id=13" title="Календар">Календар</a></li>
+    <li class="page_item"><a href="http://cs.maycamp.com/?page_id=3" title="Форум">Форум</a></li>
+    <li class="page_item"><a href="http://cs.maycamp.com/?page_id=2" title="За нас">За нас</a></li>
+    <li><a class="lastmenu" href="javascript:void(0);"></a></li>
+  </ul>
+  <!-- menus END -->
+  <div class="fixed"></div>
+</div>
+<div id="submenu">
+  <!-- menus START -->
+  <ul>
+    <li><%= link_to "Начало", root_path %></li>
     <% if current_user.andand.admin %>
-      <li class="sub_navigation"><%= link_to "#{current_user.name} (Изход)", logout_path %></li>
-      <li class="sub_navigation"><%= link_to "Статус", admin_status_path %></li>
-      <li class="sub_navigation"><%= link_to "Потребители", admin_users_path %></li>
-      <li class="sub_navigation"><%= link_to "Състезания", admin_contests_path %></li>
-      <li class="sub_navigation"><%= link_to "Доклади", admin_reports_path %></li>
+      <li><%= link_to "Доклади", admin_reports_path %></li>
+      <li><%= link_to "Състезания", admin_contests_path %></li>
+      <li><%= link_to "Потребители", admin_users_path %></li>
+      <li><%= link_to "Съобщения", new_admin_message_path %></li>
+      <li><%= link_to "Статус", admin_status_path %></li>
+      <li><%= link_to "Профил", edit_user_path(current_user) %></li>
+      <li><%= link_to "#{current_user.name} (Изход)", logout_path %></li>
     <% elsif current_user %>
-      <li class="sub_navigation"><%= link_to "#{current_user.name} (Изход)", logout_path %></li>
-      <li class="sub_navigation"><%= link_to "Статус", :controller => :main, :action => :status %></li>
-      <li class="sub_navigation"><%= link_to "Профил", edit_user_path(current_user) %></li>
+      <li><%= link_to "Класиране", :controller => :main, :action => :rankings %></li>
+      <li><%= link_to "Статус", :controller => :main, :action => :status %></li>
+      <li><%= link_to "Профил", edit_user_path(current_user) %></li>
+      <li><%= link_to "#{current_user.name} (Изход)", logout_path %></li>
     <% else %>
-      <li class="sub_navigation"><%= link_to "Вход", login_path %></li>
-      <li class="sub_navigation"><%= link_to "Статус", :controller => :main, :action => :status %></li>
+      <li><%= link_to "Класиране", :controller => :main, :action => :rankings %></li>
+      <li><%= link_to "Статус", :controller => :main, :action => :status %></li>
+      <li><%= link_to "Регистрация", new_user_path %></li>
+      <li><%= link_to "Вход", login_path %></li>
     <% end %>
 
     <li><a class="lastmenu" href="javascript:void(0);"></a></li>
