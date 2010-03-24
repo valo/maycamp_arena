@@ -16,7 +16,7 @@ class MergeUsersWithSameEmail < ActiveRecord::Migration
 
         (users - [main_user]).each do |other_user|
           other_user.contest_start_events.each do |event|
-            if !main_user.contest_start_events.detect { |e| e.user == main_user && e.contest == event.contest }
+            if !ContestStartEvent.first(:conditions => { :user_id => main_user.id, :contest_id => event.contest.id})
               event.update_attribute(:user_id, main_user.id)
               main_user.reload
             else
