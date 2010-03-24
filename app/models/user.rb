@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   # This will also let us return a human error message.
   #
   def self.authenticate(login, password)
-    user = find_by_login(login.downcase) # need to get the salt
+    user = find_by_login(login.downcase) || find_by_email(login.downcase) # need to get the salt
     
     if user and user.password == encrypt_password(password)
       return user
@@ -101,8 +101,9 @@ class User < ActiveRecord::Base
     def generate_ranklist(options = {})
       query = %Q{SELECT 
                     users.id, 
-                    name, 
-                    admin, 
+                    users.name, 
+                    users.admin,
+                    users.city,
                     SUM(max_points_per_problem) as score, 
                     SUM(CASE WHEN max_points_per_problem IS NULL THEN 0 ELSE runs_per_problem END) as runs_count,
                     SUM(CASE max_points_per_problem WHEN 100 THEN 1 ELSE 0 END) as full_solutions
@@ -116,7 +117,9 @@ class User < ActiveRecord::Base
                     FROM runs
                     JOIN problems ON problems.id = problem_id
                     JOIN contests ON contests.id = problems.contest_id
-                    WHERE contests.results_visible = TRUE
+                    WHERE
+                      contests.results_visible = TRUE
+                      #{options[:since] ? "AND runs.created_at > '#{options[:since].utc.to_s(:db)}'" : ""}
                     GROUP BY user_id, problem_id
                   ) as problem_points
                 ON problem_points.user_id = users.id

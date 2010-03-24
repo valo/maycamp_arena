@@ -20,11 +20,11 @@ class MainController < ApplicationController
     students = @contest.runs.during_contest.map(&:user).uniq
     # Results are in the form:
     # [
-    #   [student_name, [task1_test1_pts, task1_test2_pts], [task2_test1_pts, ...]]
+    #   [student_record, [task1_test1_pts, task1_test2_pts], [task2_test1_pts, ...]]
     # ]
     @results = students.reject(&:admin?).map do |student|
       total = 0
-      [student.name] + @contest.problems.map do |problem|
+      [student] + @contest.problems.map do |problem|
         last_run = problem.runs.during_contest.select { |r| r.user == student }.first
         
         if last_run
@@ -48,6 +48,7 @@ class MainController < ApplicationController
   
   def rankings
     @rankings = calc_rankings
+    @week_rankings = calc_rankings(:since => 7.days.ago, :limit => 5)
   end
   
   def download_tests

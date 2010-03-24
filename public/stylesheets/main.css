@@ -103,3 +103,32 @@ textarea.source_code {
 .no_bullets {
   list-style-type: none;
 }
+
+#submenu {
+	background:#FFF;
+}
+
+#submenu ul {
+	background:#FFF;
+}
+
+#submenu li {
+	display:block;
+	float: left;
+	list-style:none;
+	padding: 8px;
+}
+
+#submenu li a {
+  font-weight: bold;
+  color: black;
+}
+
+#submenu li:hover {
+  background: #EDEFF0;
+}
+
+.new_session em {
+  display: block;
+  font-size: 0.8em;
+}

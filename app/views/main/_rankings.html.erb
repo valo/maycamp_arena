@@ -1,7 +1,8 @@
-<table>
+<table id="rankings">
   <tr>
     <th>Място</th>
     <th>Име</th>
+    <th>Град</th>
     <th>Общо събрани точки</th>
     <th>Брой решени задачи за 100 точки</th>
     <th>Пратени решения</th>
@@ -10,6 +11,7 @@
     <tr class="rank_<%= index + 1 %>">
       <td><%= index + 1 %></td>
       <td><%= link_to rank.user.name, user_path(rank.user) %></td>
+      <td><%= rank.user.city %></td>
       <td><%= rank.total_points %></td>
       <td><%= rank.full_solutions %></td>
       <td><%= rank.total_runs %></td>
