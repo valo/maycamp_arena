@@ -1,5 +1,4 @@
 class UserMails < ActionMailer::Base
-  default_url_options[:host] = "localhost:3000"
   def password_forgot(user)
     recipients user.email
     reply_to "mentors@maycamp.com"

@@ -19,6 +19,9 @@
 <p>
     <%= f.label :unencrypted_password, "Парола:" %>
     <%= f.password_field :unencrypted_password %>
+    <% if update %>
+      <em>Не попълвайте ако не искате да промените паролата си</em>
+    <% end %>
 </p>
 <p>
     <%= f.label :unencrypted_password_confirmation, 'Потвърди паролата:' %>

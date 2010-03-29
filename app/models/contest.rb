@@ -7,7 +7,7 @@ class Contest < ActiveRecord::Base
   named_scope :finished, lambda { {:conditions => ['? > end_time', Time.now.utc]} }
   named_scope :practicable, :conditions => { :practicable => true }
   
-  validates_presence_of :name, :duration, :start_time, :about
+  validates_presence_of :name, :duration, :start_time
   validates_numericality_of :duration
   
   before_validation :generate_code

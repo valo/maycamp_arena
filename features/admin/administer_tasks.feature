@@ -19,7 +19,6 @@ Story: Administer tasks
     And I follow "Ново състезание"
     And I fill in the following:
       | Име: | Fall contest |
-      | Описание: | An example contest |
       | Продължителност: | 120 |
     And I select "October 16, 2009 16:21:39" as the "Начало:" date
     And I select "October 18, 2009 16:21:39" as the "Край:" date
@@ -28,7 +27,6 @@ Story: Administer tasks
     And I follow "Нова задача"
     And I fill in the following:
       | Име: | A+B problem |
-      | Описание: | Прочетете от входа 2 числа и изведете сборът им |
       | Time limit: | 1.0 |
     And I press "Създаване"
 
@@ -48,7 +46,6 @@ Story: Administer tasks
     And I follow "Задачи"
     And I follow "Преглед"
     Then I should see "Име: A+B problem"
-    And I should see "Описание: Прочетете от входа 2 числа и изведете сборът им"
     And I should see "Time limit: 1.0 sec"
     And I should see "Memory limit: 16 MB"
 
@@ -58,7 +55,6 @@ Story: Administer tasks
     And I follow "Промяна"
     And I fill in the following:
       | Име:          | A-B problem                                        |
-      | Описание:     | Прочетете от входа 2 числа и изведете разликата им |
       | Time limit:   | 2                                                  |
       | Memory limit: | 1048576                                            |
     And I press "Обновяване"

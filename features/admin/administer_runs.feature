@@ -19,7 +19,6 @@ Story: Administer runs
     And I follow "Ново състезание"
     And I fill in the following:
       | Име: | Fall contest |
-      | Описание: | An example contest |
       | Продължителност: | 120 |
     And I select "October 16, 2009 16:21:39" as the "Начало:" date
     And I select "October 18, 2009 16:21:39" as the "Край:" date
@@ -28,7 +27,6 @@ Story: Administer runs
     And I follow "Нова задача"
     And I fill in the following:
       | Име: | A+B problem |
-      | Описание: | Прочетете от входа 2 числа и изведете сборът им |
       | Time limit: | 1 |
     And I press "Създаване"
 

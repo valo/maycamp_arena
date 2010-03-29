@@ -8,7 +8,6 @@ Factory.define :user do |u|
 end
 
 Factory.define :contest do |c|
-  c.about "Some bogus text"
   c.duration 120
   c.start_time 1.hour.ago
   c.end_time 1.hour.from_now
@@ -21,5 +20,4 @@ end
 
 Factory.define :problem do |p|
   p.time_limit 1
-  p.about "Some bogus text"
 end

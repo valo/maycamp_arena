@@ -5,7 +5,6 @@
   <table>
     <tr>
       <th>Име</th>
-      <th>Описание</th>
       <th>Начало</th>
       <th>Край</th>
       <th>Дължина</th>
@@ -14,7 +13,6 @@
   <% for contest in @contests %>
     <tr>
       <td><%= contest.name %></td>
-      <td><%= contest.about %></td>
       <td><%= contest.start_time.to_s :long %></td>
       <td><%= contest.end_time.to_s :long %></td>
       <td><%= duration_in_words contest.duration.minutes  %></td>
