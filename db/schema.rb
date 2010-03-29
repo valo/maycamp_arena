@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100324223436) do
+ActiveRecord::Schema.define(:version => 20100329212348) do
 
   create_table "configurations", :force => true do |t|
     t.string   "key",                              :null => false
@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(:version => 20100324223436) do
     t.datetime "end_time",                           :null => false
     t.integer  "duration",                           :null => false
     t.integer  "show_sources",    :default => 0,     :null => false
-    t.text     "about",                              :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "practicable",     :default => false
@@ -66,7 +65,6 @@ ActiveRecord::Schema.define(:version => 20100324223436) do
     t.string   "letter",       :limit => 16
     t.string   "name",         :limit => 64,                                                     :null => false
     t.decimal  "time_limit",                 :precision => 5, :scale => 2,                       :null => false
-    t.text     "about",                                                                          :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "memory_limit",                                             :default => 16777216

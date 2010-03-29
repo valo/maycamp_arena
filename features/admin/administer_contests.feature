@@ -22,7 +22,6 @@ Story: Administer contests
     And I follow "Ново състезание"
     And I fill in the following:
       | Име: | Fall contest |
-      | Описание: | An example contest |
       | Продължителност: | 120 |
     And I select "October 16, 2009 16:21:39" as the "Начало:" date
     And I select "October 18, 2009 16:21:39" as the "Край:" date
@@ -36,7 +35,6 @@ Story: Administer contests
     And I follow "Ново състезание"
     And I fill in the following:
       | Име: | Fall contest |
-      | Описание: | An example contest |
       | Продължителност: | 120 |
     And I select "October 16, 2009 16:21:39" as the "Начало:" date
     And I select "October 18, 2009 16:21:39" as the "Край:" date
@@ -51,7 +49,6 @@ Story: Administer contests
     And I follow "Ново състезание"
     And I fill in the following:
       | Име: | Fall contest |
-      | Описание: | An example contest |
       | Продължителност: | 120 |
     And I select "October 16, 2009 16:21:39" as the "Начало:" date
     And I select "October 18, 2009 16:21:39" as the "Край:" date
@@ -59,26 +56,6 @@ Story: Administer contests
     And I follow "Промяна"
     And I fill in the following:
       | Име: | Spring contest |
-      | Описание: | An example contest |
-      | Продължителност: | 180 |
-    And I press "Обновяване"
-    Then I should be on the contest edit page in the admin panel
-    And I should see "Състезанието е обновено успешно."
-
-  Scenario: Edit a contest
-    Given I am on the contest list in the admin panel
-    And I follow "Ново състезание"
-    And I fill in the following:
-      | Име: | Fall contest |
-      | Описание: | An example contest |
-      | Продължителност: | 120 |
-    And I select "October 16, 2009 16:21:39" as the "Начало:" date
-    And I select "October 18, 2009 16:21:39" as the "Край:" date
-    And I press "Създаване"
-    And I follow "Промяна"
-    And I fill in the following:
-      | Име: | Spring contest |
-      | Описание: | An example contest |
       | Продължителност: | 180 |
     And I press "Обновяване"
     Then I should be on the contest edit page in the admin panel
@@ -89,7 +66,6 @@ Story: Administer contests
     And I follow "Ново състезание"
     And I fill in the following:
       | Име: | Fall contest |
-      | Описание: | An example contest |
       | Продължителност: | 120 |
     And I select "October 16, 2009 16:21:39" as the "Начало:" date
     And I select "October 18, 2009 16:21:39" as the "Край:" date
@@ -97,7 +73,6 @@ Story: Administer contests
     And I follow "Промяна"
     And I fill in the following:
       | Име: | Spring contest |
-      | Описание: | An example contest |
       | Продължителност: | 180 |
     And I press "Обновяване"
     And I follow "Отказ"

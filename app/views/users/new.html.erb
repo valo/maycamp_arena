@@ -2,7 +2,7 @@
 <em><%= error_messages_for :user %></em>
 <br />
 <% form_for @user do |f| -%>
-<%= render :partial => 'user_fields', :locals => { :f => f } %>
+<%= render :partial => 'user_fields', :locals => { :f => f, :update => false } %>
 <p>
   <%= submit_tag 'Създай нов потребител' %>
 </p>

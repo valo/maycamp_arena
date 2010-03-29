@@ -2,7 +2,7 @@ class Problem < ActiveRecord::Base
   has_many :runs, :dependent => :destroy
   belongs_to :contest
   
-  validates_presence_of :name, :time_limit, :about
+  validates_presence_of :name, :time_limit
   validates_numericality_of :time_limit, :memory_limit, :greater_than => 0
   
   def tests_dir
