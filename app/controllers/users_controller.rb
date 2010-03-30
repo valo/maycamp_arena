@@ -15,6 +15,7 @@ class UsersController < ApplicationController
                              :precision => 0,
                              :rotate => "1",
                              :caption => "Брой събмити на ден - Последни 3 седмици",
+                             :color => "00FF00",
                              :data => Run.count(:id, 
                                                 :conditions => ["created_at > ? AND user_id = ?", 3.weeks.ago.to_s(:db), @user.id], 
                                                 :select => "id",
@@ -30,6 +31,10 @@ class UsersController < ApplicationController
                                                 :conditions => ["user_id = ?", @user.id], 
                                                 :select => "id",
                                                 :group => "DATE_FORMAT(created_at, '%Y/%m/%d')"))
+
+    @runs = Run.all(:include => [ {:problem => :contest}, :user ],
+                    :limit => 10,
+                    :conditions => ["contests.practicable AND contests.visible AND NOT users.admin AND runs.user_id = ?", @user.id])
   end
   
   def edit

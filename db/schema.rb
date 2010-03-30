@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20100329212348) do
     t.decimal  "total_points", :precision => 10, :scale => 2
   end
 
+  add_index "runs", ["status", "created_at"], :name => "status_created_at"
   add_index "runs", ["user_id", "problem_id"], :name => "index_runs_on_user_id_and_problem_id"
 
   create_table "sessions", :force => true do |t|

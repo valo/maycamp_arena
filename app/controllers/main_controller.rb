@@ -47,8 +47,11 @@ class MainController < ApplicationController
   end
   
   def rankings
-    @rankings = calc_rankings(:limit => 10, :page => params[:page] || 1)
-    @week_rankings = calc_rankings(:since => 7.days.ago, :limit => 10)
+    @rankings = calc_rankings
+  end
+  
+  def activity
+    @week_rankings = calc_rankings(:since => 7.days.ago, :only_active => true)
   end
   
   def download_tests

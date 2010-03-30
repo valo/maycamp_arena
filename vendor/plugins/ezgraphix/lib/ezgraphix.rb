@@ -167,7 +167,7 @@ unless defined? Ezgraphix
         elsif !['msline', 'mscol2d', 'msbar2d', 'mscol3d'].include?(self.c_type)
           escaped_xml = g_xml.graph(options) do
             self.data.each{ |k,v|
-              g_xml.set :value => v, :name => k, :color => self.rand_color
+              g_xml.set :value => v, :name => k, :color => options[:color] || self.rand_color
             }
           end
         else
