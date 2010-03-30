@@ -126,8 +126,10 @@ class User < ActiveRecord::Base
                 WHERE
                   admin = FALSE
                 GROUP BY users.id
+                #{options[:only_active] ? "HAVING runs_count > 0" : ""}
                 ORDER BY score DESC, full_solutions DESC, runs_count ASC, name ASC
         }
+      
       query += " LIMIT #{options[:limit]}" if options[:limit]
       
       User.connection.select_all(query).inject([]) do |ranklist, row|
