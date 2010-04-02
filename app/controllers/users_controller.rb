@@ -99,11 +99,13 @@ class UsersController < ApplicationController
     @user.unencrypted_password = params[:user][:unencrypted_password]
     @user.unencrypted_password_confirmation = params[:user][:unencrypted_password_confirmation]
     
-    if @user.save
+    if @user.unencrypted_password == @user.unencrypted_password_confirmation
+      @user.save(false)
       flash[:notice] = "Паролата е рестартирана успешно"
       current_user = @user
       redirect_to(root_path)
     else
+      @user.errors.add(:password, "не съвпада с потвърждението")
       render :action => "reset_password"
     end
   end
