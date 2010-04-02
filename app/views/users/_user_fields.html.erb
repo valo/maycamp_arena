@@ -10,7 +10,7 @@
 </p>
 <p>
     <%= f.label :city, 'Град:' %>
-    <%= f.text_field :city %>
+    <%= f.collection_select :city, BG_CITIES, :to_s, :to_s, :include_blank => "Моля изберете" %>
 </p>
 <p>
     <%= f.label :email, "Email:" %>

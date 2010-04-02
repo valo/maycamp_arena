@@ -55,7 +55,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Вашата информация беше обновена успешно!"
       redirect_to user_path(@user)
     else
-      render :action => "show"
+      redirect_to :action => "show"
     end
   end
  

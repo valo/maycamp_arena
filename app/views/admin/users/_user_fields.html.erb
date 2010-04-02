@@ -12,7 +12,7 @@
 </p>
 <p>
   <%= f.label :city, "Град:" %>
-  <%= f.text_field :city %>
+  <%= f.collection_select :city, BG_CITIES, :to_s, :to_s %>
 </p>
 <p>
     <%= f.label :unencrypted_password, "Парола:" %>
