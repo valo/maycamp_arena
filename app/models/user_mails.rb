@@ -13,6 +13,7 @@ class UserMails < ActionMailer::Base
     reply_to "mentors@maycamp.com"
     subject msg.subject
     from "mentors@maycamp.com"
+    content_type "text/plain"
     
     body :body => msg.body
   end
