@@ -9,7 +9,7 @@ class UserMails < ActionMailer::Base
   end
   
   def message(users, msg)
-    bcc users.map(&:email).join(", ")
+    bcc msg.emails_sent
     reply_to "mentors@maycamp.com"
     subject msg.subject
     from "mentors@maycamp.com"
