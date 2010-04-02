@@ -34,6 +34,7 @@ class UsersController < ApplicationController
 
     @runs = Run.all(:include => [ {:problem => :contest}, :user ],
                     :limit => 10,
+                    :select => (Run.column_names - ["log", "source_code"]).join(","),
                     :conditions => ["contests.practicable AND contests.visible AND NOT users.admin AND runs.user_id = ?", @user.id])
   end
   
