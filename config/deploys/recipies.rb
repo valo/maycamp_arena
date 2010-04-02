@@ -25,6 +25,16 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
+  
+  namespace :web do
+    task :disable do
+      run "cp #{File.join(current_path, 'public/construction.html')} #{File.join(current_path, 'public/index.html')}"
+    end
+    
+    task :enable do
+      run "rm #{File.join(current_path, 'public/index.html')}"
+    end
+  end
 end
 
 namespace :sets do
