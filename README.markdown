@@ -7,8 +7,9 @@ Description
 The idea of this project is to provide a grading system for high school students informatics competitions in [IOI][IOI] style.
 
 The system contains two main components:
- * web part
- * grader
+
+* web part
+* grader
  
 The web part is a rails app contained in the students folder.
 
