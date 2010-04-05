@@ -55,7 +55,7 @@ class Grader
       tests ||= run.problem.number_of_tests
       run.update_attributes(:status => Run::JUDGING)
       puts "Judging run with id #{run.id}"
-      @runner = Pathname.new(File.join(File.basename(__FILE__), "../ext/runner.rb")).realpath.to_s
+      @runner = Pathname.new(File.join(File.dirname(__FILE__), "../ext/runner.rb")).realpath.to_s
       
       Dir.chdir @root do
         File.open("grader.log", "w") do |f|
