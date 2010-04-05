@@ -73,4 +73,10 @@ namespace :db do
   end
 end
 
+namespace :log do
+  task :tail do
+    run "tail -f #{File.join(shared_path, "log/production.log")}"
+  end
+end
+
 after "deploy:finalize_update", "db:symlink"
