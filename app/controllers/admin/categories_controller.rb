@@ -1,10 +1,10 @@
-class Admin::CategoriesController < ApplicationController
+class Admin::CategoriesController < Admin::BaseController
   def index
     @categories = Category.find(:all)
   end
 
   def show
-    @categories = Category.find params[:id]
+    @category = Category.find params[:id]
   end
 
   def new
@@ -38,7 +38,7 @@ class Admin::CategoriesController < ApplicationController
 
   def destroy
     @category = Category.find params[:id]
-    Category.destroy(params[:id])
+    @category.destroy
     redirect_to admin_categories_path
   end
 

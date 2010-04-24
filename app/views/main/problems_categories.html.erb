@@ -1,10 +1,8 @@
 <h1>Задачи по категории</h1>
+<br>
+<ul>
 <% for @cat in @categories do %>
-  <h2><%= h(@cat.name) %></h2><br>
-  <% for @cat_prob in @cat.problems do %>
-    <% if @cat_prob.contest.practicable and @cat_prob.contest.visible then %>
-      <%= link_to h(@cat_prob.name), practice_path(:action => :open_contest, :contest_id => @cat_prob.contest_id) %><br>
-    <% end %>
-  <% end %>
+  <li><h5><%= link_to h(@cat.name), :controller => :main, :action => :show_category_problems, :id => @cat.id %><br></h5></li>
 <% end %>
+</ul>
 
