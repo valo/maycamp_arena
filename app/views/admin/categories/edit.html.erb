@@ -1,0 +1,14 @@
+<h1>Промяна на <%= @category.name %></h1>
+<% form_for [:admin, @category] do |f| -%>
+  <p>
+    <%= f.error_messages %>
+  </p>
+  <p>
+    <%= f.label :name, "Category name:" %>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit "Обновяване" %><%= link_to "Отказ", admin_categories_path(@category) %>
+  </p>
+<% end -%>
+

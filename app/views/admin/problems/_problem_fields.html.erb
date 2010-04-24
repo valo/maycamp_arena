@@ -3,6 +3,14 @@
   <%= f.text_field :name %>
 </p>
 <p>
+<%= f.label :categories, "Категории:" %>
+<% @cat_list = Category.find(:all)#.map {|cat| [cat.name, cat.id]} %>
+<% for cat in @cat_list %>
+  <%= check_box("categories", cat.id, (@problem.categories.include?(cat) ?
+{:checked => true} : {:checked => false} )) %> <%= cat.name %> <br>
+<% end %> 
+</p>
+<p>
   <%= f.label :time_limit, "Time limit:" %>
   <%= f.text_field :time_limit %>
   <em>In seconds. Can be a float number (ex. 0.34)</em>

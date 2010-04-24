@@ -9,7 +9,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100329212348) do
+ActiveRecord::Schema.define(:version => 20100419230712) do
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categories_problems", :id => false, :force => true do |t|
+    t.integer "category_id"
+    t.integer "problem_id"
+  end
 
   create_table "configurations", :force => true do |t|
     t.string   "key",                              :null => false
@@ -82,7 +94,6 @@ ActiveRecord::Schema.define(:version => 20100329212348) do
     t.decimal  "total_points", :precision => 10, :scale => 2
   end
 
-  add_index "runs", ["status", "created_at"], :name => "status_created_at"
   add_index "runs", ["user_id", "problem_id"], :name => "index_runs_on_user_id_and_problem_id"
 
   create_table "sessions", :force => true do |t|

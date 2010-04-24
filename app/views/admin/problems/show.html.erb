@@ -3,6 +3,12 @@
   Име: <%= @problem.name %>
 </p>
 <p>
+  Категории:
+  <% for cat in @problem.categories do %>
+     <%= h(cat.name) %>,
+  <% end %>
+</p>
+<p>
   Time limit: <%= @problem.time_limit %> sec.
 </p>
 <p>
