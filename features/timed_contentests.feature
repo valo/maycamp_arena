@@ -1,5 +1,5 @@
 @timed_contests
-Story: Submit solution
+Feature: Submit solution
   In order to submit a solution
   As a student
   I want to be able to submit solutions

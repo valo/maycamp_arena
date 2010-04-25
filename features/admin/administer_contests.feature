@@ -1,5 +1,5 @@
 @admin @contests
-Story: Administer contests
+Feature: Administer contests
   In order to be able to control the system
   As a administrator
   I want to be able to administer the contests

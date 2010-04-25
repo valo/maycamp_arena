@@ -1,5 +1,5 @@
 @admin
-Story: Administrator login
+Feature: Administrator login
   In order to be able to control the system
   As a administrator
   I want to be able to login as an administrator

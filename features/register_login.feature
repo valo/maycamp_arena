@@ -1,6 +1,4 @@
-The students should be able to register on the website and login after that.
-
-Story: Register a user
+Feature: Register a user
   In order to be able to login
   As a student
   I want to be able to register

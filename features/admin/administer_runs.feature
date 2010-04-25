@@ -1,5 +1,5 @@
 @admin @runs
-Story: Administer runs
+Feature: Administer runs
   In order to be able to control the system
   As a administrator
   I want to be able to administer the runs
@@ -23,7 +23,7 @@ Story: Administer runs
     And I select "October 16, 2009 16:21:39" as the "Начало:" date
     And I select "October 18, 2009 16:21:39" as the "Край:" date
     And I press "Създаване"
-    And I follow "Задачи"
+    And I follow "Задачи" within ".post"
     And I follow "Нова задача"
     And I fill in the following:
       | Име: | A+B problem |
@@ -32,7 +32,7 @@ Story: Administer runs
 
   Scenario: Submitting a run
     Given I am on the contest list in the admin panel
-    And I follow "Задачи"
+    And I follow "Задачи" within ".post"
     And I follow "Решения"
     And I follow "Пращане на решение"
     And I select "Valentin Mihov" from "Потребител:"
@@ -47,7 +47,7 @@ Story: Administer runs
   
   Scenario: Viewing all the runs for a given contest
     Given I am on the contest list in the admin panel
-    And I follow "Задачи"
+    And I follow "Задачи" within ".post"
     And I follow "Решения"
     And I follow "Пращане на решение"
     And I select "Valentin Mihov" from "Потребител:"
@@ -63,7 +63,7 @@ Story: Administer runs
 
   Scenario: Editing a run
     Given I am on the contest list in the admin panel
-    And I follow "Задачи"
+    And I follow "Задачи" within ".post"
     And I follow "Решения"
     And I follow "Пращане на решение"
     And I select "Valentin Mihov" from "Потребител:"
