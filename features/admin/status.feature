@@ -1,5 +1,5 @@
 @admin @status
-Story: Viewing the status
+Feature: Viewing the status
   In order to see what is going on with the system
   As an admin
   I want to be able to view the status of the system

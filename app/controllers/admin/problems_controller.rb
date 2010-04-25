@@ -9,24 +9,11 @@ class Admin::ProblemsController < Admin::BaseController
   def index
     @contest = Contest.find params[:contest_id]
   end
-
-  def update_categories
-    for @cat_map in params[:categories] do
-      if (@cat_map[1].to_i == 0) then
-        @delete_cat = Category.find(@cat_map[0].to_i)
-        @problem.categories.delete(@delete_cat)
-      else
-        @new_cat = Category.find(@cat_map[0].to_i)
-        @problem.categories.push(@new_cat) if not @problem.categories.include?(@new_cat)
-      end
-    end
-  end
   
   def create
+    params[:problem][:category_ids] ||= []
     @contest = Contest.find params[:contest_id]
     @problem = @contest.problems.build params[:problem]
-
-    update_categories
 
     if @problem.save
       redirect_to :action => "index"
@@ -50,10 +37,9 @@ class Admin::ProblemsController < Admin::BaseController
   end
   
   def update
+    params[:problem][:category_ids] ||= []
     @problem = Problem.find params[:id]
     @problem.attributes = params[:problem]
-
-    update_categories
     
     if @problem.save
       redirect_to admin_contest_problems_path(@problem.contest)

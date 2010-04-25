@@ -4,11 +4,12 @@
 </p>
 <p>
 <%= f.label :categories, "Категории:" %>
-<% @cat_list = Category.find(:all)#.map {|cat| [cat.name, cat.id]} %>
-<% for cat in @cat_list %>
-  <%= check_box("categories", cat.id, (@problem.categories.include?(cat) ?
-{:checked => true} : {:checked => false} )) %> <%= cat.name %> <br>
-<% end %> 
+<% Category.all.each do |category| %>
+  <p>
+    <label><%= check_box_tag "problem[category_ids][]", category.id, @problem.categories.include?(category) %>
+    <%= category.name %></label>
+  </p>
+<% end %>
 </p>
 <p>
   <%= f.label :time_limit, "Time limit:" %>
