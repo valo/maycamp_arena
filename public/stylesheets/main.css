@@ -132,3 +132,7 @@ form p em {
   display: block;
   font-size: 0.9em;
 }
+
+#categories_list {
+  list-style-type: none;
+}

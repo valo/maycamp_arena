@@ -21,3 +21,7 @@ end
 Factory.define :problem do |p|
   p.time_limit 1
 end
+
+Factory.define :category do |c|
+  c.name "Алчни алгоритми"
+end

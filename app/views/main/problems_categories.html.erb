@@ -1,8 +1,0 @@
-<h1>Задачи по категории</h1>
-<br>
-<ul>
-<% for @cat in @categories do %>
-  <li><h5><%= link_to h(@cat.name), :controller => :main, :action => :show_category_problems, :id => @cat.id %><br></h5></li>
-<% end %>
-</ul>
-
