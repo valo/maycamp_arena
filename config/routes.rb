@@ -11,6 +11,8 @@ ActionController::Routing::Routes.draw do |map|
                           :do_reset_password => :put
                         }
   map.resource :session
+  
+  map.resources :categories
 
   # The priority is based upon order of creation: first created -> highest priority.
 

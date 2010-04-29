@@ -4,7 +4,7 @@
   As a administrator
   I want to be able to administer the tasks
 
-    Background:
+  Background:
     Given there is an admin user with attributes:
       | login                 | valo                      |
       | name                  | Valentin Mihov            |
@@ -82,3 +82,16 @@
     And I should not see "test.in01"
     And I should not see "test.ans00"
     And I should not see "test.ans01"
+
+  Scenario: Add task to a category
+    Given I am on the contest list in the admin panel
+    And there is a category with attributes:
+      | name | Динамично |
+    When I follow "Задачи" within ".post"
+    And I follow "Промяна"
+    And I check "Динамично"
+    And I press "Обновяване"
+    And I am on the categories list in the admin panel
+    And show me the page
+    And I follow "Динамично"
+    Then I should see "A+B problem"

@@ -11,7 +11,7 @@ Given /^I am not logged in$/ do
   get logout_path
 end
 
-Given /^there is a ([^\s]*) with attributes:$/ do |model, table|
+Given /^there is an? ([^\s]*) with attributes:$/ do |model, table|
   Factory(model.to_sym, table.transpose.hashes.first)
 end
 
@@ -43,5 +43,13 @@ end
 
 Given /^the contest "([^\"]*)" is finished$/ do |contest_name|
   Time.stubs(:now => Contest.find_by_name!(contest_name).end_time + 1.second)
+end
+
+Given /^the problem "([^\"]*)" belongs to the category "([^\"]*)"$/ do |problem_name, category_name|
+  Problem.find_by_name(problem_name).categories << Category.find_by_name(category_name)
+end
+
+Given /^the contest "([^\"]*)" has attributes:$/ do |contest_name, table|
+  Contest.find_by_name(contest_name).update_attributes!(table.transpose.hashes.first)
 end
 

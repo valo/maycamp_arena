@@ -31,14 +31,14 @@
       <li><%= link_to "Активност", :controller => :main, :action => :activity %></li>
       <li><%= link_to "Ранглиста", :controller => :main, :action => :rankings %></li>
       <li><%= link_to "Статус", :controller => :main, :action => :status %></li>
-      <li><%= link_to "Задачи", :controller => :main, :action => :problems_categories %></li>
+      <li><%= link_to "Задачи", categories_path %></li>
       <li><%= link_to "Профил", edit_user_path(current_user) %></li>
       <li><%= link_to "#{current_user.name} (Изход)", logout_path %></li>
     <% else %>
       <li><%= link_to "Активност", :controller => :main, :action => :activity %></li>
       <li><%= link_to "Ранглиста", :controller => :main, :action => :rankings %></li>
       <li><%= link_to "Статус", :controller => :main, :action => :status %></li>
-      <li><%= link_to "Задачи", :controller => :main, :action => :problems_categories %></li>
+      <li><%= link_to "Задачи", categories_path %></li>
       <li><%= link_to "Регистрация", new_user_path %></li>
       <li><%= link_to "Вход", login_path %></li>
     <% end %>

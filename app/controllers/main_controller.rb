@@ -76,14 +76,6 @@ class MainController < ApplicationController
                          :conditions => ["contests.practicable AND contests.visible AND NOT users.admin"])
   end
 
-  def problems_categories
-    @categories = Category.find(:all).sort {|x, y| x.name.casecmp(y.name) }
-  end
-
-  def show_category_problems
-    @category = Category.find(params[:id])
-  end
-
   private
     def calc_rankings(options = {})
       rankings = User.generate_ranklist(options).map do |row|

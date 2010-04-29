@@ -11,7 +11,7 @@ module NavigationHelpers
     when /the homepage/
       '/'
     when /the login page/
-      login_path
+      new_session_path
     when /the signup page/
       signup_path
     when /the contest list in the admin panel/
@@ -26,6 +26,8 @@ module NavigationHelpers
       admin_contest_problem_runs_path
     when /the user list in the admin panel/
       admin_users_path
+    when /the categories list in the admin panel/
+      admin_categories_path
     when /the results page for contest "([^\"]+)"/
       url_for :controller => :main, :action => :results, :contest_id => Contest.find_by_name!($1)
     when /the rankings page/

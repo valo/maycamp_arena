@@ -1,0 +1,9 @@
+<h1>Задачи по категории</h1>
+<br>
+<ul id="categories_list">
+<% for cat in @categories do %>
+  <li>
+    <%= link_to cat.name, category_path(cat) %>
+  </li>
+<% end %>
+</ul>
