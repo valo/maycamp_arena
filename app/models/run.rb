@@ -34,7 +34,6 @@ class Run < ActiveRecord::Base
   end
   
   # Converting the total points to integer. This is what it is most of the time.
-  # We sohuld consider converting this column to integer
   def total_points
     self.read_attribute(:total_points).to_i
   end
@@ -42,13 +41,17 @@ class Run < ActiveRecord::Base
   def source_file=(file)
     self.source_code = file.read
   end
+
+  def total_points_float
+    points_float.sum { |test| test.is_a?(BigDecimal) ? test : 0 }
+  end
   
-  private
-    def points_float
-      total_tests = status.split(/\s+/).length
-      status.split(/\s+/).map { |out| out == "ok" ? (BigDecimal("100") / total_tests) : out }
-    end
+  def points_float
+    total_tests = status.split(/\s+/).length
+    status.split(/\s+/).map { |out| out == "ok" ? (BigDecimal("100") / total_tests) : out }
+  end
     
+  private
     def update_total_points
       self.total_points = points_float.sum { |test| test.is_a?(BigDecimal) ? test : 0 }.round.to_i
     end

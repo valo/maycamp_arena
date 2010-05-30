@@ -1,4 +1,5 @@
 class Problem < ActiveRecord::Base
+  extend ActiveSupport::Memoizable
   has_many :runs, :dependent => :destroy
   belongs_to :contest
   has_and_belongs_to_many :categories
@@ -13,14 +14,17 @@ class Problem < ActiveRecord::Base
   def input_files
     Dir[File.join(tests_dir, "*.in*")].sort
   end
+  memoize :input_files
   
   def output_files
     Dir[File.join(tests_dir, "*.{ans,sol}*")].sort
   end
+  memoize :output_files
   
   def other_files
     (Dir[File.join(tests_dir, "*")].select { |f| File.file?(f) } - input_files - output_files).sort
   end
+  memoize :other_files
   
   def all_files
     (input_files + output_files + other_files).sort

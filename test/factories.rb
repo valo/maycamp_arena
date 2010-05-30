@@ -1,5 +1,6 @@
 Factory.define :user do |u|
-  u.email "valentin.mihov@gmail.com"
+  u.sequence(:email) { |n| "valentin.mihov#{n}@gmail.com" } 
+  u.sequence(:login) { |n| "login#{n}" }
   u.unencrypted_password "secret"
   u.unencrypted_password_confirmation "secret"
   u.admin false
@@ -11,6 +12,7 @@ Factory.define :contest do |c|
   c.duration 120
   c.start_time 1.hour.ago
   c.end_time 1.hour.from_now
+  c.name "Test contest"
 end
 
 Factory.define :run do |r|
@@ -24,4 +26,9 @@ end
 
 Factory.define :category do |c|
   c.name "Алчни алгоритми"
+end
+
+Factory.define :contest_result do |c|
+  c.contest { |contest| contest.association(:contest) }
+  c.user { |user| user.association(:user) }
 end

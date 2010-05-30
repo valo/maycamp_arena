@@ -1,5 +1,8 @@
 in
 cucumber
+cucumber:all
+cucumber:ok
+cucumber:wip
 db:abort_if_pending_migrations
 db:charset
 db:collation
@@ -35,7 +38,9 @@ doc:clobber_plugins
 doc:clobber_rails
 doc:guides
 doc:plugins
+doc:plugins:action_mailer_optional_tls
 doc:plugins:ezgraphix
+doc:plugins:newrelic_rpm
 doc:rails
 doc:reapp
 doc:rerails
@@ -54,6 +59,7 @@ hoptoad:deploy
 hoptoad:test
 log:clear
 middleware
+newrelic:install
 notes
 notes:custom
 notes:fixme
@@ -93,6 +99,7 @@ test
 test:benchmark
 test:functionals
 test:integration
+test:newrelic
 test:plugins
 test:profile
 test:recent

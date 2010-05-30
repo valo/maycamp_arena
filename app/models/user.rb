@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
   has_many :contest_start_events, :dependent => :destroy
   has_many :runs, :dependent => :destroy, :select => (Run.column_names - ["log", "source_code"]).join(",")
   has_many :runs_with_log, :class_name => 'Run'
+  has_many :rating_changes
+  has_many :contest_results
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
@@ -131,11 +133,23 @@ class User < ActiveRecord::Base
         }
       
       query += " LIMIT #{options[:limit]}" if options[:limit]
-      
+
+      ranklist = []
       User.connection.select_all(query).inject([]) do |ranklist, row|
-        ranklist << [User.send(:instantiate, row), row['score'], row['runs_count'], row['full_solutions']]
+        ranklist << [User.send(:instantiate, row), row['score'], row['runs_count'], row['full_solutions'], User.send(:instantiate, row).current_rating.rating]
       end
+      
+      ranklist.sort! { |a,b| b.last <=> a.last }
     end
+  end
+  
+  def current_rating
+    rating_changes.last || rating_changes.create(:rating => RatingChange::DEFAULT_INITIAL_RATING,
+                                                 :volatility => RatingChange::DEFAULT_INITIAL_VOLATILITY)
+  end
+  
+  def times_rated
+    rating_changes.count
   end
   
   private

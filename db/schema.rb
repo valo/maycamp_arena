@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100522150753) do
+ActiveRecord::Schema.define(:version => 20100529072225) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(:version => 20100522150753) do
     t.string   "key",                              :null => false
     t.string   "value"
     t.string   "value_type", :default => "string", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contest_results", :force => true do |t|
+    t.integer  "contest_id"
+    t.integer  "user_id"
+    t.decimal  "points",     :precision => 10, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -82,6 +90,16 @@ ActiveRecord::Schema.define(:version => 20100522150753) do
     t.integer  "memory_limit",                                             :default => 16777216
   end
 
+  create_table "rating_changes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "contest_result_id"
+    t.integer  "previous_rating_change_id"
+    t.decimal  "rating",                    :precision => 10, :scale => 2
+    t.decimal  "volatility",                :precision => 10, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "runs", :force => true do |t|
     t.integer  "problem_id",                                                         :null => false
     t.integer  "user_id",                                                            :null => false
@@ -106,14 +124,6 @@ ActiveRecord::Schema.define(:version => 20100522150753) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
-
-  create_table "user_problem_caches", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "probem_id"
-    t.integer  "max_points", :limit => 10, :precision => 10, :scale => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "users", :force => true do |t|
     t.string   "login",      :limit => 40
