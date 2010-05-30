@@ -59,6 +59,7 @@ namespace :db do
   
   task :backup do
     stage_db_settings, prod_db_settings = get_settings
+    puts prod_db_settings.inspect
     backup_file = "#{shared_path}/backup_#{timestamp}.bz2"
     run "mysqldump #{prod_db_settings["database"]} -h #{prod_db_settings["host"]} -u #{prod_db_settings["username"]} -p#{prod_db_settings["password"]} | bzip2 > #{backup_file}"
     get backup_file, File.join("tmp", File.basename(backup_file))

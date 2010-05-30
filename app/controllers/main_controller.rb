@@ -17,32 +17,9 @@ class MainController < ApplicationController
       return
     end
     
-    students = @contest.runs.during_contest.map(&:user).uniq
-    # Results are in the form:
-    # [
-    #   [student_record, [task1_test1_pts, task1_test2_pts], [task2_test1_pts, ...]]
-    # ]
-    @results = students.reject(&:admin?).map do |student|
-      total = 0
-      [student] + @contest.problems.map do |problem|
-        last_run = problem.runs.during_contest.select { |r| r.user == student }.first
-        
-        if last_run
-          total += last_run.total_points
-          last_run.points + [last_run.total_points]
-        else
-          ["0"] * problem.number_of_tests + ["0"]
-        end
-      end + [total]
-    end
-    
-    @results.sort! { |a,b| b[-1] <=> a[-1] }
-    
-    # Compute the unique scores and the number people with each score
-    diff_scores = @results.map(&:last).uniq.map { |score| [score, @results.select { |res| res.last == score }.length] }
-    @results.each do |row|
-      row.unshift diff_scores.map { |score, number| score > row.last ? number : 0 }.sum + 1
-    end
+    @results = @contest.generate_contest_results
+    @ratings = @results.map { |result| @contest.rating_changes.detect { |change| change.user == result.second } }
+
     render :action => :results, :layout => "results"
   end
   
@@ -83,7 +60,8 @@ class MainController < ApplicationController
           :user => row[0],
           :total_points => row[1].to_i,
           :total_runs => row[2],
-          :full_solutions => row[3])
+          :full_solutions => row[3],
+          :rating => row[4])
       end
     end
 end

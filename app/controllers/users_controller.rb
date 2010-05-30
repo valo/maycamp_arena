@@ -8,6 +8,49 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    rating_data = @user.rating_changes.map do |change|
+      if change.contest
+        [
+          (change.contest.andand.name || @user.created_at.to_date),
+          {
+            :value => change.rating,
+            :color => change.rating_color,
+            :name => change.contest.andand.name,
+            :hoverText => change.contest.andand.name,
+            :link => url_for(:controller => :main, :action => :results, :contest_id => change.contest.id)
+          }
+        ]
+      else
+        [
+          (change.contest.andand.name || @user.created_at.to_date),
+          {
+            :value => change.rating,
+            :color => change.rating_color
+          }
+        ]
+      end
+    end
+    
+    @rating_report = Ezgraphix::Graphic.new(
+                             :w => 900, 
+                             :div_name => "rating_report",
+                             :c_type => "line",
+                             :precision => 0,
+                             :rotate => "1",
+                             :caption => "Рейтинг",
+                             :color => "00FF00",
+                             :names => "0",
+                             :values => "0",
+                             :y_lines => 5,
+                             :f_number_scale => "0",
+                             :rotate => "0",
+                             :lines => [
+                               {:startValue => 2000, :endValue => 2000, :color => "#FF0000"},
+                               {:startValue => 1500, :endValue => 1500, :color => "#00FF00"},
+                               {:startValue => 1000, :endValue => 1000, :color => "#0000FF"}
+                             ],
+                             :data => rating_data)
+                             
     @daily_submits_report = Ezgraphix::Graphic.new(
                              :w => 900, 
                              :div_name => "daily_submits_report",

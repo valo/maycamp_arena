@@ -7,6 +7,9 @@
       <th colspan="<%= problem.number_of_tests + 1 %>"><%= problem.name %></th>
     <% end %>
     <th rowspan="2">Общо точки</th>
+    <th rowspan="2">Стар рейтинг</th>
+    <th rowspan="2">Нов рейтинг</th>
+    <th rowspan="2">Разлика</th>
   </tr>
   <tr>
     <% @contest.problems.each do |problem| %>
@@ -25,7 +28,10 @@
           <td><%= pts %></td>
         <% end %>
       <% end %>
-      <td><%= result[-1] %></td>
+      <td><%= result[-1].round.to_i %></td>
+      <td><%= @ratings[index].previous_rating_change.rating %></td>
+      <td><%= @ratings[index].rating %></td>
+      <td><%= @ratings[index].rating - @ratings[index].previous_rating_change.rating %></td>
     </tr>
   <% end %>
 </table>
