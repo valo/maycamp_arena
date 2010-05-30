@@ -1,6 +1,6 @@
 *result
 *out
-log
+log/*
 coverage
 sets
 tmp
