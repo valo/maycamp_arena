@@ -2,6 +2,7 @@
 <br />
 
 <% if !@contests.blank? %>
+  <p><%= will_paginate @contests %></p>
   <table>
     <tr>
       <th>Име</th>
@@ -25,6 +26,7 @@
     </tr>
   <% end %>
   </table>
+  <p><%= will_paginate @contests %></p>
 <% else %>
   Няма състезания в системата.
 <% end %>

@@ -136,3 +136,43 @@ form p em {
 #categories_list {
   list-style-type: none;
 }
+
+.rating_high a {
+  color: red;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.rating_high a:hover {
+  text-decoration: underline;
+}
+
+.rating_medium a {
+  color: green;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.rating_medium a:hover {
+  text-decoration: underline;
+}
+
+.rating_low a {
+  color: blue;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.rating_low a:hover {
+  text-decoration: underline;
+}
+
+.rating_bad a {
+  color: gray;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.rating_bad a:hover {
+  text-decoration: underline;
+}

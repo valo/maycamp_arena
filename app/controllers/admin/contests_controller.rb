@@ -1,6 +1,6 @@
 class Admin::ContestsController < Admin::BaseController
   def index
-    @contests = Contest.all
+    @contests = Contest.paginate(:page => params[:page], :per_page => 20, :order => "end_time DESC")
   end
   
   def show

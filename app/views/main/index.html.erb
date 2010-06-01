@@ -7,20 +7,20 @@
   Ако нямате потребител можете да си създадете от <%= link_to "тук", signup_path %>.</p>
 <% end %>
 
-<h2>Текущо класиране</h2>
+<h2>Топ 10</h2>
 <br />
 <p>Това са текущите топ трима в системата от всички състезания и от практиката. За пълно класиране кликнете <%= link_to "тук", :action => :rankings %>.</p>
 <br/>
-<%= render :partial => "rankings", :locals => { :rankings => @top_scores } %>
+<%= render :partial => "rating_rankings", :locals => { :rankings => @top_scores } %>
 
 <% if current_user %>
   <%= render :partial => "current_contests" %>
   <br />
   <br />
 <% end %>
-  <%= render :partial => "past_contests" %>
-  <br />
-  <br />
 <% if current_user %>
   <%= render :partial => "practice_area" %>
 <% end %>
+<br />
+<br />
+<%= render :partial => "past_contests" %>
