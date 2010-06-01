@@ -132,14 +132,43 @@ class User < ActiveRecord::Base
                 ORDER BY score DESC, full_solutions DESC, runs_count ASC, name ASC
         }
       
-      query += " LIMIT #{options[:limit]}" if options[:limit]
+      query += " LIMIT #{options[:offset] || 0}, #{options[:limit]}" if options[:limit]
+
+      ratings = rating_hash
 
       ranklist = []
       User.connection.select_all(query).inject([]) do |ranklist, row|
-        ranklist << [User.send(:instantiate, row), row['score'], row['runs_count'], row['full_solutions'], User.send(:instantiate, row).current_rating.rating]
+        user = User.send(:instantiate, row.merge(ratings[row["id"].to_i] || {"user_rating" => "unrated"}))
+        ranklist << [user, row['score'], row['runs_count'], row['full_solutions']]
       end
-      
-      ranklist.sort! { |a,b| b.last <=> a.last }
+    end
+  end
+  
+  def self.rating_ordering(limit = nil)
+    query = %Q{
+      SELECT users.*, rating_changes.rating as user_rating, last_rating.rating_updates FROM users,
+        (
+          SELECT 
+            MAX(rating_changes.id) as change_id,
+            COUNT(rating_changes.id) - 1 as rating_updates,
+            user_id
+          FROM rating_changes
+          GROUP BY rating_changes.user_id
+          HAVING COUNT(rating_changes.id) > 1
+        ) as last_rating
+      LEFT JOIN rating_changes
+      ON rating_changes.id = last_rating.change_id
+      WHERE last_rating.change_id IS NOT NULL AND last_rating.user_id = users.id
+      ORDER BY rating_changes.rating DESC
+    }
+    
+    query << "\nLIMIT 0, #{limit}" if limit
+    User.find_by_sql(query)
+  end
+  
+  def self.rating_hash
+    rating_ordering.inject({}) do |hash, user|
+      hash.merge!(user.id => { "user_rating" => user.user_rating, "rating_updates" => user.rating_updates})
     end
   end
   

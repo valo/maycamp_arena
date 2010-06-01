@@ -22,7 +22,7 @@
   <% @results.each_with_index do |result, index| %>
     <tr>
       <td><%= result.first %></td>
-      <td><%= link_to result.second.name, user_path(result.second) %></td>
+      <td class="<%= user_rating_css_class(result.second) %>"><%= link_to result.second.name, user_path(result.second) %></td>
       <% result[2..-2].each do |problem_pts| %>
         <% problem_pts.each do |pts| %>
           <td><%= pts %></td>

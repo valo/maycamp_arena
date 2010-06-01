@@ -6,8 +6,8 @@ class MainController < ApplicationController
   
   def index
     @contests = Contest.current.select {|contest| contest.visible or current_user.andand.admin?}
-    @practice_contests = Contest.practicable.select {|contest| contest.visible or current_user.andand.admin?}
-    @top_scores = calc_rankings(:limit => 3)
+    @practice_contests = Contest.practicable.select {|contest| contest.visible or current_user.andand.admin?}.reverse
+    @top_scores = User.rating_ordering(10)
   end
   
   def results
@@ -24,7 +24,11 @@ class MainController < ApplicationController
   end
   
   def rankings
-    @rankings = calc_rankings
+    @rankings = User.rating_ordering
+  end
+  
+  def rankings_practice
+    @rankings = calc_rankings(:page => params[:page], :per_page => 25)
   end
   
   def activity
@@ -55,13 +59,19 @@ class MainController < ApplicationController
 
   private
     def calc_rankings(options = {})
-      rankings = User.generate_ranklist(options).map do |row|
-        OpenStruct.new(
-          :user => row[0],
-          :total_points => row[1].to_i,
-          :total_runs => row[2],
-          :full_solutions => row[3],
-          :rating => row[4])
+      WillPaginate::Collection.create(options[:page] || 1, options[:per_page] || 10) do |pager|
+        rankings = User.generate_ranklist(options.merge(:offset => pager.offset, :limit => pager.per_page)).map do |row|
+          OpenStruct.new(
+            :user => row[0],
+            :total_points => row[1].to_i,
+            :total_runs => row[2],
+            :full_solutions => row[3],
+            :rating => row[4])
+        end
+        
+        pager.replace rankings
+        
+        pager.total_entries = User.count
       end
     end
 end

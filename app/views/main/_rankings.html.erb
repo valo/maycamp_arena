@@ -1,21 +1,20 @@
+<p><%= will_paginate rankings %></p>
 <table id="rankings">
   <tr>
     <th>Място</th>
     <th>Име</th>
     <th>Град</th>
     <th>Рейтинг</th>
-    <th>Volatility</th>
     <th>Общо събрани точки</th>
     <th>Брой решени задачи за 100 точки</th>
     <th>Пратени решения</th>
   </tr>
   <% rankings.each_with_index do |rank, index| %>
-    <tr class="rank_<%= index + 1 %>">
-      <td><%= index + 1 %></td>
-      <td><%= link_to rank.user.name, user_path(rank.user) %></td>
+    <tr>
+      <td><%= (rankings.current_page - 1) * rankings.per_page + index + 1 %></td>
+      <td class="<%= user_rating_css_class(rank.user) %>"><%= link_to rank.user.name, user_path(rank.user) %></td>
       <td><%= rank.user.city %></td>
-      <td><%= rank.rating %></td>
-      <td><%= rank.user.current_rating.volatility %></td>
+      <td><%= rank.user.user_rating %></td>
       <td><%= rank.total_points %></td>
       <td><%= rank.full_solutions %></td>
       <td><%= rank.total_runs %></td>
