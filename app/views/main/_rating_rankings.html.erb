@@ -1,0 +1,18 @@
+<table id="rankings">
+  <tr>
+    <th>Място</th>
+    <th>Име</th>
+    <th>Град</th>
+    <th>Рейтинг</th>
+    <th>Състезания</th>
+  </tr>
+  <% rankings.each_with_index do |user, index| %>
+    <tr>
+      <td><%= index + 1 %></td>
+      <td class="<%= user_rating_css_class(user) %>"><%= link_to user.name, user_path(user) %></td>
+      <td><%= user.city %></td>
+      <td><%= user.user_rating %></td>
+      <td><%= user.rating_updates %></td>
+    </tr>
+  <% end %>
+</table>
