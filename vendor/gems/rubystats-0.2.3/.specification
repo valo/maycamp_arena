@@ -1,0 +1,91 @@
+--- !ruby/object:Gem::Specification 
+name: rubystats
+version: !ruby/object:Gem::Version 
+  version: 0.2.3
+platform: ruby
+authors: 
+- Bryan Donovan - http://www.bryandonovan.com
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2008-07-06 00:00:00 +03:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: hoe
+  type: :development
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 1.7.0
+    version: 
+description: Ruby Stats is a port of the statistics libraries from PHPMath. Probability distributions include binomial, beta, and normal distributions with PDF, CDF and inverse CDF as well as Fisher's Exact Test.
+email: b.dondo+rubyforge@gmail.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- History.txt
+- Manifest.txt
+- README.txt
+files: 
+- History.txt
+- Manifest.txt
+- README.txt
+- Rakefile
+- examples/beta.rb
+- examples/binomial.rb
+- examples/exponential.rb
+- examples/failrate_vs_goal.rb
+- examples/fisher.rb
+- examples/norm.rb
+- lib/rubystats.rb
+- lib/rubystats/beta_distribution.rb
+- lib/rubystats/binomial_distribution.rb
+- lib/rubystats/exponential_distribution.rb
+- lib/rubystats/fishers_exact_test.rb
+- lib/rubystats/modules.rb
+- lib/rubystats/normal_distribution.rb
+- lib/rubystats/probability_distribution.rb
+- test/tc_beta.rb
+- test/tc_binomial.rb
+- test/tc_exponential.rb
+- test/tc_fisher.rb
+- test/tc_norm.rb
+- test/tc_require_all.rb
+- test/ts_stats.rb
+has_rdoc: true
+homepage: http://rubyforge.org/projects/rubystats/
+licenses: []
+
+post_install_message: 
+rdoc_options: 
+- --main
+- README.txt
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: rubystats
+rubygems_version: 1.3.5
+signing_key: 
+specification_version: 2
+summary: Port of PHPMath to Ruby
+test_files: []
+
