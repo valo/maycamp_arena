@@ -10,6 +10,7 @@ set :deploy_to, File.join(home_path, application)
 set :deploy_via, :remote_cache
 set :use_sudo, false
 set :scm, :git
+set :git_enable_submodules, 1
 
 role :web, application                          # Your HTTP server, Apache/etc
 role :app, application                          # This may be the same as your `Web` server

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100529072225) do
+ActiveRecord::Schema.define(:version => 20100601072225) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -63,6 +63,23 @@ ActiveRecord::Schema.define(:version => 20100529072225) do
     t.boolean  "visible",         :default => true
   end
 
+  create_table "external_contest_results", :force => true do |t|
+    t.integer  "external_contest_id"
+    t.string   "coder_name"
+    t.string   "city"
+    t.integer  "user_id"
+    t.integer  "points",              :limit => 10, :precision => 10, :scale => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "external_contests", :force => true do |t|
+    t.string   "name"
+    t.datetime "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "messages", :force => true do |t|
     t.string   "subject",     :null => false
     t.text     "body",        :null => false
@@ -93,6 +110,7 @@ ActiveRecord::Schema.define(:version => 20100529072225) do
   create_table "rating_changes", :force => true do |t|
     t.integer  "user_id"
     t.integer  "contest_result_id"
+    t.string   "contest_result_type"
     t.integer  "previous_rating_change_id"
     t.decimal  "rating",                    :precision => 10, :scale => 2
     t.decimal  "volatility",                :precision => 10, :scale => 2

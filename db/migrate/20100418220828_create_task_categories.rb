@@ -1,6 +1,6 @@
 class CreateTaskCategories < ActiveRecord::Migration
   def self.up
-    create_table :task_categories do |t|
+    create_table :task_categories, :options => "DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci" do |t|
       t.string :name
       t.text :description
 

@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   has_many :runs_with_log, :class_name => 'Run'
   has_many :rating_changes
   has_many :contest_results
+  has_many :external_contest_results
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #

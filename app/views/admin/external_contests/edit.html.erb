@@ -1,0 +1,11 @@
+<h1>Промяна на <%= @contest.name %></h1>
+<%= error_messages_for :contest %>
+<% form_for [:admin, @contest] do |f| -%>
+
+<%= render :partial => 'external_contest_fields', :locals => { :f => f } %>
+<br />
+<p>
+  <%= submit_tag 'Обновяване' %>
+  <%= link_to "Отказ", admin_external_contests_path %>
+</p>
+<% end -%>
