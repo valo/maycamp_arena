@@ -1,0 +1,24 @@
+<h1>Външни състезания</h1>
+<p><%= link_to "Ново външно състезание", :action => "new" %></p>
+<br />
+</p><% if !@contests.blank? %>
+  <table>
+    <tr>
+      <th>Име</th>
+      <th>Дата</th>
+      <th></th>
+    </tr>
+  <% for contest in @contests %>
+    <tr>
+      <td><%= contest.name %></td>
+      <td><%= contest.date %></td>
+      <td>
+        <%= link_to "Преглед", admin_external_contest_path(contest) %> |
+        <%= link_to "Промяна", edit_admin_external_contest_path(contest) %> |
+        <%= link_to "Изтрий", admin_external_contest_path(contest), :method => :delete, :confirm => "Сигурен ли си че искаш да изтриеш това състезание?" %>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>
+<br />

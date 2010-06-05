@@ -1,0 +1,17 @@
+<h1>Създаване на ново външно състезание</h1>
+<%= error_messages_for :contest %>
+<% form_for [:admin, @contest] do |f| -%>
+
+<%= render :partial => 'external_contest_fields', :locals => { :f => f } %>
+<p>
+  <%= f.label :results, "Резултати:" %>
+  <em>Copy/Paste резултатите от Excel. На всеки ред трябва да има Име На Състезателя/Град/Точки разделени със табове (\t).</em>
+  <em>Например: Георги Пенков\tВарна\t450</em>
+  <%= f.text_area :results %>
+</p>
+<br />
+<p>
+  <%= submit_tag 'Създаване' %>
+  <%= link_to "Отказ", admin_external_contests_path %>
+</p>
+<% end -%>

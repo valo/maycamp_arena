@@ -76,10 +76,12 @@ ActionController::Routing::Routes.draw do |map|
     end
 
     admin.resources :categories
-
     admin.resources :messages
-
     admin.resource :reports
+    admin.resource :ratings, :member => { :recalculate => :post }
+    admin.resources :external_contests, :member => { :rematch => :post, :remove_links => :post } do |x_contests|
+      x_contests.resources :external_contest_results, :member => { :remove_user => :post }
+    end
   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.

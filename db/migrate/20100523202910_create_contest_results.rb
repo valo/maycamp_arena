@@ -9,7 +9,7 @@ class CreateContestResults < ActiveRecord::Migration
     
     create_table :rating_changes, :force => true do |t|
       t.references :user
-      t.references :contest_result
+      t.references :contest_result, :polymorphic => true
       t.integer :previous_rating_change_id
       t.decimal :rating, :precision => 10, :scale => 2
       t.decimal :volatility, :precision => 10, :scale => 2

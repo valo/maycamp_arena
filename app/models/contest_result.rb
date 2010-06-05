@@ -1,5 +1,6 @@
 class ContestResult < ActiveRecord::Base
   belongs_to :contest
+  belongs_to :external_contest
   belongs_to :user
   has_one :rating_change
   

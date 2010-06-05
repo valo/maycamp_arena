@@ -2,6 +2,7 @@ class Admin::ReportsController < Admin::BaseController
   def show
     @daily_submits_report = Ezgraphix::Graphic.new(
                               :w => 900, 
+                              :color => "00FF00",
                               :div_name => "daily_submits_report",
                               :c_type => "line",
                               :precision => 0,

@@ -1,0 +1,41 @@
+<h1>Външно състезание <%= @contest.name %></h1>
+<p><%= link_to "Свържи резултатите с потребители от арената", rematch_admin_external_contest_path(@contest), :method => :post %></p>
+<p><%= link_to "Махни всички връзки", remove_links_admin_external_contest_path(@contest), :method => :post %></p>
+<p>
+  <big>Match score: <%= @contest.match_score %></big>
+</p>
+<p>Резултати:</p>
+<table>
+  <tr>
+    <th>Име</th>
+    <th>Град</th>
+    <th>Точки</th>
+    <th>Състезател от арената</th>
+    <th></th>
+  </tr>
+  <% @contest.contest_results.each do |result| %>
+    <tr>
+      <td><%= result.coder_name %></td>
+      <td><%= result.city %></td>
+      <td><%= result.points %></td>
+      <td>
+        <% if result.user %>
+          <%= link_to result.user.name, admin_user_path(result.user) %>
+        <% else %>
+          Няма потребител от арената
+        <% end %>
+      </td>
+      <td>
+        <% if result.user.nil? %>
+          <% form_for [:admin, @contest, result] do |f| -%>
+            <% users = User.all(:conditions => ["city = ?", result.city], :order => "name").select { |u| u.external_contest_results.empty? } %>
+            <%= f.collection_select :user_id, users, :id, :name %>
+            <%= f.submit "Свържи" %>
+          <% end -%>
+        <% else %>
+          <%= link_to "Махни връзката", remove_user_admin_external_contest_external_contest_result_path(@contest, result), :method => :post %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

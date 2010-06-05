@@ -15,14 +15,14 @@ class UsersController < ApplicationController
           {
             :value => change.rating,
             :color => change.rating_color,
-            :name => change.contest.andand.name,
-            :hoverText => change.contest.andand.name,
-            :link => url_for(:controller => :main, :action => :results, :contest_id => change.contest.id)
+            :name => change.contest.name,
+            :hoverText => change.contest.name,
+            :link => url_for(:controller => :main, :action => :results, :contest_id => change.contest.id).to_xs
           }
         ]
       else
         [
-          (change.contest.andand.name || @user.created_at.to_date),
+          (@user.created_at.to_date),
           {
             :value => change.rating,
             :color => change.rating_color

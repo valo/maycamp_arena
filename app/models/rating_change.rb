@@ -1,8 +1,7 @@
 class RatingChange < ActiveRecord::Base
-  belongs_to :contest_result
+  belongs_to :contest_result, :polymorphic => true
   belongs_to :user
   belongs_to :previous_rating_change, :class_name => "RatingChange"
-  has_one :contest, :through => :contest_result
   
   validates_presence_of :user
   
@@ -11,6 +10,10 @@ class RatingChange < ActiveRecord::Base
   
   def previous_rating
     previous_rating_change.rating
+  end
+  
+  def contest
+    contest_result.andand.contest
   end
   
   def change
@@ -26,6 +29,17 @@ class RatingChange < ActiveRecord::Base
       "#0000FF"
     else
       "#CCCCCC"
+    end
+  end
+  
+  def self.regenerate_ratings
+    RatingChange.destroy_all
+    
+    RatingChange.transaction do
+      [ExternalContest, Contest].map!(&:all).flatten!.sort! { |a,b| a.end_time <=> b.end_time }.each do |contest|
+        rating_changes = RatingCalculation.generate_rating_changes(contest.contest_results.select(&:user))
+        rating_changes.each(&:save!)
+      end
     end
   end
 end
