@@ -11,16 +11,21 @@ class MainController < ApplicationController
   end
   
   def results
-    @contest = Contest.find(params[:contest_id])
-    if !(@contest.results_visible? or current_user.andand.admin?)
-      redirect_to root_path
-      return
+    case params[:contest_type]
+    when "ExternalContestResult"
+      @contest = ExternalContest.find(params[:contest_id], :include => { :contest_results => { :rating_change => :previous_rating_change } })
+      
+      render :action => :external_results, :layout => "results"
+    else
+      @contest = Contest.find(params[:contest_id])
+      if !(@contest.results_visible? or current_user.andand.admin?)
+        redirect_to root_path
+        return
+      end
+      @results = @contest.generate_contest_results
+      @ratings = @results.map { |result| @contest.rating_changes.detect { |change| change.user == result.second } }
+      render :action => :results, :layout => "results"
     end
-    
-    @results = @contest.generate_contest_results
-    @ratings = @results.map { |result| @contest.rating_changes.detect { |change| change.user == result.second } }
-
-    render :action => :results, :layout => "results"
   end
   
   def rankings
