@@ -1,0 +1,39 @@
+<h1>Резултати от <%= @contest.name %></h1>
+<table id="results">
+  <tr>
+    <th>Място</th>
+    <th>Участник</th>
+    <th>Общо точки</th>
+    <th>Стар рейтинг</th>
+    <th>Нов рейтинг</th>
+    <th>Разлика</th>
+  </tr>
+  <% @contest.contest_results.each_with_index do |result, index| %>
+    <tr>
+      <td><%= @contest.contest_results.to_a.count { |res| res.points > result.points } + 1 %></td>
+      <% if result.user %>
+        <td class="<%= user_rating_css_class(result.user) %>"><%= link_to result.coder_name, user_path(result.user) %></td>
+      <% else %>
+        <td><%= result.coder_name %></td>
+      <% end %>
+      <td><%= result.points.to_s %></td>
+      <td>
+        <% if result.rating_change %>
+          <%= result.rating_change.previous_rating_change.rating %>
+        <% end %>
+      </td>
+      <td>
+        <% if result.rating_change %>
+          <%= result.rating_change.rating %>
+        <% end %>
+      </td>
+      <td>
+        <% if result.rating_change %>
+          <%= result.rating_change.rating - result.rating_change.previous_rating_change.rating %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "Начало", :action => "index" %></p>

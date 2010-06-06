@@ -1,6 +1,6 @@
 class Admin::ExternalContestsController < Admin::BaseController
   def index
-    @contests = ExternalContest.paginate(:page => params[:page])
+    @contests = ExternalContest.paginate(:page => params[:page], :order => "date DESC")
   end
   
   def new

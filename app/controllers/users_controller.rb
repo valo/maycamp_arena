@@ -1,3 +1,5 @@
+require 'uri'
+
 class UsersController < ApplicationController
   before_filter :login_required_without_data_check, :only => [:update]
   layout "main"
@@ -11,18 +13,25 @@ class UsersController < ApplicationController
     rating_data = @user.rating_changes.map do |change|
       if change.contest
         [
-          (change.contest.andand.name || @user.created_at.to_date),
+          change.contest.name,
           {
             :value => change.rating,
             :color => change.rating_color,
             :name => change.contest.name,
             :hoverText => change.contest.name,
-            :link => url_for(:controller => :main, :action => :results, :contest_id => change.contest.id).to_xs
+            :link => CGI.escape(
+                       url_for(
+                         :controller => :main,
+                         :action => :results,
+                         :contest_id => change.contest.id,
+                         :contest_type => change.contest_result_type
+                       )
+                     )
           }
         ]
       else
         [
-          (@user.created_at.to_date),
+          @user.created_at.to_date,
           {
             :value => change.rating,
             :color => change.rating_color

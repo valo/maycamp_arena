@@ -24,9 +24,17 @@ class ExternalContest < ActiveRecord::Base
   
   def match_results_to_users
     contest_results.each do |contest_result|
+      puts "Processing #{contest_result.coder_name}"
       # Try to find a user from the arena matching this one
-      user_list = ExternalContestResult.all(:conditions => ["coder_name = ? AND city = ? AND user_id IS NOT NULL", contest_result.coder_name, contest_result.city], :include => :user).map(&:user).sort_by(&:id).uniq
+      user_list = ExternalContestResult.all(
+                    :conditions => [
+                        "coder_name = ? AND city = ? AND user_id IS NOT NULL", 
+                        contest_result.coder_name, 
+                        contest_result.city
+                      ],
+                    :include => :user).map(&:user).sort! { |a,b| a.id <=> b.id }.uniq
       
+      puts "Users found #{user_list.map(&:name).join(', ')}"
       if user_list.length == 1
         contest_result.user = user_list.first
         next

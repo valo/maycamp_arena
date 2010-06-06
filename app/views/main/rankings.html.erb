@@ -1,6 +1,6 @@
 <h1>Ранглиста по рейтинг</h1>
 <br/>
-<% if current_user.admin? %>
+<% if current_user.andand.admin? %>
   <%= link_to "Преизчисли рейтингите", recalculate_admin_ratings_path, :method => :post %>
 <% end %>
 <%= render :partial => 'rating_rankings', :locals => { :rankings => @rankings } %>
