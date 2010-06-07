@@ -34,7 +34,6 @@ class ExternalContest < ActiveRecord::Base
                       ],
                     :include => :user).map(&:user).sort! { |a,b| a.id <=> b.id }.uniq
       
-      puts "Users found #{user_list.map(&:name).join(', ')}"
       if user_list.length == 1
         contest_result.user = user_list.first
         next
@@ -44,15 +43,11 @@ class ExternalContest < ActiveRecord::Base
       user_list = User.all(:conditions => ["city = ? OR city IS NULL ", contest_result.city ])
       
       user_list.each do |user|
-        user_name_parts = user.name.split.map { |str| str.mb_chars.downcase.wrapped_string }
-        result_name_parts = contest_result.coder_name.split.map { |str| str.mb_chars.downcase.wrapped_string }
-        
-        score = 0
-        
-        score += 1 if user_name_parts.first == result_name_parts.first
-        score += 1 if user_name_parts.last == result_name_parts.last and user_name_parts.length > 1
-        
-        # If there are at least 2 matching names this is a match
+        # If the score is at least 2 we have a match. Try to latinize the coder
+        # name so that if the user has entered his/her name with latin chars we
+        # will catch that
+        score = [match_names(user.name, contest_result.coder_name),
+                 match_names(user.name, latinize(contest_result.coder_name))].max
         if score >= 2
           # match!
           contest_result.user = user
@@ -61,4 +56,60 @@ class ExternalContest < ActiveRecord::Base
       end
     end
   end
+  
+  private
+    def match_names(name1, name2)
+      user_name_parts = name1.split.map { |str| str.mb_chars.downcase.wrapped_string }
+      result_name_parts = name2.split.map { |str| str.mb_chars.downcase.wrapped_string }
+      
+      score = 0
+      
+      score += 1 if user_name_parts.first == result_name_parts.first
+      score += 1 if user_name_parts.last == result_name_parts.last and user_name_parts.length > 1
+      
+      score
+    end
+    
+    MAP = {
+      "а" => "a",
+      "б" => "b",
+      "в" => "v",
+      "г" => "g",
+      "д" => "d",
+      "е" => "e",
+      "ж" => "j",
+      "з" => "z",
+      "и" => "i",
+      "й" => "i",
+      "к" => "k",
+      "л" => "l",
+      "м" => "m",
+      "н" => "n",
+      "о" => "o",
+      "п" => "p",
+      "р" => "r",
+      "с" => "s",
+      "т" => "t",
+      "у" => "u",
+      "ф" => "f",
+      "х" => "h",
+      "ц" => "c",
+      "ч" => "ch",
+      "ш" => "sh",
+      "щ" => "sht",
+      "ь" => "i",
+      "ъ" => "a",
+      "ю" => "iu",
+      "я" => "ya",
+      " " => " "
+    }
+    def latinize(name)
+      result = StringIO.new("")
+      unicode_chars = name.mb_chars.downcase
+      unicode_chars.length.times do |index|
+        result << MAP[unicode_chars[index].wrapped_string]
+      end
+      
+      result.string
+    end
 end

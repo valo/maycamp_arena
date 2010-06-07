@@ -31,7 +31,7 @@ module NavigationHelpers
     when /the results page for contest "([^\"]+)"/
       url_for :controller => :main, :action => :results, :contest_id => Contest.find_by_name!($1)
     when /the rankings page/
-      url_for :controller => :main, :action => :rankings
+      url_for :controller => :main, :action => :rankings_practice
     # Add more mappings here.
     # Here is a more fancy example:
     #
