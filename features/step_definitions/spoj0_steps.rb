@@ -53,3 +53,9 @@ Given /^the contest "([^\"]*)" has attributes:$/ do |contest_name, table|
   Contest.find_by_name(contest_name).update_attributes!(table.transpose.hashes.first)
 end
 
+Given /^the user "([^\"]*)" opens the contest "([^\"]*)"$/ do |user, contest|
+  u = User.find_by_login(user) || User.find_by_name(user)
+  c = Contest.find_by_name!(contest)
+  
+  c.contest_start_events.create!(:user => u)
+end

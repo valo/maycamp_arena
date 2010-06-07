@@ -29,9 +29,15 @@
         <% end %>
       <% end %>
       <td><%= result[-1].round.to_i %></td>
-      <td><%= @ratings[index].previous_rating_change.rating %></td>
-      <td><%= @ratings[index].rating %></td>
-      <td><%= @ratings[index].rating - @ratings[index].previous_rating_change.rating %></td>
+      <% if @ratings[index] %>
+        <td><%= @ratings[index].previous_rating_change.rating %></td>
+        <td><%= @ratings[index].rating %></td>
+        <td><%= @ratings[index].rating - @ratings[index].previous_rating_change.rating %></td>
+      <% else %>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      <% end %>
     </tr>
   <% end %>
 </table>

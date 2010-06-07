@@ -39,6 +39,7 @@ Feature: Viewing results
       | results_visible       | 1                         |
     And the contest "Fall contest" has a task named "Problem A"
     And the contest "Fall contest" has a task named "Problem B"
+    And the user "valo" opens the contest "Fall contest"
     And the user "valo" submit a run for problem "Problem A" with attributes:
       | status        | ok ok ok ok ok     |
     And the contest "Fall contest" is finished
