@@ -1,5 +1,5 @@
 class ExternalContest < ActiveRecord::Base
-  has_many :contest_results, :class_name => "ExternalContestResult", :foreign_key => "external_contest_id", :dependent => :destroy
+  has_many :contest_results, :class_name => "ExternalContestResult", :foreign_key => "external_contest_id", :dependent => :destroy, :order => "points DESC"
   
   cattr_reader :per_page
   @@per_page = 20
@@ -40,19 +40,24 @@ class ExternalContest < ActiveRecord::Base
       end
       
       # Try to match the name with the names from the arena
-      user_list = User.all(:conditions => ["city = ? OR city IS NULL ", contest_result.city ])
-      
-      user_list.each do |user|
-        # If the score is at least 2 we have a match. Try to latinize the coder
-        # name so that if the user has entered his/her name with latin chars we
-        # will catch that
-        score = [match_names(user.name, contest_result.coder_name),
-                 match_names(user.name, latinize(contest_result.coder_name))].max
-        if score >= 2
-          # match!
-          contest_result.user = user
-          break
+      [
+        User.all(:conditions => ["city = ?", contest_result.city ]),
+        User.all(:conditions => ["city IS NULL", contest_result.city ])
+      ].each do |user_list|
+        user_list.each do |user|
+          # If the score is at least 2 we have a match. Try to latinize the coder
+          # name so that if the user has entered his/her name with latin chars we
+          # will catch that
+          score = [match_names(user.name, contest_result.coder_name),
+                   match_names(user.name, latinize(contest_result.coder_name))].max
+          if score >= 2
+            # match!
+            contest_result.user = user
+            break
+          end
         end
+        
+        break if contest_result.user
       end
     end
   end

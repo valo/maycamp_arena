@@ -6,6 +6,8 @@
         <th>Потребител</th>
         <th>Език</th>
         <th>Статус</th>
+        <th>Max време</th>
+        <th>Max памет</th>
         <th></th>
     </tr>
 <% for run in runs %>
@@ -15,7 +17,9 @@
         <td><%= link_to run.problem.name, admin_contest_problem_path(run.problem.contest,run.problem) %></td>
         <td><%= link_to run.user.name, admin_user_path(run.user) %></td>
         <td><%= run.language %></td>
-        <td><%= run.status %></td>
+        <td class="status"><%= run.status %></td>
+        <td class="time"><%= run.max_time.to_f %></td>
+        <td class="mem"><%= run.max_memory.to_i / 1024 %> KB</td>
         <td>
             <%= link_to "Тестване", queue_admin_contest_run_path(run.problem.contest, run) %> |
             <%= link_to "Разглеждане", admin_contest_problem_run_path(run.problem.contest, run.problem, run) %> |
