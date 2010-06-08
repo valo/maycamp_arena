@@ -13,7 +13,7 @@ class MainController < ApplicationController
   def results
     case params[:contest_type]
     when "ExternalContestResult"
-      @contest = ExternalContest.find(params[:contest_id], :include => { :contest_results => { :rating_change => :previous_rating_change } })
+      @contest = ExternalContest.find(params[:contest_id], :include => { :contest_results => { :rating_change => :previous_rating_change, :user => :rating_changes } })
       
       render :action => :external_results, :layout => "results"
     else

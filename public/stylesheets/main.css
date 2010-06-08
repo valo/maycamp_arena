@@ -176,3 +176,11 @@ form p em {
 .rating_bad a:hover {
   text-decoration: underline;
 }
+
+.runs_list .status {
+  width: 200px;
+}
+
+.runs_list .time, .runs_list .mem {
+  width: 60px;
+}

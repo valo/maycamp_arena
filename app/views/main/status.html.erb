@@ -9,7 +9,9 @@
         <th>Задача</th>
         <th>Потребител</th>
         <th>Език</th>
-        <th>Статус</th>
+        <th class="status">Статус</th>
+        <th>Max Време</th>
+        <th>Max Памет</th>
     </tr>
 <% for run in @runs %>
     <tr>
@@ -18,7 +20,9 @@
         <td><%= link_to run.problem.name, :controller => :practice, :action => :get_problem_description, :contest_id => run.problem.contest.id, :problem_id => run.problem.id %></td>
         <td><%= link_to run.user.name, user_path(run.user) %></td>
         <td><%= run.language %></td>
-        <td><%= run.status %></td>
+        <td class="status"><%= run.status %></td>
+        <td class="time"><%= run.max_time.to_f %> sec.</td>
+        <td class="mem"><%= run.max_memory.to_i / 1024 %> KB</td>
     </tr>
 <% end %>
 </table>
