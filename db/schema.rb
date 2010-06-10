@@ -13,7 +13,7 @@ ActiveRecord::Schema.define(:version => 20100608062740) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
-    t.text     "description"
+    t.text     "description", :limit => 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
   end

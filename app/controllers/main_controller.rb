@@ -37,7 +37,7 @@ class MainController < ApplicationController
   end
   
   def activity
-    @week_rankings = calc_rankings(:since => 7.days.ago, :only_active => true)
+    @week_rankings = calc_rankings(:since => 7.days.ago, :only_active => true, :per_page => User.count)
   end
   
   def download_tests

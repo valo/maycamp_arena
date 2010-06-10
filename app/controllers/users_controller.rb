@@ -55,8 +55,9 @@ class UsersController < ApplicationController
                              :rotate => "0",
                              :lines => [
                                {:startValue => 2000, :endValue => 2000, :color => "#FF0000"},
-                               {:startValue => 1500, :endValue => 1500, :color => "#00FF00"},
-                               {:startValue => 1000, :endValue => 1000, :color => "#0000FF"}
+                               {:startValue => 1500, :endValue => 1500, :color => "#CBDD00"},
+                               {:startValue => 1200, :endValue => 1200, :color => "#0000FF"},
+                               {:startValue => 900, :endValue => 900, :color => "#00FF00"}
                              ],
                              :data => rating_data)
                              
