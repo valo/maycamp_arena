@@ -137,44 +137,38 @@ form p em {
   list-style-type: none;
 }
 
-.rating_high a {
+.rating a:hover {
+  text-decoration: underline;
+}
+
+.rating_ultra a {
   color: red;
   font-weight: bold;
   text-decoration: none;
 }
 
-.rating_high a:hover {
-  text-decoration: underline;
-}
-
-.rating_medium a {
-  color: green;
+.rating_high a {
+  color: #CBDD00;
   font-weight: bold;
   text-decoration: none;
 }
 
-.rating_medium a:hover {
-  text-decoration: underline;
-}
-
-.rating_low a {
+.rating_average a {
   color: blue;
   font-weight: bold;
   text-decoration: none;
 }
 
-.rating_low a:hover {
-  text-decoration: underline;
+.rating_low a {
+  color: green;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .rating_bad a {
   color: gray;
   font-weight: bold;
   text-decoration: none;
-}
-
-.rating_bad a:hover {
-  text-decoration: underline;
 }
 
 .runs_list .status {

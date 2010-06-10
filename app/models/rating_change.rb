@@ -21,12 +21,18 @@ class RatingChange < ActiveRecord::Base
   end
   
   def rating_color
-    if self.rating >= 2000
+    self.class.color_from_rating(self.rating)
+  end
+  
+  def self.color_from_rating(rating)
+    if rating >= 2000
       "#FF0000"
-    elsif self.rating >= 1500
-      "#00FF00"
-    elsif self.rating >= 1000
+    elsif rating >= 1500
+      "#CBDD00"
+    elsif rating >= 1200
       "#0000FF"
+    elsif rating >= 900
+      "#00FF00"
     else
       "#CCCCCC"
     end
