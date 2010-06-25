@@ -10,7 +10,7 @@ class Message < ActiveRecord::Base
       
       # Send the emails in chunks of 10. We don't want to overload the mail
       # server
-      while !emails_left.empty?
+      while emails_left && !emails_left.empty?
         self.emails_sent = emails_left[0, 10].join(', ')
         UserMails.deliver_message(User.all, self)
         
