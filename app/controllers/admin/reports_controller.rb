@@ -37,6 +37,7 @@ class Admin::ReportsController < Admin::BaseController
                               :names => "0",
                               :precision => 0,
                               :caption => "Брой събмити по състезания",
+                              :f_number_scale => 0,
                               :data => data.inject([]) { |sum, a| sum << [a["contests_name"], a["count_all"]] })
   end
 end

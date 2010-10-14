@@ -1,3 +1,5 @@
+require 'zip/zipfilesystem'
+
 class Admin::ContestsController < Admin::BaseController
   def index
     @contests = Contest.paginate(:page => params[:page], :per_page => 20, :order => "end_time DESC")
@@ -41,5 +43,36 @@ class Admin::ContestsController < Admin::BaseController
     @contest = Contest.destroy(params[:id])
     
     redirect_to :action => "index"
+  end
+  
+  def download_sources
+    @contest = Contest.find(params[:id], :include => { :runs => [ :user, :problem ] })
+    @runs = @contest.runs.group_by(&:user)
+    
+    zip_file = "#{RAILS_ROOT}/tmp/#{@contest.name}.zip"
+    FileUtils.rm zip_file if File.exists?(zip_file)
+    
+    Zip::ZipFile.open(zip_file, Zip::ZipFile::CREATE) do |zip|
+      @runs.each do |user, user_runs|
+
+        zip.mkdir user.name
+        user_runs.group_by(&:problem).each do |problem, runs|
+          
+          zip.mkdir "#{user.name}/#{problem.name}"
+          runs.sort_by(&:created_at).each_with_index do |run, index|
+            output_file = "#{user.name}/#{problem.name}/#{index + 1}.cpp"
+            zip.file.open(output_file, "w") do |f|
+              f.puts run.source_code
+            end
+            
+            zip.file.utime run.created_at, output_file
+          end
+          
+        end
+        
+      end
+    end
+    
+    send_file zip_file
   end
 end

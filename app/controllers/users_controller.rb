@@ -10,7 +10,9 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    index = 0
     rating_data = @user.rating_changes.map do |change|
+      index += 1
       if change.contest
         [
           change.contest.name,

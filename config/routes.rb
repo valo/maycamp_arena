@@ -55,7 +55,7 @@ ActionController::Routing::Routes.draw do |map|
       }
     end
     
-    admin.resources :contests do |contests|
+    admin.resources :contests, :member => { :download_sources => :get } do |contests|
       contests.resources :runs, :member => {
         :queue => :get
       }, :collection => {
