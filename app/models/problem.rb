@@ -1,11 +1,15 @@
 class Problem < ActiveRecord::Base
+  include Latinize
   extend ActiveSupport::Memoizable
+  
   has_many :runs, :dependent => :destroy
   belongs_to :contest
   has_and_belongs_to_many :categories
   
   validates_presence_of :name, :time_limit
   validates_numericality_of :time_limit, :memory_limit, :greater_than => 0
+  
+  latinize :name
   
   def tests_dir
     File.join(contest.root_dir, filesystem_name)

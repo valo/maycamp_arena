@@ -44,6 +44,7 @@ class Admin::UsersController < Admin::BaseController
   
   def show
     @user = User.find(params[:id])
+    @runs = @user.runs.paginate(:page => params[:page], :per_page => 10)
   end
   
   def restart_time
