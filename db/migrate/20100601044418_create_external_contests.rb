@@ -1,6 +1,6 @@
 class CreateExternalContests < ActiveRecord::Migration
   def self.up
-    create_table :external_contests, :options => "DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci" do |t|
+    create_table :external_contests do |t|
       t.string :name
       t.datetime :date
       t.timestamps
