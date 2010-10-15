@@ -4,7 +4,7 @@ class FixUserModel < ActiveRecord::Migration
     remove_column :users, :salt
     remove_column :users, :remember_token
     remove_column :users, :remember_token_expires_at
-    add_column :users, :password, :string, :limit => 40, :null => false
+    add_column :users, :password, :string, :limit => 40
   end
 
   def self.down
