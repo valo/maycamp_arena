@@ -1,4 +1,5 @@
 class Contest < ActiveRecord::Base
+  include Latinize
   extend ActiveSupport::Memoizable
   
   has_many :problems, :dependent => :destroy
@@ -15,6 +16,8 @@ class Contest < ActiveRecord::Base
   validates_numericality_of :duration
   
   before_validation :generate_code
+  
+  latinize :name
   
   def root_dir
     File.join($config[:sets_root], id.to_s)
