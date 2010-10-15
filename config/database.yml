@@ -11,12 +11,10 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test: &TEST
-  adapter: postgresql
-  database: smxrohvyjx
-  username: smxrohvyjx
-  password: f5lxx1zz5pnorynqglhzmsp34
-  host: ec2-174-129-3-164.compute-1.amazonaws.com
-  encoding: unicode
+  adapter: mysql
+  database: spoj0_test
+  username: root
+  password:
 
 production:
   adapter: mysql
