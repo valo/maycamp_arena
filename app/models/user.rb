@@ -1,6 +1,8 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+  include Latinize
+  
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login
@@ -25,6 +27,8 @@ class User < ActiveRecord::Base
   has_many :rating_changes
   has_many :contest_results
   has_many :external_contest_results
+  
+  latinize :name
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #

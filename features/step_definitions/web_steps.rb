@@ -24,7 +24,12 @@ When /^(?:|I )press "([^\"]*)"$/ do |button|
 end
 
 When /^(?:|I )follow "([^\"]*)"$/ do |link|
-  click_link(link)
+  # HACK: For some reason webrat does not recognize the DELETE links
+  if link == "Изтриване"
+    click_link(link, :method => :delete)
+  else
+    click_link(link)
+  end
 end
 
 When /^(?:|I )follow "([^\"]*)" within "([^\"]*)"$/ do |link, parent|

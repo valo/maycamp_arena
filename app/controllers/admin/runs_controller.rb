@@ -1,8 +1,9 @@
 class Admin::RunsController < Admin::BaseController
   def index
-    @runs = Run.scoped(:include => :problem)
+    @runs = Run.scoped(:include => [{:problem => :contest}, :user])
     @runs = @runs.scoped(:conditions => { :problem_id => params[:problem_id] }) unless params[:problem_id].blank?
     @runs = @runs.scoped(:conditions => ['problems.contest_id = ?', params[:contest_id]]) unless params[:contest_id].blank?
+    @runs = @runs.paginate(:page => params[:page], :per_page => 50)
     
     @contest = Contest.find(params[:contest_id]) unless params[:contest_id].blank?
     @problem = Problem.find(params[:problem_id]) unless params[:problem_id].blank?
