@@ -24,3 +24,12 @@ production:
 
 cucumber:
   <<: *TEST
+
+integrity:
+  adapter: postgresql
+  database: smxrohvyjx
+  username: smxrohvyjx
+  password: f5lxx1zz5pnorynqglhzmsp34
+  host: ec2-174-129-3-164.compute-1.amazonaws.com
+  encoding: unicode
+  
