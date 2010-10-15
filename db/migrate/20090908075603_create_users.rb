@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.column :login,                     :string, :limit => 40
       t.column :name,                      :string, :limit => 100, :default => '', :null => true
       t.column :email,                     :string, :limit => 100
-      t.column :city                       :string, :limit => 100, :null => false
+      t.column :city,                      :string, :limit => 100, :null => false
       t.column :crypted_password,          :string, :limit => 40
       t.column :salt,                      :string, :limit => 40
       t.column :remember_token,            :string, :limit => 40
