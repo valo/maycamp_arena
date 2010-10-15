@@ -4,7 +4,7 @@ class CreateRuns < ActiveRecord::Migration
       t.references  :problem,     :null => false
       t.references  :user,        :null => false
       t.string      :language,    :null => false
-      t.text        :source_code, :null => false
+      t.binary      :source_code, :null => false
       t.string      :status,      :null => false, :default => 'pending'
       t.text        :log
       t.timestamps
