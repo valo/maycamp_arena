@@ -1,1 +1,1 @@
-require File.expand_path("../test.rb", __FILE__)
+test.rb
