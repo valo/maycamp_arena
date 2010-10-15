@@ -1,0 +1,36 @@
+# SQLite version 3.x
+#   gem install sqlite3-ruby (not necessary on OS X Leopard)
+development:
+  adapter: mysql
+  database: spoj0_dev
+  encoding: utf8
+  username: root
+  password:
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test: &TEST
+  adapter: postgresql
+  database: smxrohvyjx
+  username: smxrohvyjx
+  password: f5lxx1zz5pnorynqglhzmsp34
+  host: ec2-174-129-3-164.compute-1.amazonaws.com
+  encoding: unicode
+
+production:
+  adapter: mysql
+  database: spoj0_prod
+  username: root
+  password:
+
+cucumber:
+  <<: *TEST
+
+integrity:
+  adapter: postgresql
+  database: smxrohvyjx
+  username: smxrohvyjx
+  password: f5lxx1zz5pnorynqglhzmsp34
+  host: ec2-174-129-3-164.compute-1.amazonaws.com
+  encoding: unicode

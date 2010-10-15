@@ -24,6 +24,12 @@ namespace :test do
     end
   end
 end
+
+namespace :ci do
+  task :prepare do
+    FileUtils.cp RAILS_ROOT + "/config/database.ci", RAILS_ROOT + "/config/database.yml"
+  end
+end
  
 def runcoderun?
   ENV["RUN_CODE_RUN"]
