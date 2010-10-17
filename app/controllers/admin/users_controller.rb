@@ -29,6 +29,7 @@ class Admin::UsersController < Admin::BaseController
     @user.attributes = params[:user].except(:unencrypted_password, :unencrypted_password_confirmation)
     
     @user.admin = params[:user][:admin]
+    @user.contester = params[:user][:contester]
     unless params[:user][:unencrypted_password].blank?
       @user.unencrypted_password = params[:user][:unencrypted_password]
       @user.unencrypted_password_confirmation = params[:user][:unencrypted_password_confirmation]

@@ -9,11 +9,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100608062740) do
+ActiveRecord::Schema.define(:version => 20101016192458) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
-    t.text     "description", :limit => 16777215
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20100608062740) do
   end
 
   create_table "configurations", :force => true do |t|
-    t.string   "key",                              :null => false
+    t.string   "key",        :default => "",       :null => false
     t.string   "value"
     t.string   "value_type", :default => "string", :null => false
     t.datetime "created_at"
@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(:version => 20100608062740) do
   add_index "contest_start_events", ["user_id", "contest_id"], :name => "index_contest_start_events_on_user_id_and_contest_id", :unique => true
 
   create_table "contests", :force => true do |t|
-    t.string   "set_code",                           :null => false
-    t.string   "name",                               :null => false
+    t.string   "set_code",        :default => "",    :null => false
+    t.string   "name",            :default => "",    :null => false
     t.datetime "start_time",                         :null => false
     t.datetime "end_time",                           :null => false
     t.integer  "duration",                           :null => false
@@ -81,18 +81,18 @@ ActiveRecord::Schema.define(:version => 20100608062740) do
   end
 
   create_table "messages", :force => true do |t|
-    t.string   "subject",     :null => false
-    t.text     "body",        :null => false
+    t.string   "subject",     :default => "", :null => false
+    t.text     "body",                        :null => false
     t.text     "emails_sent"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "news", :force => true do |t|
-    t.datetime "new_time",                  :null => false
-    t.string   "file",       :limit => 64,  :null => false
-    t.string   "topic",      :limit => 128, :null => false
-    t.text     "content",                   :null => false
+    t.datetime "new_time",                                  :null => false
+    t.string   "file",       :limit => 64,  :default => "", :null => false
+    t.string   "topic",      :limit => 128, :default => "", :null => false
+    t.text     "content",                                   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(:version => 20100608062740) do
   create_table "problems", :force => true do |t|
     t.integer  "contest_id",                                                                     :null => false
     t.string   "letter",       :limit => 16
-    t.string   "name",         :limit => 64,                                                     :null => false
+    t.string   "name",         :limit => 64,                               :default => "",       :null => false
     t.decimal  "time_limit",                 :precision => 5, :scale => 2,                       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(:version => 20100608062740) do
   create_table "runs", :force => true do |t|
     t.integer  "problem_id",                                                         :null => false
     t.integer  "user_id",                                                            :null => false
-    t.string   "language",                                                           :null => false
+    t.string   "language",                                    :default => "",        :null => false
     t.binary   "source_code",                                                        :null => false
     t.string   "status",                                      :default => "pending", :null => false
     t.text     "log"
@@ -132,11 +132,10 @@ ActiveRecord::Schema.define(:version => 20100608062740) do
     t.integer  "max_memory"
   end
 
-  add_index "runs", ["status", "created_at"], :name => "status_created_at"
   add_index "runs", ["user_id", "problem_id"], :name => "index_runs_on_user_id_and_problem_id"
 
   create_table "sessions", :force => true do |t|
-    t.string   "session_id", :null => false
+    t.string   "session_id", :default => "", :null => false
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -149,12 +148,13 @@ ActiveRecord::Schema.define(:version => 20100608062740) do
     t.string   "login",      :limit => 40
     t.string   "name",       :limit => 100, :default => ""
     t.string   "email",      :limit => 100
+    t.string   "city",       :limit => 100, :default => "",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin",                     :default => false
-    t.string   "password",   :limit => 40,                     :null => false
-    t.string   "city"
+    t.string   "password",   :limit => 40
     t.string   "token",      :limit => 16
+    t.boolean  "contester",                 :default => true
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true
