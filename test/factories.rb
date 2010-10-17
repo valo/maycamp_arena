@@ -32,3 +32,8 @@ Factory.define :contest_result do |c|
   c.contest { |contest| contest.association(:contest) }
   c.user { |user| user.association(:user) }
 end
+
+Factory.define :contest_start_event do |c|
+  c.contest { |contest| contest.association(:contest) }
+  c.user { |user| user.association(:user) }
+end

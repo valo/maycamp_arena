@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   validates_presence_of :city
   
   attr_accessor :unencrypted_password
-  attr_protected :unencrypted_password, :unencrypted_password_confirmation, :admin
+  attr_protected :unencrypted_password, :unencrypted_password_confirmation, :admin, :contester
 
   has_many :contest_start_events, :dependent => :destroy
   has_many :runs, :dependent => :destroy, :select => (Run.column_names - ["log", "source_code"]).join(",")
@@ -184,6 +184,10 @@ class User < ActiveRecord::Base
   
   def times_rated
     rating_changes.count
+  end
+  
+  def participates_in_contests?
+    (not admin) && contester
   end
   
   private
