@@ -52,7 +52,7 @@ class Contest < ActiveRecord::Base
     results = []
     self.contest_start_events.find_each(:include => :user) do |event|
       runs = self.runs.during_contest.find(:first, :conditions => { :user_id => event.user_id })
-      next if event.user.admin? or runs.nil?
+      next if (not event.user.participates_in_contests?) or runs.nil?
       
       total = 0
       
