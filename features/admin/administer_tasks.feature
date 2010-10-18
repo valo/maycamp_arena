@@ -92,6 +92,5 @@
     And I check "Динамично"
     And I press "Обновяване"
     And I am on the categories list in the admin panel
-    And show me the page
     And I follow "Динамично"
     Then I should see "A+B problem"
