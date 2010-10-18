@@ -22,7 +22,7 @@ Rails::Initializer.run do |config|
   config.gem 'rubyzip', :lib => "zip/zip"
   config.gem 'andand'
   config.gem 'rack'
-  # config.gem 'hoptoad_notifier'
+  config.gem 'hoptoad_notifier'
   config.gem 'newrelic_rpm'
   config.gem 'will_paginate'
   config.gem 'rubystats'
