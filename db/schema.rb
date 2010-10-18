@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101016192458) do
+ActiveRecord::Schema.define(:version => 20101018055651) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -98,13 +98,14 @@ ActiveRecord::Schema.define(:version => 20101016192458) do
   end
 
   create_table "problems", :force => true do |t|
-    t.integer  "contest_id",                                                                     :null => false
-    t.string   "letter",       :limit => 16
-    t.string   "name",         :limit => 64,                                                     :null => false
-    t.decimal  "time_limit",                 :precision => 5, :scale => 2,                       :null => false
+    t.integer  "contest_id",                                                                        :null => false
+    t.string   "letter",          :limit => 16
+    t.string   "name",            :limit => 64,                                                     :null => false
+    t.decimal  "time_limit",                    :precision => 5, :scale => 2,                       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "memory_limit",                                             :default => 16777216
+    t.integer  "memory_limit",                                                :default => 16777216
+    t.string   "diff_parameters",                                             :default => "",       :null => false
   end
 
   create_table "rating_changes", :force => true do |t|
