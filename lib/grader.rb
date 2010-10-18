@@ -123,7 +123,7 @@ class Grader
         verbose_system "#{checker} #{input_file} #{answer_file} output"
       else
         checker = File.join(RAILS_ROOT, "ext/diff.rb")
-        verbose_system "#{checker} #{answer_file} output"
+        verbose_system "#{checker} #{run.problem.diff_parameters} #{answer_file} output"
       end
       
       if $?.exitstatus != 0
