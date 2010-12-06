@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101018055651) do
+ActiveRecord::Schema.define(:version => 20101206181621) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(:version => 20101018055651) do
     t.integer  "max_memory"
   end
 
+  add_index "runs", ["created_at"], :name => "index_runs_on_created_at"
   add_index "runs", ["status", "created_at"], :name => "status_created_at"
   add_index "runs", ["user_id", "problem_id"], :name => "index_runs_on_user_id_and_problem_id"
 
