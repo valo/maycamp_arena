@@ -171,10 +171,35 @@ form p em {
   text-decoration: none;
 }
 
+.runs_list {
+	font-size: 0.8em;
+}
+
 .runs_list .status {
-  width: 200px;
+  width: 150px;
 }
 
 .runs_list .time, .runs_list .mem {
   width: 60px;
+}
+
+.label {
+	font-weight: bold;
+	font-size: 1.2em;
+	margin-bottom: 5px;
+	margin-top: 10px;
+}
+
+.new_message textarea {
+	width: 700px;
+	height: 200px;
+}
+
+.new_message input[type=text] {
+	width: 700px;
+}
+
+.message .body {
+	border: 1px solid #999;
+	padding: 5px;
 }

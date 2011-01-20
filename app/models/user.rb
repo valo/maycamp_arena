@@ -67,6 +67,11 @@ class User < ActiveRecord::Base
     Run.count('problem_id', :conditions => { :user_id => self.id, :total_points => 100 }, :distinct => true)
   end
   
+  def full_tasks_list
+    throw "Not working yet!"
+    Problem.all(:joins => "LEFT JOIN runs ON runs.user_id = #{self.id} AND runs.total_points = 100", :group => "problems.id")
+  end
+  
   def unencrypted_password=(value)
     @unencrypted_password = value
     write_attribute(:password, self.class.encrypt_password(value))

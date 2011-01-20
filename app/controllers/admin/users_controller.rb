@@ -1,6 +1,13 @@
+require 'ostruct'
+
 class Admin::UsersController < Admin::BaseController
   def index
-    @users = User.all
+    @search = OpenStruct.new(params[:search])
+    @users = User.scoped
+    if !@search.q.blank?
+      @users = @users.scoped(:conditions => ["login LIKE ? OR name LIKE ? OR email LIKE ?", "%#{@search.q}%", "%#{@search.q}%", "%#{@search.q}%"])
+    end
+    @users = @users.paginate(:page => params[:page], :per_page => 20)
   end
   
   def new

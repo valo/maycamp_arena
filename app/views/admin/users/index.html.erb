@@ -1,7 +1,19 @@
 <h1>Потребители</h1>
 <p><%= link_to "Нов потребител", :action => "new" %></p>
 <br />
-</p><% if !@users.blank? %>
+<p>
+	<% form_for :search, @search, :url => { :action => :index }, :html => { :method => :get } do |f| -%>
+	  <p>
+	  	<%= f.label :q, "Търсене:" %>
+			<%= f.text_field :q %>
+			<%= f.submit "Филтрирай" %>
+	  </p>
+	<% end -%>
+</p>
+<br />
+</p>
+	<%= will_paginate @users %>
+	<% if !@users.blank? %>
   <table>
     <tr>
       <th>Login</th>
@@ -27,5 +39,6 @@
     </tr>
   <% end %>
   </table>
+	<%= will_paginate @users %>
 <% end %>
 <br />

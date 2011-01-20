@@ -20,16 +20,14 @@
   <table>
     <tr>
       <th>Заглавие</th>
-      <th>Съобщение</th>
-      <th>Получатели</th>
-      <th>Дата</th>
+      <th>Дата на пращане</th>
+	  <th></th>
     </tr>
-  <% Message.all.each do |msg| %>
+  <% Message.all.reverse.each do |msg| %>
     <tr>
       <td><%= msg.subject %></td>
-      <td><%= msg.body %></td>
-      <td><%= msg.emails_sent %></td>
       <td><%= msg.created_at %></td>
+			<td><%= link_to "Прегледай", admin_message_path(msg) %></td>
     </tr>
   <% end %>
   </table>
