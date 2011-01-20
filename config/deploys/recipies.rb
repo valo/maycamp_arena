@@ -1,3 +1,5 @@
+require 'fileutils'
+
 def read_db_config(file, env)
   YAML.load_file(file)[env]
 end

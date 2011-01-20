@@ -14,4 +14,8 @@ class Admin::MessagesController < ApplicationController
       render :action => "new"
     end
   end
+  
+  def show
+    @message = Message.find(params[:id])
+  end
 end

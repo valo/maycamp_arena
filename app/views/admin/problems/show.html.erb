@@ -14,6 +14,10 @@
 <p>
   Memory limit: <%= @problem.text_memory_limit %>
 </p>
+<p>
+	<%= link_to "Решения", admin_contest_problem_runs_path(@problem.contest, @problem.id) %>
+	<%= link_to "Промяна", edit_admin_contest_problem_path(@problem.contest, @problem.id) %>
+</p>
 <% if !@problem.all_files.blank? %>
   <h2>Files</h2>
   <p>

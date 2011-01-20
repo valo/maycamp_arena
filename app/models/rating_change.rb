@@ -43,6 +43,14 @@ class RatingChange < ActiveRecord::Base
     
     RatingChange.transaction do
       [ExternalContest, Contest].map!(&:all).flatten!.sort! { |a,b| a.end_time <=> b.end_time }.each do |contest|
+        # Recreate the contest results for the contest
+        if contest.instance_of?(Contest)
+          contest.contest_results.destroy_all
+          contest.generate_contest_results.each do |res|
+            contest.contest_results.create!(:user => res.second, :points => res.last)
+          end
+        end
+
         rating_changes = RatingCalculation.generate_rating_changes(contest.contest_results.select(&:user))
         rating_changes.each(&:save!)
       end
