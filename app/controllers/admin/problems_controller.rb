@@ -118,7 +118,7 @@ class Admin::ProblemsController < Admin::BaseController
       flash[:error] = "No checker source found"
       redirect_to :action => "show", :id => params[:id]
     else
-      checker_output = File.expand_path("../checker", checker_source)
+      checker_output = checker_source.gsub(/\.c(pp)?$/, "")
       @compile_result = StringIO.new
       case checker_source
         when /.*cpp$/
