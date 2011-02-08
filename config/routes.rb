@@ -65,7 +65,8 @@ ActionController::Routing::Routes.draw do |map|
         :purge_files => :get, 
         :download_file => :get, 
         :upload_file => :get, 
-        :do_upload_file => :post
+        :do_upload_file => :post,
+        :compile_checker => :get
       } do |problem|
         problem.resources :runs, :member => {
           :queue => :get

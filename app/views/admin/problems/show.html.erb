@@ -17,6 +17,9 @@
 <p>
 	<%= link_to "Решения", admin_contest_problem_runs_path(@problem.contest, @problem.id) %>
 	<%= link_to "Промяна", edit_admin_contest_problem_path(@problem.contest, @problem.id) %>
+	<% if @problem.checker_source %>
+	  <%= link_to "Компилиране на чекер", compile_checker_admin_contest_problem_path(@problem.contest, @problem.id) %>
+	<% end %>
 </p>
 <% if !@problem.all_files.blank? %>
   <h2>Files</h2>

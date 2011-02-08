@@ -110,4 +110,34 @@ class Admin::ProblemsController < Admin::BaseController
     send_file File.join(@problem.tests_dir, params[:file])
   end
 
+  def compile_checker
+    @problem = Problem.find(params[:id])
+    
+    checker_source = @problem.checker_source
+    if checker_source.nil?
+      flash[:error] = "No checker source found"
+      redirect_to :action => "show", :id => params[:id]
+    else
+      checker_output = File.expand_path("../checker", checker_source)
+      @compile_result = StringIO.new
+      case checker_source
+        when /.*cpp$/
+          @compile_result.puts "g++ #{checker_source} -o #{checker_output} 2>&1"
+          @compile_result.puts `g++ #{checker_source} -o #{checker_output} 2>&1`
+        when /.*c$/
+          @compile_result.puts "gcc #{checker_source} -o #{checker_output} 2>&1"
+          @compile_result.puts `gcc #{checker_source} -o #{checker_output} 2>&1`
+        else
+          flash[:error] = "Don't know how to compile #{checker_source}"
+      end
+      
+      if $? == 0
+        @compile_result.puts "<b>SUCCESS</b>"
+      else
+        @compile_result.puts "<b>FAILURE</b>"
+      end
+      flash[:notice] = "<p>Compilation result:</p><pre>#{@compile_result.string}</pre>"
+      redirect_to :action => "show", :id => params[:id]
+    end
+  end
 end

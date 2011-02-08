@@ -45,6 +45,10 @@ class Problem < ActiveRecord::Base
     nil
   end
   
+  def checker_source
+    other_files.detect { |file| file =~ /checker.*c(pp)?$/ }
+  end
+  
   def number_of_tests
     input_files.length
   end
