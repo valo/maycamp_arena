@@ -3,6 +3,7 @@
   <tr>
     <th rowspan="2">Място</th>
     <th rowspan="2">Участник</th>
+    <th rowspan="2">Град</th>
     <% @contest.problems.each do |problem| %>
       <th colspan="<%= problem.number_of_tests + 1 %>"><%= problem.name %></th>
     <% end %>
@@ -23,6 +24,7 @@
     <tr>
       <td><%= result.first %></td>
       <td class="<%= user_rating_css_class(result.second) %>"><%= link_to result.second.name, user_path(result.second) %></td>
+      <td><%= result.second.city %></td>
       <% result[2..-2].each do |problem_pts| %>
         <% problem_pts.each do |pts| %>
           <td><%= pts %></td>
