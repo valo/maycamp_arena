@@ -56,7 +56,7 @@ class MainController < ApplicationController
   
   def status
     @runs = Run.paginate(:per_page => 50,
-                         :include => [:user, { :problem => :contest } ],
+                         :include => { :user => {} , :problem => :contest },
                          :page => params[:page],
                          :select => (Run.column_names - ["log", "source_code"]).map { |c| "runs.#{c}" }.join(","),
                          :conditions => ["contests.practicable AND contests.visible AND NOT users.admin"])

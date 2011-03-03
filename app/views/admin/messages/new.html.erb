@@ -1,6 +1,6 @@
 <h1>Съобщения</h1>
 <h2>Изпращане на съобщение до всички</h2>
-<% form_for [:admin, @message] do |f| -%>
+<%= form_for [:admin, @message] do |f| -%>
   <p><%= f.error_messages %></p>
   <p>
     <%= f.label :subject, "Заглавие:" %>

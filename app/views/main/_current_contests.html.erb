@@ -9,7 +9,7 @@
     <th>Продължителност</th>
     <th></th>
   </tr>
-<% for contest in @contests %>
+<% for contest in @contests do %>
   <tr>
     <td><%= contest.name %></td>
     <td><%= contest.start_time.to_s :long %></td>

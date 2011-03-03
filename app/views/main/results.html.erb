@@ -4,7 +4,7 @@
     <th rowspan="2">Място</th>
     <th rowspan="2">Участник</th>
     <th rowspan="2">Град</th>
-    <% @contest.problems.each do |problem| %>
+    <%= @contest.problems.each do |problem| %>
       <th colspan="<%= problem.number_of_tests + 1 %>"><%= problem.name %></th>
     <% end %>
     <th rowspan="2">Общо точки</th>
@@ -13,20 +13,20 @@
     <th rowspan="2">Разлика</th>
   </tr>
   <tr>
-    <% @contest.problems.each do |problem| %>
-      <% problem.input_files.each_with_index do |test, index| %>
+    <%= @contest.problems.each do |problem| %>
+      <%= problem.input_files.each_with_index do |test, index| %>
         <th><%= index + 1 %></th>
       <% end %>
       <th>Общо</th>
     <% end %>
   </tr>
-  <% @results.each_with_index do |result, index| %>
+  <%= @results.each_with_index do |result, index| %>
     <tr>
       <td><%= result.first %></td>
       <td class="<%= user_rating_css_class(result.second) %>"><%= link_to result.second.name, user_path(result.second) %></td>
       <td><%= result.second.city %></td>
-      <% result[2..-2].each do |problem_pts| %>
-        <% problem_pts.each do |pts| %>
+      <%= result[2..-2].each do |problem_pts| %>
+        <%= problem_pts.each do |pts| %>
           <td><%= pts %></td>
         <% end %>
       <% end %>

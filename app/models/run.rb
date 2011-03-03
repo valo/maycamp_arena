@@ -19,7 +19,7 @@ class Run < ActiveRecord::Base
   validates_inclusion_of :language, :in => LANGUAGES
   validates_presence_of :user, :problem, :language, :source_code
   
-  named_scope :during_contest, 
+  scope :during_contest, 
               :conditions => "runs.created_at > contests.start_time AND runs.created_at < contests.end_time",
               :include => { :problem => :contest }
               

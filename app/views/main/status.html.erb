@@ -12,7 +12,7 @@
         <th>Max Време</th>
         <th>Max Памет</th>
     </tr>
-<% for run in @runs %>
+<% for run in @runs do %>
     <tr>
         <td><%= run.created_at %></td>
         <td><%= link_to run.problem.contest.name, :controller => :practice, :action => :open_contest, :contest_id => run.problem.contest.id %></td>
