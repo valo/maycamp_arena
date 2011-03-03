@@ -1,3 +1,5 @@
+require 'latinize'
+
 class Contest < ActiveRecord::Base
   include Latinize
   extend ActiveSupport::Memoizable
@@ -8,9 +10,9 @@ class Contest < ActiveRecord::Base
   has_many :contest_results
   has_many :rating_changes, :through => :contest_results
   
-  named_scope :current, lambda { {:conditions => ['? > start_time AND ? < end_time', Time.now.utc, Time.now.utc]} }
-  named_scope :finished, lambda { {:conditions => ['? > end_time', Time.now.utc]} }
-  named_scope :practicable, :conditions => { :practicable => true }
+  scope :current, lambda { {:conditions => ['? > start_time AND ? < end_time', Time.now.utc, Time.now.utc]} }
+  scope :finished, lambda { {:conditions => ['? > end_time', Time.now.utc]} }
+  scope :practicable, :conditions => { :practicable => true }
   
   validates_presence_of :name, :duration, :start_time
   validates_numericality_of :duration

@@ -1,5 +1,5 @@
 <h1>Add problem to contest <%= @contest.name %></h1>
-<% form_for [:admin, @contest, @problem] do |f| -%>
+<%= form_for [:admin, @contest, @problem] do |f| -%>
   <p>
     <%= f.error_messages %>
   </p>

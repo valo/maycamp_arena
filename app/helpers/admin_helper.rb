@@ -19,9 +19,9 @@ module AdminHelper
         end
         breadcrumb += ' -> ' if i != elements.size - 1
       end
-      breadcrumb
+      breadcrumb.html_safe
     rescue
-      'Not available'
+      'Not available'.html_safe
     end
   end
 end

@@ -1,7 +1,7 @@
 <h1>Профил</h1>
 <em><%= error_messages_for :user %></em>
 <br />
-<% form_for @user do |f| -%>
+<%= form_for @user do |f| -%>
 <%= render :partial => 'user_fields', :locals => { :f => f, :update => true } %>
 <p>
   <%= submit_tag 'Обнови' %><%= link_to "Отказ", :back %>

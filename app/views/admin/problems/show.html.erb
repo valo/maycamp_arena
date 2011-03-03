@@ -24,7 +24,7 @@
 <% if !@problem.all_files.blank? %>
   <h2>Files</h2>
   <p>
-    <% for file in @problem.all_files %>
+    <% for file in @problem.all_files do %>
       <%= link_to File.basename(file), download_file_admin_contest_problem_path(@problem.contest, @problem, :file => File.basename(file)) %>
     <% end %>
   </p>

@@ -27,7 +27,7 @@
       </td>
       <td>
         <% if result.user.nil? %>
-          <% form_for [:admin, @contest, result] do |f| -%>
+          <%= form_for [:admin, @contest, result] do |f| -%>
             <% users = User.all(:conditions => ["city = ?", result.city], :order => "name").select { |u| u.external_contest_results.empty? } %>
             <%= f.collection_select :user_id, users, :id, :name %>
             <%= f.submit "Свържи" %>

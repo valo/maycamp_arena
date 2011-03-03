@@ -1,5 +1,5 @@
 <h1>Промяна на <%= @problem.name %></h1>
-<% form_for [:admin, @problem.contest, @problem] do |f| -%>
+<%= form_for [:admin, @problem.contest, @problem] do |f| -%>
   <p>
     <%= f.error_messages %>
   </p>

@@ -1,5 +1,5 @@
 <h1>Промяна на <%= @category.name %></h1>
-<% form_for [:admin, @category] do |f| -%>
+<%= form_for [:admin, @category] do |f| -%>
   <p>
     <%= f.error_messages %>
   </p>

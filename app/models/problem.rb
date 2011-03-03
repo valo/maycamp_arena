@@ -1,3 +1,5 @@
+require 'latinize'
+
 class Problem < ActiveRecord::Base
   include Latinize
   extend ActiveSupport::Memoizable

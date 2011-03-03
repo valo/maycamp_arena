@@ -6,9 +6,9 @@
   <li><strong>Решения за 100 точки:</strong> <%= @user.full_tasks %></li>
   <li><strong>Участия в състезания:</strong> <%= @user.contest_start_events.count %></li>
 </ul>
-<%= @rating_report %>
-<%= @daily_submits_report %>
-<%= @total_submits_report %>
+<%= @rating_report.to_s.html_safe %>
+<%= @daily_submits_report.to_s.html_safe %>
+<%= @total_submits_report.to_s.html_safe %>
 <h2>Последно пратени решения</h2>
 <% if @runs.empty? %>
   <p>Потребителя няма пратени решения</p>
@@ -22,7 +22,7 @@
           <th>Език</th>
           <th>Статус</th>
       </tr>
-  <% for run in @runs %>
+  <% for run in @runs do %>
       <tr>
           <td><%= run.created_at %></td>
           <td><%= link_to run.problem.contest.name, :controller => :practice, :action => :open_contest, :contest_id => run.problem.contest.id %></td>
