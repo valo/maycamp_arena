@@ -1,0 +1,29 @@
+<h1>Задачи</h1>
+<p><%= link_to "Задачи по категории", categories_path %></p>
+<%= will_paginate @problems %>
+<table>
+  <tr>
+    <th>Име</th>
+    <th>Състезание</th>
+    <th>Пратени решения</th>
+    <th>Среден брой точки</p>
+    <% if current_user %>
+      <th>Твоят резултат</th>
+    <% end %>
+  </tr>
+  <% @problems.each do |problem| %>
+    <% if current_user
+      problem_points = problem.runs.select { |r| r.user_id == current_user.id }.map(&:total_points).max
+    end %>
+    <tr>
+      <td><%= link_to problem.name, practice_path(:action => "get_problem_description", :contest_id => problem.contest.id, :problem_id => problem.id) %></td>
+      <td><%= link_to problem.contest.name, practice_path(:action => :open_contest, :contest_id => problem.contest.id) %></td>
+      <td><%= problem.runs.length %></td>
+      <td><%= number_with_precision(problem.runs.to_a.sum(&:total_points).to_f / problem.runs.length, :precision => 2) %></td>
+      <% if current_user %>
+        <td><%= problem_points %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+<%= will_paginate @problems %>

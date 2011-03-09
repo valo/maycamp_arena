@@ -18,6 +18,11 @@
   <!-- menus START -->
   <ul>
     <li><%= link_to "Начало", root_path %></li>
+    <li><%= link_to "Активност", :controller => :main, :action => :activity %></li>
+    <li><%= link_to "Ранглиста по рейтинг", :controller => :main, :action => :rankings %></li>
+    <li><%= link_to "Ранглиста по практика", :controller => :main, :action => :rankings_practice %></li>
+    <li><%= link_to "Статус", :controller => :main, :action => :status %></li>
+    <li><%= link_to "Задачи", :controller => :main, :action => :problems %></li>
     <% if current_user.andand.admin %>
       <li><%= link_to "Доклади", admin_reports_path %></li>
       <li><%= link_to "Състезания", admin_contests_path %></li>
@@ -26,21 +31,13 @@
       <li><%= link_to "Статус", admin_status_path %></li>
       <li><%= link_to "Задачи", admin_categories_path %></li>
       <li><%= link_to "Външни състезания", admin_external_contests_path %></li>
+    <% end %>
+    <% if current_user %>
       <li><%= link_to "Профил", edit_user_path(current_user) %></li>
       <li><%= link_to "#{current_user.name} (Изход)", logout_path %></li>
     <% else %>
-      <li><%= link_to "Активност", :controller => :main, :action => :activity %></li>
-      <li><%= link_to "Ранглиста по рейтинг", :controller => :main, :action => :rankings %></li>
-      <li><%= link_to "Ранглиста по практика", :controller => :main, :action => :rankings_practice %></li>
-      <li><%= link_to "Статус", :controller => :main, :action => :status %></li>
-      <li><%= link_to "Задачи", categories_path %></li>
-      <% if current_user %>
-        <li><%= link_to "Профил", edit_user_path(current_user) %></li>
-        <li><%= link_to "#{current_user.name} (Изход)", logout_path %></li>
-      <% else %>
-        <li><%= link_to "Регистрация", new_user_path %></li>
-        <li><%= link_to "Вход", login_path %></li>
-      <% end %>
+      <li><%= link_to "Регистрация", new_user_path %></li>
+      <li><%= link_to "Вход", login_path %></li>
     <% end %>
 
     <li><a class="lastmenu" href="javascript:void(0);"></a></li>
