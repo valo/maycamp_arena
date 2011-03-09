@@ -2,7 +2,7 @@ class Problem < ActiveRecord::Base
   include Latinize
   extend ActiveSupport::Memoizable
   
-  has_many :runs, :dependent => :destroy
+  has_many :runs, :dependent => :destroy, :select => (Run.column_names - ["log", "source_code"]).join(",")
   belongs_to :contest
   has_and_belongs_to_many :categories
   
