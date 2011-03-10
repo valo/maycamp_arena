@@ -5,6 +5,13 @@ ActionController::Routing::Routes.draw do |map|
   map.register '/register', :controller => 'users', :action => 'create'
   map.signup '/signup', :controller => 'users', :action => 'new'
   
+  map.activity '/activity', :controller => '/main', :action => 'activity'
+  map.rankings '/rankings', :controller => '/main', :action => 'rankings'
+  map.rankings_practice '/rankings_practice', :controller => '/main', :action => 'rankings_practice'
+  map.rankings_practice '/rankings_practice', :controller => '/main', :action => 'rankings_practice'
+  map.status '/status', :controller => '/main', :action => 'status'
+  map.problems '/problems', :controller => '/main', :action => 'problems'
+  
   map.resources :users, :collection => { :password_forgot => [:get, :post] }, 
                         :member => {
                           :reset_password => :get, 

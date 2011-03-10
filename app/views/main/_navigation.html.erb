@@ -18,11 +18,11 @@
   <!-- menus START -->
   <ul>
     <li><%= link_to "Начало", root_path %></li>
-    <li><%= link_to "Активност", :controller => :main, :action => :activity %></li>
-    <li><%= link_to "Ранглиста по рейтинг", :controller => :main, :action => :rankings %></li>
-    <li><%= link_to "Ранглиста по практика", :controller => :main, :action => :rankings_practice %></li>
-    <li><%= link_to "Статус", :controller => :main, :action => :status %></li>
-    <li><%= link_to "Задачи", :controller => :main, :action => :problems %></li>
+    <li><%= link_to "Активност", activity_path %></li>
+    <li><%= link_to "Ранглиста по рейтинг", rankings_path %></li>
+    <li><%= link_to "Ранглиста по практика", rankings_practice_path %></li>
+    <li><%= link_to "Статус", status_path %></li>
+    <li><%= link_to "Задачи", problems_path %></li>
     <% if current_user.andand.admin %>
       <li><%= link_to "Доклади", admin_reports_path %></li>
       <li><%= link_to "Състезания", admin_contests_path %></li>
