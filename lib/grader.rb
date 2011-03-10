@@ -83,7 +83,7 @@ class Grader
       end
       
       puts "Compiling..."
-      verbose_system "g++ program.cpp -o program -O2 -s -static -lm -x c++"
+      verbose_system "g++ program.cpp -o program -O2 -static -lm -x c++"
     end
     
     def run_tests(run, tests)
