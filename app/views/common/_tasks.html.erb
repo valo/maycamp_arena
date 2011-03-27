@@ -6,7 +6,9 @@
       <th>Условие</th>
       <th>Time limit</th>
       <th>Memory limit</th>
-      <% if defined?(:show_runs) %>
+      <% if defined?(:practice) %>
+        <th>Пратени решения</th>
+        <th>Среден брой точки</th>
         <th>Решения</th>
       <% end %>
     </tr>
@@ -16,6 +18,8 @@
       <td><%= problem.time_limit %> sec.</td>
       <td><%= problem.text_memory_limit %></td>
       <% if defined?(:show_runs) %>
+        <td><%= problem_runs_count(problem) %></td>
+        <td><%= number_with_precision(problem_runs_total_points(problem) / problem_runs_count(problem), :precision => 2) %></td>
         <td><%= link_to "Решения", problem_runs_path(problem.id) %></td>
       <% end %>
     </tr>
