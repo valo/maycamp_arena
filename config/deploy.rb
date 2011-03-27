@@ -3,7 +3,7 @@ DEPLOY_STAGE = ENV['STAGE'] || "staging"
 load File.join(File.dirname(__FILE__), "deploys", DEPLOY_STAGE)
 load File.join(File.dirname(__FILE__), "deploys/recipies")
 
-set :repository, "git://github.com/valo/spoj0.git"
+set :repository, "git://github.com/valo/maycamp_arena.git"
 set :user, "maycamp"
 set :home_path, "/home/maycamp"
 set :deploy_to, File.join(home_path, application)

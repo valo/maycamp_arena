@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.rankings_practice '/rankings_practice', :controller => '/main', :action => 'rankings_practice'
   map.status '/status', :controller => '/main', :action => 'status'
   map.problems '/problems', :controller => '/main', :action => 'problems'
+  map.problem_runs '/problem_runs/:id', :controller => 'main', :action => 'problem_runs'
   
   map.resources :users, :collection => { :password_forgot => [:get, :post] }, 
                         :member => {

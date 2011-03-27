@@ -173,9 +173,14 @@ form p em {
 
 .runs_list {
 	font-size: 0.8em;
+	width: 100%;
 }
 
 .runs_list .status {
+  width: 200px;
+}
+
+.runs_list .created_at {
   width: 150px;
 }
 

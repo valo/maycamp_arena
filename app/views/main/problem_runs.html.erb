@@ -1,0 +1,6 @@
+<h1>Решения на <%= @problem.name %></h1>
+<% if @runs.empty? %>
+  Няма решения
+<% else %>
+  <%= render :partial => "runs_list", :locals => { :runs => @runs } %>
+<% end %>
