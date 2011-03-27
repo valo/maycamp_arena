@@ -69,6 +69,11 @@ class MainController < ApplicationController
                                  :conditions => ["contests.visible AND contests.practicable"])
   end
   
+  def problem_runs
+    @problem = Problem.find(params[:id], :include => [:contest], :conditions => ["contests.visible AND contests.practicable"])
+    @runs = Run.paginate(:include => :user, :conditions => ["NOT users.admin AND runs.problem_id = ?", @problem.id], :per_page => 50, :page => params[:page])
+  end
+  
   private
     def calc_rankings(options = {})
       WillPaginate::Collection.create(options[:page] || 1, options[:per_page] || 10) do |pager|

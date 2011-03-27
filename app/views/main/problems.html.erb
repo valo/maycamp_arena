@@ -10,6 +10,7 @@
     <% if current_user %>
       <th>Твоят резултат</th>
     <% end %>
+    <th>Решения</th>
   </tr>
   <% @problems.each do |problem| %>
     <% if current_user
@@ -18,11 +19,12 @@
     <tr>
       <td><%= link_to problem.name, practice_path(:action => "get_problem_description", :contest_id => problem.contest.id, :problem_id => problem.id) %></td>
       <td><%= link_to problem.contest.name, practice_path(:action => :open_contest, :contest_id => problem.contest.id) %></td>
-      <td><%= problem.runs.length %></td>
-      <td><%= number_with_precision(problem.runs.to_a.sum(&:total_points).to_f / problem.runs.length, :precision => 2) %></td>
+      <td><%= problem_runs_count(problem) %></td>
+      <td><%= number_with_precision(problem_runs_total_points(problem) / problem_runs_count(problem), :precision => 2) %></td>
       <% if current_user %>
         <td><%= problem_points %></td>
       <% end %>
+      <td><%= link_to "Решения", problem_runs_path(:id => problem.id) %></td>
     </tr>
   <% end %>
 </table>
