@@ -1,6 +1,8 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    SyslogLogger (1.4.0)
+      hoe (>= 1.2.0)
     abstract (1.0.0)
     actionmailer (3.0.3)
       actionpack (= 3.0.3)
@@ -41,6 +43,8 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     highline (1.6.1)
+    hoe (2.9.4)
+      rake (>= 0.8.7)
     hoptoad_notifier (2.4.6)
       activesupport
       builder
@@ -99,6 +103,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  SyslogLogger
   andand
   capistrano
   dynamic_form
