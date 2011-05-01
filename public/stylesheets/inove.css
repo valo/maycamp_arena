@@ -161,13 +161,13 @@ textarea {
 }
 #container {
 	margin:0 auto;
-	width:936px;
+	width:1000px;
 }
 /* layout END */
 
 /* header START */
 #header {
-	background:url(/images/inove/header_logo.jpg) 0 0 no-repeat;
+	background:url(/images/inove/header_wide.jpg) 0 0 no-repeat;
 	height:90px;
 	border-bottom:1px solid #A6A6A6;
 	overflow:hidden;
@@ -357,7 +357,7 @@ textarea {
 /* main START */
 #main {
 	background:#FFF url(/images/inove/main_shadow.gif) top repeat-x;
-	width:605px;
+	width:669px;
 	padding:13px 15px 15px;
 	float:left;
 	overflow:hidden;
@@ -715,7 +715,7 @@ textarea {
 
 /* footer START */
 #footer {
-	background:url(/images/inove/footer.jpg) 0 0 no-repeat;
+	background:url(/images/inove/footer_wide.jpg) 0 0 no-repeat;
 	display:block;
 	height:88px;
 	border-top:1px solid #CCC;
@@ -1099,7 +1099,7 @@ a#gotop {
 	background:#FFF;
 }
 .one-column #main {
-	width:906px;
+	width:970px;
 }
 .one-column #comment {
 	width:902px;
