@@ -1,5 +1,5 @@
 <h1>Upload tests for problem <%= @problem.name %></h1>
-<% form_tag do_upload_tests_admin_contest_problem_path(@problem.contest, @problem), :multipart => true do %>
+<%= form_tag do_upload_tests_admin_contest_problem_path(@problem.contest, @problem), :multipart => true do %>
   <p>
     <%= label :tests, "Tests bundle:" %>
     <%= file_field :tests, :file %>

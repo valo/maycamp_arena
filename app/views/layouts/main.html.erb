@@ -11,7 +11,7 @@
   <%= stylesheet_link_tag "inove_admin.css" %>
   <%= javascript_include_tag "highlight.pack" %>
   <%= javascript_include_tag "FusionCharts" %>
-  <% javascript_tag do %>
+  <%= javascript_tag do %>
     // Syntax highlighting
     hljs.initHighlightingOnLoad();
   <% end %>
@@ -33,7 +33,9 @@
 	<div id="main">
 
 	<div class="post">
-	    <%= %Q{<p id="breadcrumbs"><strong>Вие сте тук:</strong> #{get_bread_crumb(request.path)}</p>} if current_user.andand.admin? and controller.is_a?(Admin::BaseController) %>
+	    <% if current_user.andand.admin? and controller.is_a?(Admin::BaseController) %>
+	      <p id="breadcrumbs"><strong>Вие сте тук:</strong> <%= get_bread_crumb(request.path) %></p>
+	    <% end %>
       <%- if flash[:notice] -%>
         <p class="notice"><%= flash[:notice] %></p>
       <%- end -%>

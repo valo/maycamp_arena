@@ -1,6 +1,6 @@
 <h2>Изпрати решение</h2>
 <br />
-<% form_for @run, :url => { :action => :submit_solution, :contest_id => @contest.id }, :html => { :multipart => true } do |f| -%>
+<%= form_for @run, :url => { :action => :submit_solution, :contest_id => @contest.id }, :html => { :multipart => true } do |f| -%>
   <%= f.error_messages %>
   <p>
     <%= f.label :problem_id, "Задача:" %>

@@ -1,6 +1,6 @@
 <h1>Вход</h1>
 <br />
-<% form_tag session_path {}, :class => "new_session" do -%>
+<%= form_tag session_path {}, :class => "new_session" do -%>
   <p>
     <%= label_tag 'login', "Потребителско име или Email адрес" %>
     <%= text_field_tag 'login', @login %>

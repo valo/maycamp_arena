@@ -1,3 +1,5 @@
+require 'rating_calculation'
+
 class RatingChange < ActiveRecord::Base
   belongs_to :contest_result, :polymorphic => true
   belongs_to :user

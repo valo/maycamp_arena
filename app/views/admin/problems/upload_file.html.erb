@@ -1,5 +1,5 @@
 <h1>Upload a file for problem <%= @problem.name %></h1>
-<% form_tag do_upload_file_admin_contest_problem_path(@problem.contest, @problem), :multipart => true do %>
+<%= form_tag do_upload_file_admin_contest_problem_path(@problem.contest, @problem), :multipart => true do %>
   <p>
     <%= label :tests, "Файл за качване:" %>
     <%= file_field :tests, :file %>

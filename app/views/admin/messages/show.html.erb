@@ -8,9 +8,9 @@
 	<p class="label">Пратено до:</p>
 	<p>
 		<table>
-			<% parse_email_list(@message.emails_sent).sort.in_groups_of(4).each do |group| %>
+			<%= parse_email_list(@message.emails_sent).sort.in_groups_of(4).each do |group| %>
 				<tr>
-					<% group.each do |item| %>
+					<%= group.each do |item| %>
 						<td><%= item %></td>
 					<% end %>
 				</tr>
