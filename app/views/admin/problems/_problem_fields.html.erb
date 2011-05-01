@@ -4,7 +4,7 @@
 </p>
 <p>
 <%= f.label :categories, "Категории:" %>
-<%= Category.all.each do |category| %>
+<% Category.all.each do |category| %>
   <p>
     <label><%= check_box_tag "problem[category_ids][]", category.id, @problem.categories.include?(category) %>
     <%= category.name %></label>
