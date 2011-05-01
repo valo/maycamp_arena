@@ -1,3 +1,5 @@
+require 'common_contest_actions'
+
 class TimedContestController < ApplicationController
   include CommonContestActions
   

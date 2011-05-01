@@ -15,7 +15,7 @@
         <th>Оставащо време</th>
         <th></th>
     </tr>
-    <% for start_event in @user.contest_start_events %>
+    <% for start_event in @user.contest_start_events do %>
         <tr>
             <td><%= link_to start_event.contest.name, admin_contest_path(start_event.contest) %></td>
             <td><%= start_event.created_at %></td>

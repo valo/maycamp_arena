@@ -2,7 +2,7 @@
 <p><%= link_to "Нов потребител", :action => "new" %></p>
 <br />
 <p>
-	<% form_for :search, @search, :url => { :action => :index }, :html => { :method => :get } do |f| -%>
+	<%= form_for :search, @search, :url => { :action => :index }, :html => { :method => :get } do |f| -%>
 	  <p>
 	  	<%= f.label :q, "Търсене:" %>
 			<%= f.text_field :q %>
@@ -23,7 +23,7 @@
 	  <th>Състезател?</th>
       <th>Действия</th>
     </tr>
-  <% for user in @users %>
+  <% for user in @users do %>
     <tr>
       <td><%= user.login %></td>
       <td><%= user.name %></td>

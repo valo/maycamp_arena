@@ -1,3 +1,5 @@
+require 'common_contest_actions'
+
 class PracticeController < ApplicationController
   include CommonContestActions
   

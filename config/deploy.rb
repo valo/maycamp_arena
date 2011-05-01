@@ -12,6 +12,6 @@ set :use_sudo, false
 set :scm, :git
 set :git_enable_submodules, 1
 
-role :web, application                          # Your HTTP server, Apache/etc
-role :app, application                          # This may be the same as your `Web` server
-role :db,  application, :primary => true # This is where Rails migrations will run
+role :web, "89.252.247.77"                          # Your HTTP server, Apache/etc
+role :app, "89.252.247.77"                          # This may be the same as your `Web` server
+role :db,  "89.252.247.77", :primary => true # This is where Rails migrations will run

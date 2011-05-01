@@ -1,6 +1,6 @@
 <h1>Промяна на <%= @contest.name %></h1>
 <%= error_messages_for :contest %>
-<% form_for [:admin, @contest] do |f| -%>
+<%= form_for [:admin, @contest] do |f| -%>
 
 <%= render :partial => 'external_contest_fields', :locals => { :f => f } %>
 <br />

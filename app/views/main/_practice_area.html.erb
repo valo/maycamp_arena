@@ -9,7 +9,7 @@
     <th>Вашите точки</th>
     <th></th>
   </tr>
-  <% for contest in @practice_contests %>
+  <% for contest in @practice_contests do %>
     <tr>
       <td><%= contest.name %></td>
       <td><strong><%= current_user.best_practice_score(contest) %></strong> от максимално <%= contest.max_score %></td>

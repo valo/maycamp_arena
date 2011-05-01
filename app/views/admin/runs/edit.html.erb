@@ -1,6 +1,6 @@
 <h2>Редактирай решение</h2>
 <br />
-<% form_for [:admin, @run.problem.contest, @run.problem, @run] do |f| -%>
+<%= form_for [:admin, @run.problem.contest, @run.problem, @run] do |f| -%>
   <%= f.error_messages %>
   <%= render :partial => 'run_fields', :locals => { :f => f } %>
   <p>

@@ -7,7 +7,7 @@
       <th>Time Limit</th>
       <th>Действия</th>
     </tr>
-  <% for problem in @contest.problems %>
+  <% for problem in @contest.problems do %>
     <tr>
       <td><%= problem.name %></td>
       <td><%= problem.time_limit %></td>
