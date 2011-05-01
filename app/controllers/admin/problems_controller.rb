@@ -72,36 +72,32 @@ class Admin::ProblemsController < Admin::BaseController
     FileUtils.mkdir_p(@problem.tests_dir)
 
     @upload = params[:tests][:file]
-    case @upload
-    when ActionController::UploadedStringIO
-      local_file = File.join(@problem.tests_dir, @upload.original_filename)
-      File.open(local_file) { |f| f.write(@upload.read) }
-    when Tempfile
-      if @upload.original_filename.ends_with("zip")
-        # Extract the bundle
-        Zip::ZipFile.foreach(@upload.local_path) do |filename|
-          if filename.file? and !filename.name.include?('/')
-            dest = File.join(@problem.tests_dir, filename.name).downcase
-            FileUtils.rm(dest) if File.exists?(dest)
-            filename.extract dest
-          end
+
+    if @upload.original_filename.ends_with("zip")
+      # Extract the bundle
+      Zip::ZipFile.foreach(@upload.tempfile.path) do |filename|
+        if filename.file? and !filename.name.include?('/')
+          dest = File.join(@problem.tests_dir, filename.name).downcase
+          FileUtils.rm(dest) if File.exists?(dest)
+          filename.extract dest
         end
-      else
-        dest = File.join(@problem.tests_dir, @upload.original_filename)
-        FileUtils.cp @upload.local_path, dest
-        # Set the permissions of the copied file to the right ones. This is
-        # because the uploads are created with 0600 permissions in the /tmp
-        # folder. The 0666 & ~File.umask will set the permissions to the default
-        # ones of the current user. See the umask man page for details
-        FileUtils.chmod 0666 & ~File.umask, dest
       end
+    else
+      dest = File.join(@problem.tests_dir, @upload.original_filename)
+      FileUtils.cp @upload.local_path, dest
+      # Set the permissions of the copied file to the right ones. This is
+      # because the uploads are created with 0600 permissions in the /tmp
+      # folder. The 0666 & ~File.umask will set the permissions to the default
+      # ones of the current user. See the umask man page for details
+      FileUtils.chmod 0666 & ~File.umask, dest
     end
+
     Configuration.set!(Configuration::TESTS_UPDATED_AT, Time.now.utc)
     flash[:notice] = "File successfully upoaded"
     
     redirect_to admin_contest_problem_path(@problem.contest, @problem)
   ensure
-    FileUtils.rm params[:tests][:file].local_path
+    params[:tests][:file].tempfile.unlink
   end
   
   def download_file
