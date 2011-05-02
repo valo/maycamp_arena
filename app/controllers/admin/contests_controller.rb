@@ -58,7 +58,7 @@ class Admin::ContestsController < Admin::BaseController
         zip.mkdir user.latin_name
         user_runs.group_by(&:problem).each do |problem, runs|
           
-          zip.mkdir "#{user.latin_name}/#{problem.latin_name}"
+          zip.mkdir "#{user.login} - #{user.latin_name}/#{problem.latin_name}"
           runs.sort_by(&:created_at).each_with_index do |run, index|
             output_file = "#{user.latin_name}/#{problem.latin_name}/#{index + 1}.cpp"
             zip.file.open(output_file, "w") do |f|
