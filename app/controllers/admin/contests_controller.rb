@@ -55,7 +55,7 @@ class Admin::ContestsController < Admin::BaseController
     Zip::ZipFile.open(zip_file, Zip::ZipFile::CREATE) do |zip|
       @runs.each do |user, user_runs|
 
-        zip.mkdir user.latin_name
+        zip.mkdir "#{user.login} - #{user.latin_name}"
         user_runs.group_by(&:problem).each do |problem, runs|
           
           zip.mkdir "#{user.login} - #{user.latin_name}/#{problem.latin_name}"
