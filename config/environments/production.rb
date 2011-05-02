@@ -1,3 +1,5 @@
+require 'syslog_logger'
+
 MaycampArena::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -19,7 +21,7 @@ MaycampArena::Application.configure do
   # just comment this out and Rails will serve the files
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :debug
 
   # Use a different logger for distributed setups
   config.logger = SyslogLogger.new
