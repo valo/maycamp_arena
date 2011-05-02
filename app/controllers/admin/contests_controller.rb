@@ -54,20 +54,22 @@ class Admin::ContestsController < Admin::BaseController
     
     Zip::ZipFile.open(zip_file, Zip::ZipFile::CREATE) do |zip|
       @runs.each do |user, user_runs|
-
-        zip.mkdir "#{user.login} - #{user.latin_name}"
+        curr_dir = ["#{user.login} - #{user.latin_name}"]
+        zip.mkdir curr_dir.join('/')
         user_runs.group_by(&:problem).each do |problem, runs|
-          
-          zip.mkdir "#{user.login} - #{user.latin_name}/#{problem.latin_name}"
+          curr_dir.push problem.latin_name
+          zip.mkdir curr_dir.join('/')
           runs.sort_by(&:created_at).each_with_index do |run, index|
-            output_file = "#{user.latin_name}/#{problem.latin_name}/#{index + 1}.cpp"
+            curr_dir.push "#{index + 1}.cpp"
+            output_file = curr_dir.join('/')
             zip.file.open(output_file, "w") do |f|
               f.puts run.source_code
             end
             
             zip.get_entry(output_file).time = run.created_at
+            curr_dir.pop
           end
-          
+          curr_dir.pop
         end
         
       end
