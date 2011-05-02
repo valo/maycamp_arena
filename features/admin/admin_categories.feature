@@ -20,6 +20,7 @@ Feature: Administer categories
   Scenario: Create new category
     Given I am on the homepage
     And I follow "Задачи"
+    And I follow "Задачи по категории"
     And I follow "Нова категория"
     When I fill in the following:
       | Име: | Динамично програмиране |
@@ -30,6 +31,7 @@ Feature: Administer categories
   Scenario: Cancel creation of a new category
     Given I am on the homepage
     And I follow "Задачи"
+    And I follow "Задачи по категории"
     And I follow "Нова категория"
     And I follow "Отказ"
     Then I should be on the categories list in the admin panel
@@ -37,6 +39,7 @@ Feature: Administer categories
   Scenario: Delete a category
     Given I am on the homepage
     And I follow "Задачи"
+    And I follow "Задачи по категории"
     And I follow "Нова категория"
     When I fill in the following:
       | Име: | Динамично програмиране |
@@ -48,6 +51,7 @@ Feature: Administer categories
   Scenario: Update a category
     Given I am on the homepage
     And I follow "Задачи"
+    And I follow "Задачи по категории"
     And I follow "Нова категория"
     When I fill in the following:
       | Име: | Динамично програмиране |
@@ -63,6 +67,7 @@ Feature: Administer categories
   Scenario: Cancel update a category
     Given I am on the homepage
     And I follow "Задачи"
+    And I follow "Задачи по категории"
     And I follow "Нова категория"
     When I fill in the following:
       | Име: | Динамично програмиране |

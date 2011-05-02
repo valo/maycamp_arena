@@ -17,12 +17,14 @@ I want to be able to use categories
   Scenario: View the problems in a category
     Given I am on the homepage
     When I follow "Задачи"
+    And I follow "Задачи по категории"
     And I follow "Динамично"
     Then I should see "A+B Problem"
 
   Scenario: View the problems in a category
     Given I am on the homepage
     When I follow "Задачи"
+    And I follow "Задачи по категории"
     And I follow "Динамично"
     And I follow "A+B Problem"
     Then I should be on the login page
@@ -33,6 +35,7 @@ I want to be able to use categories
       | practicable   | 1                  |
       | visible       | 0                  |
     When I follow "Задачи"
+    And I follow "Задачи по категории"
     And I follow "Динамично"
     Then I should not see "A+B Problem"
 
@@ -42,5 +45,6 @@ I want to be able to use categories
       | practicable   | 0                  |
       | visible       | 1                  |
     When I follow "Задачи"
+    And I follow "Задачи по категории"
     And I follow "Динамично"
     Then I should not see "A+B Problem"

@@ -27,6 +27,16 @@ group :production do
   gem 'SyslogLogger'
 end
 
+group :cucumber, :test do
+  gem 'factory_girl'
+  gem 'cucumber-rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'rspec-rails'
+  gem 'mocha'
+  gem 'launchy'
+end
+
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'
 # gem 'ruby-debug19'

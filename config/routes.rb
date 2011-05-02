@@ -1,16 +1,16 @@
-ActionController::Routing::Routes.draw do |map|
+MaycampArena::Application.routes.draw do |map|
 
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.register '/register', :controller => 'users', :action => 'create'
   map.signup '/signup', :controller => 'users', :action => 'new'
   
-  map.activity '/activity', :controller => '/main', :action => 'activity'
-  map.rankings '/rankings', :controller => '/main', :action => 'rankings'
-  map.rankings_practice '/rankings_practice', :controller => '/main', :action => 'rankings_practice'
-  map.rankings_practice '/rankings_practice', :controller => '/main', :action => 'rankings_practice'
-  map.status '/status', :controller => '/main', :action => 'status'
-  map.problems '/problems', :controller => '/main', :action => 'problems'
+  map.activity '/activity', :controller => 'main', :action => 'activity'
+  map.rankings '/rankings', :controller => 'main', :action => 'rankings'
+  map.rankings_practice '/rankings_practice', :controller => 'main', :action => 'rankings_practice'
+  map.rankings_practice '/rankings_practice', :controller => 'main', :action => 'rankings_practice'
+  map.status '/status', :controller => 'main', :action => 'status'
+  map.problems '/problems', :controller => 'main', :action => 'problems'
   map.problem_runs '/problem_runs/:id', :controller => 'main', :action => 'problem_runs'
   
   map.resources :users, :collection => { :password_forgot => [:get, :post] }, 
@@ -104,5 +104,5 @@ ActionController::Routing::Routes.draw do |map|
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing the them or commenting them out if you're using named routes and resources.
   map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+  # map.connect ':controller/:action/:id.:format'
 end
