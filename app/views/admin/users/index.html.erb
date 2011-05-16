@@ -2,7 +2,7 @@
 <p><%= link_to "Нов потребител", :action => "new" %></p>
 <br />
 <p>
-	<%= form_for :search, @search, :url => { :action => :index }, :html => { :method => :get } do |f| -%>
+	<%= form_for @search, :as => :search, :url => { :action => :index }, :html => { :method => :get } do |f| -%>
 	  <p>
 	  	<%= f.label :q, "Търсене:" %>
 			<%= f.text_field :q %>
