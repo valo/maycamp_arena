@@ -20,8 +20,8 @@
     And I fill in the following:
       | Име: | Fall contest |
       | Продължителност: | 120 |
-    And I select "October 16, 2009 16:21:39" as the "Начало:" date
-    And I select "October 18, 2009 16:21:39" as the "Край:" date
+    And I select "October 16, 2009 16:21:39" as the "Начало:" datetime
+    And I select "October 18, 2009 16:21:39" as the "Край:" datetime
     And I press "Създаване"
     And I follow "Задачи" within ".post"
     And I follow "Нова задача"
