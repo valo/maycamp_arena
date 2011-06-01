@@ -28,6 +28,8 @@ module NavigationHelpers
       admin_users_path
     when /the categories list in the admin panel/
       admin_categories_path
+    when /the status in the admin panel/
+      admin_status_path
     when /the results page for contest "([^\"]+)"/
       url_for :controller => :main, :action => :results, :contest_id => Contest.find_by_name!($1)
     when /the rankings page/

@@ -22,8 +22,9 @@ Feature: Viewing the status
       | login    | valo   |
       | password | secret |
     And I press "Влез"
-    And I follow "Статус"
+    And I am on the status in the admin panel 
     Then I should see "Valentin Mihov"
+    And show me the page
     And I should see "ok ok ok ok ok"
     And I should see "Разглеждане"
     And I should see "Fall contest"

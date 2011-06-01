@@ -1,5 +1,5 @@
 Given /^there is a running contest named "([^\"]*)"$/ do |contest_name|
-  Factory(:contest, :name => contest_name)
+  Factory(:contest, :name => contest_name, :start_time => 1.day.ago, :end_time => 1.day.from_now)
 end
 
 Given /^the contest "([^\"]*)" has a task named "([^\"]*)"$/ do |contest_name, task_name|
