@@ -17,7 +17,6 @@ Feature: Viewing the system status
     And the contest "Test contest" has a task named "Task"
     And the user "valo" submit a run for problem "Task" with attributes:
       | status        | ok ok ok ok ok     |
-      
   Scenario: Viewing the status without a logged user
     Given I am on the homepage
     When I follow "Статус"
