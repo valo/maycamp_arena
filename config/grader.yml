@@ -13,3 +13,7 @@ grader:
   root: /home/spoj0run
   user: spoj0run
   rsync: valo@localhost:/home/valo/spoj0/sets
+maycamparena:
+  root: /home/contest/sandbox
+  user: contest
+  rsync: contest@localhost:/home/contest/sets
