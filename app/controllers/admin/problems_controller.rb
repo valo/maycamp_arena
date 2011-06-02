@@ -132,6 +132,7 @@ class Admin::ProblemsController < Admin::BaseController
       else
         @compile_result.puts "<b>FAILURE</b>"
       end
+      Configuration.set!(Configuration::TESTS_UPDATED_AT, Time.now.utc)
       flash[:notice] = "<p>Compilation result:</p><pre>#{@compile_result.string}</pre>"
       redirect_to :action => "show", :id => params[:id]
     end
