@@ -10,6 +10,8 @@
       <th>Задача</th>
       <th>Език</th>
       <th>Статус</th>
+      <th>Max Време</th>
+      <th>Max Памет</th>
       <th></th>
     </tr>
   <% for run in @contest.runs.find_all_by_user_id(current_user.id) do %>
@@ -19,6 +21,8 @@
       <td><%= run.problem.name %></td>
       <td><%= run.language %></td>
       <td><%= run.status %></td>
+      <td class="time"><%= run.max_time.to_f %> sec.</td>
+      <td class="mem"><%= run.max_memory.to_i / 1024 %> KB</td>
       <td>
         <%= link_to "Виж сорс кода", :action => :view_source, :contest_id => @contest.id, :run_id => run.id %>
       </td>
