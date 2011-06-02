@@ -20,14 +20,7 @@ end
 # If you are using Passenger mod_rails uncomment this:
 # if you're still using the script/reapear helper you will need
 # these http://github.com/rails/irs_process_scripts
-
 namespace :deploy do
-  task :start do ; end
-  task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-  end
-  
   namespace :web do
     task :disable do
       run "cp #{File.join(current_path, 'public/construction.html')} #{File.join(current_path, 'public/index.html')}"
@@ -36,6 +29,31 @@ namespace :deploy do
     task :enable do
       run "rm #{File.join(current_path, 'public/index.html')}"
     end
+  end
+  
+  task :start, :roles => :app, :except => { :no_release => true } do 
+    run "cd #{current_path} && #{unicorn_binary} -c #{unicorn_config} -E #{rails_env} -D"
+  end
+
+  task :stop, :roles => :app, :except => { :no_release => true } do 
+    pid = capture("cat #{unicorn_pid}").strip
+    run "kill #{pid}" unless pid == ""
+  end
+
+  task :graceful_stop, :roles => :app, :except => { :no_release => true } do
+    pid = capture("cat #{unicorn_pid}").strip
+    run "kill -s QUIT #{pid}" unless pid == ""
+  end
+
+  task :reload, :roles => :app, :except => { :no_release => true } do
+    pid = capture("cat #{unicorn_pid}").strip
+    run "kill -s USR2" unless pid == ""
+  end
+
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    pid = capture("cat #{unicorn_pid}").strip
+    stop unless pid == ""
+    start
   end
 end
 
@@ -83,3 +101,18 @@ namespace :log do
 end
 
 after "deploy:finalize_update", "db:symlink"
+
+namespace :bundler do
+  task :create_symlink, :roles => :app do
+    shared_dir = File.join(shared_path, 'bundle')
+    release_dir = File.join(current_release, 'vendor/bundle')
+    run("mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}")
+  end
+ 
+  task :bundle_new_release, :roles => :app do
+    bundler.create_symlink
+    run "cd #{release_path} && bundle install --deployment --without test development"
+  end
+end
+ 
+after 'deploy:update_code', 'bundler:bundle_new_release'
