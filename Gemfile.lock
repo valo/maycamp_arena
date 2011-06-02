@@ -123,6 +123,7 @@ GEM
       rake (>= 0.8.7)
       thor (~> 0.14.4)
     rake (0.8.7)
+    rprocfs (0.0.3)
     rspec (2.5.0)
       rspec-core (~> 2.5.0)
       rspec-expectations (~> 2.5.0)
@@ -176,6 +177,7 @@ DEPENDENCIES
   mysql2
   newrelic_rpm
   rails (= 3.0.3)
+  rprocfs
   rspec-rails
   rubystats
   rubyzip
