@@ -22,6 +22,7 @@ gem 'will_paginate', "~> 3.0.pre2"
 gem 'rubystats'
 gem 'dynamic_form'
 gem 'verification'
+gem 'rprocfs'
 
 group :production do
   gem 'SyslogLogger'
