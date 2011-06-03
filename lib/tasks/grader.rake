@@ -1,9 +1,3 @@
-ARGV.each_with_index do |arg, index|
-  RAILS_ENV = ARGV[index + 1] if arg == "-e"
-end
-RAILS_ENV ||= ENV['RAILS_ENV'] ||= 'development' 
-puts "Running in #{RAILS_ENV} environment"
-
 begin
   require File.expand_path(File.dirname(__FILE__) + "/../../config/environment")
   require 'grader'
