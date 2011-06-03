@@ -59,19 +59,9 @@ The app is going to be deployed in /home/contest/maycamp with the example setup 
   
 * From your local machine deploy the app
 
-      # cap deploy
+      # cap deploy:update deploy:migrate deploy:start
   
-The above command is going to download the source from github, install the required gems and start the server
-
-* From the local machine, migrate the database:
-
-      # cap deploy:migrate
-  
-* Start the server
-  
-      # cap deploy:start
-  
-At this point you have app running on port 8000
+The above command is going to download the source from github, install the required gems, migrate the DB and start the server. At this point you have app running on port 8000
 
 * Start the grader:
 
