@@ -28,20 +28,14 @@ Installation
       set :home_path, "/home/contest"
 
       role :web, "judge.openfmi.net"                          # Your HTTP server, Apache/etc
-      
       role :app, "judge.openfmi.net"                          # This may be the same as your `Web` server
-      
       role :db,  "judge.openfmi.net", :primary => true # This is where Rails migrations will run
-
-* Set the app name in config/deploys/staging.rb
-  
-      set :application, "maycamp"
 
 The app is going to be deployed in /home/contest/maycamp with the example setup above
 
 * Install the following packages on the machine you are going run the app (the remote machine):
 
-      # apt-get install libreadline5-dev libxml2-dev libxslt-dev nginx
+      # apt-get install libreadline5-dev libxml2-dev libxslt-dev
 
 * Install RVM for the user on the remote machine. Follow these instructions: [http://beginrescueend.com/rvm/install/][RVM]
 
@@ -58,15 +52,8 @@ The app is going to be deployed in /home/contest/maycamp with the example setup 
 * On your local machine run the following to setup the remote machine:
   
       # cap deploy:setup
-  
-* On the remote machine, create the folder where the test files will be held:
 
-      # mkdir ~/maycamp/shared/sets
-  
-* Again on the remote machine create the configuration to the database:
-
-      # mkdir ~/maycamp/shared/config
-      # vim ~/maycamp/shared/database.yml
+* Fix the configuration of the app. All the configuration will be in /home/contest/maycamp/shared/config. You should fix at least /home/contest/maycamp/shared/config/database.yml and enter valid mysql config under the production section
   
 * From your local machine deploy the app
 
@@ -83,8 +70,6 @@ The above command is going to download the source from github, install the requi
       # cap deploy:start
   
 At this point you have app running on port 8000
-
-* Configure nginx to forward the requests to / to http://localhost:8000
 
 * Start the grader:
 
