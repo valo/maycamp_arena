@@ -28,7 +28,9 @@ Installation
       set :home_path, "/home/contest"
 
       role :web, "judge.openfmi.net"                          # Your HTTP server, Apache/etc
+
       role :app, "judge.openfmi.net"                          # This may be the same as your `Web` server
+
       role :db,  "judge.openfmi.net", :primary => true # This is where Rails migrations will run
 
 The app is going to be deployed in /home/contest/maycamp with the example setup above
