@@ -1,5 +1,18 @@
 require 'fileutils'
 
+# This is universal for all installs
+set :repository, "git://github.com/valo/maycamp_arena.git"
+set :deploy_to, File.join(home_path, application)
+set :deploy_via, :remote_cache
+set :use_sudo, false
+set :scm, :git
+set :git_enable_submodules, 1
+
+set :rails_env, :production
+set :unicorn_binary, "bundle exec unicorn_rails"
+set :unicorn_config, "#{current_path}/config/unicorn.conf.rb"
+set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
+
 def read_db_config(file, env)
   YAML.load_file(file)[env]
 end
@@ -55,6 +68,23 @@ namespace :deploy do
     stop unless pid == ""
     start
   end
+
+  desc "Creates the folders needed by the grader"
+  task :create_shared_env, :roles => :app do
+    run "mkdir -p #{shared_path}/sets && mkdir -p #{shared_path}/config"
+    top.upload "config/database.yml", "#{shared_path}/config", :via => :scp
+    top.upload "config/grader.yml", "#{shared_path}/config", :via => :scp
+    top.upload "config/unicorn.conf.rb", "#{shared_path}/config", :via => :scp
+  end
+  
+  desc "Installs RVM on the remote machine and Ruby Enterprise Edition. Also makes REE the default ruby VM"
+  task :rvm, :roles => :app do
+    run "curl -s https://rvm.beginrescueend.com/install/rvm > /tmp/rvm-install"
+    run "bash /tmp/rvm-install"
+    run %Q{touch ~/.bashrc && echo '[[ -s "#{home_path}/.rvm/scripts/rvm" ]] && source "#{home_path}/.rvm/scripts/rvm"' | 
+           cat - ~/.bashrc > /tmp/out && mv /tmp/out ~/.bashrc}
+    run ". ~/.bashrc && rvm install -q ree && rvm use ree --default && gem install bundler"
+  end
 end
 
 namespace :sets do
@@ -68,8 +98,10 @@ end
 
 namespace :db do
   task :symlink, :except => { :no_release => true } do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-    run "ln -nfs #{shared_path}/sets #{release_path}/sets"
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml && 
+         ln -nfs #{shared_path}/config/grader.yml #{release_path}/config/grader.yml && 
+         ln -nfs #{shared_path}/sets #{release_path}/sets && 
+         ln -nfs #{shared_path}/config/unicorn.conf.rb #{release_path}/config/unicorn.conf.rb"
   end
   
   task :sync do
@@ -100,8 +132,6 @@ namespace :log do
   end
 end
 
-after "deploy:finalize_update", "db:symlink"
-
 namespace :bundler do
   task :create_symlink, :roles => :app do
     shared_dir = File.join(shared_path, 'bundle')
@@ -114,5 +144,7 @@ namespace :bundler do
     run "cd #{release_path} && bundle install --deployment --without test development"
   end
 end
- 
+
+after "deploy:finalize_update", "db:symlink"
 after 'deploy:update_code', 'bundler:bundle_new_release'
+after 'deploy:setup', 'deploy:create_shared_env'
