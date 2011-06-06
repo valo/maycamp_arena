@@ -1,5 +1,6 @@
-require File.join(File.dirname(__FILE__), "shell_utils")
-require 'sets_sync'
+require "shell_utils"
+require "configuration"
+require "sets_sync"
 
 class Grader
   include ShellUtils
