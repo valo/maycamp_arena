@@ -6,19 +6,19 @@ begin
     include ShellUtils
   
     desc "Start the grader"
-    task :start do
+    task :start => :environment do
       grader_conf = get_config
       Grader.new(grader_conf["root"], grader_conf["user"]).run
     end
   
     desc "Start the grader without sync"
-    task :start_nosync do
+    task :start_nosync => :environment do
       grader_conf = get_config
       Grader.new(grader_conf["root"], grader_conf["user"]).run
     end
   
     desc "Syncronize the local tests with the remote tests"
-    task :sync do
+    task :sync => :environment do
       grader_conf = get_config
       SetsSync.sync_sets(grader_conf)
     end
