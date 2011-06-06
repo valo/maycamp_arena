@@ -41,9 +41,9 @@ class Grader
       
       check_durty_tests
       
-      if run = Run.find_by_status(Run::WAITING, :order => "created_at ASC")
+      if run = Run.where(:status => Run::WAITING).order("runs.created_at ASC").first
         grade(run)
-      elsif run = Run.find_by_status(Run::CHECKING, :order => "created_at ASC")
+      elsif run = Run.where(:status => Run::CHECKING).order("runs.created_at ASC").first
         grade(run, 1)
       else
         sleep 1
