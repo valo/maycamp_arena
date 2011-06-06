@@ -1,6 +1,4 @@
 class Run < ActiveRecord::Base
-  default_scope :order => 'runs.created_at DESC'
-  
   module Constants
     LANG_C_CPP = "C/C++"
     LANG_PAS = "Pascal"
