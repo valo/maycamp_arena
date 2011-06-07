@@ -22,7 +22,9 @@ pid = fork do
   
   # FIXME: the user change is not working right now
   # Process::UID.change_privilege(Etc.getpwnam(user).uid) if user
-  Kernel.exec "#{opt.cmd} < #{opt.input} > #{opt.output}"
+  $stdin.reopen(File.open(input, "r"))
+  $stdout.reopen(File.open(output, "w"))
+  Kernel.exec "#{opt.cmd}"
 end
 
 if !pid
