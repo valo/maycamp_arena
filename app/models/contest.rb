@@ -4,6 +4,8 @@ class Contest < ActiveRecord::Base
   include Latinize
   extend ActiveSupport::Memoizable
   
+  RUNNER_TYPES = ["fork", "box"]
+  
   has_many :problems, :dependent => :destroy
   has_many :runs, :through => :problems
   has_many :contest_start_events, :dependent => :destroy
@@ -16,6 +18,8 @@ class Contest < ActiveRecord::Base
   
   validates_presence_of :name, :duration, :start_time
   validates_numericality_of :duration
+  
+  validates_inclusion_of :runner_type, :in => RUNNER_TYPES
   
   before_validation :generate_code
   

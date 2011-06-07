@@ -3,43 +3,12 @@
 # Spacial status codes:
 # 127 - memory limit
 # 15 - time limit
-require 'rubygems'
-require 'rprocfs'
-require 'getoptlong'
-require 'etc'
+require File.dirname(__FILE__) + "/runner_args.rb"
 
 def print_stats(used_mem, used_time)
   $stderr.puts "Used time: #{used_time}"
   $stderr.puts "Used mem: #{used_mem}"
 end
-
-opts = GetoptLong.new(
-      [ '--help', '-h', GetoptLong::NO_ARGUMENT ],
-      [ '--mem', '-m', GetoptLong::OPTIONAL_ARGUMENT ],
-      [ '--time', '-t', GetoptLong::OPTIONAL_ARGUMENT ],
-      [ '--procs', '-p', GetoptLong::OPTIONAL_ARGUMENT ],
-      [ '--user', '-u', GetoptLong::OPTIONAL_ARGUMENT ]
-    )
-
-mem = nil
-timelimit = nil
-proclimit = nil
-user = nil
-opts.each do |opt, value|
-  case opt
-    when '--mem' then mem = value.to_i
-    when '--time' then timelimit = value.to_f
-    when '--procs' then proclimit = value.to_i
-    when '--user' then user = value
-  end
-end
-
-if ARGV.length < 1
-  puts "No command specified to run!"
-  exit 1
-end
-
-cmd = ARGV.shift
 
 pid = fork do
   # Process.setrlimit(Process::RLIMIT_CPU, timelimit, timelimit) if timelimit
@@ -51,7 +20,7 @@ pid = fork do
   
   # FIXME: the user change is not working right now
   # Process::UID.change_privilege(Etc.getpwnam(user).uid) if user
-  Kernel.exec cmd
+  Kernel.exec "#{cmd} < #{input} > #{output}"
 end
 
 if !pid

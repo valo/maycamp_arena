@@ -16,6 +16,11 @@
   <em>минути</em>
 </p>
 <p>
+  <%= f.label :runner_type, "Sandbox type:" %>
+  <%= f.select :runner_type, Contest::RUNNER_TYPES %>
+  <em>fork е много по-неточен метод, но работи за много различни езици. box е предпочитаният метод. Двата метода може да дават различни резултати за използваната памет и време!</em>
+</p>
+<p>
   <%= f.label :visible, "Видимо ли е състезанието:" %>
   <%= f.check_box :visible %>
 </p>
