@@ -4,6 +4,7 @@
 # 127 - memory limit
 # 15 - time limit
 require File.dirname(__FILE__) + "/runner_args.rb"
+require 'rprocfs'
 
 def print_stats(used_mem, used_time)
   $stderr.puts "Used time: #{used_time}"
@@ -22,8 +23,8 @@ pid = fork do
   
   # FIXME: the user change is not working right now
   # Process::UID.change_privilege(Etc.getpwnam(user).uid) if user
-  $stdin.reopen(File.open(input, "r"))
-  $stdout.reopen(File.open(output, "w"))
+  $stdin.reopen(File.open(opt.input, "r"))
+  $stdout.reopen(File.open(opt.output, "w"))
   Kernel.exec "#{opt.cmd}"
 end
 
@@ -32,7 +33,8 @@ if !pid
   exit 1
 end
 
-sleep([top.timelimit / 2, 0.1].min) if opt.timelimit
+sleep([opt.timelimit / 2, 0.1].min) if opt.timelimit
+
 
 used_memory = used_time = 0
 loop {

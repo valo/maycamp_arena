@@ -14,7 +14,7 @@ status = File.read("stat").lines.inject({}) { |h, l| k, v = l.strip.split(":"); 
 $stderr.puts "Used time: #{status["time"]}"
 
 memory_limit = status["status"] == "SG"
-File.open(output, "r") do |f|
+File.open(opt.output, "r") do |f|
   f.each_line do |line|
     memory_limit ||= line =~ /Out of memory/
     break;
