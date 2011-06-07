@@ -46,6 +46,9 @@ pid = fork do
   Process.setrlimit(Process::RLIMIT_NPROC, proclimit, proclimit) if proclimit
   Process.setpriority(Process::PRIO_PROCESS, 0, 20)
   
+  # Close the stderr, because we don't need it
+  $stderr.close
+  
   # FIXME: the user change is not working right now
   # Process::UID.change_privilege(Etc.getpwnam(user).uid) if user
   Kernel.exec cmd
