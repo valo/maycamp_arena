@@ -10,9 +10,11 @@ def print_stats(used_mem, used_time)
   $stderr.puts "Used mem: #{used_mem}"
 end
 
+opt = Options.new
+
 pid = fork do
   # Process.setrlimit(Process::RLIMIT_CPU, timelimit, timelimit) if timelimit
-  Process.setrlimit(Process::RLIMIT_NPROC, proclimit, proclimit) if proclimit
+  Process.setrlimit(Process::RLIMIT_NPROC, opt.proclimit, opt.proclimit) if opt.proclimit
   Process.setpriority(Process::PRIO_PROCESS, 0, 20)
   
   # Close the stderr, because we don't need it
@@ -20,7 +22,7 @@ pid = fork do
   
   # FIXME: the user change is not working right now
   # Process::UID.change_privilege(Etc.getpwnam(user).uid) if user
-  Kernel.exec "#{cmd} < #{input} > #{output}"
+  Kernel.exec "#{opt.cmd} < #{opt.input} > #{opt.output}"
 end
 
 if !pid
@@ -28,21 +30,21 @@ if !pid
   exit 1
 end
 
-sleep([timelimit / 2, 0.1].min) if timelimit
+sleep([top.timelimit / 2, 0.1].min) if opt.timelimit
 
 used_memory = used_time = 0
 loop {
   used_memory = [used_memory, RProcFS.data(pid)].max
   used_time = [:utime, :stime, :cutime, :cstime].map { |m| RProcFS.send(m, pid) }.inject(0) { |a, sum| a + sum }
   
-  if mem and RProcFS.data(pid) > mem
+  if opt.mem and RProcFS.data(pid) > opt.mem
     Process.kill "KILL", pid
     Process.waitall
     print_stats(used_memory, used_time)
     exit 127
   end
   
-  if timelimit and (RProcFS.state(pid) == "S" or used_time > timelimit)
+  if opt.timelimit and (RProcFS.state(pid) == "S" or used_time > opt.timelimit)
     Process.kill "KILL", pid
     Process.waitall
     print_stats(used_memory, used_time)
