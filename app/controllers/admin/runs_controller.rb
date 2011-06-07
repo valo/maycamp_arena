@@ -1,6 +1,6 @@
 class Admin::RunsController < Admin::BaseController
   def index
-    @runs = Run.scoped(:include => [{:problem => :contest}, :user])
+    @runs = Run.scoped(:include => [{:problem => :contest}, :user], :order => "created_at DESC")
     @runs = @runs.scoped(:conditions => { :problem_id => params[:problem_id] }) unless params[:problem_id].blank?
     @runs = @runs.scoped(:conditions => ['problems.contest_id = ?', params[:contest_id]]) unless params[:contest_id].blank?
     @runs = @runs.paginate(:page => params[:page], :per_page => 50)
