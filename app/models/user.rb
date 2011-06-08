@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
   end
   
   def reset_token!
-    self.token = (1..16).to_a.map { (('0'..'9').to_a + ('a'..'z').to_a).rand }.join
+    self.token = (1..16).to_a.map { (('0'..'9').to_a + ('a'..'z').to_a).sample }.join
     self.save(false)
   end
   
