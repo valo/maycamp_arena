@@ -4,6 +4,6 @@ class Admin::StatusesController < Admin::BaseController
                               :page => params[:page],
                               :select => (Run.column_names - ["log", "source_code"]).join(','),
                               :include => { :problem => :contest, :user => nil },
-                              :order => "created_at DESC")
+                              :order => "runs.created_at DESC")
   end
 end

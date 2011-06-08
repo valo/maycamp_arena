@@ -92,7 +92,7 @@ class UsersController < ApplicationController
                          :limit => 10,
                          :select => (Run.column_names - ["log", "source_code"]).join(","),
                          :conditions => ["contests.practicable AND contests.visible AND NOT users.admin AND runs.user_id = ?", @user.id],
-                         :order => "created_at DESC")
+                         :order => "runs.created_at DESC")
   end
   
   def edit
