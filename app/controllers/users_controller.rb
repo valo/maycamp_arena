@@ -138,7 +138,7 @@ class UsersController < ApplicationController
       @user = User.find_by_email(params[:email])
       if @user
         @user.reset_token!
-        UserMails.deliver_password_forgot(@user)
+        UserMails.password_forgot(@user).deliver
         flash.now[:notice] = "Успешно беше изпратен email със линк за рестартиране на паролата Ви!"
         params[:email] = ""
       else

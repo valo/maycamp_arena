@@ -4,7 +4,7 @@ class Message < ActiveRecord::Base
   def deliver
     if RAILS_ENV == "development"
       self.emails_sent = User.first.email
-      UserMails.deliver_message([User.first], self)
+      UserMails.notification([User.first], self).deliver
     else
       emails_left = emails_to_send = User.all.map(&:email).select { |e| e =~ /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i }
       
@@ -12,7 +12,7 @@ class Message < ActiveRecord::Base
       # server
       while emails_left && !emails_left.empty?
         self.emails_sent = emails_left[0, 10].join(', ')
-        UserMails.deliver_message(User.all, self)
+        UserMails.notification(User.all, self).deliver
         
         emails_left = emails_left[10..-1]
       end
