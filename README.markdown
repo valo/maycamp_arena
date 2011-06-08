@@ -25,6 +25,7 @@ Installation
 * Then set the correct user, home folder, server address that you are going to use. This is in config/deploy.rb:
 
       set :user, "contest"
+
       set :home_path, "/home/contest"
 
       role :web, "judge.openfmi.net"                          # Your HTTP server, Apache/etc
