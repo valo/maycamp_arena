@@ -60,7 +60,7 @@ class MainController < ApplicationController
                          :page => params[:page],
                          :select => (Run.column_names - ["log", "source_code"]).map { |c| "runs.#{c}" }.join(","),
                          :conditions => ["contests.practicable AND contests.visible AND NOT users.admin"],
-                         :order => "created_at DESC")
+                         :order => "runs.created_at DESC")
   end
 
   def problems
