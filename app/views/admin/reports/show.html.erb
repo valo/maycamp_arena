@@ -1,5 +1,10 @@
 <h1>Доклади</h1>
 <h2>Брой събмити на ден</h2>
-<%= @daily_submits_report.to_s.html_safe %>
-<%= @total_submits_report.to_s.html_safe %>
-<%= @contest_submit_report.to_s.html_safe %>
+<script type="text/javascript" charset="utf-8">
+  var daily_submits_report = <%= @daily_submits_report.to_a.to_json.html_safe %>;
+  var total_submits_report = <%= @total_submits_report.to_a.to_json.html_safe %>
+  var contest_submit_report = <%= @contest_submit_report.to_a.to_json.html_safe %>;
+</script>
+<div id="daily_submits_report"></div>
+<div id="total_submits_report"></div>
+<div id="contest_submit_report"></div>

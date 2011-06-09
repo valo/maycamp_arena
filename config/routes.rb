@@ -8,7 +8,6 @@ MaycampArena::Application.routes.draw do |map|
   map.activity '/activity', :controller => 'main', :action => 'activity'
   map.rankings '/rankings', :controller => 'main', :action => 'rankings'
   map.rankings_practice '/rankings_practice', :controller => 'main', :action => 'rankings_practice'
-  map.rankings_practice '/rankings_practice', :controller => 'main', :action => 'rankings_practice'
   map.status '/status', :controller => 'main', :action => 'status'
   map.problems '/problems', :controller => 'main', :action => 'problems'
   map.problem_runs '/problem_runs/:id', :controller => 'main', :action => 'problem_runs'

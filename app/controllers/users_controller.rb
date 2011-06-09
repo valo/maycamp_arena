@@ -10,82 +10,31 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    index = 0
+
     rating_data = @user.rating_changes.map do |change|
-      index += 1
-      if change.contest
-        [
-          change.contest.name,
-          {
-            :value => change.rating,
-            :color => change.rating_color,
-            :name => change.contest.name,
-            :hoverText => change.contest.name,
-            :link => CGI.escape(
-                       url_for(
-                         :controller => :main,
-                         :action => :results,
-                         :contest_id => change.contest.id,
-                         :contest_type => change.contest_result_type
-                       )
-                     )
-          }
-        ]
+      if change.contest_result
+        {
+          :x => change.contest_result.contest.end_time.to_date, 
+          :y => change.rating.to_f,
+          :name => change.contest_result.contest.name,
+          :color => change.rating_color,
+          :url => url_for(:controller => :main, :action => :results, :contest_id => change.contest_result.contest.id, :contest_type => change.contest_result.class)
+        }
       else
-        [
-          @user.created_at.to_date,
-          {
-            :value => change.rating,
-            :color => change.rating_color
-          }
-        ]
+        nil
       end
-    end
+    end.compact
     
-    @rating_report = Ezgraphix::Graphic.new(
-                             :w => 900, 
-                             :div_name => "rating_report",
-                             :c_type => "line",
-                             :precision => 0,
-                             :rotate => "1",
-                             :caption => "Рейтинг",
-                             :color => "00FF00",
-                             :names => "0",
-                             :values => "0",
-                             :y_lines => 5,
-                             :f_number_scale => "0",
-                             :rotate => "0",
-                             :lines => [
-                               {:startValue => 2000, :endValue => 2000, :color => "#FF0000"},
-                               {:startValue => 1500, :endValue => 1500, :color => "#CBDD00"},
-                               {:startValue => 1200, :endValue => 1200, :color => "#0000FF"},
-                               {:startValue => 900, :endValue => 900, :color => "#00FF00"}
-                             ],
-                             :data => rating_data)
-                             
-    @daily_submits_report = Ezgraphix::Graphic.new(
-                             :w => 900, 
-                             :div_name => "daily_submits_report",
-                             :c_type => "line",
-                             :precision => 0,
-                             :rotate => "1",
-                             :caption => "Брой събмити на ден - Последни 3 седмици",
-                             :color => "00FF00",
-                             :data => Run.count(:id, 
-                                                :conditions => ["created_at > ? AND user_id = ?", 3.weeks.ago.to_s(:db), @user.id], 
-                                                :select => "id",
-                                                :group => "DATE_FORMAT(created_at, '%m/%d')"))
-    @total_submits_report = Ezgraphix::Graphic.new(
-                             :w => 900, 
-                             :div_name => "total_submits_report",
-                             :c_type => "area2d",
-                             :rotate => "1",
-                             :precision => 0,
-                             :caption => "Брой събмити на ден",
-                             :data => Run.count(:id, 
-                                                :conditions => ["user_id = ?", @user.id], 
-                                                :select => "id",
-                                                :group => "DATE_FORMAT(created_at, '%Y/%m/%d')"))
+    @rating_report = rating_data
+    
+    @daily_submits_report = Run.count(:id, 
+                                      :conditions => ["created_at > ? AND user_id = ?", 3.weeks.ago.to_s(:db), @user.id], 
+                                      :select => "id",
+                                      :group => "DATE_FORMAT(created_at, '%m/%d')")
+    @total_submits_report = Run.count(:id, 
+                        :conditions => ["user_id = ?", @user.id], 
+                        :select => "id",
+                        :group => "DATE_FORMAT(created_at, '%Y/%m/%d')")
 
     @runs = Run.paginate(:page => params[:page], :per_page => 10,
                          :include => [ {:problem => :contest}, :user ],

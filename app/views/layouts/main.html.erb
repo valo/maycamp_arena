@@ -9,8 +9,7 @@
   <%= stylesheet_link_tag "main.css" %>
   <%= stylesheet_link_tag "inove.css" %>
   <%= stylesheet_link_tag "inove_admin.css" %>
-  <%= javascript_include_tag "highlight.pack" %>
-  <%= javascript_include_tag "FusionCharts" %>
+  <%= javascript_include_tag "highlight.pack", "http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js", "highcharts", "application" %>
   <%= javascript_tag do %>
     // Syntax highlighting
     hljs.initHighlightingOnLoad();

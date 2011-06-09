@@ -8,7 +8,7 @@
     <th>Нов рейтинг</th>
     <th>Разлика</th>
   </tr>
-  <%= @contest.contest_results.each_with_index do |result, index| %>
+  <% @contest.contest_results.each_with_index do |result, index| %>
     <tr>
       <td><%= @contest.contest_results.to_a.count { |res| res.points > result.points } + 1 %></td>
       <% if result.user %>
