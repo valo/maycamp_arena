@@ -6,9 +6,14 @@
   <li><strong>Решения за 100 точки:</strong> <%= @user.full_tasks %></li>
   <li><strong>Участия в състезания:</strong> <%= @user.contest_start_events.count %></li>
 </ul>
-<%= @rating_report.to_s.html_safe %>
-<%= @daily_submits_report.to_s.html_safe %>
-<%= @total_submits_report.to_s.html_safe %>
+<script type="text/javascript" charset="utf-8">
+  var rating_report = <%= @rating_report.to_a.to_json.html_safe %>
+  var daily_submits_report = <%= @daily_submits_report.to_a.to_json.html_safe %>
+  var total_submits_report = <%= @total_submits_report.to_a.to_json.html_safe %>
+</script>
+<div id="rating_report"></div>
+<div id="daily_submits_report"></div>
+<div id="total_submits_report"></div>
 <h2>Последно пратени решения</h2>
 <% if @runs.empty? %>
   <p>Потребителя няма пратени решения</p>
