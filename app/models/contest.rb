@@ -63,11 +63,11 @@ class Contest < ActiveRecord::Base
       total = 0
       
       results << [event.user] + self.problems.map { |problem|
-          last_run = problem.runs.during_contest.find(:first, :conditions => {:user_id => event.user_id})
+          final_run = final_run_for_problem_and_user_id(problem, event.user_id)
 
-          if last_run
-            total += last_run.total_points_float
-            last_run.points + [last_run.total_points]
+          if final_run
+            total += final_run.total_points_float
+            final_run.points + [final_run.total_points]
           else
             ["0"] * problem.number_of_tests + ["0"]
           end
@@ -85,6 +85,14 @@ class Contest < ActiveRecord::Base
   memoize :generate_contest_results
   
   private
+    def final_run_for_problem_and_user_id(problem, user_id)
+      if self.best_submit_results
+        return problem.runs.during_contest.find(:all, :conditions => {:user_id => user_id}).max_by(&:total_points)
+      end
+      
+      problem.runs.during_contest.find(:first, :conditions => {:user_id => user_id}, :order => "runs.created_at DESC")
+    end
+  
     def generate_code
       self.set_code = name.underscore
     end

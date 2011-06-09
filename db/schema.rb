@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110607210757) do
+ActiveRecord::Schema.define(:version => 20110608175438) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -50,19 +50,20 @@ ActiveRecord::Schema.define(:version => 20110607210757) do
   add_index "contest_start_events", ["user_id", "contest_id"], :name => "index_contest_start_events_on_user_id_and_contest_id", :unique => true
 
   create_table "contests", :force => true do |t|
-    t.string   "set_code",                           :null => false
-    t.string   "name",                               :null => false
-    t.datetime "start_time",                         :null => false
-    t.datetime "end_time",                           :null => false
-    t.integer  "duration",                           :null => false
-    t.integer  "show_sources",    :default => 0,     :null => false
+    t.string   "set_code",                               :null => false
+    t.string   "name",                                   :null => false
+    t.datetime "start_time",                             :null => false
+    t.datetime "end_time",                               :null => false
+    t.integer  "duration",                               :null => false
+    t.integer  "show_sources",        :default => 0,     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "practicable",     :default => false
-    t.boolean  "results_visible", :default => false
-    t.boolean  "auto_test",       :default => false
-    t.boolean  "visible",         :default => true
-    t.string   "runner_type",     :default => "box"
+    t.boolean  "practicable",         :default => false
+    t.boolean  "results_visible",     :default => false
+    t.boolean  "auto_test",           :default => false
+    t.boolean  "visible",             :default => true
+    t.string   "runner_type",         :default => "box"
+    t.boolean  "best_submit_results", :default => false
   end
 
   create_table "external_contest_results", :force => true do |t|

@@ -13,7 +13,7 @@ gem 'unicorn'
 # Deploy with Capistrano
 gem 'capistrano'
 
-gem 'mysql2'
+gem 'mysql2', "< 0.3"
 gem 'rubyzip', :require => "zip/zip"
 gem 'andand'
 gem 'hoptoad_notifier'
@@ -29,17 +29,17 @@ group :production do
 end
 
 group :cucumber, :test do
-  gem 'factory_girl'
+  gem 'factory_girl_rails'
   gem 'cucumber-rails'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'rspec-rails'
   gem 'mocha'
   gem 'launchy'
+	gem 'ruby-debug'
 end
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
-# gem 'ruby-debug'
 # gem 'ruby-debug19'
 
 # Bundle the extra gems:

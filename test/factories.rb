@@ -22,6 +22,7 @@ end
 
 Factory.define :problem do |p|
   p.time_limit 1
+  p.name "Test problem"
 end
 
 Factory.define :category do |c|
