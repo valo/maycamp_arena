@@ -1,6 +1,7 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 $(function() {
+  if (!typeof(daily_submits_report) === "undefined")
   new Highcharts.Chart({
      chart: {
         renderTo: 'daily_submits_report',
@@ -9,16 +10,12 @@ $(function() {
         marginBottom: 40
      },
      title: {
-        text: 'Daily Submit Report',
+        text: 'Брой събмити на ден - последните 3 седмици',
         x: -20 //center
      },
      yAxis: {
        title: "",
         min: 0
-     },
-     subtitle: {
-        text: 'Брой събмити на ден - Последни 3 седмици',
-        x: -20
      },
      legend: {
        enabled: false
@@ -29,6 +26,7 @@ $(function() {
      }]
   });
   
+  if (!typeof(total_submits_report) === "undefined")
   new Highcharts.Chart({
      chart: {
         renderTo: 'total_submits_report',
@@ -36,7 +34,7 @@ $(function() {
         marginBottom: 40
      },
      title: {
-        text: 'Total Submit Report',
+        text: 'Брой събмити на ден - от регистрацията насам',
         x: -20 //center
      },
      yAxis: {
@@ -47,10 +45,6 @@ $(function() {
      },
      xAxis: {
        type: 'datetime'
-     },
-     subtitle: {
-        text: 'Брой събмити на ден',
-        x: -20
      },
      legend: {
        enabled: false
@@ -84,7 +78,7 @@ $(function() {
         marginBottom: 150
      },
      title: {
-        text: 'Contest Submit Report',
+        text: 'Пратени решения по състезания',
         x: -20 //center
      },
      yAxis: {
@@ -110,6 +104,7 @@ $(function() {
        data: $.map(contest_submit_report, function(ele, index) {return ele[1];})
      }]
   });
+  if (!typeof(rating_report) === "undefined")
   new Highcharts.Chart({
      chart: {
         renderTo: 'rating_report',
@@ -118,7 +113,7 @@ $(function() {
         marginBottom: 40
      },
      title: {
-        text: 'Rating Change',
+        text: 'Рейтинг',
         x: -20 //center
      },
      yAxis: {
@@ -161,7 +156,7 @@ $(function() {
        }
      },
      subtitle: {
-        text: 'Брой събмити по състезания',
+        text: 'Промяна на рейтингна след всяко състезание',
         x: -20
      },
      legend: {
