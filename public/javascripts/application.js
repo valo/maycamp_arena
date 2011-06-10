@@ -1,7 +1,7 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 $(function() {
-  if (!typeof(daily_submits_report) === "undefined")
+  if (typeof(daily_submits_report) != "undefined")
   new Highcharts.Chart({
      chart: {
         renderTo: 'daily_submits_report',
@@ -26,7 +26,7 @@ $(function() {
      }]
   });
   
-  if (!typeof(total_submits_report) === "undefined")
+  if (typeof(total_submits_report) != "undefined")
   new Highcharts.Chart({
      chart: {
         renderTo: 'total_submits_report',
@@ -69,7 +69,7 @@ $(function() {
         type: "area"
      }]
   });
-  if (!typeof(contest_submit_report) === "undefined")
+  if (typeof(contest_submit_report) != "undefined")
   new Highcharts.Chart({
      chart: {
         renderTo: 'contest_submit_report',
@@ -104,7 +104,7 @@ $(function() {
        data: $.map(contest_submit_report, function(ele, index) {return ele[1];})
      }]
   });
-  if (!typeof(rating_report) === "undefined")
+  if (typeof(rating_report) != "undefined")
   new Highcharts.Chart({
      chart: {
         renderTo: 'rating_report',
