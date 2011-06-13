@@ -13,10 +13,24 @@ class Admin::ProblemsController < Admin::BaseController
   def create
     params[:problem][:category_ids] ||= []
     @contest = Contest.find params[:contest_id]
-    @problem = @contest.problems.build params[:problem]
+    @problem = @contest.problems.build params[:problem].except(:archive, :solution)
 
     if @problem.save
-      redirect_to :action => "index"
+    
+      if !params[:problem][:archive].blank?
+        process_uploaded_file(params[:problem][:archive])
+        Configuration.set!(Configuration::TESTS_UPDATED_AT, Time.now.utc)
+      end
+      
+      if !params[:problem][:solution].blank?
+        Run.create!(:problem => @problem,
+                    :user => current_user,
+                    :language => Run.languages.first,
+                    :source_code => params[:problem][:solution].tempfile.read)
+        redirect_to admin_contest_problem_runs_path(@contest, @problem)
+      else
+        redirect_to :action => "index"
+      end
     else
       render :action => "new"
     end
@@ -68,29 +82,8 @@ class Admin::ProblemsController < Admin::BaseController
   
   def do_upload_file
     @problem = Problem.find(params[:id])
-    # Create the folders if they doesn't exist
-    FileUtils.mkdir_p(@problem.tests_dir)
 
-    @upload = params[:tests][:file]
-
-    if @upload.original_filename.ends_with("zip")
-      # Extract the bundle
-      Zip::ZipFile.foreach(@upload.tempfile.path) do |filename|
-        if filename.file? and !filename.name.include?('/')
-          dest = File.join(@problem.tests_dir, filename.name).downcase
-          FileUtils.rm(dest) if File.exists?(dest)
-          filename.extract dest
-        end
-      end
-    else
-      dest = File.join(@problem.tests_dir, @upload.original_filename)
-      FileUtils.cp @upload.local_path, dest
-      # Set the permissions of the copied file to the right ones. This is
-      # because the uploads are created with 0600 permissions in the /tmp
-      # folder. The 0666 & ~File.umask will set the permissions to the default
-      # ones of the current user. See the umask man page for details
-      FileUtils.chmod 0666 & ~File.umask, dest
-    end
+    process_uploaded_file params[:tests][:file]
 
     Configuration.set!(Configuration::TESTS_UPDATED_AT, Time.now.utc)
     flash[:notice] = "File successfully upoaded"
@@ -137,4 +130,31 @@ class Admin::ProblemsController < Admin::BaseController
       redirect_to :action => "show", :id => params[:id]
     end
   end
+
+  private
+    def process_uploaded_file(file)
+      # Create the folders if they doesn't exist
+      FileUtils.mkdir_p(@problem.tests_dir)
+
+      @upload = file
+
+      if @upload.original_filename.ends_with("zip")
+        # Extract the bundle
+        Zip::ZipFile.foreach(@upload.tempfile.path) do |filename|
+          if filename.file? and !filename.name.include?('/')
+            dest = File.join(@problem.tests_dir, filename.name).downcase
+            FileUtils.rm(dest) if File.exists?(dest)
+            filename.extract dest
+          end
+        end
+      else
+        dest = File.join(@problem.tests_dir, @upload.original_filename)
+        FileUtils.cp @upload.local_path, dest
+        # Set the permissions of the copied file to the right ones. This is
+        # because the uploads are created with 0600 permissions in the /tmp
+        # folder. The 0666 & ~File.umask will set the permissions to the default
+        # ones of the current user. See the umask man page for details
+        FileUtils.chmod 0666 & ~File.umask, dest
+      end
+    end
 end

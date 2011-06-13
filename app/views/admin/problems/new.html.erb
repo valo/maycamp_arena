@@ -1,9 +1,17 @@
 <h1>Add problem to contest <%= @contest.name %></h1>
-<%= form_for [:admin, @contest, @problem] do |f| -%>
+<%= form_for [:admin, @contest, @problem], :html => { :multipart => true } do |f| -%>
   <p>
     <%= f.error_messages %>
   </p>
   <%= render :partial => 'problem_fields', :locals => { :f => f } %>
+  <p>
+    <%= f.label :archive, "Архив с тестове:" %>
+    <%= f.file_field :archive %>
+  </p>
+  <p>
+    <%= f.label :solution, "Решение:" %>
+    <%= f.file_field :solution %>
+  </p>
   <p>
     <%= f.submit "Създаване" %><%= link_to "Отказ", edit_admin_contest_path(@contest) %>
   </p>
