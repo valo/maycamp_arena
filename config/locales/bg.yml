@@ -167,9 +167,18 @@ bg:
         less_than_or_equal_to: "може да е със стойност, по-голяма или равна на %{count}"
         odd: "може да е единствено четно"
         even: "може да е единствено нечетно"
+
+      template:
+        header:
+          one: "%{model}: записа неуспешен заради %{count} грешка"
+          few: "%{model}: записа неуспешен заради %{count} грешки"
+          many: "%{model}: записа неуспешен заради %{count} грешки"
+          other: "%{model}: записа неуспешен заради %{count} грешки"
+        body: ""
     models:
       user: Потребител
       run: Решение
+      problem: Задача
     attributes:
       user:
         login: Потребителското име
@@ -177,14 +186,8 @@ bg:
         city: Град
       run:
         source_code: Сорс код
-        
-  errors:
-    template:
-      header:
-        one: "%{model}: записа неуспешен заради %{count} грешка"
-        few: "%{model}: записа неуспешен заради %{count} грешки"
-        many: "%{model}: записа неуспешен заради %{count} грешки"
-        other: "%{model}: записа неуспешен заради %{count} грешки"
+      problem:
+        name: Име
 
       body: "Възникнаха проблеми при следните полета:"
   support:
