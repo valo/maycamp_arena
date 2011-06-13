@@ -10,6 +10,7 @@ class UserMails < ActionMailer::Base
   end
   
   def notification(users, msg)
-    mail :bcc => msg.emails_sent, :subject => msg.subject
+    @message_body = msg.body
+    mail(:bcc => msg.emails_sent, :subject => msg.subject)
   end
 end
