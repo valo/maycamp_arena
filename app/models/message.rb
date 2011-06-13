@@ -2,7 +2,7 @@ class Message < ActiveRecord::Base
   validates_presence_of :subject, :body
   
   def deliver
-    if RAILS_ENV == "development"
+    if Rails.env == "development"
       self.emails_sent = User.first.email
       UserMails.notification([User.first], self).deliver
     else
