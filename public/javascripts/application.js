@@ -17,12 +17,15 @@ $(function() {
        title: "",
         min: 0
      },
+     xAxis: {
+       type: 'datetime'
+     },
      legend: {
        enabled: false
      },
      series: [{
         name: 'Submits',
-        data: daily_submits_report
+        data: $.map(daily_submits_report, function(ele, index) { return [[Date.parse(ele[0]), ele[1]]];}),
      }]
   });
   

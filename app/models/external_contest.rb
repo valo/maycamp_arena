@@ -18,6 +18,10 @@ class ExternalContest < ActiveRecord::Base
     match_results_to_users
   end
   
+  def user_open_time(user)
+    self.date
+  end
+  
   def match_score
     contest_results.select(&:user).length * 100.0 / contest_results.length
   end

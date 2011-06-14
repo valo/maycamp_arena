@@ -13,6 +13,8 @@ set :unicorn_binary, "bundle exec unicorn_rails"
 set :unicorn_config, "#{current_path}/config/unicorn.conf.rb"
 set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
 
+set :rake, "bundle exec rake"
+
 def read_db_config(file, env)
   YAML.load_file(file)[env]
 end
@@ -141,7 +143,7 @@ namespace :bundler do
  
   task :bundle_new_release, :roles => :app do
     bundler.create_symlink
-    run "cd #{release_path} && bundle install --deployment -q --without test development"
+    run "cd #{release_path} && bundle install --deployment --without test development"
   end
 end
 
