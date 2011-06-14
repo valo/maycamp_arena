@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     rating_data = @user.rating_changes.map do |change|
       if change.contest_result
         {
-          :x => change.contest_result.contest.end_time.to_date, 
+          :x => change.contest_result.contest.user_open_time(@user),
           :y => change.rating.to_f,
           :name => change.contest_result.contest.name,
           :color => change.rating_color,
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     @daily_submits_report = Run.count(:id, 
                                       :conditions => ["created_at > ? AND user_id = ?", 3.weeks.ago.to_s(:db), @user.id], 
                                       :select => "id",
-                                      :group => "DATE_FORMAT(created_at, '%m/%d')")
+                                      :group => "DATE_FORMAT(created_at, '%Y/%m/%d')")
     @total_submits_report = Run.count(:id, 
                         :conditions => ["user_id = ?", @user.id], 
                         :select => "id",
