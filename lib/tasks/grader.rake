@@ -22,6 +22,11 @@ begin
       grader_conf = get_config
       SetsSync.sync_sets(grader_conf)
     end
+    
+    task :benchmark => :environment do
+      grader_conf = get_config
+      Grader.new(grader_conf["root"], grader_conf["user"]).benchmark
+    end
   end
 rescue Exception
   puts "Cannot load the grader tasks. Exception: #{$!.inspect}"
