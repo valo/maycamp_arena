@@ -2,12 +2,12 @@ judge:
   host: http://arena.maycamp.com
   root: ../sandbox
   user: maycamp
-  rsync: mcvalo@maycamp.com:/home/maycamp/arena.maycamp.com/git/sets
+  rsync: mcvalo@maycamp.com:/home/maycamp/arena.maycamp.com/shared/sets
 valo:
   host: http://arena.maycamp.com
   root: /tmp
   user: valentinmihov
-  rsync: mcvalo@maycamp.com:/home/maycamp/arena.maycamp.com/git/sets
+  rsync: mcvalo@maycamp.com:/home/maycamp/arena.maycamp.com/shared/sets
 grader:
   host: http://localhost:3000
   root: /home/spoj0run
@@ -17,3 +17,7 @@ maycamparena:
   root: /home/contest/sandbox
   user: contest
   rsync: contest@localhost:/home/contest/sets
+ubuntu-VirtualBox:
+  root: /tmp/sandbox
+  user: grader
+  rsync: mcvalo@maycamp.com:/home/maycamp/arena.maycamp.com/shared/sets

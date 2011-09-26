@@ -50,11 +50,37 @@ class Grader
       end
     end
   end
+
+  def benchmark(samples = 100)
+    puts "Benchmarking machine"
+    check_durty_tests
+    
+    total_runs = 0
+    total_factors = 0
+    
+    total_factor = Run.where(:total_points => 100).order("RAND()").limit(samples).each do |run|
+      original_time = run.max_time
+      original_points = run.total_points
+
+      grade(run, nil, true)
+
+      run.update_time_and_mem
+      run.update_total_points
+      
+      next if original_points != run.total_points
+      
+      total_factors += original_time / run.max_time
+      total_runs += 1
+    end
+    
+    puts "The bech factor of the machine is #{total_factors / total_runs}"
+  end
   
   private
-    def grade(run, tests = nil)
+    def grade(run, tests = nil, dry_run = false)
       tests ||= run.problem.number_of_tests
-      run.update_attributes(:status => Run::JUDGING)
+      update_attributes(run, dry_run, :status => Run::JUDGING)
+
       puts "Judging run with id #{run.id}"
       @runner = Pathname.new(File.join(File.dirname(__FILE__), "../ext/runner_#{run.problem.contest.runner_type}.rb")).realpath.to_s
       
@@ -66,13 +92,14 @@ class Grader
             compile(run)
 
             if $?.exitstatus != 0
-              run.update_attributes(:status => (["ce"] * tests).join(" "), :log => File.read("grader.log"))
+              update_attributes(run, dry_run, :status => (["ce"] * tests).join(" "), :log => File.read("grader.log"))
               next
             end
 
             status = run_tests(run, tests)
             puts "final result: #{status.inspect}"
-            run.update_attributes(:status => status, :log => File.read("grader.log"))
+            
+            update_attributes(run, dry_run, :status => status, :log => File.read("grader.log"))
           end
         end
       end
@@ -133,5 +160,11 @@ class Grader
         "ok"
       end
       
+    end
+
+    def update_attributes(run, dry_run, attrs)
+      run.attributes = attrs
+      
+      run.save unless dry_run
     end
 end
