@@ -48,19 +48,18 @@ class Run < ActiveRecord::Base
     total_tests = status.split(/\s+/).length
     status.split(/\s+/).map { |out| out == "ok" ? (BigDecimal("100") / total_tests) : out }
   end
-    
-  private
-    def update_total_points
-      self.total_points = points_float.sum { |test| test.is_a?(BigDecimal) ? test : 0 }.round.to_i
+
+  def update_total_points
+    self.total_points = points_float.sum { |test| test.is_a?(BigDecimal) ? test : 0 }.round.to_i
+  end
+  
+  def update_time_and_mem
+    if self.log
+      max_time = self.log.scan(/Used time: ([0-9\.]+)/).map { |t| BigDecimal.new(t.first) }.max
+      max_memory = self.log.scan(/Used mem: ([0-9]+)/).map(&:first).map(&:to_i).max
+  
+      self.max_time = max_time
+      self.max_memory = max_memory
     end
-    
-    def update_time_and_mem
-      if self.log
-        max_time = self.log.scan(/Used time: ([0-9\.]+)/).map { |t| BigDecimal.new(t.first) }.max
-        max_memory = self.log.scan(/Used mem: ([0-9]+)/).map(&:first).map(&:to_i).max
-    
-        self.max_time = max_time
-        self.max_memory = max_memory
-      end
-    end
+  end
 end
