@@ -58,7 +58,7 @@ class Grader
     total_runs = 0
     total_factors = 0
     
-    total_factor = Run.where(:total_points => 100).order("RAND()").limit(samples).each do |run|
+    total_factor = Run.where(:total_points => 100).where("max_time > 0").order("RAND()").limit(samples).each do |run|
       original_time = run.max_time
       original_points = run.total_points
 
