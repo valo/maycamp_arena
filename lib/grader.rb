@@ -75,35 +75,36 @@ class Grader
     
     puts "The bech factor of the machine is #{total_factors / total_runs}"
   end
-  
-  private
-    def grade(run, tests = nil, dry_run = false)
-      tests ||= run.problem.number_of_tests
-      update_attributes(run, dry_run, :status => Run::JUDGING)
 
-      puts "Judging run with id #{run.id}"
-      @runner = Pathname.new(File.join(File.dirname(__FILE__), "../ext/runner_#{run.problem.contest.runner_type}.rb")).realpath.to_s
-      
-      Dir.chdir @root do
-        File.open("grader.log", "w") do |f|
-          f.sync = true
-          self.class.with_stdout_and_stderr(f, f) do
-            # Compile
-            compile(run)
+  def grade(run, tests = nil, dry_run = false)
+    tests ||= run.problem.number_of_tests
+    update_attributes(run, dry_run, :status => Run::JUDGING)
 
-            if $?.exitstatus != 0
-              update_attributes(run, dry_run, :status => (["ce"] * tests).join(" "), :log => File.read("grader.log"))
-              next
-            end
+    puts "Judging run with id #{run.id}"
+    @runner = Pathname.new(File.join(File.dirname(__FILE__), "../ext/runner_#{run.problem.contest.runner_type}.rb")).realpath.to_s
+    
+    Dir.chdir @root do
+      File.open("grader.log", "w") do |f|
+        f.sync = true
+        self.class.with_stdout_and_stderr(f, f) do
+          # Compile
+          compile(run)
 
-            status = run_tests(run, tests)
-            puts "final result: #{status.inspect}"
-            
-            update_attributes(run, dry_run, :status => status, :log => File.read("grader.log"))
+          if $?.exitstatus != 0
+            update_attributes(run, dry_run, :status => (["ce"] * tests).join(" "), :log => File.read("grader.log"))
+            next
           end
+
+          status = run_tests(run, tests)
+          puts "final result: #{status.inspect}"
+          
+          update_attributes(run, dry_run, :status => status, :log => File.read("grader.log"))
         end
       end
     end
+  end
+  
+  private
     
     def compile(run)
       File.open("program.cpp", "w") do |f|
