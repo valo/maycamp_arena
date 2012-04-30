@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'latinize'
 
 class Contest < ActiveRecord::Base
@@ -12,6 +13,7 @@ class Contest < ActiveRecord::Base
   has_many :contest_results
   has_many :rating_changes, :through => :contest_results
   
+  scope :upcoming, lambda { {:conditions => ['? < start_time', Time.now.utc]} }
   scope :current, lambda { {:conditions => ['? > start_time AND ? < end_time', Time.now.utc, Time.now.utc]} }
   scope :finished, lambda { {:conditions => ['? > end_time', Time.now.utc]} }
   scope :practicable, :conditions => { :practicable => true }
