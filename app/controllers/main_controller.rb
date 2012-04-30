@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'ostruct'
 
 class MainController < ApplicationController
@@ -6,6 +7,7 @@ class MainController < ApplicationController
   
   def index
     @contests = Contest.current.select {|contest| contest.visible or current_user.andand.admin?}
+    @upcoming_contests = Contest.upcoming.select {|contest| contest.visible or current_user.andand.admin?}
     @practice_contests = Contest.practicable.select {|contest| contest.visible or current_user.andand.admin?}.reverse
     @top_scores = User.rating_ordering(10)
   end

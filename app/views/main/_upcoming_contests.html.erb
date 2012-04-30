@@ -1,0 +1,22 @@
+<h2>Предстоящи състезания</h2>
+<br />
+<% if !@upcoming_contests.blank? %>
+<table>
+  <tr>
+    <th>Име на състезанието</th>
+    <th>Започва</th>
+    <th>Приключва</th>
+    <th>Продължителност</th>
+  </tr>
+<% for contest in @upcoming_contests do %>
+  <tr>
+    <td><%= contest.name %></td>
+    <td><%= contest.start_time.to_s :long %></td>
+    <td><%= contest.end_time.to_s :long %></td>
+    <td><%= duration_in_words contest.duration.minutes %></td>
+  </tr>
+<% end %>
+</table>
+<% else %>
+Няма предстоящи състезания.
+<% end %>
