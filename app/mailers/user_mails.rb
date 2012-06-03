@@ -10,7 +10,12 @@ class UserMails < ActionMailer::Base
   end
   
   def notification(users, msg)
-    @message_body = msg.body
+    @msg_content = msg.body
+
+    part "text/plain" do |p|
+      p.body = render_message "notification.text.plain", :msg_content => @msg_content
+    end
+
     mail(:bcc => msg.emails_sent, :subject => msg.subject)
   end
 end
