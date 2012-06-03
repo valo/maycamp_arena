@@ -32,7 +32,7 @@ module ApplicationHelper
   def time_left_for_user_in_contest(user, contest)
     result = 0 # No time left.
     if can_user_submit_in_contest?(user, contest)
-      result = duration_in_words([contest.duration.minutes, contest.end_time - Time.now].min - (Time.now - contest.user_open_time(user)))
+      result = duration_in_words([contest.duration.minutes - (Time.now - contest.user_open_time(user)), contest.end_time - Time.now].min)
     end
     
     result
