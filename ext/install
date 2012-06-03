@@ -1,0 +1,39 @@
+#!/bin/bash
+
+sudo apt-get install unzip mysql-server mysql-client
+
+# Install RVM
+curl -L get.rvm.io | bash -s stable
+
+mkdir -p ~/maycamp
+mkdir -p ~/sandbox
+
+cd ~/maycamp
+rm -fr *
+
+curl -L https://github.com/valo/maycamp_arena/zipball/master > maycamp.zipball
+unzip maycamp.zip
+
+cd valo-maycamp_arena*
+mv * ../
+cd ..
+rm -fr valo-maycamp_arena* maycamp.zip
+
+echo "\
+`hostname`:
+  host: localhost
+  root: ~/sandbox
+  user: `whoami`
+  rsync: localhost
+" > config/grader.yml
+
+# Setup the app
+
+bundle install --deployment
+
+bundle exec rake db:create
+bundle exec rake db:migrate
+bundle exec unicorn_rails -c config/unicorn.conf.rb -E production -D
+
+# Start the grader
+nohup bundle exec rake RAILS_ENV=production grader:start &
