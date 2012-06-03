@@ -1,9 +1,12 @@
 #!/bin/bash
 
-sudo apt-get install unzip mysql-server mysql-client
+sudo apt-get install unzip mysql-server mysql-client build-essential
 
 # Install RVM
 curl -L get.rvm.io | bash -s stable
+
+rvm install 1.8.7
+rvm use 1.8.7 --default
 
 mkdir -p ~/maycamp
 mkdir -p ~/sandbox
