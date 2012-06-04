@@ -21,4 +21,4 @@ Installation
 There is an automatic installation script, which works for debian based systems. You can read more about it here: [https://github.com/valo/maycamp_arena/wiki/Installation][Install]. It is still WIP, so be patient until it is ready. It should provide a one command deploy for the system, so that you can get started in seconds.
 
 [IOI]: http://olympiads.win.tue.nl/ioi/
-[Install]: http://beginrescueend.com/rvm/install/
+[Install]: https://github.com/valo/maycamp_arena/wiki/Installation
