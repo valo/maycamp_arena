@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get install unzip mysql-server mysql-client build-essential libxslt-dev libxml2-dev libmysqlclient-dev
+sudo apt-get install --force-yes --yes unzip mysql-server mysql-client build-essential libxslt-dev libxml2-dev libmysqlclient-dev
 
 # Install RVM
 curl -L get.rvm.io | bash -s stable
@@ -42,3 +42,13 @@ bundle exec unicorn_rails -c config/unicorn.conf.rb -E production -D
 
 # Start the grader
 nohup bundle exec rake RAILS_ENV=production grader:start &
+
+echo "The web server is started with"
+echo "cd ~/maycamp; bundle exec unicorn_rails -c config/unicorn.conf.rb -E production -D"
+echo ""
+echo "The grader is started with"
+echo "cd ~/maycamp; nohup bundle exec rake RAILS_ENV=production grader:start &"
+echo ""
+echo "You can add these to your /etc/rc.local"
+echo ""
+echo "It is also recommended to put a web server in front of the app, to handle keepalives and slow clients. Nginx is a good choice, because it scales better."
