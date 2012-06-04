@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get install --force-yes --yes unzip mysql-server mysql-client build-essential libxslt-dev libxml2-dev libmysqlclient-dev
+sudo apt-get install --force-yes --yes unzip mysql-server mysql-client build-essential libxslt-dev libxml2-dev libmysqlclient-dev openssl libreadline6 libreadline6-devgit-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libc6-dev ncurses-dev automake libtool bison subversion
 
 # Install RVM
 curl -L get.rvm.io | bash -s stable
@@ -27,9 +27,9 @@ rm -fr valo-maycamp_arena* maycamp.zip
 echo "\
 `hostname`:
   host: localhost
-  root: ~/sandbox
+  root: $HOME/sandbox
   user: `whoami`
-  rsync: localhost
+  rsync: $HOME/maycamp/sets
 " > config/grader.yml
 
 # Setup the app
