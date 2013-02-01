@@ -10,11 +10,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110608175438) do
+ActiveRecord::Schema.define(:version => 20110731235536) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
-    t.text     "description", :limit => 16777215
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -137,7 +137,6 @@ ActiveRecord::Schema.define(:version => 20110608175438) do
   end
 
   add_index "runs", ["created_at"], :name => "index_runs_on_created_at"
-  add_index "runs", ["status", "created_at"], :name => "status_created_at"
   add_index "runs", ["user_id", "problem_id"], :name => "index_runs_on_user_id_and_problem_id"
 
   create_table "sessions", :force => true do |t|
@@ -150,15 +149,22 @@ ActiveRecord::Schema.define(:version => 20110608175438) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
+  create_table "user_preferences", :force => true do |t|
+    t.integer  "user_id"
+    t.binary   "preferences"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "login",      :limit => 40
     t.string   "name",       :limit => 100, :default => ""
     t.string   "email",      :limit => 100
+    t.string   "city",       :limit => 100,                    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin",                     :default => false
-    t.string   "password",   :limit => 40,                     :null => false
-    t.string   "city"
+    t.string   "password",   :limit => 40
     t.string   "token",      :limit => 16
     t.boolean  "contester",                 :default => true
   end
