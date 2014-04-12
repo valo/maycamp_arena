@@ -3,7 +3,6 @@ require 'latinize'
 
 class Contest < ActiveRecord::Base
   include Latinize
-  extend ActiveSupport::Memoizable
   
   RUNNER_TYPES = ["fork", "box"]
   
@@ -57,14 +56,15 @@ class Contest < ActiveRecord::Base
   end
   
   def generate_contest_results
-    results = []
+    return @results if @results
+    @results = []
     self.contest_start_events.find_each(:include => :user) do |event|
       runs = self.runs.during_contest.find(:first, :conditions => { :user_id => event.user_id })
       next if (not event.user.participates_in_contests?) or runs.nil?
       
       total = 0
       
-      results << [event.user] + self.problems.map { |problem|
+      @results << [event.user] + self.problems.map { |problem|
           final_run = final_run_for_problem_and_user_id(problem, event.user_id)
 
           if final_run
@@ -76,15 +76,14 @@ class Contest < ActiveRecord::Base
       } + [total]
     end
     
-    results.sort! { |a,b| b[-1] <=> a[-1] }
+    @results.sort! { |a,b| b[-1] <=> a[-1] }
     
     # Compute the unique scores and the number people with each score
-    diff_scores = results.map { |r| r[-1] }.uniq.map { |score| [score, results.select { |res| res[-1] == score }.length] }
-    results.each do |row|
+    diff_scores = @results.map { |r| r[-1] }.uniq.map { |score| [score, @results.select { |res| res[-1] == score }.length] }
+    @results.each do |row|
       row.unshift diff_scores.map { |score, number| score > row[-1] ? number : 0 }.sum + 1
     end
   end
-  memoize :generate_contest_results
   
   private
     def final_run_for_problem_and_user_id(problem, user_id)

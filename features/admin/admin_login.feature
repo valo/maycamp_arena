@@ -9,7 +9,7 @@ Feature: Administrator login
       | login                 | valo                      |
       | name                  | Valentin Mihov            |
       | email                 | valentin.mihov@gmail.com  |
-      | password              | secret                    |
+      | unencrypted_password  | secret                    |
     And I am not logged in
     When I am on the login page
     And I fill in the following:

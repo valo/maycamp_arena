@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'zip/zipfilesystem'
 
 class Admin::ContestsController < Admin::BaseController

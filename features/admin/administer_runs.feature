@@ -9,7 +9,7 @@ Feature: Administer runs
       | login                 | valo                      |
       | name                  | Valentin Mihov            |
       | email                 | valentin.mihov@gmail.com  |
-      | password              | secret                    |
+      | unencrypted_password  | secret                    |
     And I am not logged in
     And I am on the login page
     And I fill in the following:

@@ -9,7 +9,7 @@ Feature: Viewing the system status
       | login                 | valo                      |
       | name                  | Valentin Mihov            |
       | email                 | valentin.mihov@gmail.com  |
-      | password              | secret                    |
+      | unencrypted_password  | secret                    |
     And there is a contest with attributes:
       | name          | Test contest       |
       | practicable   | 1                  |

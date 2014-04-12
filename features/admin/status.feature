@@ -8,7 +8,7 @@ Feature: Viewing the status
     Given there is an admin user with attributes:
       | login                 | valo                      |
       | name                  | Valentin Mihov            |
-      | password              | secret                    |
+      | unencrypted_password  | secret                    |
     And there is a finished contest with attributes:
       | name                  | Fall contest              |
       | results_visible       | 1                         |

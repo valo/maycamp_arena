@@ -1,25 +1,32 @@
-MaycampArena::Application.routes.draw do |map|
+MaycampArena::Application.routes.draw do
 
-  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
-  map.login '/login', :controller => 'sessions', :action => 'new'
-  map.register '/register', :controller => 'users', :action => 'create'
-  map.signup '/signup', :controller => 'users', :action => 'new'
-  
-  map.activity '/activity', :controller => 'main', :action => 'activity'
-  map.rankings '/rankings', :controller => 'main', :action => 'rankings'
-  map.rankings_practice '/rankings_practice', :controller => 'main', :action => 'rankings_practice'
-  map.status '/status', :controller => 'main', :action => 'status'
-  map.problems '/problems', :controller => 'main', :action => 'problems'
-  map.problem_runs '/problem_runs/:id', :controller => 'main', :action => 'problem_runs'
-  
-  map.resources :users, :collection => { :password_forgot => [:get, :post] }, 
-                        :member => {
-                          :reset_password => :get, 
-                          :do_reset_password => :put
-                        }
-  map.resource :session
-  
-  map.resources :categories
+  match '/logout', :controller => 'sessions', :action => 'destroy', :as => 'logout'
+  match '/login', :controller => 'sessions', :action => 'new', :as => 'login'
+  match '/register', :controller => 'users', :action => 'create', :as => 'register'
+  match '/signup', :controller => 'users', :action => 'new', :as => 'signup'
+
+  match '/activity', :controller => 'main', :action => 'activity', :as => 'activity'
+  match '/rankings', :controller => 'main', :action => 'rankings', :as => 'rankings'
+  match '/rankings_practice', :controller => 'main', :action => 'rankings_practice', :as => 'rankings_practice'
+  match '/status', :controller => 'main', :action => 'status', :as => 'status'
+  match '/problems', :controller => 'main', :action => 'problems', :as => 'problems'
+  match '/problem_runs/:id', :controller => 'main', :action => 'problem_runs', :as => 'problem_runs'
+
+  resources :users do
+    collection do
+      get :password_forgot
+      post :password_forgot
+    end
+
+    member do
+      get :reset_password
+      post :do_reset_password
+    end
+  end
+
+  resource :session
+
+  resources :categories
 
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -39,7 +46,7 @@ MaycampArena::Application.routes.draw do |map|
 
   # Sample resource route with sub-resources:
   #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-  
+
   # Sample resource route with more complex sub-resources
   #   map.resources :products do |products|
   #     products.resources :comments
@@ -52,56 +59,89 @@ MaycampArena::Application.routes.draw do |map|
   #     admin.resources :products
   #   end
 
-  map.namespace :admin do |admin|
-    admin.resource :status
-    admin.resources :users, :member => { :restart_time => :get } do |user|
-      user.resources :runs, :member => {
-        :queue => :get
-      }, :collection => {
-        :queue => :get
-      }
-    end
-    
-    admin.resources :contests, :member => { :download_sources => :get } do |contests|
-      contests.resources :runs, :member => {
-        :queue => :get
-      }, :collection => {
-        :queue => :get
-      }
-      contests.resources :problems, :member => { 
-        :purge_files => :get, 
-        :download_file => :get, 
-        :upload_file => :get, 
-        :do_upload_file => :post,
-        :compile_checker => :get
-      } do |problem|
-        problem.resources :runs, :member => {
-          :queue => :get
-        }, :collection => {
-          :queue => :get
-        }
+  namespace :admin do
+    resource :status
+    resources :users do
+      member do
+        get :restart_time
+      end
+
+      resources :runs do
+        member do
+          get :queue
+        end
+        collection do
+          get :queue
+        end
       end
     end
 
-    admin.resources :categories
-    admin.resources :messages
-    admin.resource :reports
-    admin.resource :ratings, :member => { :recalculate => :post }
-    admin.resources :external_contests, :member => { :rematch => :post, :remove_links => :post } do |x_contests|
-      x_contests.resources :external_contest_results, :member => { :remove_user => :post }
+    resources :contests do
+      member do
+        get :download_sources
+      end
+
+      resources :runs do
+        member do
+          get :queue
+        end
+        collection do
+          get :queue
+        end
+      end
+
+      resources :problems do
+        member do
+          get :purge_files
+          get :download_file
+          get :upload_file
+          get :compile_checker
+          post :do_upload_file
+        end
+        resources :runs do
+          member do
+            get :queue
+          end
+
+          collection do
+            get :queue
+          end
+        end
+      end
+    end
+
+    resources :categories
+    resources :messages
+    resource :reports
+    resource :ratings do
+      member do
+        post :recalculate
+      end
+    end
+    resources :external_contests do
+      member do
+        post :rematch
+        post :remove_links
+      end
+
+      resources :external_contest_results do
+        member do
+          post :remove_user
+        end
+      end
     end
   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  map.root :controller => "main"
-  
-  map.practice '/practice/:action', { :controller => :practice }
+  root :to => "main#index"
+
+  match '/practice/:action', :controller => :practice, :as => 'practice'
 
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing the them or commenting them out if you're using named routes and resources.
-  map.connect ':controller/:action/:id'
+  match ':controller(/:action(/:id))'
   # map.connect ':controller/:action/:id.:format'
 end

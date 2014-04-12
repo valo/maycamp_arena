@@ -20,8 +20,12 @@
   <%= render :partial => "upcoming_contests" %>
   <br />
   <br />
-  <%= render :partial => "practice_area" %>
+  <% cache({ :part => :practice_area, :page => @practice_contests.current_page }, :expires_in => 1.hour) do %>
+    <%= render :partial => "practice_area" %>
+  <% end %>
 <% end %>
 <br />
 <br />
-<%= render :partial => "past_contests" %>
+  <% cache({ :part => :past_contests, :page => @contests.current_page }, :expires_in => 1.hour) do %>
+    <%= render :partial => "past_contests" %>
+  <% end %>

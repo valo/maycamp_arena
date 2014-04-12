@@ -6,15 +6,15 @@ Feature: Administer categories
 
   Background:
     Given there is an admin user with attributes:
-      | login                 | valo                      |
-      | name                  | Valentin Mihov            |
-      | email                 | valentin.mihov@gmail.com  |
-      | password              | secret                    |
+      | login                | valo                     |
+      | name                 | Valentin Mihov           |
+      | email                | valentin.mihov@gmail.com |
+      | unencrypted_password | secret                   |
     And I am not logged in
     When I am on the login page
     And I fill in the following:
-      | login                 | valo                      |
-      | password              | secret                    |
+      | login    | valo   |
+      | password | secret |
     And I press "Влез"
 
   Scenario: Create new category

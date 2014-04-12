@@ -1,3 +1,6 @@
+# encoding: utf-8
+
+# encoding: utf-8
 module Authentication
   def self.included(base)
     base.helper_method :current_user, :logged_in?

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def duration_in_words(duration)

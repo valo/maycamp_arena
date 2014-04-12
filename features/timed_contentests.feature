@@ -9,7 +9,7 @@ Feature: Submit solution
       | login                 | valo                      |
       | name                  | Valentin Mihov            |
       | email                 | valentin.mihov@gmail.com  |
-      | password              | secret                    |
+      | unencrypted_password  | secret                    |
     And there is a running contest named "Test contest"
     And the contest "Test contest" has a task named "Task"
     And I am on the login page
@@ -30,7 +30,7 @@ Feature: Submit solution
     When I select "C/C++" from "run_language"
     And I select "Task" from "run_problem_id"
     And I fill in "#include <stdio.h>" for "run_source_code"
-    And I press "Изпрати"
+    And I press the first "Изпрати"
     Then I should see "checking"
     And I should see "Виж сорс кода"
 
@@ -40,7 +40,7 @@ Feature: Submit solution
     When I select "C/C++" from "run_language"
     And I select "Task" from "run_problem_id"
     And I attach the file at "test/fixtures/source_code.c" to "Качи решение:"
-    And I press "Изпрати"
+    And I press the first "Изпрати"
     Then I should see "checking"
     And I should see "Виж сорс кода"
 
@@ -50,6 +50,6 @@ Feature: Submit solution
     When I select "C/C++" from "run_language"
     And I select "Task" from "run_problem_id"
     And I fill in "#include <stdio.h>" for "run_source_code"
-    And I press "Изпрати"
+    And I press the first "Изпрати"
     And I follow "Виж сорс кода"
     Then I should see "#include <stdio.h>"

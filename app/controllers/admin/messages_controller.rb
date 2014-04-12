@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Admin::MessagesController < ApplicationController
   def new
     @message = Message.new

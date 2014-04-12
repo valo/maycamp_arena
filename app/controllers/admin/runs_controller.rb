@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Admin::RunsController < Admin::BaseController
   def index
     @runs = Run.scoped(:include => [{:problem => :contest}, :user], :order => "runs.created_at DESC")

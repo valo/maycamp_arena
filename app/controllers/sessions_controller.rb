@@ -1,7 +1,9 @@
-# This controller handles the login/logout function of the site.  
+# encoding: utf-8
+
+# This controller handles the login/logout function of the site.
 class SessionsController < ApplicationController
   layout "main"
-  
+
   # render new.rhtml
   def new
   end
@@ -10,7 +12,7 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:login], params[:password])
     if user
       self.current_user = user
-      
+
       if session[:back]
         back_path = session[:back]
         session[:back] = nil
@@ -23,7 +25,7 @@ class SessionsController < ApplicationController
     else
       flash.now[:error] = "Неуспешно влизане с потребителско име '#{params[:login]}'"
       logger.warn "Failed login for '#{params[:login]}' from #{request.remote_ip} at #{Time.now.utc}"
-      
+
       @login       = params[:login]
       @remember_me = params[:remember_me]
       render :action => 'new'

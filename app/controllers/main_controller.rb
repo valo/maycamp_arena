@@ -4,19 +4,34 @@ require 'ostruct'
 class MainController < ApplicationController
   layout "main", :except => :results
   before_filter :check_user_profile
-  
+
   def index
-    @contests = Contest.current.select {|contest| contest.visible or current_user.andand.admin?}
+    @past_contests = Contest.finished.paginate(:page => params[:past_contest_page] || 1, :per_page => 20)
+    @contests = WillPaginate::Collection.create(params[:contest_page] || 1, 20) do |pager|
+      contests = Contest.current.select {|contest| contest.visible or current_user.andand.admin?}
+
+      pager.replace contests[pager.offset, pager.per_page]
+      pager.total_entries = contests.length
+    end
+
     @upcoming_contests = Contest.upcoming.select {|contest| contest.visible or current_user.andand.admin?}
-    @practice_contests = Contest.practicable.select {|contest| contest.visible or current_user.andand.admin?}.reverse
+    @practice_contests = WillPaginate::Collection.create(params[:practice_page] || 1, 20) do |pager|
+      practice_contests = Contest.practicable.select {|contest| contest.visible or current_user.andand.admin?}.reverse
+
+      pager.replace practice_contests[pager.offset, pager.per_page]
+      pager.total_entries = practice_contests.length
+    end
     @top_scores = User.rating_ordering(10)
   end
-  
+
+  def rules
+  end
+
   def results
     case params[:contest_type]
     when "ExternalContestResult"
       @contest = ExternalContest.find(params[:contest_id], :include => { :contest_results => { :rating_change => :previous_rating_change, :user => :rating_changes } })
-      
+
       render :action => :external_results, :layout => "results"
     else
       @contest = Contest.find(params[:contest_id])

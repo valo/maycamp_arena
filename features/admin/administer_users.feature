@@ -3,20 +3,20 @@ Feature: Administer users
   In order to be able to control the system
   As an administrator
   I want to be able to control the users
-  
+
   Background:
     Given there is an admin user with attributes:
       | login                 | valo                      |
       | name                  | Valentin Mihov            |
       | email                 | valentin.mihov@gmail.com  |
-      | password              | secret                    |
+      | unencrypted_password  | secret                    |
     And I am not logged in
     When I am on the login page
     And I fill in the following:
       | login                 | valo                      |
       | password              | secret                    |
     And I press "Влез"
-    
+
   Scenario: Create new user
     Given I am on the user list in the admin panel
     And I follow "Нов потребител"
@@ -50,7 +50,7 @@ Feature: Administer users
     And I press "Влез"
     Then I should be on the homepage
     And I should see "Pesho Peshev (Изход)"
-    
+
   Scenario: View a user
     Given there is a running contest named "Fall championship"
     And the contest "Fall championship" has a task named "A+B Problem"
@@ -73,4 +73,3 @@ Feature: Administer users
     And I press "Влез"
     Then I should be on the contest list in the admin panel
     And I should see "Pesho Peshev (Изход)"
-  

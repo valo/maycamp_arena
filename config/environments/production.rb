@@ -1,4 +1,4 @@
-require 'syslog_logger'
+require 'syslog/logger'
 
 MaycampArena::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
@@ -23,13 +23,13 @@ MaycampArena::Application.configure do
   # just comment this out and Rails will serve the files
 
   # See everything in the log (default is :info)
-  config.log_level = :debug
+  config.log_level = :info
 
   # Use a different logger for distributed setups
-  config.logger = SyslogLogger.new
+  config.logger = Syslog::Logger.new 'maycamp_arena'
 
   # Use a different cache store in production
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :mem_cache_store, "localhost"
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
@@ -51,6 +51,5 @@ MaycampArena::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_content_type = "text/html"
-  config.action_mailer.default_url_options = { :host => "arena.maycamp.com" }
+  config.action_mailer.default :content_type =>  "text/html", :url_options => { :host => "arena.maycamp.com" }
 end

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -14,7 +15,7 @@ ActiveRecord::Schema.define(:version => 20110731235536) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
-    t.text     "description"
+    t.text     "description", :limit => 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -137,6 +138,7 @@ ActiveRecord::Schema.define(:version => 20110731235536) do
   end
 
   add_index "runs", ["created_at"], :name => "index_runs_on_created_at"
+  add_index "runs", ["status", "created_at"], :name => "status_created_at"
   add_index "runs", ["user_id", "problem_id"], :name => "index_runs_on_user_id_and_problem_id"
 
   create_table "sessions", :force => true do |t|
@@ -152,19 +154,19 @@ ActiveRecord::Schema.define(:version => 20110731235536) do
   create_table "user_preferences", :force => true do |t|
     t.integer  "user_id"
     t.binary   "preferences"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "users", :force => true do |t|
     t.string   "login",      :limit => 40
     t.string   "name",       :limit => 100, :default => ""
     t.string   "email",      :limit => 100
-    t.string   "city",       :limit => 100,                    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin",                     :default => false
-    t.string   "password",   :limit => 40
+    t.string   "password",   :limit => 40,                     :null => false
+    t.string   "city"
     t.string   "token",      :limit => 16
     t.boolean  "contester",                 :default => true
   end

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class ExternalContest < ActiveRecord::Base
   has_many :contest_results, :class_name => "ExternalContestResult", :foreign_key => "external_contest_id", :dependent => :destroy, :order => "points DESC"
   

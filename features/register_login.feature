@@ -2,7 +2,7 @@ Feature: Register a user
   In order to be able to login
   As a student
   I want to be able to register
-  
+
   Scenario: Register a new user
     Given I am not logged in
     When I am on the signup page
@@ -16,7 +16,7 @@ Feature: Register a user
     And I press "Създай нов потребител"
     Then I should see "Благодаря за регистрацията."
     And I should see "Valentin Mihov (Изход)"
-  
+
   Scenario: Register a new user with missing information
     Given I am not logged in
     When I am on the signup page
@@ -59,7 +59,7 @@ Feature: Register a user
     And I press "Влез"
     Then I should see "Данните в профила Ви не са пълни. Моле попълнете липсващите данни."
     And I should see "Град не може да е без стойност"
-    
+
     Scenario: Logout logged user
       Given there is a user with attributes:
       | login                             | valo                     |

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class UserMails < ActionMailer::Base
   self.default :from => "mentors@maycamp.com",
                :reply_to => "mentors@maycamp.com"

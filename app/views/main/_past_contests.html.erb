@@ -1,6 +1,7 @@
 <h2>Предишни състезания</h2>
 <br />
-<% unless (contests = Contest.finished).blank? %>
+<% unless @past_contests.blank? %>
+  <%= will_paginate @past_contests %>
   <table>
     <tr>
       <th>Име</th>
@@ -9,7 +10,7 @@
       <th>Продължителност</th>
       <th>Резултати</th>
     </tr>
-    <% for contest in contests do %>
+    <% for contest in @past_contests do %>
       <tr>
         <td><%= contest.name %></td>
         <td><%= contest.start_time.to_s :long %></td>
@@ -25,6 +26,7 @@
       </tr>
     <% end %>
   </table>
+  <%= will_paginate @past_contests %>
 <% else %>
   Няма предишни състезания.
 <% end %>

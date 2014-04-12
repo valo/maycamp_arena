@@ -1,6 +1,6 @@
 module CommonContestActions
   def self.included(base)
-    base.verify :only => :submit_solution, :method => :post, :redirect_to => '/'
+    # base.verify :only => :submit_solution, :method => :post, :redirect_to => '/'
   end
   
   def submit_solution

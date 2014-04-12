@@ -1,10 +1,10 @@
 Given /^there is a running contest named "([^\"]*)"$/ do |contest_name|
-  Factory(:contest, :name => contest_name, :start_time => 1.day.ago, :end_time => 1.day.from_now)
+  create(:contest, :name => contest_name, :start_time => 1.day.ago, :end_time => 1.day.from_now)
 end
 
 Given /^the contest "([^\"]*)" has a task named "([^\"]*)"$/ do |contest_name, task_name|
   contest = Contest.find_by_name(contest_name)
-  Factory(:problem, :contest_id => contest.id, :name => task_name)
+  create(:problem, :contest_id => contest.id, :name => task_name)
 end
 
 Given /^I am not logged in$/ do
@@ -12,31 +12,31 @@ Given /^I am not logged in$/ do
 end
 
 Given /^there is an? ([^\s]*) with attributes:$/ do |model, table|
-  Factory(model.to_sym, table.transpose.hashes.first)
+  create(model.to_sym, table.transpose.hashes.first)
 end
 
 Given /^there is an invalid ([^\s]*) with attributes:$/ do |model, table|
-  user = Factory.build(model.to_sym, table.transpose.hashes.first)
-  user.save(false)
+  user = build(model.to_sym, table.transpose.hashes.first)
+  user.save(validate: false)
 end
 
 Given /^there is an admin user with attributes:$/ do |table|
-  user = Factory.build(:user, table.transpose.hashes.first)
+  user = build(:user, table.transpose.hashes.first)
   user.admin = true
   user.save!
 end
 
 Given /^the user "([^\"]*)" submits a source for problem "([^\"]*)"$/ do |user, problem|
-  Factory(:run, :user_id => User.find_by_login(user).id, 
+  create(:run, :user_id => User.find_by_login(user).id, 
                 :problem_id => Problem.find_by_name(problem).id)
 end
 
 Given /^there is a finished contest with attributes:$/ do |contest_attrs|
-  Factory(:contest, contest_attrs.transpose.hashes.first.merge(:start_time => 2.days.ago, :end_time => 1.day.ago))
+  create(:contest, contest_attrs.transpose.hashes.first.merge(:start_time => 2.days.ago, :end_time => 1.day.ago))
 end
 
 Given /^the user "([^\"]*)" submit a run for problem "([^\"]*)" with attributes:$/ do |user_login, problem_name, run_attrs|
-  Factory(:run, run_attrs.transpose.hashes.first.merge(
+  create(:run, run_attrs.transpose.hashes.first.merge(
                 :user_id => User.find_by_login(user_login).id, 
                 :problem_id => Problem.find_by_name(problem_name).id))
 end
