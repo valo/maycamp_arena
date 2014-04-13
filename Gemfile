@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.2'
+gem 'rails', '~> 4.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -22,21 +22,20 @@ gem 'will_paginate'
 gem 'rubystats'
 gem 'dynamic_form'
 gem 'rprocfs'
-gem 'memcache-client'
+gem 'dalli'
 
 group :production do
   gem 'SyslogLogger'
 end
 
-group :test do
+group :development, :test do
   gem 'factory_girl_rails'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :require => false
   gem 'capybara'
   gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'mocha', :require => 'mocha/api'
   gem 'launchy'
-	# gem 'ruby-debug'
 end
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)

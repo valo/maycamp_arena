@@ -2,26 +2,26 @@ require 'zip/zip'
 
 class Admin::ProblemsController < Admin::BaseController
   def new
-    @contest = Contest.find params[:contest_id]
+    @contest = Contest.find(params[:contest_id])
     @problem = Problem.new
   end
-  
+
   def index
-    @contest = Contest.find params[:contest_id]
+    @contest = Contest.find(params[:contest_id])
   end
-  
+
   def create
     params[:problem][:category_ids] ||= []
-    @contest = Contest.find params[:contest_id]
-    @problem = @contest.problems.build params[:problem].except(:archive, :solution)
+    @contest = Contest.find(params[:contest_id])
+    @problem = @contest.problems.build(params.require(:problem).permit!.except(:archive, :solution))
 
     if @problem.save
-    
+
       if !params[:problem][:archive].blank?
         process_uploaded_file(params[:problem][:archive])
         Configuration.set!(Configuration::TESTS_UPDATED_AT, Time.now.utc)
       end
-      
+
       if !params[:problem][:solution].blank?
         Run.create!(:problem => @problem,
                     :user => current_user,
@@ -35,33 +35,33 @@ class Admin::ProblemsController < Admin::BaseController
       render :action => "new"
     end
   end
-  
+
   def destroy
-    @contest = Contest.find params[:contest_id]
+    @contest = Contest.find(params[:contest_id])
     Problem.destroy(params[:id])
     redirect_to admin_contest_problems_path(@contest)
   end
-  
+
   def show
-    @problem = Problem.find params[:id]
+    @problem = Problem.find(params[:id])
   end
-  
+
   def edit
-    @problem = Problem.find params[:id]
+    @problem = Problem.find(params[:id])
   end
-  
+
   def update
     params[:problem][:category_ids] ||= []
-    @problem = Problem.find params[:id]
-    @problem.attributes = params[:problem]
-    
+    @problem = Problem.find(params[:id])
+    @problem.attributes = params.require(:problem).permit!
+
     if @problem.save
       redirect_to admin_contest_problems_path(@problem.contest)
     else
       render :action => "edit"
     end
   end
-  
+
   def purge_files
     @problem = Problem.find(params[:id])
     Dir[File.join(@problem.tests_dir, "*")].each do |filename|
@@ -69,17 +69,17 @@ class Admin::ProblemsController < Admin::BaseController
       logger.warn "Deleting file #{filename}"
       File.delete filename
     end
-    
+
     Configuration.set!(Configuration::TESTS_UPDATED_AT, Time.now.utc)
     flash[:notice] = "Files successfully purged"
-    
+
     redirect_to admin_contest_problem_path(@problem.contest, @problem)
   end
-  
+
   def upload_file
     @problem = Problem.find(params[:id])
   end
-  
+
   def do_upload_file
     @problem = Problem.find(params[:id])
 
@@ -87,21 +87,21 @@ class Admin::ProblemsController < Admin::BaseController
 
     Configuration.set!(Configuration::TESTS_UPDATED_AT, Time.now.utc)
     flash[:notice] = "File successfully upoaded"
-    
+
     redirect_to admin_contest_problem_path(@problem.contest, @problem)
   ensure
     params[:tests][:file].tempfile.unlink
   end
-  
+
   def download_file
     @problem = Problem.find(params[:id])
-    
+
     send_file File.join(@problem.tests_dir, params[:file])
   end
 
   def compile_checker
     @problem = Problem.find(params[:id])
-    
+
     checker_source = @problem.checker_source
     if checker_source.nil?
       flash[:error] = "No checker source found"
@@ -119,7 +119,7 @@ class Admin::ProblemsController < Admin::BaseController
         else
           flash[:error] = "Don't know how to compile #{checker_source}"
       end
-      
+
       if $? == 0
         @compile_result.puts "<b>SUCCESS</b>"
       else

@@ -1,10 +1,10 @@
 class Admin::CategoriesController < Admin::BaseController
   def index
-    @categories = Category.find(:all)
+    @categories = Category.all
   end
 
   def show
-    @category = Category.find params[:id]
+    @category = Category.find(params[:id])
   end
 
   def new
@@ -12,7 +12,7 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def create
-    @category = Category.new params[:category]
+    @category = Category.new(params.require(:category).permit!)
 
     if @category.save
       redirect_to :action => "index"
@@ -22,12 +22,12 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def edit
-    @category = Category.find params[:id]
+    @category = Category.find(params[:id])
   end
 
   def update
-    @category = Category.find params[:id]
-    @category.attributes = params[:category]
+    @category = Category.find(params[:id])
+    @category.attributes = params.require(:category).permit!
 
     if @category.save
       redirect_to admin_categories_path
@@ -37,7 +37,7 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def destroy
-    @category = Category.find params[:id]
+    @category = Category.find(params[:id])
     @category.destroy
     redirect_to admin_categories_path
   end

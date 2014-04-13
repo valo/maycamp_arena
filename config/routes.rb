@@ -1,16 +1,18 @@
 MaycampArena::Application.routes.draw do
 
-  match '/logout', :controller => 'sessions', :action => 'destroy', :as => 'logout'
-  match '/login', :controller => 'sessions', :action => 'new', :as => 'login'
-  match '/register', :controller => 'users', :action => 'create', :as => 'register'
-  match '/signup', :controller => 'users', :action => 'new', :as => 'signup'
+  get '/logout', to: 'sessions#destroy', :as => 'logout'
+  get '/login', to: 'sessions#new', :as => 'login'
+  get '/register', to: 'users#create', :as => 'register'
+  get '/signup', to: 'users#new', :as => 'signup'
 
-  match '/activity', :controller => 'main', :action => 'activity', :as => 'activity'
-  match '/rankings', :controller => 'main', :action => 'rankings', :as => 'rankings'
-  match '/rankings_practice', :controller => 'main', :action => 'rankings_practice', :as => 'rankings_practice'
-  match '/status', :controller => 'main', :action => 'status', :as => 'status'
-  match '/problems', :controller => 'main', :action => 'problems', :as => 'problems'
-  match '/problem_runs/:id', :controller => 'main', :action => 'problem_runs', :as => 'problem_runs'
+  get '/activity', to: 'main#activity', :as => 'activity'
+  get '/rankings', to: 'main#rankings', :as => 'rankings'
+  get '/rankings_practice', to: 'main#rankings_practice', :as => 'rankings_practice'
+  get '/status', to: 'main#status', :as => 'status'
+  get '/problems', to: 'main#problems', :as => 'problems'
+  get '/rules', to: 'main#rules'
+  get '/problem_runs/:id', to: 'main#problem_runs', :as => 'problem_runs'
+  get '/main/results', to: 'main#results'
 
   resources :users do
     collection do
@@ -28,36 +30,7 @@ MaycampArena::Application.routes.draw do
 
   resources :categories
 
-  # The priority is based upon order of creation: first created -> highest priority.
-
-  # Sample of regular route:
-  #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   map.resources :products
-
-  # Sample resource route with options:
-  #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
-
-  # Sample resource route with sub-resources:
-  #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-
-  # Sample resource route with more complex sub-resources
-  #   map.resources :products do |products|
-  #     products.resources :comments
-  #     products.resources :sales, :collection => { :recent => :get }
-  #   end
-
-  # Sample resource route within a namespace:
-  #   map.namespace :admin do |admin|
-  #     # Directs /admin/products/* to Admin::ProductsController (app/controllers/admin/products_controller.rb)
-  #     admin.resources :products
-  #   end
+  get "/admin", to: "admin#index"
 
   namespace :admin do
     resource :status
@@ -135,13 +108,12 @@ MaycampArena::Application.routes.draw do
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   root :to => "main#index"
 
-  match '/practice/:action', :controller => :practice, :as => 'practice'
-
-  # See how all your routes lay out with "rake routes"
-
-  # Install the default routes as the lowest priority.
-  # Note: These default routes make all actions in every controller accessible via GET requests. You should
-  # consider removing the them or commenting them out if you're using named routes and resources.
-  match ':controller(/:action(/:id))'
-  # map.connect ':controller/:action/:id.:format'
+  ["practice", "timed_contest"].each do |contest_type|
+    resource contest_type, controller: contest_type do
+      post :submit_solution
+      get :view_source
+      get :get_problem_description
+      get :open_contest
+    end
+  end
 end

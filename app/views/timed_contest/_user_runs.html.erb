@@ -1,6 +1,6 @@
 <h2>Решения</h2>
 <br />
-<% if !@contest.runs.find_all_by_user_id(current_user.id).blank? %>
+<% if !@contest.runs.where(:user_id => current_user.id).blank? %>
   <% if !@contest.best_submit_results %>
     <em>Само последното изпратено решение за всяка задача ще се има предвид при оценяването.</em>
   <% else %>
@@ -19,7 +19,7 @@
       <th>Max Памет</th>
       <th></th>
     </tr>
-  <% for run in @contest.runs.find_all_by_user_id(current_user.id) do %>
+  <% for run in @contest.runs.where(:user_id => current_user.id).order("created_at DESC") do %>
     <tr>
       <td><%= run.id %></td>
       <td><%= run.created_at.to_s :long %></td>

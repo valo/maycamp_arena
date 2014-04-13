@@ -53,7 +53,7 @@ class Admin::ExternalContestsController < Admin::BaseController
   end
   
   def remove_links
-    @contest = ExternalContest.find(params[:id], :include => :contest_results)
+    @contest = ExternalContest.includes(:contest_results).find(params[:id])
     
     @contest.contest_results.each do |res|
       res.user = nil

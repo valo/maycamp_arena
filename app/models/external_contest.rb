@@ -32,13 +32,11 @@ class ExternalContest < ActiveRecord::Base
     contest_results.each do |contest_result|
       puts "Processing #{contest_result.coder_name}"
       # Try to find a user from the arena matching this one
-      user_list = ExternalContestResult.all(
-                    :conditions => [
+      user_list = ExternalContestResult.where([
                         "coder_name = ? AND city = ? AND user_id IS NOT NULL", 
                         contest_result.coder_name, 
                         contest_result.city
-                      ],
-                    :include => :user).map(&:user).sort! { |a,b| a.id <=> b.id }.uniq
+                      ]).includes(:user).map(&:user).sort! { |a,b| a.id <=> b.id }.uniq
       
       if user_list.length == 1
         contest_result.user = user_list.first
@@ -47,8 +45,8 @@ class ExternalContest < ActiveRecord::Base
       
       # Try to match the name with the names from the arena
       [
-        User.all(:conditions => ["city = ?", contest_result.city ]),
-        User.all(:conditions => ["city IS NULL", contest_result.city ])
+        User.where("city = ?", contest_result.city),
+        User.where("city IS NULL", contest_result.city)
       ].each do |user_list|
         user_list.each do |user|
           # If the score is at least 2 we have a match. Try to latinize the coder

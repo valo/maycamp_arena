@@ -6,7 +6,7 @@ class MainController < ApplicationController
   before_filter :check_user_profile
 
   def index
-    @past_contests = Contest.finished.paginate(:page => params[:past_contest_page] || 1, :per_page => 20)
+    @past_contests = Contest.finished.paginate(:page => params.fetch(:past_contest_page, 1), :per_page => 20)
     @contests = WillPaginate::Collection.create(params[:contest_page] || 1, 20) do |pager|
       contests = Contest.current.select {|contest| contest.visible or current_user.andand.admin?}
 
@@ -30,7 +30,7 @@ class MainController < ApplicationController
   def results
     case params[:contest_type]
     when "ExternalContestResult"
-      @contest = ExternalContest.find(params[:contest_id], :include => { :contest_results => { :rating_change => :previous_rating_change, :user => :rating_changes } })
+      @contest = ExternalContest.includes(:contest_results => { :rating_change => :previous_rating_change, :user => :rating_changes }).find(params[:contest_id])
 
       render :action => :external_results, :layout => "results"
     else
@@ -44,19 +44,19 @@ class MainController < ApplicationController
       render :action => :results, :layout => "results"
     end
   end
-  
+
   def rankings
     @rankings = User.rating_ordering
   end
-  
+
   def rankings_practice
     @rankings = calc_rankings(:page => params[:page], :per_page => 25)
   end
-  
+
   def activity
     @week_rankings = calc_rankings(:since => 7.days.ago, :only_active => true, :per_page => User.count)
   end
-  
+
   def download_tests
     Dir.chdir $config[:sets_root] do
       FileUtils.rm "sets.zip" if File.file?("sets.zip")
@@ -70,28 +70,29 @@ class MainController < ApplicationController
 
     send_file File.join($config[:sets_root], "sets.zip")
   end
-  
+
   def status
-    @runs = Run.paginate(:per_page => 50,
-                         :include => { :user => {} , :problem => :contest },
-                         :page => params[:page],
-                         :select => (Run.column_names - ["log", "source_code"]).map { |c| "runs.#{c}" }.join(","),
-                         :conditions => ["contests.practicable AND contests.visible AND NOT users.admin"],
-                         :order => "runs.created_at DESC")
+    @runs = Run.includes(:user, { :problem => :contest }).
+                where(:contests => { :practicable => true, :visible => true }, :users => { :admin => false }).
+                order("runs.created_at DESC").
+                paginate(:per_page => 50,
+                         :page => params.fetch(:page, 1))
   end
 
   def problems
-    @problems = Problem.paginate(:page => params[:page],
-                                 :per_page => 50,
-                                 :include => [:contest],
-                                 :conditions => ["contests.visible AND contests.practicable"])
+    @problems = Problem.includes(:contest).
+                        where(:contests => { :visible => true, :practicable => true }).
+                        paginate(:page => params[:page],
+                                 :per_page => 50)
   end
-  
+
   def problem_runs
-    @problem = Problem.find(params[:id], :include => [:contest], :conditions => ["contests.visible AND contests.practicable"])
-    @runs = Run.paginate(:include => :user, :conditions => ["NOT users.admin AND runs.problem_id = ?", @problem.id], :per_page => 50, :page => params[:page])
+    @problem = Problem.includes(:contest).where(:contests => { :visible => true, :practicable => true }).find(params[:id])
+    @runs = Run.includes(:user).
+                where(:users => { :admin => false }, :problem => @problem.id).
+                paginate(:per_page => 50, :page => params.fetch(:page, 1))
   end
-  
+
   private
     def calc_rankings(options = {})
       WillPaginate::Collection.create(options[:page] || 1, options[:per_page] || 10) do |pager|
@@ -103,9 +104,9 @@ class MainController < ApplicationController
             :full_solutions => row[3],
             :rating => row[4])
         end
-        
+
         pager.replace rankings
-        
+
         pager.total_entries = User.count
       end
     end

@@ -3,7 +3,7 @@ Feature: Viewing results
   In order to be able to view the results
   As a regular student
   I want to be able to view the results
-  
+
   Scenario: Viewing results with a submit after the contest is finished
     Given there is a user with attributes:
       | login                 | valo                      |
@@ -28,7 +28,7 @@ Feature: Viewing results
     And I should not see "100"
     And I should not see "20"
     And I should not see "0"
-  
+
   Scenario: Viewing results without submitted solution for one of the problem
     Given there is a user with attributes:
       | login                 | valo                      |

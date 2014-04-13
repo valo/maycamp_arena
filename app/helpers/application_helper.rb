@@ -5,7 +5,7 @@ module ApplicationHelper
   def duration_in_words(duration)
     hours = (duration / 1.hour).to_i
     minutes = ((duration % 1.hours) / 1.minute).to_i
-    
+
     result = ""
     if hours == 1
       result += "1 час"
@@ -18,25 +18,25 @@ module ApplicationHelper
     elsif minutes > 1
       result += " #{minutes} минути"
     end
-    
+
     result
   end
-  
+
   # Returns true if the user can still submit problems in the given contest, false otherwise
   def can_user_submit_in_contest?(user, contest)
     contest.user_open_time(user) and contest.allow_user_submit(user)
   end
-  
+
   # Returns the nicely formatted string representation of the time left for a
   # particular student to submit solutions to a given contest.
-  # 
+  #
   # If no time is left, this method returns 0.
   def time_left_for_user_in_contest(user, contest)
     result = 0 # No time left.
     if can_user_submit_in_contest?(user, contest)
       result = duration_in_words([contest.duration.minutes - (Time.now - contest.user_open_time(user)), contest.end_time - Time.now].min)
     end
-    
+
     result
   end
 
@@ -49,12 +49,12 @@ module ApplicationHelper
     return "rating rating_low" if rating >= 900
     "rating rating_bad"
   end
-  
+
   def problem_runs_count(problem)
-    Run.count(:joins => :user, :conditions => ["NOT users.admin AND problem_id = ?", problem.id])
+    Run.joins(:user).where("NOT users.admin AND problem_id = ?", problem.id).count
   end
 
   def problem_runs_total_points(problem)
-    Run.sum(:total_points, :joins => :user, :conditions => ["NOT users.admin AND problem_id = ?", problem.id]).to_f
+    Run.joins(:user).where("NOT users.admin AND problem_id = ?", problem.id).sum(:total_points)
   end
 end
