@@ -1,6 +1,5 @@
 class MoveSourceCodesToSeparateTable < ActiveRecord::Migration
   def change
-    drop_table :run_blob_collections
     create_table :run_blob_collections, :options => "ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8" do |t|
       t.references :run, :null => false
       t.binary :source_code
