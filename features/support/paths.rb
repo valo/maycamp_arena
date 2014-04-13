@@ -12,6 +12,8 @@ module NavigationHelpers
       '/'
     when /the login page/
       new_session_path
+    when /the profile page of "([^\"]+)"/
+      edit_user_path(User.find_by_name($1))
     when /the signup page/
       signup_path
     when /the user stats page for user "([^\"]+)"/

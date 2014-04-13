@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
 
-    @user.attributes = params[:user]
+    @user.attributes = params.require(:user).permit(:login, :name, :city, :email)
     if !params[:user][:unencrypted_password].blank?
       @user.unencrypted_password = params[:user][:unencrypted_password]
       @user.unencrypted_password_confirmation = params[:user][:unencrypted_password_confirmation]

@@ -31,7 +31,7 @@ Given(/^there is an external_contest_result for user "(.*?)"$/) do |user_name|
 end
 
 Given /^the user "([^\"]*)" submits a source for problem "([^\"]*)"$/ do |user, problem|
-  create(:run, :user_id => User.find_by_login(user).id, 
+  create(:run, :user_id => User.find_by_login(user).id,
                 :problem_id => Problem.find_by_name(problem).id)
 end
 
@@ -41,7 +41,7 @@ end
 
 Given /^the user "([^\"]*)" submit a run for problem "([^\"]*)" with attributes:$/ do |user_login, problem_name, run_attrs|
   create(:run, run_attrs.transpose.hashes.first.merge(
-                :user_id => User.find_by_login(user_login).id, 
+                :user_id => User.find_by_login(user_login).id,
                 :problem_id => Problem.find_by_name(problem_name).id))
 end
 
@@ -60,6 +60,15 @@ end
 Given /^the user "([^\"]*)" opens the contest "([^\"]*)"$/ do |user, contest|
   u = User.find_by_login(user) || User.find_by_name(user)
   c = Contest.find_by_name!(contest)
-  
+
   c.contest_start_events.create!(:user => u)
+end
+
+Given(/^I am logged in as contestant user with attributes:$/) do |user_attrs|
+  user = create(:user, user_attrs.transpose.hashes.first.merge(:admin => false, :unencrypted_password => "secret", :unencrypted_password_confirmation => "secret"))
+  steps %{And I am on the login page
+          And I fill in the following:
+            | login                 | #{user.login}             |
+            | password              | secret                    |
+          And I press "Влез"}
 end
