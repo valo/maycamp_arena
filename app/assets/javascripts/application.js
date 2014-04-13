@@ -1,5 +1,6 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
+//= require jquery_ujs
 $(function() {
   if (typeof(daily_submits_report) != "undefined")
   new Highcharts.Chart({
@@ -28,7 +29,7 @@ $(function() {
         data: $.map(daily_submits_report, function(ele, index) { return [[Date.parse(ele[0]), ele[1]]];}),
      }]
   });
-  
+
   if (typeof(total_submits_report) != "undefined")
   new Highcharts.Chart({
      chart: {

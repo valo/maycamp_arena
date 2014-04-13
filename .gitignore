@@ -6,3 +6,4 @@ tmp/**/*
 vendor/bundle
 sets
 config/secrets.yml
+public/assets

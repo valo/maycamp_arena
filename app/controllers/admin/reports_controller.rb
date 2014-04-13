@@ -1,11 +1,11 @@
 class Admin::ReportsController < Admin::BaseController
   def show
     @daily_submits_report = Run.where("created_at > ?", 3.weeks.ago.to_s(:db)).
-                                select("id"),
+                                select("id").
                                 group("DATE_FORMAT(created_at, '%m/%d')").
                                 count(:id)
 
-    @total_submits_report = Run.select("id"),
+    @total_submits_report = Run.select("id").
                                 group("DATE_FORMAT(created_at, '%m/%d')").
                                 count(:id)
 

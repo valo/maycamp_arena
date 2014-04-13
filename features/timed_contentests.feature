@@ -3,7 +3,7 @@ Feature: Submit solution
   In order to submit a solution
   As a student
   I want to be able to submit solutions
-  
+
   Background:
     Given there is a user with attributes:
       | login                 | valo                      |
@@ -17,13 +17,13 @@ Feature: Submit solution
       | login                 | valo                      |
       | password              | secret                    |
     And I press "Влез"
-  
+
   Scenario: Open a running contest
     Given I am on the homepage
     When I follow "ЗАПОЧНИ СЪСТЕЗАНИЕТО!"
     Then I should see "Изпрати решение"
     And I should see "Task"
-      
+
   Scenario: Submit a solution to a running contest
     Given I am on the homepage
     And I follow "ЗАПОЧНИ СЪСТЕЗАНИЕТО!"

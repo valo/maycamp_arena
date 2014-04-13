@@ -14,10 +14,10 @@
   </tr>
   <% @problems.each do |problem| %>
     <% if current_user
-      problem_points = problem.runs.select { |r| r.user_id == current_user.id }.map(&:total_points).max
+      problem_points = problem.runs.where(:user_id => current_user.id).maximum(:total_points)
     end %>
     <tr>
-      <td><%= link_to problem.name, practice_path(:action => "get_problem_description", :contest_id => problem.contest.id, :problem_id => problem.id) %></td>
+      <td><%= link_to problem.name, get_problem_description_practice_path(:contest_id => problem.contest.id, :problem_id => problem.id) %></td>
       <td><%= link_to problem.contest.name, practice_path(:action => :open_contest, :contest_id => problem.contest.id) %></td>
       <td><%= problem_runs_count(problem) %></td>
       <td><%= number_with_precision(problem_runs_total_points(problem) / problem_runs_count(problem), :precision => 2) %></td>

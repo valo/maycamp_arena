@@ -1,9 +1,9 @@
 <h1>Задачи по категории</h1>
 <% for @cat in @categories do %>
-  <h2><%= link_to h(@cat.name), admin_category_path(@cat) %></h2> 
+  <h2><%= link_to h(@cat.name), admin_category_path(@cat) %></h2>
   <%= link_to 'Промени', edit_admin_category_path(@cat) %> -
-  <%= link_to 'Изтрий', admin_category_path(@cat), :method => :delete,  
-         :confirm => 'Сигурни ли сте, че искате да изтриете категория ' + @cat.name + '?' %>
+  <%= link_to 'Изтрий', admin_category_path(@cat), { :method => :delete,
+         :data => { :confirm => 'Сигурни ли сте, че искате да изтриете категория ' + @cat.name + '?' } } %>
 <% end %>
 <br><br>
 <%= link_to "Нова категория", new_admin_category_path() %>

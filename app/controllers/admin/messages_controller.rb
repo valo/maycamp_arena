@@ -4,10 +4,10 @@ class Admin::MessagesController < ApplicationController
   def new
     @message = Message.new
   end
-  
+
   def create
     @message = Message.new(params[:message])
-    
+
     if @message.save
       @message.deliver
       flash[:notice] = "Съобщението беше пратено успешно"
@@ -16,7 +16,7 @@ class Admin::MessagesController < ApplicationController
       render :action => "new"
     end
   end
-  
+
   def show
     @message = Message.find(params[:id])
   end

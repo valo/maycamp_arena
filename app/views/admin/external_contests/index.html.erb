@@ -15,7 +15,7 @@
       <td>
         <%= link_to "Преглед", admin_external_contest_path(contest) %> |
         <%= link_to "Промяна", edit_admin_external_contest_path(contest) %> |
-        <%= link_to "Изтрий", admin_external_contest_path(contest), :method => :delete, :confirm => "Сигурен ли си че искаш да изтриеш това състезание?" %>
+        <%= link_to "Изтрий", admin_external_contest_path(contest), :method => :delete, :data => { :confirm => "Сигурен ли си че искаш да изтриеш това състезание?" } %>
       </td>
     </tr>
   <% end %>

@@ -13,7 +13,7 @@ I want to be able to use categories
     And there is a category with attributes:
       | name                  | Динамично             |
     And the problem "A+B Problem" belongs to the category "Динамично"
-    
+
   Scenario: View the problems in a category
     Given I am on the homepage
     When I follow "Задачи"

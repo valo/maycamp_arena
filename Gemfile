@@ -8,13 +8,14 @@ gem 'rails', '~> 4.0'
 #gem 'sqlite3-ruby', :require => 'sqlite3'
 
 # Use unicorn as the web server
-gem 'unicorn'
+gem 'puma'
 
 # Deploy with Capistrano
 gem 'capistrano'
 
 gem 'mysql2'
-gem 'rubyzip', :require => "zip/zip"
+gem 'rubyzip'
+gem 'zip-zip'
 gem 'andand'
 gem 'hoptoad_notifier'
 gem 'newrelic_rpm'
@@ -32,11 +33,16 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'cucumber-rails', :require => false
   gem 'capybara'
-  gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'mocha', :require => 'mocha/api'
   gem 'launchy'
 end
+
+gem 'sprockets-rails'
+gem 'uglifier', '>= 1.0.3'
+gem 'sass-rails'
+gem 'jquery-rails'
+
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug19'

@@ -14,6 +14,8 @@ module NavigationHelpers
       new_session_path
     when /the signup page/
       signup_path
+    when /the user stats page for user "([^\"]+)"/
+      user_path(User.find_by_name!($1))
     when /the contest list in the admin panel/
       admin_contests_path
     when /the contest edit page for contest "([^\"]+)" in the admin panel/
