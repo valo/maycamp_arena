@@ -2,11 +2,11 @@ class Admin::ReportsController < Admin::BaseController
   def show
     @daily_submits_report = Run.where("created_at > ?", 3.weeks.ago.to_s(:db)).
                                 select("id").
-                                group("DATE_FORMAT(created_at, '%m/%d')").
+                                group("DATE_FORMAT(created_at, '%Y/%m/%d')").
                                 count(:id)
 
     @total_submits_report = Run.select("id").
-                                group("DATE_FORMAT(created_at, '%m/%d')").
+                                group("DATE_FORMAT(created_at, '%Y/%m/%d')").
                                 count(:id)
 
     @contest_submit_report = Run.connection.select_all("SELECT count(*) AS count_all, contests.name AS contests_name 

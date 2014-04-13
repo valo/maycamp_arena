@@ -12,6 +12,10 @@ gem 'puma'
 
 # Deploy with Capistrano
 gem 'capistrano'
+gem 'capistrano3-puma'
+gem 'capistrano-rvm'
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
 
 gem 'mysql2'
 gem 'rubyzip'

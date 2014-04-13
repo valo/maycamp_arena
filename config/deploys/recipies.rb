@@ -9,9 +9,6 @@ set :scm, :git
 set :git_enable_submodules, 1
 
 set :rails_env, :production
-set :unicorn_binary, "bundle exec unicorn_rails"
-set :unicorn_config, "#{current_path}/config/unicorn.conf.rb"
-set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
 
 set :rake, "bundle exec rake"
 
@@ -24,7 +21,7 @@ def get_settings
   stage_db_settings = read_db_config("tmp/database.yml", "production")
   prod_db_settings = read_db_config("tmp/database.yml", "arena_production")
   FileUtils.rm "tmp/database.yml"
-  
+
   [stage_db_settings, prod_db_settings]
 end
 
@@ -40,17 +37,17 @@ namespace :deploy do
     task :disable do
       run "cp #{File.join(current_path, 'public/construction.html')} #{File.join(current_path, 'public/index.html')}"
     end
-    
+
     task :enable do
       run "rm #{File.join(current_path, 'public/index.html')}"
     end
   end
-  
-  task :start, :roles => :app, :except => { :no_release => true } do 
+
+  task :start, :roles => :app, :except => { :no_release => true } do
     run "cd #{current_path} && #{unicorn_binary} -c #{unicorn_config} -E #{rails_env} -D"
   end
 
-  task :stop, :roles => :app, :except => { :no_release => true } do 
+  task :stop, :roles => :app, :except => { :no_release => true } do
     pid = capture("cat #{unicorn_pid}").strip
     run "kill #{pid}" unless pid == ""
   end
@@ -78,12 +75,12 @@ namespace :deploy do
     top.upload "config/grader.yml", "#{shared_path}/config", :via => :scp
     top.upload "config/unicorn.conf.rb", "#{shared_path}/config", :via => :scp
   end
-  
+
   desc "Installs RVM on the remote machine and Ruby Enterprise Edition. Also makes REE the default ruby VM"
   task :rvm, :roles => :app do
     run "curl -s https://rvm.beginrescueend.com/install/rvm > /tmp/rvm-install"
     run "bash /tmp/rvm-install"
-    run %Q{touch ~/.bashrc && echo '[[ -s "#{home_path}/.rvm/scripts/rvm" ]] && source "#{home_path}/.rvm/scripts/rvm"' | 
+    run %Q{touch ~/.bashrc && echo '[[ -s "#{home_path}/.rvm/scripts/rvm" ]] && source "#{home_path}/.rvm/scripts/rvm"' |
            cat - ~/.bashrc > /tmp/out && mv /tmp/out ~/.bashrc}
     run ". ~/.bashrc && rvm install -q ree && rvm use ree --default && gem install bundler"
   end
@@ -100,17 +97,17 @@ end
 
 namespace :db do
   task :symlink, :except => { :no_release => true } do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml && 
-         ln -nfs #{shared_path}/config/grader.yml #{release_path}/config/grader.yml && 
-         ln -nfs #{shared_path}/sets #{release_path}/sets && 
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml &&
+         ln -nfs #{shared_path}/config/grader.yml #{release_path}/config/grader.yml &&
+         ln -nfs #{shared_path}/sets #{release_path}/sets &&
          ln -nfs #{shared_path}/config/unicorn.conf.rb #{release_path}/config/unicorn.conf.rb"
   end
-  
+
   task :sync do
     stage_db_settings, prod_db_settings = get_settings
     run "mysqldump #{prod_db_settings["database"]} -h #{prod_db_settings["host"]} -u #{prod_db_settings["username"]} -p#{prod_db_settings["password"]} | mysql #{stage_db_settings["database"]} -u #{stage_db_settings["username"]} -p#{stage_db_settings["password"]} -h #{stage_db_settings["host"]}"
   end
-  
+
   task :backup do
     stage_db_settings, prod_db_settings = get_settings
     puts prod_db_settings.inspect
@@ -119,7 +116,7 @@ namespace :db do
     get backup_file, File.join("tmp", File.basename(backup_file))
     run "rm #{backup_file}"
   end
-  
+
   task :sync_local do
     backup
     latest_backup = Dir["tmp/backup_*.bz2"].sort.last
@@ -140,7 +137,7 @@ namespace :bundler do
     release_dir = File.join(current_release, 'vendor/bundle')
     run("mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}")
   end
- 
+
   task :bundle_new_release, :roles => :app do
     bundler.create_symlink
     run "cd #{release_path} && bundle install --deployment --without test development"

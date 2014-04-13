@@ -20,6 +20,7 @@ class Run < ActiveRecord::Base
   scope :during_contest, -> { joins(:problem => :contest).where("runs.created_at > contests.start_time").where("runs.created_at < contests.end_time") }
 
   before_save :update_total_points, :update_time_and_mem
+  has_one :run_blob_collection, :dependent => :destroy
 
   def self.languages
     LANGUAGES
@@ -36,6 +37,24 @@ class Run < ActiveRecord::Base
 
   def source_file=(file)
     self.source_code = file.read
+  end
+
+  def source_code=(content)
+    self.build_run_blob_collection if self.run_blob_collection.nil?
+    self.run_blob_collection.source_code = content
+  end
+
+  def source_code
+    self.run_blob_collection.try(:source_code)
+  end
+
+  def log=(content)
+    self.build_run_blob_collection if self.run_blob_collection.nil?
+    self.run_blob_collection.log = content
+  end
+
+  def log
+    self.run_blob_collection.try(:log)
   end
 
   def total_points_float
