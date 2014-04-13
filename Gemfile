@@ -40,11 +40,11 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'mocha', :require => 'mocha/api'
   gem 'launchy'
+  gem 'sprockets-rails'
+  gem 'uglifier', '>= 1.0.3'
+  gem 'sass-rails'
 end
 
-gem 'sprockets-rails'
-gem 'uglifier', '>= 1.0.3'
-gem 'sass-rails'
 gem 'jquery-rails'
 
 

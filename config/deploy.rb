@@ -8,7 +8,7 @@ set :rvm_type, :user
 set :rvm_ruby_version, '2.1.1'
 
 set :puma_config_file, "config/puma.rb"
-set :puma_conf, "#{shared_path}/config/puma.rb"
+set :puma_conf, -> { "#{shared_path}/config/puma.rb" }
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
@@ -40,6 +40,22 @@ set :linked_dirs, %w{log sets tmp/pids tmp/sockets}
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+namespace :assets do
+  desc "Precompile assets locally and then rsync to web servers"
+  task :precompile do
+    on roles(:web) do
+      rsync_host = host.to_s # this needs to be done outside run_locally in order for host to exist
+      run_locally do
+        with rails_env: fetch(:stage) do
+          execute :bundle, "exec rake assets:precompile"
+        end
+        execute "rsync -av --delete ./public/assets/ #{fetch(:user)}@#{rsync_host}:#{shared_path}/public/assets/"
+        execute "rm -rf public/assets"
+        # execute "rm -rf tmp/cache/assets" # in case you are not seeing changes
+      end
+    end
+  end
+end
 namespace :deploy do
   after :updated, "assets:precompile"
 
@@ -59,23 +75,6 @@ namespace :deploy do
       # within release_path do
       #   execute :rake, 'cache:clear'
       # end
-    end
-  end
-end
-
-namespace :assets do
-  desc "Precompile assets locally and then rsync to web servers"
-  task :precompile do
-    on roles(:web) do
-      rsync_host = host.to_s # this needs to be done outside run_locally in order for host to exist
-      run_locally do
-        with rails_env: fetch(:stage) do
-          execute :bundle, "exec rake assets:precompile"
-        end
-        execute "rsync -av --delete ./public/assets/ #{fetch(:user)}@#{rsync_host}:#{shared_path}/public/assets/"
-        execute "rm -rf public/assets"
-        # execute "rm -rf tmp/cache/assets" # in case you are not seeing changes
-      end
     end
   end
 end
