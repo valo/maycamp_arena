@@ -2,13 +2,13 @@ class Configuration < ActiveRecord::Base
   module Constants
     TESTS_UPDATED_AT = "tests_updated_at".freeze
   end
-  
+
   include Constants
-  
+
   validates_inclusion_of :value_type, :in => %w{string int float bool datetime}
   validates_presence_of :key
   validates_uniqueness_of :key
-  
+
   def to_value
     return nil if self.value.nil?
     case self.value_type
@@ -19,10 +19,10 @@ class Configuration < ActiveRecord::Base
       else self.value
     end
   end
-  
+
   class << self
     def set!(key, value)
-      conf = self.find_or_create_by_key(key)
+      conf = self.find_or_create_by(:key => key)
       conf.value = value
       conf.value_type = case value
                     when Integer then "int"
@@ -34,7 +34,7 @@ class Configuration < ActiveRecord::Base
                   end
       conf.save!
     end
-    
+
     def get(key)
       self.find_by_key(key).andand.to_value
     end

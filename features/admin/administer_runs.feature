@@ -40,7 +40,7 @@ Feature: Administer runs
       | Език: | C/C++ |
       | Сорс код: | #include <stdio.h> |
     And I press "Изпрати"
-    Then I should be on the runs list on the admin panel
+    Then I should be on the runs list for contest "Fall contest" and problem "A+B problem" on the admin panel
     And I should see "A+B problem"
     And I should see "pending"
     And I should see "Valentin Mihov" within "table.runs_list"

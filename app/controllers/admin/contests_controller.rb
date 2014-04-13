@@ -16,7 +16,7 @@ class Admin::ContestsController < Admin::BaseController
   end
 
   def create
-    @contest = Contest.new params[:contest]
+    @contest = Contest.new(params.require(:contest).permit!)
 
     if @contest.save
       redirect_to :action => "index"
@@ -31,7 +31,7 @@ class Admin::ContestsController < Admin::BaseController
 
   def update
     @contest = Contest.find(params[:id])
-    @contest.attributes = params[:contest]
+    @contest.attributes = params.require(:contest).permit!
 
     if @contest.save
       flash[:notice] = "Състезанието е обновено успешно."
@@ -48,7 +48,7 @@ class Admin::ContestsController < Admin::BaseController
   end
 
   def download_sources
-    @contest = Contest.find(params[:id], :joins => { :runs => [ :user, :problem ] })
+    @contest = Contest.joins(:runs => [ :user, :problem ]).find(params[:id])
     @runs = @contest.runs.group_by(&:user)
 
     zip_file = "#{RAILS_ROOT}/tmp/#{@contest.latin_name}.zip"

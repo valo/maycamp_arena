@@ -13,7 +13,7 @@ def id_prefix_for(options = {})
 end
 
 When /^(?:|I )select "([^\"]*)" as the "([^\"]*)" datetime$/ do |d, date_label|
-  pending
+  select_datetime(d, :from => date_label)
 end
 
 DATE_TIME_SUFFIXES = {

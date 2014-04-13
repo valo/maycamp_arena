@@ -19,7 +19,7 @@ class Admin::ProblemsController < Admin::BaseController
 
       if !params[:problem][:archive].blank?
         process_uploaded_file(params[:problem][:archive])
-        Configuration.set!(Configuration::TESTS_UPDATED_AT, Time.now.utc)
+        ::Configuration.set!(::Configuration::TESTS_UPDATED_AT, Time.now.utc)
       end
 
       if !params[:problem][:solution].blank?
@@ -70,7 +70,7 @@ class Admin::ProblemsController < Admin::BaseController
       File.delete filename
     end
 
-    Configuration.set!(Configuration::TESTS_UPDATED_AT, Time.now.utc)
+    ::Configuration.set!(::Configuration::TESTS_UPDATED_AT, Time.now.utc)
     flash[:notice] = "Files successfully purged"
 
     redirect_to admin_contest_problem_path(@problem.contest, @problem)
@@ -85,7 +85,7 @@ class Admin::ProblemsController < Admin::BaseController
 
     process_uploaded_file params[:tests][:file]
 
-    Configuration.set!(Configuration::TESTS_UPDATED_AT, Time.now.utc)
+    ::Configuration.set!(::Configuration::TESTS_UPDATED_AT, Time.now.utc)
     flash[:notice] = "File successfully upoaded"
 
     redirect_to admin_contest_problem_path(@problem.contest, @problem)
@@ -125,7 +125,7 @@ class Admin::ProblemsController < Admin::BaseController
       else
         @compile_result.puts "<b>FAILURE</b>"
       end
-      Configuration.set!(Configuration::TESTS_UPDATED_AT, Time.now.utc)
+      ::Configuration.set!(::Configuration::TESTS_UPDATED_AT, Time.now.utc)
       flash[:notice] = "<p>Compilation result:</p><pre>#{@compile_result.string}</pre>"
       redirect_to :action => "show", :id => params[:id]
     end
@@ -138,7 +138,7 @@ class Admin::ProblemsController < Admin::BaseController
 
       @upload = file
 
-      if @upload.original_filename.ends_with("zip")
+      if @upload.original_filename.end_with?("zip")
         # Extract the bundle
         Zip::ZipFile.foreach(@upload.tempfile.path) do |filename|
           if filename.file? and !filename.name.include?('/')

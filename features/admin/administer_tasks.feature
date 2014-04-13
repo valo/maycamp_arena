@@ -31,14 +31,14 @@
     And I press "Създаване"
 
   Scenario: Create new task
-    Then I should be on the problem list in the admin panel
+    Then I should be on the problem list for contest "Fall contest" in the admin panel
     And I should see "A+B problem"
 
   Scenario: Delete task
     Given I am on the contest list in the admin panel
     And I follow "Задачи" within ".post"
     And I follow "Изтриване"
-    Then I should be on the problem list in the admin panel
+    Then I should be on the problem list for contest "Fall contest" in the admin panel
     And I should not see "A+B problem"
 
   Scenario: View task

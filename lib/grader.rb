@@ -140,7 +140,7 @@ class Grader
     end
 
     def check_durty_tests
-      if (last_update = Configuration.get(Configuration::TESTS_UPDATED_AT)) and last_update > @tests_updated_at
+      if (last_update = ::Configuration.get(::Configuration::TESTS_UPDATED_AT)) and last_update > @tests_updated_at
         # Download the tests again
         puts "Tests changed at #{last_update}, while the current version is from #{@tests_updated_at}. Syncing..."
         sync_tests(last_update)

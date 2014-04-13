@@ -16,14 +16,14 @@ module NavigationHelpers
       signup_path
     when /the contest list in the admin panel/
       admin_contests_path
-    when /the contest edit page in the admin panel/
-      edit_admin_contest_path
-    when /the problem list in the admin panel/
-      admin_contest_problems_path
+    when /the contest edit page for contest "([^\"]+)" in the admin panel/
+      edit_admin_contest_path(Contest.find_by_name!($1))
+    when /the problem list for contest "([^\"]+)" in the admin panel/
+      admin_contest_problems_path(:contest_id => Contest.find_by_name!($1))
     when /the problem view page in the admin panel/
       admin_contest_problem_path
-    when /the runs list on the admin panel/
-      admin_contest_problem_runs_path
+    when /the runs list for contest "([^\"]+)" and problem "([^\"]+)" on the admin panel/
+      admin_contest_problem_runs_path(:contest_id => Contest.find_by_name!($1), :problem_id => Problem.find_by_name!($2))
     when /the user list in the admin panel/
       admin_users_path
     when /the categories list in the admin panel/

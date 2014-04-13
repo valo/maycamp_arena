@@ -58,7 +58,7 @@ Feature: Administer contests
       | Име: | Spring contest |
       | Продължителност: | 180 |
     And I press "Обновяване"
-    Then I should be on the contest edit page in the admin panel
+    Then I should be on the contest edit page for contest "Spring contest" in the admin panel
     And I should see "Състезанието е обновено успешно."
 
   Scenario: Edit a contest and go to the index page
