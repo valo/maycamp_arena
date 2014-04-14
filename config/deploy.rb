@@ -29,10 +29,10 @@ set :puma_conf, -> { "#{shared_path}/config/puma.rb" }
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/database.yml config/grader.yml config/secret.yml}
+set :linked_files, %w{config/database.yml config/grader.yml config/secrets.yml}
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{log sets tmp/pids tmp/sockets}
+set :linked_dirs, %w{log sets tmp/pids tmp/sockets public/assets}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -45,11 +45,10 @@ namespace :assets do
   task :precompile do
     on roles(:web) do
       rsync_host = host.to_s # this needs to be done outside run_locally in order for host to exist
+      rsync_user = fetch(:user).to_s
       run_locally do
-        with rails_env: fetch(:stage) do
-          execute :bundle, "exec rake assets:precompile"
-        end
-        execute "rsync -av --delete ./public/assets/ #{fetch(:user)}@#{rsync_host}:#{shared_path}/public/assets/"
+        execute :bundle, "exec rake assets:precompile"
+        execute "rsync -av --delete ./public/assets/ #{rsync_user}@#{rsync_host}:#{shared_path}/public/assets/"
         execute "rm -rf public/assets"
         # execute "rm -rf tmp/cache/assets" # in case you are not seeing changes
       end

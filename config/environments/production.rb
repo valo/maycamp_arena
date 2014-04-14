@@ -42,6 +42,9 @@ MaycampArena::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
+  config.assets.compile = false
+
+  config.assets.digest = true
 
   # Enable threaded mode
   # config.threadsafe!

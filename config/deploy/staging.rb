@@ -18,6 +18,7 @@ server 'arena.maycamp.com', user: 'maycamp', roles: %w{web app db}
 
 set :deploy_to, '/home/maycamp/sarena.maycamp.com'
 set :rails_env, 'production'
+set :user, "maycamp"
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
