@@ -3,7 +3,7 @@ Feature: Administer runs
   In order to be able to control the system
   As a administrator
   I want to be able to administer the runs
-  
+
   Background:
     Given there is an admin user with attributes:
       | login                 | valo                      |
@@ -44,7 +44,7 @@ Feature: Administer runs
     And I should see "A+B problem"
     And I should see "pending"
     And I should see "Valentin Mihov" within "table.runs_list"
-  
+
   Scenario: Viewing all the runs for a given contest
     Given I am on the contest list in the admin panel
     And I follow "Задачи" within ".post"

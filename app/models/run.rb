@@ -20,7 +20,7 @@ class Run < ActiveRecord::Base
   scope :during_contest, -> { joins(:problem => :contest).where("runs.created_at > contests.start_time").where("runs.created_at < contests.end_time") }
 
   before_save :update_total_points, :update_time_and_mem
-  has_one :run_blob_collection, :dependent => :destroy
+  has_one :run_blob_collection, :dependent => :destroy, :autosave => true
 
   def self.languages
     LANGUAGES
