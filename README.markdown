@@ -1,6 +1,12 @@
 Spoj0 for students
 ==================
 
+Status
+------
+
+[![Gemnasium Status](https://gemnasium.com/valo/maycamp_arena.png)](https://gemnasium.com/valo/maycamp_arena)
+[![Travis CI Status](https://travis-ci.org/valo/maycamp_arena.png)](https://travis-ci.org/valo/maycamp_arena)
+
 Description
 -----------
 
@@ -10,7 +16,7 @@ The system contains two main components:
 
 * web part
 * grader
- 
+
 The web part is a rails app contained in the students folder.
 
 The grader is a simple ruby class, which compiles the programs with g++ and runs them using a ruby runner, which observes the resources they use. The runner is runner.rb
