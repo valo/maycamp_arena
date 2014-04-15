@@ -1,11 +1,12 @@
 # encoding: utf-8
 
 require 'test_helper'
+require 'latinize'
 
 class A
   include Latinize
   attr_accessor :name
-  
+
   latinize :name
 end
 
