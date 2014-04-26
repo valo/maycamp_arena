@@ -51,7 +51,7 @@ class Admin::ContestsController < Admin::BaseController
     @contest = Contest.joins(:runs => [ :user, :problem ]).find(params[:id])
     @runs = @contest.runs.group_by(&:user)
 
-    zip_file = "#{RAILS_ROOT}/tmp/#{@contest.latin_name}.zip"
+    zip_file = "#{Rails.root}/tmp/#{@contest.latin_name}.zip"
     FileUtils.rm zip_file if File.exists?(zip_file)
 
     Zip::ZipFile.open(zip_file, Zip::ZipFile::CREATE) do |zip|

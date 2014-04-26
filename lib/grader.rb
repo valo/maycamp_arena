@@ -151,7 +151,7 @@ class Grader
       if checker = run.problem.checker
         verbose_system "#{checker} #{input_file} #{answer_file} output"
       else
-        checker = File.join(RAILS_ROOT, "ext/diff.rb")
+        checker = File.join(Rails.root, "ext/diff.rb")
         verbose_system "#{checker} #{run.problem.diff_parameters} #{answer_file} output"
       end
       

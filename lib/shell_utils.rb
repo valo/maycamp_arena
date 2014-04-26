@@ -7,7 +7,7 @@ module ShellUtils
 
   def get_config
     config = `hostname`.chomp
-    grader_conf = YAML.load_file(File.join(RAILS_ROOT, "config/grader.yml"))
+    grader_conf = YAML.load_file(File.join(Rails.root, "config/grader.yml"))
     puts "Reading configuration for server #{config}"
     if !grader_conf[config]
       puts "Cannot find configuration for #{config}. Check your config/grader.yml"
