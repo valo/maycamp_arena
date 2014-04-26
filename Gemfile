@@ -10,13 +10,6 @@ gem 'rails', '~> 4.0'
 # Use unicorn as the web server
 gem 'puma'
 
-# Deploy with Capistrano
-gem 'capistrano'
-gem 'capistrano3-puma'
-gem 'capistrano-rvm'
-gem 'capistrano-rails'
-gem 'capistrano-bundler'
-
 gem 'mysql2'
 gem 'rubyzip'
 gem 'zip-zip'
@@ -43,6 +36,12 @@ group :development, :test do
   gem 'sprockets-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'sass-rails'
+  # Deploy with Capistrano
+  gem 'capistrano'
+  gem 'capistrano3-puma'
+  gem 'capistrano-rvm'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
 end
 
 gem 'jquery-rails'
