@@ -1,10 +1,10 @@
-<h1>Решение с номер <%= @run.id %></h1>
+v<h1>Решение с номер <%= @run.id %></h1>
 <p>Пратено на: <%= @run.created_at.to_s :long %></p>
 <p>Статус: <%= @run.status %></p>
 Сорс код:
 <pre>
 <code class="cpp">
-<%= h @run.source_code %>
+<%= h @run.source_code.force_encoding("UTF-8") %>
 </code>
 </pre>
 
