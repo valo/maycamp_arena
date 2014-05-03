@@ -45,7 +45,7 @@ class Run < ActiveRecord::Base
   end
 
   def source_code
-    self.run_blob_collection.try(:source_code)
+    self.run_blob_collection.try(:source_code).try(:force_encoding, "UTF-8")
   end
 
   def log=(content)
@@ -54,7 +54,7 @@ class Run < ActiveRecord::Base
   end
 
   def log
-    self.run_blob_collection.try(:log)
+    self.run_blob_collection.try(:log).try(:force_encoding, "UTF-8")
   end
 
   def total_points_float
