@@ -6,7 +6,7 @@ class MainController < ApplicationController
   before_filter :check_user_profile
 
   def index
-    @past_contests = Contest.finished.paginate(:page => params.fetch(:past_contest_page, 1), :per_page => 20)
+    @past_contests = Contest.finished.paginate(:page => params.fetch(:past_contest_page, 1), :per_page => 20, :page => params[:past_contests_page])
     @contests = WillPaginate::Collection.create(params[:contest_page] || 1, 20) do |pager|
       contests = Contest.current.select {|contest| contest.visible or current_user.andand.admin?}
 
@@ -15,7 +15,7 @@ class MainController < ApplicationController
     end
 
     @upcoming_contests = Contest.upcoming.select {|contest| contest.visible or current_user.andand.admin?}
-    @practice_contests = WillPaginate::Collection.create(params[:practice_page] || 1, 20) do |pager|
+    @practice_contests = WillPaginate::Collection.create(params[:practice_contests_page] || 1, 20) do |pager|
       practice_contests = Contest.practicable.select {|contest| contest.visible or current_user.andand.admin?}.reverse
 
       pager.replace practice_contests[pager.offset, pager.per_page]
