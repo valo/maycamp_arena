@@ -21,11 +21,14 @@ FactoryGirl.define do
   factory :run do |r|
     r.language "C/C++"
     r.source_code "#include <stdio.h>"
+    r.problem { |problem| problem.association(:problem) }
+    r.user { |user| user.association(:problem) }
   end
 
   factory :problem do |p|
     p.time_limit 1
     p.name "Test problem"
+    p.contest { |contest| contest.association(:contest) }
   end
 
   factory :category do |c|

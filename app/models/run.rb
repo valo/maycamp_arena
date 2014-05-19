@@ -41,11 +41,13 @@ class Run < ActiveRecord::Base
 
   def source_code=(content)
     self.build_run_blob_collection if self.run_blob_collection.nil?
-    self.run_blob_collection.source_code = content
+    content ||= ""
+    self.run_blob_collection.source_code = content.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
   end
 
   def source_code
-    self.run_blob_collection.try(:source_code).try(:force_encoding, "UTF-8")
+    content = self.run_blob_collection.source_code || ""
+    content.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
   end
 
   def log=(content)
