@@ -46,7 +46,7 @@ class Run < ActiveRecord::Base
   end
 
   def source_code
-    content = self.run_blob_collection.source_code || ""
+    content = self.run_blob_collection.try(:source_code) || ""
     content.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
   end
 
