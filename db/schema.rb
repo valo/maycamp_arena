@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140413143942) do
+ActiveRecord::Schema.define(version: 20140519083912) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -130,25 +130,20 @@ ActiveRecord::Schema.define(version: 20140413143942) do
   end
 
   create_table "runs", force: true do |t|
-    t.integer  "problem_id",                                                          null: false
-    t.integer  "user_id",                                                             null: false
-    t.string   "language",                                                            null: false
-    t.string   "status",                                          default: "pending", null: false
+    t.integer  "problem_id",                                                             null: false
+    t.integer  "user_id",                                                                null: false
+    t.string   "language",                                                               null: false
+    t.string   "status",       limit: 1024,                          default: "pending", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "total_points",           precision: 10, scale: 2
+    t.decimal  "total_points",              precision: 10, scale: 2
     t.float    "max_time"
     t.integer  "max_memory",   limit: 8
   end
 
   add_index "runs", ["created_at"], name: "index_runs_on_created_at", using: :btree
-  add_index "runs", ["status", "created_at"], name: "status_created_at", using: :btree
+  add_index "runs", ["status", "created_at"], name: "status_created_at", length: {"status"=>255, "created_at"=>nil}, using: :btree
   add_index "runs", ["user_id", "problem_id"], name: "index_runs_on_user_id_and_problem_id", using: :btree
-
-  create_table "source_codes_stores", force: true do |t|
-    t.integer "run_id",      null: false
-    t.binary  "source_code", null: false
-  end
 
   create_table "user_preferences", force: true do |t|
     t.integer  "user_id"
