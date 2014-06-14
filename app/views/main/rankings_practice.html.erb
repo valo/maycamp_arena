@@ -8,7 +8,7 @@
 </p>
 <h2>По решени задачи за всички времена</h2>
 <br/>
-<% cache ["rankings_practice", Run.last] do %>
+<% cache ["rankings_practice", params[:page] || 1, Run.last] do %>
   <%= render :partial => 'rankings', :locals => { :rankings => calc_rankings(:page => params[:page], :per_page => 25), :pagination => true } %>
 <% end %>
 <br/>
