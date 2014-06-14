@@ -118,6 +118,7 @@ class User < ActiveRecord::Base
                     users.city,
                     SUM(max_points_per_problem) as score,
                     SUM(CASE WHEN max_points_per_problem IS NULL THEN 0 ELSE runs_per_problem END) as runs_count,
+                    MAX(last_run_send_for_problem) as last_run_send,
                     SUM(CASE max_points_per_problem WHEN 100 THEN 1 ELSE 0 END) as full_solutions
                  FROM users
                  LEFT JOIN
@@ -125,7 +126,8 @@ class User < ActiveRecord::Base
                     SELECT
                       MAX(total_points) as max_points_per_problem,
                       user_id,
-                      COUNT(runs.id) as runs_per_problem
+                      COUNT(runs.id) as runs_per_problem,
+                      MAX(runs.created_at) as last_run_send_for_problem
                     FROM runs
                     JOIN problems ON problems.id = problem_id
                     JOIN contests ON contests.id = problems.contest_id
@@ -138,7 +140,9 @@ class User < ActiveRecord::Base
                 WHERE
                   admin = FALSE
                 GROUP BY users.id
-                #{options[:only_active] ? "HAVING runs_count > 0" : ""}
+                HAVING
+                  last_run_send > '#{1.year.ago.to_s(:db)}'
+                  #{options[:only_active] ? "AND runs_count > 0" : ""}
                 ORDER BY score DESC, full_solutions DESC, runs_count ASC, name ASC
         }
 

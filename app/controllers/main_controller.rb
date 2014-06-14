@@ -21,7 +21,7 @@ class MainController < ApplicationController
       pager.replace practice_contests[pager.offset, pager.per_page]
       pager.total_entries = practice_contests.length
     end
-    @top_scores = User.rating_ordering(10)
+    @top_scores = calc_rankings(:page => 1, :per_page => 10)
   end
 
   def rules
@@ -107,7 +107,7 @@ class MainController < ApplicationController
 
         pager.replace rankings
 
-        pager.total_entries = User.count
+        pager.total_entries = Run.group("user_id").select("MAX(created_at) as last_run").having("last_run > ?", 1.year.ago).length
       end
     end
 end

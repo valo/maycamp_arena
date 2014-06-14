@@ -9,9 +9,9 @@
 
 <h2>Топ 10</h2>
 <br />
-<p>Това са текущите топ десет в системата от всички състезания и от практиката. За пълно класиране кликнете <%= link_to "тук", :action => :rankings %>.</p>
+<p>Това са текущите топ десет участника в системата по практиката. <b>Участници, които не са пращали решения през последната година не влизат в класирането.</b> За пълно класиране кликнете <%= link_to "тук", :action => :rankings_practice %>.</p>
 <br/>
-<%= render :partial => "rating_rankings", :locals => { :rankings => @top_scores } %>
+<%= render :partial => 'rankings', :locals => { :rankings => @top_scores, :pagination => false } %>
 
 <% if current_user %>
   <%= render :partial => "current_contests" %>
