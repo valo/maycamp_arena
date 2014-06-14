@@ -31,7 +31,7 @@ MaycampArena::Application.configure do
   config.logger = Syslog::Logger.new 'maycamp_arena'
 
   # Use a different cache store in production
-  config.cache_store = :dalli_store, "localhost", { :pool_size => 8 }
+  config.cache_store = :dalli_store, "localhost", { :pool_size => 8, :threadsafe => true }
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
