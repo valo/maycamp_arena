@@ -21,6 +21,7 @@ gem 'rubystats'
 gem 'dynamic_form'
 gem 'rprocfs'
 gem 'dalli'
+gem 'connection_pool'
 
 group :production do
   gem 'SyslogLogger'
