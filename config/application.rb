@@ -40,6 +40,7 @@ module MaycampArena
     config.assets.version = '1.0'
     config.assets.js_compressor = :uglifier
     config.assets.css_compressor = :sass
+    config.assets.initialize_on_precompile = false
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]

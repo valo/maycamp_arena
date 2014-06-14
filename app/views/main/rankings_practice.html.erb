@@ -8,6 +8,8 @@
 </p>
 <h2>По решени задачи за всички времена</h2>
 <br/>
-<%= render :partial => 'rankings', :locals => { :rankings => @rankings, :pagination => true } %>
+<% cache ["rankings_practice", Run.last] do %>
+  <%= render :partial => 'rankings', :locals => { :rankings => calc_rankings(:page => params[:page], :per_page => 25), :pagination => true } %>
+<% end %>
 <br/>
 <p><%= link_to "Обратно към списъка със състезания", root_path %></p>

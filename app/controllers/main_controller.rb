@@ -21,7 +21,6 @@ class MainController < ApplicationController
       pager.replace practice_contests[pager.offset, pager.per_page]
       pager.total_entries = practice_contests.length
     end
-    @top_scores = calc_rankings(:page => 1, :per_page => 10)
   end
 
   def rules
@@ -50,11 +49,9 @@ class MainController < ApplicationController
   end
 
   def rankings_practice
-    @rankings = calc_rankings(:page => params[:page], :per_page => 25)
   end
 
   def activity
-    @week_rankings = calc_rankings(:since => 7.days.ago, :only_active => true, :per_page => User.count)
   end
 
   def download_tests
@@ -94,6 +91,7 @@ class MainController < ApplicationController
   end
 
   private
+    helper_method :calc_rankings
     def calc_rankings(options = {})
       WillPaginate::Collection.create(options[:page] || 1, options[:per_page] || 10) do |pager|
         rankings = User.generate_ranklist(options.merge(:offset => pager.offset, :limit => pager.per_page)).map do |row|

@@ -7,4 +7,6 @@
 </p>
 <h2>По активност през последната седмица</h2>
 <br/>
-<%= render :partial => 'rankings', :locals => { :rankings => @week_rankings, :pagination => true } %>
+<% cache ["activity", Run.last] do %>
+  <%= render :partial => 'rankings', :locals => { :rankings => calc_rankings(:since => 7.days.ago, :only_active => true, :per_page => User.count), :pagination => true } %>
+<% end %>
