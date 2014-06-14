@@ -4,22 +4,24 @@
 <br />
 <% if !@practice_contests.blank? %>
 <%= will_paginate @practice_contests, :param_name => :practice_contests_page %>
-<table>
-  <tr>
-    <th>Име</th>
-    <th>Вашите точки</th>
-    <th></th>
-  </tr>
-  <% @practice_contests.each do |contest| %>
+<% cache ["practice_area", params[:practice_contests_page] || 1, Run.where(:user_id => current_user.id).last] do %>
+  <table>
     <tr>
-      <td><%= contest.name %></td>
-      <td><strong><%= current_user.best_practice_score(contest) %></strong> от максимално <%= contest.max_score %></td>
-      <td>
-        <%= link_to "Практикувай", open_contest_practice_path(:contest_id => contest.id) %>
-      </td>
+      <th>Име</th>
+      <th>Вашите точки</th>
+      <th></th>
     </tr>
-  <% end %>
-</table>
+    <% @practice_contests.each do |contest| %>
+      <tr>
+        <td><%= contest.name %></td>
+        <td><strong><%= current_user.best_practice_score(contest) %></strong> от максимално <%= contest.max_score %></td>
+        <td>
+          <%= link_to "Практикувай", open_contest_practice_path(:contest_id => contest.id) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
 <%= will_paginate @practice_contests, :param_name => :practice_contests_page %>
 <% else %>
 В момента няма състезания, на които да можете да се упражнявате.
