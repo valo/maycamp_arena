@@ -4,7 +4,7 @@
 <br />
 <% if !@practice_contests.blank? %>
 <%= will_paginate @practice_contests, :param_name => :practice_contests_page %>
-<% cache ["practice_area", params[:practice_contests_page] || 1, Run.where(:user_id => current_user.id).last] do %>
+<% cache ["practice_area", params[:practice_contests_page] || 1, Contest.last, Run.where(:user_id => current_user.id).last] do %>
   <table>
     <tr>
       <th>Име</th>
