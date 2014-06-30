@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140519083912) do
+ActiveRecord::Schema.define(version: 20140630142315) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -143,13 +143,24 @@ ActiveRecord::Schema.define(version: 20140519083912) do
 
   add_index "runs", ["created_at"], name: "index_runs_on_created_at", using: :btree
   add_index "runs", ["status", "created_at"], name: "status_created_at", length: {"status"=>255, "created_at"=>nil}, using: :btree
+  add_index "runs", ["updated_at"], name: "index_runs_on_updated_at", using: :btree
   add_index "runs", ["user_id", "problem_id"], name: "index_runs_on_user_id_and_problem_id", using: :btree
+
+  create_table "sessions", force: true do |t|
+    t.string   "session_id", null: false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "user_preferences", force: true do |t|
     t.integer  "user_id"
     t.binary   "preferences"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
