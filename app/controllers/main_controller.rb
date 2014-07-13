@@ -18,7 +18,7 @@ class MainController < ApplicationController
     @practice_contests = WillPaginate::Collection.create(params[:practice_contests_page] || 1, 20) do |pager|
       practice_contests = Contest.practicable.select {|contest| contest.visible or current_user.andand.admin?}.reverse
 
-      pager.replace practice_contests[pager.offset, pager.per_page]
+      pager.replace (practice_contests[pager.offset, pager.per_page] || [])
       pager.total_entries = practice_contests.length
     end
   end
