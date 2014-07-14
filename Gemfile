@@ -22,6 +22,7 @@ gem 'dynamic_form'
 gem 'rprocfs'
 gem 'dalli'
 gem 'connection_pool'
+gem 'utf8-cleaner'
 
 group :production do
   gem 'SyslogLogger'
