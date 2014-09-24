@@ -22,7 +22,7 @@ MaycampArena::Application.routes.draw do
 
     member do
       get :reset_password
-      post :do_reset_password
+      patch :do_reset_password
     end
   end
 
