@@ -4,8 +4,8 @@ lock '3.2.1'
 set :application, 'arena.maycamp.com'
 set :repo_url, 'git://github.com/valo/maycamp_arena.git'
 
-set :rvm_type, :user
-set :rvm_ruby_version, '2.1.1'
+set :rvm_type, :system
+set :rvm_ruby_version, '2.1.2'
 
 set :puma_config_file, "config/puma.rb"
 set :puma_conf, -> { "#{shared_path}/config/puma.rb" }
@@ -47,7 +47,7 @@ namespace :assets do
       rsync_host = host.to_s # this needs to be done outside run_locally in order for host to exist
       rsync_user = fetch(:user).to_s
       run_locally do
-        execute :bundle, "exec rake assets:precompile"
+        execute "bundle exec rake assets:precompile"
         execute "rsync -av --delete ./public/assets/ #{rsync_user}@#{rsync_host}:#{shared_path}/public/assets/"
         execute "rm -rf public/assets"
         # execute "rm -rf tmp/cache/assets" # in case you are not seeing changes

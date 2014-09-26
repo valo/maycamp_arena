@@ -44,6 +44,7 @@ group :development, :test do
   gem 'capistrano-rvm'
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
+  gem "capistrano-db-tasks", require: false
 end
 
 gem 'jquery-rails'

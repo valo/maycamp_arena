@@ -14,7 +14,7 @@
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server 'arena.maycamp.com', user: 'maycamp', roles: %w{web app db}
+server '178.62.172.238', user: 'maycamp', roles: %w{web app db}
 
 set :deploy_to, '/home/maycamp/arena.maycamp.com'
 set :rails_env, 'production'
