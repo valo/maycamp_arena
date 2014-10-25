@@ -47,7 +47,7 @@ namespace :assets do
       rsync_host = host.to_s # this needs to be done outside run_locally in order for host to exist
       rsync_user = fetch(:user).to_s
       run_locally do
-        execute "bundle exec rake assets:precompile"
+        execute "RAILS_ENV=production bundle exec rake assets:precompile"
         execute "rsync -av --delete ./public/assets/ #{rsync_user}@#{rsync_host}:#{shared_path}/public/assets/"
         execute "rm -rf public/assets"
         # execute "rm -rf tmp/cache/assets" # in case you are not seeing changes
