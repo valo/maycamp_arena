@@ -87,6 +87,7 @@ class MainController < ApplicationController
     @problem = Problem.includes(:contest).where(:contests => { :visible => true, :practicable => true }).find(params[:id])
     @runs = Run.includes(:user).
                 where(:users => { :admin => false }, :problem => @problem.id).
+                order("runs.created_at DESC").
                 paginate(:per_page => 50, :page => params.fetch(:page, 1))
   end
 

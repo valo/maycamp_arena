@@ -3,6 +3,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require highcharts
+
 $(function() {
   if (typeof(daily_submits_report) != "undefined")
   new Highcharts.Chart({
