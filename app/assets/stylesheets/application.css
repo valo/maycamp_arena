@@ -1,5 +1,6 @@
-//= require inove.css
-//= require inove_admin.css
+//= require inove
+//= require inove_admin
+//= require coderay
 
 
 body {

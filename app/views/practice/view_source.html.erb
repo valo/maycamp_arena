@@ -1,10 +1,10 @@
-v<h1>Решение с номер <%= @run.id %></h1>
+<h1>Решение с номер <%= @run.id %></h1>
 <p>Пратено на: <%= @run.created_at.to_s :long %></p>
 <p>Статус: <%= @run.status %></p>
 Сорс код:
 <pre>
 <code class="cpp">
-<%= h @run.source_code %>
+<%= CodeRay.scan(@run.source_code, :cplusplus).html(line_numbers: :table).html_safe %>
 </code>
 </pre>
 
