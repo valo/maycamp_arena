@@ -7,11 +7,6 @@
   <%= csrf_meta_tag %>
   <title>maycamp arena - състезания по алгоритми</title>
   <%= stylesheet_link_tag "application.css" %>
-  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js", "http://code.highcharts.com/2.2.4/highcharts.js", "application" %>
-  <%= javascript_tag do %>
-    // Syntax highlighting
-    hljs.initHighlightingOnLoad();
-  <% end %>
 </head>
 <body>
 <!-- wrap START -->
@@ -57,6 +52,11 @@
 </div>
 <!-- wrap END -->
 
+<%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js", "http://code.highcharts.com/2.2.4/highcharts.js", "application", async: true %>
+<%= javascript_tag do %>
+  // Syntax highlighting
+  hljs.initHighlightingOnLoad();
+<% end %>
 <%= render :partial => "common/google_analytics" %>
 <%= render :partial => "common/chartbeat_analytics" %>
 </body>
