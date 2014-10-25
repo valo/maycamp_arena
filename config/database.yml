@@ -13,7 +13,7 @@ development:
 test: &TEST
   adapter: mysql2
   database: spoj0_test
-  username: travis
+  username: root
   password:
 
 production:

@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
 
   def unencrypted_password=(value)
     @unencrypted_password = value
-    write_attribute(:password, self.class.encrypt_password(value))
+    self.password = self.class.encrypt_password(value)
   end
 
   def reset_token!
