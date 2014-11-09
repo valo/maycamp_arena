@@ -1,0 +1,31 @@
+---
+- hosts: all
+  sudo: no
+
+  tasks:
+    - name: Install mysql client and server
+      action: apt pkg={{ item }} state=present
+      sudo: yes
+      with_items:
+        - mysql-client-5.6
+        - mysql-server-5.6
+        - nodejs
+        - libmysqlclient-dev
+        - memcached
+
+    - name: enable mysql service
+      sudo: yes
+      action: service name=mysql state=started enabled=yes 
+
+    - name: enable memcached service
+      sudo: yes
+      action: service name=memcached state=started enabled=yes 
+
+    - name: install rvm
+      shell: \curl -L https://get.rvm.io | bash -s stable --autolibs=3 creates=~/.rvm
+
+    - name: install ruby
+      shell: ~/.rvm/bin/rvm install --default 2.1.4 creates=~/.rvm/rubies/2.1.4
+
+    - name: bundle install
+      shell: 'executable=/bin/bash chdir=/vagrant . "$HOME/.rvm/scripts/rvm" && rvm use --default 2.1.4 && bundle'

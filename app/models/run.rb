@@ -1,12 +1,19 @@
 class Run < ActiveRecord::Base
   module Constants
     LANG_C_CPP = "C/C++"
-    LANG_PAS = "Pascal"
+    LANG_JAVA = "Java"
+    LANG_PYTHON2 = "Python 2.7"
 
-    LANGUAGES = [LANG_C_CPP]
+    LANGUAGES = [LANG_C_CPP, LANG_JAVA, LANG_PYTHON2]
     WAITING = "waiting"
     JUDGING = "judging"
     CHECKING = "checking"
+
+    EXTENSIONS = {
+      LANG_C_CPP => ".c",
+      LANG_PYTHON2 => ".py",
+      LANG_JAVA => ".java"
+    }
   end
 
   include Constants
@@ -48,6 +55,10 @@ class Run < ActiveRecord::Base
   def source_code
     content = self.run_blob_collection.try(:source_code) || ""
     content.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+  end
+
+  def public_class_name
+    run.source_code[/public class (\w+)/i]
   end
 
   def log=(content)

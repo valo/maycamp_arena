@@ -8,13 +8,13 @@ begin
     desc "Start the grader"
     task :start => :environment do
       grader_conf = get_config
-      Grader.new(grader_conf["root"], grader_conf["user"]).run
+      Grader.new.run
     end
   
     desc "Start the grader without sync"
     task :start_nosync => :environment do
       grader_conf = get_config
-      Grader.new(grader_conf["root"], grader_conf["user"]).run
+      Grader.new.run
     end
   
     desc "Syncronize the local tests with the remote tests"
@@ -25,13 +25,13 @@ begin
     
     task :benchmark => :environment do
       grader_conf = get_config
-      Grader.new(grader_conf["root"], grader_conf["user"]).benchmark
+      Grader.new.benchmark
     end
     
     task :grade_run, [:run_id] => [:environment] do |t, args|
       grader_conf = get_config
       run = Run.find(args[:run_id])
-      Grader.new(grader_conf["root"], grader_conf["user"]).grade(run, nil, true)
+      GradeRun.new(run, nil, true).call
       run.update_time_and_mem
       run.update_total_points
       

@@ -46,6 +46,7 @@ MaycampArena::Application.configure do
 
   config.assets.digest = true
   config.assets.css_compressor = :sass
+  config.assets.js_compressor = :uglify
 
   # Enable threaded mode
   # config.threadsafe!
