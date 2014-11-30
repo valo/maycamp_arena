@@ -8,3 +8,5 @@ maycamparena:
   rsync: contest@localhost:/home/contest/sets
 ubuntu-VirtualBox:
   rsync: mcvalo@maycamp.com:/home/maycamp/arena.maycamp.com/shared/sets
+vagrant-ubuntu-trusty-64:
+  rsync: maycamp@arena.maycamp.com:/home/maycamp/arena.maycamp.com/shared/sets

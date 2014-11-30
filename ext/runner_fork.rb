@@ -33,22 +33,19 @@ if !pid
   exit 1
 end
 
-sleep([opt.timelimit / 2, 0.1].min) if opt.timelimit
-
-
 used_memory = used_time = 0
 loop {
   used_memory = [used_memory, RProcFS.data(pid)].max
   used_time = [:utime, :stime, :cutime, :cstime].map { |m| RProcFS.send(m, pid) }.inject(0) { |a, sum| a + sum }
   
-  if opt.mem and RProcFS.data(pid) > opt.mem
+  if opt.mem && RProcFS.data(pid) > opt.mem
     Process.kill "KILL", pid
     Process.waitall
     print_stats(used_memory, used_time)
     exit 127
   end
   
-  if opt.timelimit and (RProcFS.state(pid) == "S" or used_time > opt.timelimit)
+  if opt.timelimit && used_time > opt.timelimit
     Process.kill "KILL", pid
     Process.waitall
     print_stats(used_memory, used_time)
@@ -61,6 +58,6 @@ loop {
     exit($?.exitstatus || $?.termsig || $?.stopsig)
   end
   
-  sleep 0.001
+  sleep 0.01
 }
 

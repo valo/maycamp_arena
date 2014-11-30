@@ -10,7 +10,7 @@ class Run < ActiveRecord::Base
     CHECKING = "checking"
 
     EXTENSIONS = {
-      LANG_C_CPP => ".c",
+      LANG_C_CPP => ".cpp",
       LANG_PYTHON2 => ".py",
       LANG_JAVA => ".java"
     }

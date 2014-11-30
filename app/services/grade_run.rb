@@ -5,15 +5,17 @@ class GradeRun
     @dry_run = dry_run
   end
 
-  def call(run, dry_run = false)
+  def call
     run.update_attributes(:status => Run::JUDGING) unless dry_run
 
-    puts "Judging run with id #{run.id}"
+    puts "Judging run with id #{run.id} with #{tests} tests"
     
     Dir.chdir(File.join(Rails.root, "sandbox")) do
       File.open("grader.log", "w") do |f|
         f.sync = true
         self.class.with_stdout_and_stderr(f, f) do
+          FileUtils.rm_rf("*")
+
           # Compile
           if !compile(run)
             puts "Can't compile source code of run #{run.id}"
@@ -26,6 +28,8 @@ class GradeRun
           
           run.update_attributes(:status => status, :log => File.read("grader.log")) unless dry_run
         end
+
+        docker_cleanup
       end
     end
   end
@@ -54,17 +58,22 @@ class GradeRun
         return true
       end
 
-      $?.exitstatus != 0
+      $?.exitstatus == 0
     end
 
     def run_tests(run, tests)
       # for each test, run the program
       run.problem.input_files[0...tests].zip(run.problem.output_files).map { |input_file, answer_file|
-        verbose_system "docker -i -t -v `pwd`/sandbox:/sandbox -v #{input_file}:/sandbox/input -m #{run.problem.memory_limit} -d valo/maycamp_arena_grader #{executable} < input"
-        container_id = `docker ps -l --no-trunc | tail -n 1 | cut -d " " -f 1`
+        command = %Q{docker run #{ mappings(input_file) } -m #{memory_limit} -d --net=none grader /sandbox/runner_fork.rb -i /sandbox/input -o /sandbox/output -m #{memory_limit} -t #{ timeout } #{ executable }}
+        puts command
+        container_id = %x{#{ command }}
+        puts "Running #{executable} in container #{container_id}"
 
-        exit_status = wait_while_finish(run.timeout, container_id)
+        exit_status = wait_while_finish(container_id)
         
+        puts docker_logs(container_id)
+        puts "Container exit status: #{exit_status}"
+
         case exit_status
           when 9
             "tl"
@@ -76,6 +85,17 @@ class GradeRun
             "re"
         end
       }.join(" ")
+    end
+
+    def mappings(input_file)
+      {
+        "#{Rails.root}/sandbox" => "/sandbox",
+        "#{Rails.root}/ext/runner_args.rb" => "/sandbox/runner_args.rb",
+        "#{Rails.root}/ext/runner_fork.rb" => "/sandbox/runner_fork.rb",
+        "#{input_file}" => "/sandbox/input"
+      }.map do |from, to|
+        "-v #{from}:#{to}"
+      end.join(" ")
     end
 
     def check_output(run, answer_file, input_file)
@@ -105,11 +125,11 @@ class GradeRun
     def executable
       case(run.language)
       when Run::LANG_JAVA
-        "java #{ run.public_class_name }.java"
+        "/usr/bin/java #{ run.public_class_name }.java"
       when Run::LANG_C_CPP
-        "./program"
+        "/sandbox/program"
       when Run::LANG_PYTHON2
-        "python program#{Run::EXTENSIONS[run.language]}"
+        "/usr/bin/python program#{Run::EXTENSIONS[run.language]}"
       end
     end
 
@@ -134,11 +154,35 @@ class GradeRun
       @tests ||= run.problem.number_of_tests
     end
 
-    def wait_while_finish(timeput, container_id)
-      while (`docker inspect -f {{.State.Running}})` == "true") do
-        sleep(1)
+    def timeout
+      run.problem.time_limit
+    end
 
-        if 
+    def memory_limit
+      run.problem.memory_limit
+    end
+
+    def wait_while_finish(container_id)
+      while (docker_exitcode(container_id) == -1 || docker_running_state(container_id) == "true") do
+        sleep(1)
       end
+
+      docker_exitcode(container_id)
+    end
+
+    def docker_running_state(container_id)
+      `docker inspect -f '{{.State.Running}}' #{container_id}`.strip
+    end
+
+    def docker_exitcode(container_id)
+      `docker inspect -f '{{.State.ExitCode}}' #{container_id}`.to_i
+    end
+
+    def docker_logs(container_id)
+      `docker logs #{container_id}`.strip
+    end
+
+    def docker_cleanup
+      `docker rm $(docker ps -aq)`
     end
 end

@@ -1,9 +1,6 @@
-require "shell_utils"
-require "sets_sync"
-
 class Grader
   def initialize
-    @tests_updated_at = SyncTests.new(Time.now).call
+    @tests_updated_at = SyncTests.new(Time.at(0)).call
   end
   
   def run

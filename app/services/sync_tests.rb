@@ -19,16 +19,16 @@ class SyncTests
   attr_reader :tests_updated_at
 
   def sync_tests(update_time)
-    sync_sets(get_config)
+    sync_sets(YAML.load_file(File.join(Rails.root, "config/grader.yml"))[`hostname`.strip])
     @tests_updated_at = update_time
     puts "Tests synced for time #{tests_updated_at} on #{Time.now}"
   end
 
   def sync_sets(configuration)
-    from = File.join(configuration[:rsync], "/")
+    from = File.join(configuration["rsync"], "/")
     to = File.join($config[:sets_root], "/")
   
     puts "Syncing tests from #{from} to #{to}"
-    system "rsync -azv -e ssh --delete #{from} #{to}"
+    system "rsync -az -e ssh --delete #{from} #{to}"
   end
 end
