@@ -64,15 +64,15 @@ class GradeRun
     def run_tests(run, tests)
       # for each test, run the program
       run.problem.input_files[0...tests].zip(run.problem.output_files).map { |input_file, answer_file|
-        command = %Q{docker run #{ mappings(input_file) } -m #{memory_limit} -d --net=none grader /sandbox/runner_fork.rb -i /sandbox/input -o /sandbox/output -m #{memory_limit} -t #{ timeout } #{ executable }}
+        command = %Q{docker run #{ mappings(input_file) } -m #{memory_limit} -d --net=none grader /sandbox/runner_fork.rb -i /sandbox/input -o /sandbox/output -m #{memory_limit} -t #{ timeout } -- #{ executable }}
         puts command
         container_id = %x{#{ command }}
-        puts "Running #{executable} in container #{container_id}"
+        puts "Running #{ executable } in container #{ container_id }"
 
         exit_status = wait_while_finish(container_id)
         
         puts docker_logs(container_id)
-        puts "Container exit status: #{exit_status}"
+        puts "Container exit status: #{ exit_status }"
 
         case exit_status
           when 9
@@ -125,11 +125,11 @@ class GradeRun
     def executable
       case(run.language)
       when Run::LANG_JAVA
-        "/usr/bin/java #{ run.public_class_name }.java"
+        "/usr/bin/java -Xmx512m #{ run.public_class_name }"
       when Run::LANG_C_CPP
         "/sandbox/program"
       when Run::LANG_PYTHON2
-        "/usr/bin/python program#{Run::EXTENSIONS[run.language]}"
+        "/usr/bin/python2.7 program#{ Run::EXTENSIONS[run.language] }"
       end
     end
 

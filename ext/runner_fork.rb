@@ -35,10 +35,10 @@ end
 
 used_memory = used_time = 0
 loop {
-  used_memory = [used_memory, RProcFS.data(pid)].max
+  used_memory = [used_memory, RProcFS.resident(pid)].max
   used_time = [:utime, :stime, :cutime, :cstime].map { |m| RProcFS.send(m, pid) }.inject(0) { |a, sum| a + sum }
   
-  if opt.mem && RProcFS.data(pid) > opt.mem
+  if opt.mem && RProcFS.resident(pid) > opt.mem
     Process.kill "KILL", pid
     Process.waitall
     print_stats(used_memory, used_time)

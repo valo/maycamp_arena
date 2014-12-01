@@ -58,7 +58,7 @@ class Run < ActiveRecord::Base
   end
 
   def public_class_name
-    run.source_code[/public class (\w+)/i]
+    self.source_code[/public class (\w+)/i, 1]
   end
 
   def log=(content)

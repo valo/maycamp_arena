@@ -37,6 +37,6 @@ class Options
       exit 1
     end
 
-    @cmd = ARGV.shift
+    @cmd = ARGV.join(" ")
   end
 end

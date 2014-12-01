@@ -6,7 +6,7 @@
 
   tasks:
     - name: Install packages
-      action: apt pkg={{ item }} state=present
+      action: apt pkg={{ item }} state=present update_cache=yes
       sudo: yes
       with_items:
         - nodejs
@@ -22,11 +22,23 @@
       user: name=vagrant groups=docker
       sudo: yes
 
+    - name: Add docker repository key
+      apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=36A1D7869245C8950F966E92D8576A8BA88D21E9
+      sudo: yes
+
+    - name: Add docker repository
+      apt_repository: repo='deb https://get.docker.com/ubuntu docker main' state=present
+      sudo: yes
+
+    - name: Install latest docker
+      action: apt pkg=lxc-docker state=present update_cache=yes
+      sudo: yes
+
+    - name: RVM public key
+      shell: gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
+
     - name: install rvm
-      shell: \curl -L https://get.rvm.io | bash -s stable --autolibs=3 creates=~/.rvm
+      shell: curl -L https://get.rvm.io | bash -s stable --autolibs=3 creates=~/.rvm
 
     - name: install ruby
       shell: ~/.rvm/bin/rvm install --default 2.1.5 creates=~/.rvm/rubies/2.1.5
-
-    - name: bundle install
-      shell: 'executable=/bin/bash chdir=/vagrant . "$HOME/.rvm/scripts/rvm" && rvm use --default 2.1.5 && bundle'
