@@ -85,10 +85,14 @@ class ExecuteCommand
 
     def time_for_pid(pid)
       [:utime, :stime, :cutime, :cstime].map { |m| RProcFS.send(m, pid) }.inject(0) { |a, sum| a + sum }
+    rescue Errno::ENOENT
+      0
     end
 
     def memory_for_pid(pid)
       RProcFS.resident(pid)
+    rescue Errno::ENOENT
+      0
     end
 
     def memory_for_pgid(pgid)
