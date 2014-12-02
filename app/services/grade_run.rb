@@ -64,7 +64,11 @@ class GradeRun
     def run_tests(run, tests)
       # for each test, run the program
       run.problem.input_files[0...tests].zip(run.problem.output_files).map { |input_file, answer_file|
-        command = %Q{docker run #{ mappings(input_file) } -m #{memory_limit} -d --net=none grader /sandbox/runner_fork.rb -i /sandbox/input -o /sandbox/output -m #{memory_limit} -t #{ timeout } -- #{ executable }}
+        command = %Q{docker run #{ mappings(input_file) }\
+          -m #{memory_limit}\
+          --cpuset=0\
+          -u grader -d --net=none grader\
+           /sandbox/runner_fork.rb -i /sandbox/input -o /sandbox/output -p 50 -m #{memory_limit} -t #{ timeout } -- #{ executable }}
         puts command
         container_id = %x{#{ command }}
         puts "Running #{ executable } in container #{ container_id }"

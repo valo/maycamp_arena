@@ -17,6 +17,10 @@ pid = fork do
   # Process.setrlimit(Process::RLIMIT_CPU, timelimit, timelimit) if timelimit
   Process.setrlimit(Process::RLIMIT_NPROC, opt.proclimit, opt.proclimit) if opt.proclimit
   Process.setpriority(Process::PRIO_PROCESS, 0, 20)
+
+  # Set the process group of the child to its pid. This way it can be easily killed
+  # with all its child processes later
+  Process.setpgid(0, Process.pid)
   
   # Close the stderr, because we don't need it
   $stderr.close
@@ -39,14 +43,14 @@ loop {
   used_time = [:utime, :stime, :cutime, :cstime].map { |m| RProcFS.send(m, pid) }.inject(0) { |a, sum| a + sum }
   
   if opt.mem && RProcFS.resident(pid) > opt.mem
-    Process.kill "KILL", pid
+    Process.kill "KILL", -Process.getpgid(pid)
     Process.waitall
     print_stats(used_memory, used_time)
     exit 127
   end
   
   if opt.timelimit && used_time > opt.timelimit
-    Process.kill "KILL", pid
+    Process.kill "KILL", -Process.getpgid(pid)
     Process.waitall
     print_stats(used_memory, used_time)
     exit 9
