@@ -3,7 +3,7 @@
   sudo: no
   vars:
     workdir: /home/grader/maycamp_arena
-    branch: docker_sandbox
+    branch: master
     env:
       RAILS_ENV: production
       PATH: "{{ path }}"
