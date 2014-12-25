@@ -7,6 +7,8 @@
     env:
       RAILS_ENV: production
       PATH: "{{ path }}"
+      GEM_PATH: "{{ gem_path }}"
+      GEM_HOME: "{{ gem_home }}"
 
   tasks:
     - include_vars: production_creds.yml
@@ -25,26 +27,22 @@
       command: gem install god
       environment: env
 
-    # - name: Stop god
-    #   command: god terminate
-    #   environment: env
-    #   ignore_errors: yes
+    - name: Stop god
+      command: god terminate
+      environment: env
+      ignore_errors: yes
 
-    # - name: Start god
-    #   command: god
-    #   environment: env
+    - name: Start god
+      command: god
+      environment: env
 
     - name: Update bundle
       command: bundle install chdir={{ workdir }}
       environment: env
 
+    - name: Configure God
+      template: src=grader.god dest={{ workdir }}/grader.god
+
     - name: Start grader
-      command: bundle exec rake grader:start chdir={{ workdir }}
+      command: god load {{ workdir }}/grader.god
       environment: env
-
-    # - name: Configure God
-    #   template: src=grader.god dest={{ workdir }}/grader.god
-
-    # - name: Start grader
-    #   command: god load {{ workdir }}/grader.god
-    #   environment: env
