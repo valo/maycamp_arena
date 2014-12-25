@@ -74,9 +74,11 @@ class GradeRun
         puts "Running #{ executable } in container #{ container_id }"
 
         exit_status = wait_while_finish(container_id)
-        
+
         puts docker_logs(container_id)
         puts "Container exit status: #{ exit_status }"
+
+        exit_status = 127 if docker_oomkilled(container_id)
 
         case exit_status
           when 9
@@ -184,6 +186,10 @@ class GradeRun
 
     def docker_exitcode(container_id)
       `docker inspect -f '{{.State.ExitCode}}' #{container_id}`.to_i
+    end
+
+    def docker_oomkilled(container_id)
+      `docker inspect -f '{{.State.OOMKilled}}' #{container_id}`.strip == "true"
     end
 
     def docker_logs(container_id)

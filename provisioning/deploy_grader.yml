@@ -16,6 +16,7 @@
       git: repo=https://github.com/valo/maycamp_arena.git
            dest={{ workdir }}
            version={{ branch }}
+           force=yes
 
     - name: Config docker
       command: docker build -t grader . chdir={{ workdir }}
