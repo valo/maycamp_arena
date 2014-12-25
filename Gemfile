@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.0'
+gem 'rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -30,6 +30,7 @@ group :production do
 end
 
 group :development, :test do
+  gem 'spring'
   gem 'factory_girl_rails'
   gem 'cucumber-rails', :require => false
   gem 'capybara'
