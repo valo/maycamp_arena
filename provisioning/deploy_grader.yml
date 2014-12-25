@@ -1,0 +1,50 @@
+---
+- hosts: all
+  sudo: no
+  vars:
+    workdir: /home/grader/maycamp_arena
+    branch: docker_sandbox
+    env:
+      RAILS_ENV: production
+      PATH: "{{ path }}"
+
+  tasks:
+    - include_vars: production_creds.yml
+    - name: Git update
+      git: repo=https://github.com/valo/maycamp_arena.git
+           dest={{ workdir }}
+           version={{ branch }}
+
+    - name: Config docker
+      command: docker build -t grader . chdir={{ workdir }}
+
+    - name: Config database
+      template: src=database.yml.j2 dest={{ workdir }}/config/database.yml
+
+    - name: Install god
+      command: gem install god
+      environment: env
+
+    # - name: Stop god
+    #   command: god terminate
+    #   environment: env
+    #   ignore_errors: yes
+
+    # - name: Start god
+    #   command: god
+    #   environment: env
+
+    - name: Update bundle
+      command: bundle install chdir={{ workdir }}
+      environment: env
+
+    - name: Start grader
+      command: bundle exec rake grader:start chdir={{ workdir }}
+      environment: env
+
+    # - name: Configure God
+    #   template: src=grader.god dest={{ workdir }}/grader.god
+
+    # - name: Start grader
+    #   command: god load {{ workdir }}/grader.god
+    #   environment: env

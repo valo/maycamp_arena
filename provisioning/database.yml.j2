@@ -1,0 +1,6 @@
+production:
+  adapter: mysql2
+  database: spoj0_prod
+  username: {{ db_username | mandatory }}
+  host: {{ db_host | mandatory }}
+  password: {{ db_password | mandatory }}

@@ -1,8 +1,6 @@
 ---
 - hosts: all
   sudo: no
-  vars:
-    - mysql_memory: 128M
 
   tasks:
     - name: Install packages
@@ -19,7 +17,7 @@
       action: service name=memcached state=started enabled=yes 
 
     - name: Add the user to the docker group
-      user: name=vagrant groups=docker
+      user: name={{ ansible_ssh_user }} groups=docker
       sudo: yes
 
     - name: Add docker repository key
@@ -33,6 +31,10 @@
     - name: Install latest docker
       action: apt pkg=lxc-docker state=present update_cache=yes
       sudo: yes
+
+    - name: Restart docker
+      sudo: yes
+      service: name=docker.io state=restarted
 
     - name: RVM public key
       shell: gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
