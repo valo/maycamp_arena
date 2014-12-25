@@ -1,6 +1,6 @@
 module CommonContestActions
   def submit_solution
-    @run = current_user.runs.new(params.require(:run).permit(:language, :source_code, :problem_id, :source_file))
+    @run = current_user.runs.new(run_params)
 
     @contest = Contest.find_by_id(params[:contest_id])
     if @contest.auto_test?
@@ -26,5 +26,11 @@ module CommonContestActions
     @problem = Problem.find(params[:problem_id])
 
     send_file File.join(@problem.tests_dir, "description.pdf"), :type => 'application/pdf', :disposition => 'inline'
+  end
+
+  private
+
+  def run_params
+    params.require(:run).permit(:language, :source_code, :problem_id, :source_file)
   end
 end
