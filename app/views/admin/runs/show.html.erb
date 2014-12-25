@@ -6,7 +6,7 @@
 <p><%= link_to "Тестване", queue_admin_contest_problem_run_path(@run.problem.contest, @run.problem, @run) %></p>
 
 <h2>Source code</h2>
-<%= CodeRay.scan(@run.source_code, :cplusplus).html(line_numbers: :table).html_safe %>
+<%= CodeRay.scan(@run.source_code, coderay_language(@run)).html(line_numbers: :table).html_safe %>
 <p>Log:</p>
 <pre>
 <%= @run.log %>

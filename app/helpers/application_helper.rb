@@ -57,4 +57,15 @@ module ApplicationHelper
   def problem_runs_total_points(problem)
     Run.joins(:user).where(:users => { :admin => false }, :problem_id => problem.id).sum(:total_points)
   end
+
+  def coderay_language(run)
+    case run.language
+    when Run::LANG_JAVA
+      :java
+    when Run::LANG_PYTHON2
+      :python
+    else
+      :cplusplus
+    end
+  end
 end

@@ -4,7 +4,7 @@
 Сорс код:
 <pre>
 <code class="cpp">
-<%= CodeRay.scan(@run.source_code, :cplusplus).html(line_numbers: :table).html_safe %>
+<%= CodeRay.scan(@run.source_code, coderay_language(@run)).html(line_numbers: :table).html_safe %>
 </code>
 </pre>
 
