@@ -6,6 +6,7 @@
     <table class="runs_list">
         <tr>
             <th>Пратено на</th>
+            <th>Език</th>
             <th>Състезание</th>
             <th>Задача</th>
             <th>Потребител</th>
@@ -15,7 +16,8 @@
         </tr>
     <% for run in @runs do %>
         <tr>
-            <td><%= run.created_at %></td>
+            <td><%= run.created_at.to_s :long %></td>
+            <td><%= run.language %></td>
             <td><%= link_to run.problem.contest.name, :controller => :practice, :action => :open_contest, :contest_id => run.problem.contest.id %></td>
             <td><%= link_to run.problem.name, :controller => :practice, :action => :get_problem_description, :contest_id => run.problem.contest.id, :problem_id => run.problem.id %></td>
             <td><%= link_to run.user.name, user_path(run.user) %></td>
