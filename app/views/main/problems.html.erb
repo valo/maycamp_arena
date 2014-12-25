@@ -18,7 +18,7 @@
     end %>
     <tr>
       <td><%= link_to problem.name, get_problem_description_practice_path(:contest_id => problem.contest.id, :problem_id => problem.id) %></td>
-      <td><%= link_to problem.contest.name, practice_path(:action => :open_contest, :contest_id => problem.contest.id) %></td>
+      <td><%= link_to problem.contest.name, open_contest_practice_path(:contest_id => problem.contest.id) %></td>
       <td><%= problem_runs_count(problem) %></td>
       <td><%= number_with_precision(problem_runs_total_points(problem) / problem_runs_count(problem), :precision => 2) %></td>
       <% if current_user %>
