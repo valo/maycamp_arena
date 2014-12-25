@@ -65,7 +65,7 @@ class GradeRun
       # for each test, run the program
       run.problem.input_files[0...tests].zip(run.problem.output_files).map { |input_file, answer_file|
         command = %Q{docker run #{ mappings(input_file) }\
-          -m #{memory_limit}\
+          -m #{docker_memory_limit}\
           --cpuset=0\
           -u grader -d --net=none grader\
            /sandbox/runner_fork.rb -i /sandbox/input -o /sandbox/output -p 50 -m #{memory_limit} -t #{ timeout } -- #{ executable }}
@@ -164,6 +164,10 @@ class GradeRun
 
     def memory_limit
       run.problem.memory_limit
+    end
+
+    def docker_memory_limit
+      [memory_limit, 4 * 1024 * 1024].max
     end
 
     def wait_while_finish(container_id)
