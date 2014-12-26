@@ -2,10 +2,6 @@ require File.join(File.dirname(__FILE__), "../test_helper")
 require 'rating_calculation'
 
 class RatingCalculationTest < ActiveSupport::TestCase
-  def setup
-    [User, ContestResult, Contest].each(&:destroy_all)
-  end
-
   def test_calculating_after_first_contest
     contest = create(:contest)
 

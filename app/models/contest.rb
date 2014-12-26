@@ -60,7 +60,7 @@ class Contest < ActiveRecord::Base
     @results = []
     self.contest_start_events.includes(:user).find_each do |event|
       runs = event.user.runs.during_contest.count
-      next if (not event.user.participates_in_contests?) or runs == 0
+      next if (not event.user.participates_in_contests?) || runs == 0
 
       total = 0
 

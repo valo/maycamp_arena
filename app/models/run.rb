@@ -24,7 +24,7 @@ class Run < ActiveRecord::Base
   validates_inclusion_of :language, :in => LANGUAGES
   validates_presence_of :user, :problem, :language, :source_code
 
-  scope :during_contest, -> { joins(:problem => :contest).where("runs.created_at > contests.start_time").where("runs.created_at < contests.end_time") }
+  scope :during_contest, -> { joins(:problem => :contest).where("runs.created_at >= contests.start_time").where("runs.created_at <= contests.end_time") }
 
   before_save :update_total_points, :update_time_and_mem
   has_one :run_blob_collection, :dependent => :destroy, :autosave => true

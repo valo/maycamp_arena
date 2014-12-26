@@ -13,8 +13,8 @@ FactoryGirl.define do
 
   factory :contest do |c|
     c.duration 120
-    c.start_time 1.hour.ago
-    c.end_time 1.hour.from_now
+    c.start_time { 1.hour.ago }
+    c.end_time { 1.hour.from_now }
     c.name "Test contest"
   end
 

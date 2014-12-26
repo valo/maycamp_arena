@@ -15,7 +15,7 @@ class TimedContestControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template "open_contest"
-    assert_match "4 часа 59 минути", @response.body
+    assert_match "Оставащо време", @response.body
   end
 
   test "ramaining time for a contest near the end of the contest" do
@@ -30,7 +30,7 @@ class TimedContestControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template "open_contest"
-    assert_match "2 часа 59 минути", @response.body
+    assert_match "Оставащо време", @response.body
   end
 
   test "trying to submit solution during the end of the contest" do
