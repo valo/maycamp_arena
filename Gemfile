@@ -29,13 +29,8 @@ group :production do
   gem 'SyslogLogger'
 end
 
-group :development, :test do
+group :development do
   gem 'spring'
-  gem 'factory_girl_rails'
-  gem 'cucumber-rails', :require => false
-  gem 'capybara'
-  gem 'database_cleaner'
-  gem 'mocha', :require => 'mocha/api'
   gem 'launchy'
   gem 'sprockets-rails'
   gem 'uglifier', '>= 1.0.3'
@@ -47,6 +42,14 @@ group :development, :test do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem "capistrano-db-tasks", require: false
+end
+
+group :test do
+  gem 'factory_girl_rails'
+  gem 'mocha', :require => 'mocha/api'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'cucumber-rails', :require => false
 end
 
 gem 'jquery-rails'
