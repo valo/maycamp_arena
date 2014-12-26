@@ -1,10 +1,5 @@
 require 'test_helper'
 class UserTest < ActiveSupport::TestCase
-  
-  test "the truth" do
-    assert true
-  end
-  
   test "user is contester by default" do
     user = User.new
     assert user.contester?
