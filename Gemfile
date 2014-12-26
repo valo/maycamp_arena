@@ -31,7 +31,6 @@ end
 
 group :development do
   gem 'spring'
-  gem 'launchy'
   gem 'sprockets-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'sass-rails'
