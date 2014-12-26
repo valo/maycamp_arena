@@ -6,9 +6,6 @@ class ExternalContest < ActiveRecord::Base
            :foreign_key => "external_contest_id",
            :dependent => :destroy
 
-  cattr_reader :per_page
-  @@per_page = 20
-
   attr_accessor :results
   alias_attribute :end_time, :date
 
