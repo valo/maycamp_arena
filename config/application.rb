@@ -42,6 +42,8 @@ module MaycampArena
     config.assets.css_compressor = :sass
     config.assets.initialize_on_precompile = false
 
+    config.assets.precompile += %w( results.css )
+
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
