@@ -23,8 +23,8 @@ Feature: Administer contests
     And I fill in the following:
       | Име: | Fall contest |
       | Продължителност: | 120 |
-    And I select "October 16, 2009 16:21:39" as the "Начало:" datetime
-    And I select "October 18, 2009 16:21:39" as the "Край:" datetime
+    And I select "October 16, 2014 16:21:39" as the "Начало:" datetime
+    And I select "October 18, 2014 16:21:39" as the "Край:" datetime
     And I press "Създаване"
     Then I should be on the contest list in the admin panel
     And I should see "Fall contest"
@@ -36,8 +36,8 @@ Feature: Administer contests
     And I fill in the following:
       | Име: | Fall contest |
       | Продължителност: | 120 |
-    And I select "October 16, 2009 16:21:39" as the "Начало:" datetime
-    And I select "October 18, 2009 16:21:39" as the "Край:" datetime
+    And I select "October 16, 2014 16:21:39" as the "Начало:" datetime
+    And I select "October 18, 2014 16:21:39" as the "Край:" datetime
     And I press "Създаване"
     And I follow "Изтриване"
     Then I should be on the contest list in the admin panel
@@ -50,8 +50,8 @@ Feature: Administer contests
     And I fill in the following:
       | Име: | Fall contest |
       | Продължителност: | 120 |
-    And I select "October 16, 2009 16:21:39" as the "Начало:" datetime
-    And I select "October 18, 2009 16:21:39" as the "Край:" datetime
+    And I select "October 16, 2014 16:21:39" as the "Начало:" datetime
+    And I select "October 18, 2014 16:21:39" as the "Край:" datetime
     And I press "Създаване"
     And I follow "Промяна"
     And I fill in the following:
@@ -67,8 +67,8 @@ Feature: Administer contests
     And I fill in the following:
       | Име: | Fall contest |
       | Продължителност: | 120 |
-    And I select "October 16, 2009 16:21:39" as the "Начало:" datetime
-    And I select "October 18, 2009 16:21:39" as the "Край:" datetime
+    And I select "October 16, 2014 16:21:39" as the "Начало:" datetime
+    And I select "October 18, 2014 16:21:39" as the "Край:" datetime
     And I press "Създаване"
     And I follow "Промяна"
     And I fill in the following:
