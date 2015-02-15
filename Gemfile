@@ -31,6 +31,7 @@ end
 
 group :development do
   gem 'spring'
+  gem "spring-commands-rspec"
   gem 'sprockets-rails'
   gem 'uglifier', '>= 1.0.3'
   gem 'sass-rails'
@@ -44,6 +45,7 @@ group :development do
 end
 
 group :test do
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'mocha', :require => 'mocha/api'
   gem 'capybara'
