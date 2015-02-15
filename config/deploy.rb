@@ -1,6 +1,4 @@
 # config valid only for Capistrano 3.1
-lock '3.2.1'
-
 set :application, 'arena.maycamp.com'
 set :repo_url, 'git://github.com/valo/maycamp_arena.git'
 
