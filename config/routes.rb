@@ -84,7 +84,6 @@ MaycampArena::Application.routes.draw do
     end
 
     resources :categories
-    resources :messages
     resource :reports
     resource :ratings do
       member do
