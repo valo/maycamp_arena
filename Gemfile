@@ -24,6 +24,7 @@ gem 'dalli'
 gem 'connection_pool'
 gem 'utf8-cleaner'
 gem 'coderay'
+gem 'pundit'
 
 group :production do
   gem 'SyslogLogger'

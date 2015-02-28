@@ -9,3 +9,6 @@ sets
 config/secrets.yml
 public/assets
 sandbox/*
+*.sublime*
+.capistrano
+.vagrant

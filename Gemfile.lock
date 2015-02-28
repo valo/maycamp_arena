@@ -127,6 +127,8 @@ GEM
       mini_portile (~> 0.6.0)
     puma (2.11.1)
       rack (>= 1.1, < 2.0)
+    pundit (0.3.0)
+      activesupport (>= 3.0.0)
     rack (1.6.0)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -239,6 +241,7 @@ DEPENDENCIES
   mysql2
   newrelic_rpm
   puma
+  pundit
   rails
   rprocfs
   rspec-rails

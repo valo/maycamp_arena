@@ -30,6 +30,16 @@ class User < ActiveRecord::Base
 
   latinize :name
 
+  ADMIN = "admin"
+  COACH = "coach"
+  CONTESTER = "contester"
+
+  ROLES = [
+    ADMIN,
+    COACH,
+    CONTESTER
+  ]
+
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
   # uff.  this is really an authorization, not authentication routine.
@@ -44,6 +54,18 @@ class User < ActiveRecord::Base
     end
 
     nil
+  end
+
+  def admin?
+    self.role == ADMIN
+  end
+
+  def coach?
+    self.role == COACH
+  end
+
+  def contester?
+    self.role == CONTESTER
   end
 
   def login=(value)
@@ -85,8 +107,8 @@ class User < ActiveRecord::Base
   def total_points
     query = %Q{SELECT
                   users.id,
-                  name,
-                  admin,
+                  users.name,
+                  users.role,
                   SUM(max_points_per_problem) as score,
                   SUM(CASE WHEN max_points_per_problem IS NULL THEN 0 ELSE runs_per_problem END) as runs_count,
                   SUM(CASE max_points_per_problem WHEN 100 THEN 1 ELSE 0 END) as full_solutions
@@ -114,7 +136,7 @@ class User < ActiveRecord::Base
       query = %Q{SELECT
                     users.id,
                     users.name,
-                    users.admin,
+                    users.role,
                     users.city,
                     SUM(max_points_per_problem) as score,
                     SUM(CASE WHEN max_points_per_problem IS NULL THEN 0 ELSE runs_per_problem END) as runs_count,
@@ -138,7 +160,7 @@ class User < ActiveRecord::Base
                   ) as problem_points
                 ON problem_points.user_id = users.id
                 WHERE
-                  admin = FALSE
+                  users.role != '#{ ADMIN }'
                 GROUP BY users.id
                 HAVING
                   last_run_send > '#{1.year.ago.to_s(:db)}'
@@ -196,7 +218,7 @@ class User < ActiveRecord::Base
   end
 
   def participates_in_contests?
-    (not self.admin) && self.contester
+    !self.admin? && self.contester?
   end
 
   private

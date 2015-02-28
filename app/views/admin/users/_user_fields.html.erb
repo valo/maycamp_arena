@@ -24,10 +24,6 @@
     <%= f.password_field :unencrypted_password_confirmation %>
 </p>
 <p>
-  <%= f.label :admin, "Администратор?" %>
-  <%= f.check_box :admin %>
-</p>
-<p>
-  <%= f.label :contester, "Състезател?" %>
-  <%= f.check_box :contester %>
+  <%= f.label :role, "Роля" %>
+  <%= f.collection_select :role, User::ROLES, :to_s, :to_s %>
 </p>
