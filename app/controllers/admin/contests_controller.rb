@@ -55,7 +55,10 @@ class Admin::ContestsController < Admin::BaseController
   end
 
   def download_sources
-    @contest = Contest.joins(:runs => [ :user, :problem ]).find(params[:id])
+    @contest = Contest.includes(:runs => [ :user, :problem ]).find(params[:id])
+
+    authorize @contest
+
     @runs = @contest.runs.group_by(&:user)
 
     zip_file = "#{Rails.root}/tmp/#{@contest.latin_name}.zip"

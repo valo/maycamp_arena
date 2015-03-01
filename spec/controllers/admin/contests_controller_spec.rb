@@ -7,11 +7,19 @@ describe Admin::ContestsController do
 
       it { is_expected.to redirect_to(new_session_path) }
     end
+
+    describe "#download_sources" do
+      let(:contest) { create(:contest) }
+
+      before do
+        get :download_sources, id: contest.id
+      end
+
+      it { is_expected.to redirect_to(new_session_path) }
+    end
   end
 
   shared_examples "accessed by authorized user" do
-    before { sign_in(user) }
-
     describe "#index" do
       before { get :index }
 
@@ -63,15 +71,42 @@ describe Admin::ContestsController do
   end
 
   context "with an admin user" do
+    before { sign_in(user) }
+
     let(:user) { create(:user, role: User::ADMIN) }
 
     it_behaves_like "accessed by authorized user"
+
+    describe "#download_sources" do
+      let(:contest) { create(:contest) }
+
+      before do
+        expect(controller).to receive(:send_file)
+        expect(controller).to receive(:render)
+
+        get :download_sources, id: contest.id
+      end
+
+      it { is_expected.to respond_with(:success) }
+    end
   end
 
 
   context "with a coach user" do
+    before { sign_in(user) }
+
     let(:user) { create(:user, role: User::COACH) }
 
     it_behaves_like "accessed by authorized user"
+
+    describe "#download_sources" do
+      let(:contest) { create(:contest) }
+
+      before do
+        get :download_sources, id: contest.id
+      end
+
+      it { is_expected.to redirect_to(new_session_path) }
+    end
   end
 end
