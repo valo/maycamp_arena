@@ -23,6 +23,10 @@ class RunPolicy < ApplicationPolicy
     user_admin?
   end
 
+  def queue?
+    user_admin? || user_coach?
+  end
+
   private
 
   def user_is_coach_and_owns_run?

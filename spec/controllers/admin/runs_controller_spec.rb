@@ -36,6 +36,13 @@ describe Admin::RunsController do
 
       it { is_expected.to redirect_to(new_session_path) }
     end
+
+    describe "#queue" do
+      let(:run) { create(:run) }
+      before { get :queue, id: run.id, contest_id: contest.id, problem_id: problem.id }
+
+      it { is_expected.to redirect_to(new_session_path) }
+    end
   end
 
   context "without a logged-in user" do
@@ -84,6 +91,17 @@ describe Admin::RunsController do
         expect(Run.find(run.id).source_code).to eq(new_source_code)
       end
     end
+
+    describe "#queue" do
+      before do
+        request.env["HTTP_REFERER"] = "test"
+      end
+
+      let(:run) { create(:run) }
+      before { get :queue, id: run.id, contest_id: contest.id, problem_id: problem.id }
+
+      it { is_expected.to redirect_to(request.env["HTTP_REFERER"]) }
+    end
   end
 
   context "with a coach user" do
@@ -123,6 +141,17 @@ describe Admin::RunsController do
       before { put :update, id: run.id, run: { source_code: new_source_code }, contest_id: contest.id, problem_id: problem.id }
 
       it { is_expected.to redirect_to(new_session_path) }
+    end
+
+    describe "#queue" do
+      before do
+        request.env["HTTP_REFERER"] = "test"
+      end
+
+      let(:run) { create(:run) }
+      before { get :queue, id: run.id, contest_id: contest.id, problem_id: problem.id }
+
+      it { is_expected.to redirect_to(request.env["HTTP_REFERER"]) }
     end
   end
 end

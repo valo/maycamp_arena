@@ -14,6 +14,7 @@ class Admin::RunsController < Admin::BaseController
   end
 
   def queue
+    authorize :runs, :queue?
     @runs = Run.includes(:problem)
     @runs = @runs.where(:problem_id => params[:problem_id]) unless params[:problem_id].blank?
     @runs = @runs.where(:id => params[:id]) unless params[:id].blank?
