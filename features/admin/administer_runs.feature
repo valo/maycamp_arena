@@ -16,6 +16,7 @@ Feature: Administer runs
       | login                 | valo                      |
       | password              | secret                    |
     And I press "Влез"
+    And I follow "Състезания"
     And I follow "Ново състезание"
     And I fill in the following:
       | Име: | Fall contest |
