@@ -12,14 +12,55 @@ describe Admin::ContestsController do
   end
 
   shared_examples "accessed by authorized user" do
-    describe "#index" do
-      before do
-        sign_in(user)
+    before { sign_in(user) }
 
-        get :index
-      end
+    describe "#index" do
+      before { get :index }
 
       it { is_expected.to respond_with(:success) }
+    end
+
+    describe "#new" do
+      before { get :new }
+
+      it { is_expected.to respond_with(:success) }
+    end
+
+    describe "#create" do
+      let(:contest_params) { attributes_for(:contest) }
+      before { post :create, contest: contest_params }
+
+      it { is_expected.to redirect_to(admin_contests_path) }
+    end
+
+    describe "#edit" do
+      let(:contest) { create(:contest) }
+      before { get :edit, id: contest.id }
+
+      it { is_expected.to respond_with(:success) }
+    end
+
+    describe "#update" do
+      let(:contest) { create(:contest) }
+      let(:new_name) { "test test test" }
+      before { put :update, id: contest.id, contest: { name: new_name } }
+
+      it { is_expected.to redirect_to(edit_admin_contest_path(contest)) }
+
+      it "changes the name of the contest" do
+        expect(contest.reload.name).to eq(new_name)
+      end
+    end
+
+    describe "#destroy" do
+      let(:contest) { create(:contest) }
+      before { delete :destroy, id: contest.id }
+
+      it { is_expected.to redirect_to(admin_contests_path) }
+
+      it "deletes the contest" do
+        expect(Contest.find_by_id(contest.id)).to be_nil
+      end
     end
   end
 

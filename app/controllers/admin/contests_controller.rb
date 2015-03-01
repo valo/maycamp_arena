@@ -14,10 +14,14 @@ class Admin::ContestsController < Admin::BaseController
   end
 
   def new
+    authorize :contests, :new?
+
     @contest = Contest.new
   end
 
   def create
+    authorize :contests, :create?
+
     @contest = Contest.new(params.require(:contest).permit!)
 
     if @contest.save
@@ -28,23 +32,24 @@ class Admin::ContestsController < Admin::BaseController
   end
 
   def edit
-    @contest = Contest.find(params[:id])
+    authorize contest
   end
 
   def update
-    @contest = Contest.find(params[:id])
-    @contest.attributes = params.require(:contest).permit!
+    authorize contest
+    contest.attributes = params.require(:contest).permit!
 
-    if @contest.save
+    if contest.save
       flash[:notice] = "Състезанието е обновено успешно."
-      redirect_to edit_admin_contest_path(@contest.id)
+      redirect_to edit_admin_contest_path(contest)
     else
       render :action => "edit"
     end
   end
 
   def destroy
-    @contest = Contest.destroy(params[:id])
+    authorize contest
+    contest.destroy
 
     redirect_to :action => "index"
   end
@@ -80,5 +85,11 @@ class Admin::ContestsController < Admin::BaseController
     end
 
     send_file zip_file
+  end
+
+  private
+
+  def contest
+    @contest ||= Contest.find(params[:id])
   end
 end
