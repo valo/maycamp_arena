@@ -1,23 +1,35 @@
 class UserPolicy < ApplicationPolicy
   def show?
-    has_access_to_run?
+    admin_user?
   end
 
   def index?
-    has_access_to_run?
+    admin_user?
   end
 
   def destroy?
-    has_access_to_run?
+    admin_user?
   end
 
   def update?
-    has_access_to_run?
+    admin_user?
+  end
+
+  def create?
+    admin_user?
+  end
+
+  def new?
+    admin_user?
+  end
+
+  def edit?
+    admin_user?
   end
 
   private
 
-  def has_access_to_run?
+  def admin_user?
     user && user.admin?
   end
 end
