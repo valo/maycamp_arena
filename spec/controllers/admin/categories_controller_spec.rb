@@ -1,4 +1,4 @@
-describe Admin::ContestsController do
+describe Admin::CategoriesController do
   context "without a logged-in user" do
     describe "#index" do
       before do
@@ -25,39 +25,39 @@ describe Admin::ContestsController do
     end
 
     describe "#create" do
-      let(:contest_params) { attributes_for(:contest) }
-      before { post :create, contest: contest_params }
+      let(:category_params) { attributes_for(:category) }
+      before { post :create, category: category_params }
 
-      it { is_expected.to redirect_to(admin_contests_path) }
+      it { is_expected.to redirect_to(admin_categories_path) }
     end
 
     describe "#edit" do
-      let(:contest) { create(:contest) }
-      before { get :edit, id: contest.id }
+      let(:category) { create(:category) }
+      before { get :edit, id: category.id }
 
       it { is_expected.to respond_with(:success) }
     end
 
     describe "#update" do
-      let(:contest) { create(:contest) }
+      let(:category) { create(:category) }
       let(:new_name) { "test test test" }
-      before { put :update, id: contest.id, contest: { name: new_name } }
+      before { put :update, id: category.id, category: { name: new_name } }
 
-      it { is_expected.to redirect_to(edit_admin_contest_path(contest)) }
+      it { is_expected.to redirect_to(admin_categories_path) }
 
-      it "changes the name of the contest" do
-        expect(contest.reload.name).to eq(new_name)
+      it "changes the name of the category" do
+        expect(category.reload.name).to eq(new_name)
       end
     end
 
     describe "#destroy" do
-      let(:contest) { create(:contest) }
-      before { delete :destroy, id: contest.id }
+      let(:category) { create(:category) }
+      before { delete :destroy, id: category.id }
 
-      it { is_expected.to redirect_to(admin_contests_path) }
+      it { is_expected.to redirect_to(admin_categories_path) }
 
-      it "deletes the contest" do
-        expect(Contest.find_by_id(contest.id)).to be_nil
+      it "deletes the category" do
+        expect(Contest.find_by_id(category.id)).to be_nil
       end
     end
   end
