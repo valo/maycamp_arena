@@ -4,6 +4,8 @@ require 'zip/zipfilesystem'
 
 class Admin::ContestsController < Admin::BaseController
   def index
+    authorize :contests, :index?
+
     @contests = Contest.order("end_time DESC").paginate(:page => params[:page], :per_page => 20)
   end
 
