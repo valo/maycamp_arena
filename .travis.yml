@@ -4,3 +4,4 @@ rvm:
 before_script:
   - mysql -e 'create database spoj0_test;'
 sudo: false
+cache: bundler
