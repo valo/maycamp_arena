@@ -79,6 +79,14 @@ class Admin::UsersController < Admin::BaseController
     redirect_to admin_users_path
   end
 
+  def impersonate
+    authorize user
+
+    self.current_user = user
+
+    redirect_to root_path
+  end
+
   private
 
   def user

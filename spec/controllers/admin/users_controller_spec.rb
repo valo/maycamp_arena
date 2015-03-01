@@ -49,6 +49,14 @@ describe Admin::UsersController do
 
       it { is_expected.to redirect_to(new_session_path) }
     end
+
+    describe "#impersonate" do
+      let(:user) { create(:user) }
+
+      before { post :impersonate, id: user.id }
+
+      it { is_expected.to redirect_to(new_session_path) }
+    end
   end
 
   shared_examples "accessed by authorized user" do
@@ -109,6 +117,18 @@ describe Admin::UsersController do
       before { get :restart_time, id: user.id, contest_id: contest.id }
 
       it { is_expected.to redirect_to(admin_user_path(user)) }
+    end
+
+    describe "#impersonate" do
+      let(:user) { create(:user) }
+
+      before { post :impersonate, id: user.id }
+
+      it { is_expected.to redirect_to(root_path) }
+
+      it "changes the currently logged user" do
+        expect(session[:user_id]).to eq(user.id)
+      end
     end
   end
 
