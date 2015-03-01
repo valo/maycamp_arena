@@ -3,3 +3,4 @@ rvm:
   - 2.1.1
 before_script:
   - mysql -e 'create database spoj0_test;'
+sudo: false
