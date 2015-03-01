@@ -1,5 +1,7 @@
 class Admin::ReportsController < Admin::BaseController
   def show
+    authorize :reports, :show?
+
     @daily_submits_report = Run.where("created_at > ?", 3.weeks.ago.to_s(:db)).
                                 select("id").
                                 group("DATE_FORMAT(created_at, '%Y/%m/%d')").
