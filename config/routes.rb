@@ -30,8 +30,6 @@ MaycampArena::Application.routes.draw do
 
   resources :categories
 
-  get "/admin", to: "admin#index"
-
   namespace :admin do
     resource :status
     resources :users do

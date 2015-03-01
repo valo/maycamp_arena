@@ -1,5 +1,5 @@
 class ExternalContestPolicy < ApplicationPolicy
   def index?
-    user && user.admin?
+    false
   end
 end
