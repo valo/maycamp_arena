@@ -3,9 +3,42 @@ describe Admin::UsersController do
     before { sign_in(current_user) if current_user }
 
     describe "#index" do
-      before do
-        get :index
-      end
+      before { get :index }
+
+      it { is_expected.to redirect_to(new_session_path) }
+    end
+
+    describe "#new" do
+      before { get :new }
+
+      it { is_expected.to redirect_to(new_session_path) }
+    end
+
+    describe "#create" do
+      let(:user_params) { attributes_for(:user) }
+      before { post :create, user: user_params }
+
+      it { is_expected.to redirect_to(new_session_path) }
+    end
+
+    describe "#edit" do
+      let(:user) { create(:user) }
+      before { get :edit, id: user.id }
+
+      it { is_expected.to redirect_to(new_session_path) }
+    end
+
+    describe "#update" do
+      let(:user) { create(:user) }
+      let(:new_name) { "test test test" }
+      before { put :update, id: user.id, user: { name: new_name } }
+
+      it { is_expected.to redirect_to(new_session_path) }
+    end
+
+    describe "#destroy" do
+      let(:user) { create(:user) }
+      before { delete :destroy, id: user.id }
 
       it { is_expected.to redirect_to(new_session_path) }
     end
