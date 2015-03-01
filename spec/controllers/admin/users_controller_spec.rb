@@ -36,6 +36,13 @@ describe Admin::UsersController do
       it { is_expected.to redirect_to(new_session_path) }
     end
 
+    describe "#restart_time" do
+      let(:user) { create(:user) }
+      before { get :restart_time, id: user.id }
+
+      it { is_expected.to redirect_to(new_session_path) }
+    end
+
     describe "#destroy" do
       let(:user) { create(:user) }
       before { delete :destroy, id: user.id }
@@ -94,6 +101,14 @@ describe Admin::UsersController do
       it "deletes the user" do
         expect(Contest.find_by_id(user.id)).to be_nil
       end
+    end
+
+    describe "#restart_time" do
+      let(:user) { create(:user) }
+      let(:contest) { create(:contest) }
+      before { get :restart_time, id: user.id, contest_id: contest.id }
+
+      it { is_expected.to redirect_to(admin_user_path(user)) }
     end
   end
 

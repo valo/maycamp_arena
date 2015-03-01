@@ -27,6 +27,10 @@ class UserPolicy < ApplicationPolicy
     admin_user?
   end
 
+  def restart_time?
+    admin_user?
+  end
+
   private
 
   def admin_user?
