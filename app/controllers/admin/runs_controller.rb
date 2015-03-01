@@ -2,6 +2,8 @@
 
 class Admin::RunsController < Admin::BaseController
   def index
+    authorize :runs, :index?
+
     @runs = Run.includes({ :problem => :contest }, :user).order("runs.created_at DESC")
     @runs = @runs.where(:problem_id => params[:problem_id]) unless params[:problem_id].blank?
     @runs = @runs.where(:problems => { :contest_id => params[:contest_id] }) unless params[:contest_id].blank?
@@ -21,10 +23,12 @@ class Admin::RunsController < Admin::BaseController
   end
 
   def show
-    @run = Run.find(params[:id])
+    authorize run
   end
 
   def new
+    authorize :runs, :new?
+
     @contest = Contest.find(params[:contest_id])
     @problem = Problem.find(params[:problem_id])
 
@@ -32,12 +36,13 @@ class Admin::RunsController < Admin::BaseController
   end
 
   def edit
-    @run = Run.find(params[:id])
+    authorize run
   end
 
   def update
-    @run = Run.find(params[:id])
-    if @run.update_attributes(params.require(:run).permit!)
+    authorize run
+
+    if run.update_attributes(params.require(:run).permit!)
       redirect_to(admin_contest_problem_run_path(@run.problem.contest, @run.problem, @run))
     else
       render :action => "edit"
@@ -45,6 +50,8 @@ class Admin::RunsController < Admin::BaseController
   end
 
   def create
+    authorize :runs, :create?
+
     @contest = Contest.find(params[:contest_id])
     @problem = Problem.find(params[:problem_id])
 
@@ -56,5 +63,11 @@ class Admin::RunsController < Admin::BaseController
     else
       render :action => "new"
     end
+  end
+
+  private
+
+  def run
+    @run = Run.find(params[:id])
   end
 end

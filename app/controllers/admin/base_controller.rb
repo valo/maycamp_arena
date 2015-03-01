@@ -1,7 +1,7 @@
 class Admin::BaseController < ApplicationController
   before_filter :login_required
   helper :admin
-  # after_action :verify_authorized
+  after_action :verify_authorized
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   
