@@ -19,8 +19,7 @@
       <th>Login</th>
       <th>Име</th>
       <th>Email</th>
-      <th>Админ?</th>
-	  <th>Състезател?</th>
+      <th>Роля</th>
       <th>Действия</th>
     </tr>
   <% for user in @users do %>
@@ -28,12 +27,12 @@
       <td><%= user.login %></td>
       <td><%= user.name %></td>
       <td><%= user.email %></td>
-      <td><%= check_box_tag "is_admin_#{user.login}", "1", user.admin?, :disabled => true %></td>
-	  <td><%= check_box_tag "is_contester_#{user.login}", "1", user.contester?, :disabled => true %></td>
+      <td><%= user.role %></td>
       <td>
-        <%= link_to "Админ преглед", admin_user_path(user) %> |
-        <%= link_to "Преглед", user_path(user) %> |
-        <%= link_to "Промяна", edit_admin_user_path(user) %> |
+        <%= link_to "Админ преглед", admin_user_path(user) %>
+        <%= link_to "Преглед", user_path(user) %>
+        <%= link_to "Промяна", edit_admin_user_path(user) %>
+        <%= link_to "Логин", impersonate_admin_user_path(user), method: :post %>
         <%= link_to "Изтриване", admin_user_path(user), :data => { :confirm => "Сигурни ли сте, че искате да изтриете този потребител?" }, :method => :delete %>
       </td>
     </tr>

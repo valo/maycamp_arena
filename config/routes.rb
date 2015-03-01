@@ -35,6 +35,7 @@ MaycampArena::Application.routes.draw do
     resources :users do
       member do
         get :restart_time
+        post :impersonate
       end
 
       resources :runs do
