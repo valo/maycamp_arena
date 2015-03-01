@@ -3,6 +3,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require highcharts
+//= require codemirror
 
 $(function() {
   if (typeof(daily_submits_report) != "undefined")
@@ -173,5 +174,10 @@ $(function() {
        name: "Rating",
        data: $.map(rating_report, function(ele, index) { ele["x"] = Date.parse(ele["x"]);return ele;})
      }]
+  });
+
+  // CodeMirror
+  var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("run_source_code"), {
+    lineNumbers: true
   });
 });

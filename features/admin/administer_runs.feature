@@ -36,7 +36,6 @@ Feature: Administer runs
     And I follow "Задачи" within ".post"
     And I follow "Решения"
     And I follow "Пращане на решение"
-    And I select "Valentin Mihov" from "Потребител:"
     And I fill in the following:
       | Език: | C/C++ |
       | Сорс код: | #include <stdio.h> |
@@ -51,7 +50,6 @@ Feature: Administer runs
     And I follow "Задачи" within ".post"
     And I follow "Решения"
     And I follow "Пращане на решение"
-    And I select "Valentin Mihov" from "Потребител:"
     And I fill in the following:
       | Език: | C/C++ |
       | Сорс код: | #include <stdio.h> |
@@ -67,7 +65,6 @@ Feature: Administer runs
     And I follow "Задачи" within ".post"
     And I follow "Решения"
     And I follow "Пращане на решение"
-    And I select "Valentin Mihov" from "Потребител:"
     And I fill in the following:
       | Език: | C/C++ |
       | Сорс код: | #include <stdio.h> |

@@ -25,6 +25,7 @@ gem 'connection_pool'
 gem 'utf8-cleaner'
 gem 'coderay'
 gem 'pundit'
+gem 'codemirror-rails'
 
 group :production do
   gem 'SyslogLogger'

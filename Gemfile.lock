@@ -66,6 +66,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    codemirror-rails (5.0)
+      railties (>= 3.0, < 5)
     coderay (1.1.0)
     colorize (0.7.5)
     connection_pool (2.1.1)
@@ -230,6 +232,7 @@ DEPENDENCIES
   capistrano-rvm
   capistrano3-puma
   capybara
+  codemirror-rails
   coderay
   connection_pool
   cucumber-rails
