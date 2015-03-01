@@ -56,7 +56,7 @@ class Admin::RunsController < Admin::BaseController
     @contest = Contest.find(params[:contest_id])
     @problem = Problem.find(params[:problem_id])
 
-    @run = @problem.runs.build(params.require(:run).permit!)
+    @run = @problem.runs.build(params.require(:run).permit(:source_code, :language).merge(user_id: current_user.id))
 
     if @run.save
       flash[:notice] = "Решението е пратено успешно"

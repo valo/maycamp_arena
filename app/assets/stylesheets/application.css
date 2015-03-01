@@ -2,7 +2,7 @@
 //= require inove_admin
 //= require coderay
 //= require ratings
-
+//= require codemirror
 
 body {
   font-family: Lucida Grande, Arial, "MS Trebuchet", sans-serif;

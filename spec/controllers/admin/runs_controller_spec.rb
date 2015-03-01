@@ -116,16 +116,16 @@ describe Admin::RunsController do
     end
 
     describe "#create" do
-      let(:run_params) { attributes_for(:run) }
+      let(:run_params) { attributes_for(:run).merge(user_id: current_user.id) }
       before { post :create, run: run_params, contest_id: contest.id, problem_id: problem.id }
 
-      it { is_expected.to redirect_to(new_session_path) }
+      it { is_expected.to redirect_to(admin_contest_problem_runs_path(contest, problem)) }
     end
 
     describe "#new" do
       before { get :new, contest_id: contest.id, problem_id: problem.id }
 
-      it { is_expected.to redirect_to(new_session_path) }
+      it { is_expected.to respond_with(:success) }
     end
 
     describe "#edit" do

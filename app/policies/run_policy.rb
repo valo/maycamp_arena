@@ -12,11 +12,11 @@ class RunPolicy < ApplicationPolicy
   end
 
   def create?
-    user_admin?
+    user_admin? || user_coach?
   end
 
   def new?
-    user_admin?
+    user_admin? || user_coach?
   end
 
   def edit?

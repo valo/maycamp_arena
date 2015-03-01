@@ -28,6 +28,13 @@ The grader is a simple ruby class, which compiles the programs with g++ and runs
 
 ### How to install and setup
 
+It is recommended to use RVM, as it won't require you root permissions. You need to first [install](https://rvm.io/rvm/install) RVM and then you need ruby 2.1.1:
+
+```bash
+$ rvm install 2.1.1
+$ rvm use 2.1.1
+```
+
 Run this:
 
 ```bash
