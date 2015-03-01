@@ -2,18 +2,19 @@ require 'zip/zip'
 
 class Admin::ProblemsController < Admin::BaseController
   def new
-    @contest = Contest.find(params[:contest_id])
+    authorize contest, :edit?
     @problem = Problem.new
   end
 
   def index
-    @contest = Contest.find(params[:contest_id])
+    authorize contest, :edit?
   end
 
   def create
+    authorize contest, :edit?
+
     params[:problem][:category_ids] ||= []
-    @contest = Contest.find(params[:contest_id])
-    @problem = @contest.problems.build(params.require(:problem).permit!.except(:archive, :solution))
+    @problem = contest.problems.build(params.require(:problem).permit!.except(:archive, :solution))
 
     if @problem.save
 
@@ -37,22 +38,30 @@ class Admin::ProblemsController < Admin::BaseController
   end
 
   def destroy
-    @contest = Contest.find(params[:contest_id])
+    authorize contest, :edit?
+
     Problem.destroy(params[:id])
-    redirect_to admin_contest_problems_path(@contest)
+    redirect_to admin_contest_problems_path(contest)
   end
 
   def show
     @problem = Problem.find(params[:id])
+
+    authorize @problem.contest, :edit?
   end
 
   def edit
     @problem = Problem.find(params[:id])
+
+    authorize @problem.contest, :edit?
   end
 
   def update
     params[:problem][:category_ids] ||= []
     @problem = Problem.find(params[:id])
+
+    authorize @problem.contest, :edit?
+
     @problem.attributes = params.require(:problem).permit!
 
     if @problem.save
@@ -64,6 +73,9 @@ class Admin::ProblemsController < Admin::BaseController
 
   def purge_files
     @problem = Problem.find(params[:id])
+
+    authorize @problem.contest, :edit?
+
     Dir[File.join(@problem.tests_dir, "*")].each do |filename|
       next unless File.file?(filename)
       logger.warn "Deleting file #{filename}"
@@ -78,10 +90,14 @@ class Admin::ProblemsController < Admin::BaseController
 
   def upload_file
     @problem = Problem.find(params[:id])
+
+    authorize @problem.contest, :edit?
   end
 
   def do_upload_file
     @problem = Problem.find(params[:id])
+
+    authorize @problem.contest, :edit?
 
     process_uploaded_file params[:tests][:file]
 
@@ -96,11 +112,15 @@ class Admin::ProblemsController < Admin::BaseController
   def download_file
     @problem = Problem.find(params[:id])
 
+    authorize @problem.contest, :edit?
+
     send_file File.join(@problem.tests_dir, params[:file])
   end
 
   def compile_checker
     @problem = Problem.find(params[:id])
+
+    authorize @problem.contest, :edit?
 
     checker_source = @problem.checker_source
     if checker_source.nil?
@@ -156,5 +176,9 @@ class Admin::ProblemsController < Admin::BaseController
         # ones of the current user. See the umask man page for details
         FileUtils.chmod 0666 & ~File.umask, dest
       end
+    end
+
+    def contest
+      @contest ||= Contest.find(params[:contest_id])
     end
 end

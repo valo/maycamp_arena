@@ -2,9 +2,9 @@ require 'test_helper'
 
 class ContestResultTest < ActiveSupport::TestCase
   test "results contain only contesters" do
-    user_admin = create(:user, :admin => true)
+    user_admin = create(:user, :role => User::ADMIN)
     assert_equal false, user_admin.participates_in_contests?
-    user_contester = create(:user, :contester => true, :admin => false)
+    user_contester = create(:user, :role => User::CONTESTER)
     assert user_contester.participates_in_contests?
 
     contest = create(:contest)

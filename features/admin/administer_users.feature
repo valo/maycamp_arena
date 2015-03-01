@@ -71,5 +71,5 @@ Feature: Administer users
       | login                 | valo                      |
       | password              | secret                    |
     And I press "Влез"
-    Then I should be on the contest list in the admin panel
+    Then I should be on the homepage
     And I should see "Pesho Peshev (Изход)"

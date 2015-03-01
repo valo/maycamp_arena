@@ -70,7 +70,7 @@ class MainController < ApplicationController
 
   def status
     @runs = Run.includes(:user, { :problem => :contest }).
-                where(:contests => { :practicable => true, :visible => true }, :users => { :admin => false }).
+                where(:contests => { :practicable => true, :visible => true }).where.not(:users => { :role => User::ADMIN }).
                 order("runs.created_at DESC").
                 paginate(:per_page => 50,
                          :page => params.fetch(:page, 1))
@@ -86,7 +86,7 @@ class MainController < ApplicationController
   def problem_runs
     @problem = Problem.includes(:contest).where(:contests => { :visible => true, :practicable => true }).find(params[:id])
     @runs = Run.includes(:user).
-                where(:users => { :admin => false }, :problem => @problem.id).
+                where.not(:users => { :role => User::ADMIN }).where(:problem => @problem.id).
                 order("runs.created_at DESC").
                 paginate(:per_page => 50, :page => params.fetch(:page, 1))
   end

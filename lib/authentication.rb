@@ -30,13 +30,9 @@ module Authentication
       self.current_user = User.find_by_id(session[:user_id]) if session[:user_id]
     end
     
-    def authorized?
-      true
-    end
-    
     def login_required_without_data_check
       session[:back] = nil
-      if !logged_in? or !authorized?
+      if !logged_in?
         session[:back] = request.url if !logged_in?
         redirect_to new_session_path
       end

@@ -6,7 +6,7 @@ FactoryGirl.define do
     u.sequence(:login) { |n| "login#{n}" }
     u.unencrypted_password "secret"
     u.unencrypted_password_confirmation "secret"
-    u.admin false
+    u.role User::CONTESTER
     u.name "Valentin Mihov"
     u.city { BG_CITIES.first }
   end
@@ -21,14 +21,16 @@ FactoryGirl.define do
   factory :run do |r|
     r.language "C/C++"
     r.source_code "#include <stdio.h>"
-    r.problem { |problem| problem.association(:problem) }
-    r.user { |user| user.association(:problem) }
+
+    association :problem
+    association :user
   end
 
   factory :problem do |p|
     p.time_limit 1
     p.name "Test problem"
-    p.contest { |contest| contest.association(:contest) }
+
+    association :contest
   end
 
   factory :category do |c|
@@ -37,12 +39,14 @@ FactoryGirl.define do
 
   factory :contest_result do |c|
     c.contest { |contest| contest.association(:contest) }
-    c.user { |user| user.association(:user) }
+
+    association :user
   end
 
   factory :contest_start_event do |c|
     c.contest { |contest| contest.association(:contest) }
-    c.user { |user| user.association(:user) }
+
+    association :user
   end
 
   factory :external_contest do |c|

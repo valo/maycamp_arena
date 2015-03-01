@@ -17,4 +17,4 @@ Feature: Administrator login
       | password              | secret                    |
     And I press "Влез"
     Then I should see "Valentin Mihov (Изход)"
-    And I should be on the contest list in the admin panel
+    And I should be on the homepage

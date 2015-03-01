@@ -4,6 +4,8 @@ require 'zip/zipfilesystem'
 
 class Admin::ContestsController < Admin::BaseController
   def index
+    authorize :contests, :index?
+
     @contests = Contest.order("end_time DESC").paginate(:page => params[:page], :per_page => 20)
   end
 
@@ -12,10 +14,14 @@ class Admin::ContestsController < Admin::BaseController
   end
 
   def new
+    authorize :contests, :new?
+
     @contest = Contest.new
   end
 
   def create
+    authorize :contests, :create?
+
     @contest = Contest.new(params.require(:contest).permit!)
 
     if @contest.save
@@ -26,32 +32,36 @@ class Admin::ContestsController < Admin::BaseController
   end
 
   def edit
-    @contest = Contest.find(params[:id])
+    authorize contest
   end
 
   def update
-    @contest = Contest.find(params[:id])
-    @contest.attributes = params.require(:contest).permit!
+    authorize contest
+    contest.attributes = params.require(:contest).permit!
 
-    if @contest.save
+    if contest.save
       flash[:notice] = "Състезанието е обновено успешно."
-      redirect_to edit_admin_contest_path(@contest.id)
+      redirect_to edit_admin_contest_path(contest)
     else
       render :action => "edit"
     end
   end
 
   def destroy
-    @contest = Contest.destroy(params[:id])
+    authorize contest
+    contest.destroy
 
     redirect_to :action => "index"
   end
 
   def download_sources
-    @contest = Contest.joins(:runs => [ :user, :problem ]).find(params[:id])
+    @contest = Contest.includes(:runs => [ :user, :problem ]).find(params[:id])
+
+    authorize @contest
+
     @runs = @contest.runs.group_by(&:user)
 
-    zip_file = "#{Rails.root}/tmp/#{@contest.latin_name}.zip"
+    zip_file = "#{Rails.root}/tmp/#{@contest.latin_name.gsub(/\s+/, "_").downcase}.zip"
     FileUtils.rm zip_file if File.exists?(zip_file)
 
     Zip::ZipFile.open(zip_file, Zip::ZipFile::CREATE) do |zip|
@@ -78,5 +88,11 @@ class Admin::ContestsController < Admin::BaseController
     end
 
     send_file zip_file
+  end
+
+  private
+
+  def contest
+    @contest ||= Contest.find(params[:id])
   end
 end

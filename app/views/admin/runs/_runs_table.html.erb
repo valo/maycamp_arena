@@ -22,9 +22,15 @@
         <td class="time"><%= run.max_time.to_f %></td>
         <td class="mem"><%= run.max_memory.to_i / 1024 %> KB</td>
         <td>
-            <%= link_to "Тестване", queue_admin_contest_run_path(run.problem.contest, run) %> |
-            <%= link_to "Разглеждане", admin_contest_problem_run_path(run.problem.contest, run.problem, run) %> |
-            <%= link_to "Редактиране", edit_admin_contest_problem_run_path(run.problem.contest, run.problem, run) %>
+            <% if policy(run).queue? %>
+                <%= link_to "Тестване", queue_admin_contest_run_path(run.problem.contest, run) %>
+            <% end %>
+            <% if policy(run).show? %>
+                <%= link_to "Разглеждане", admin_contest_problem_run_path(run.problem.contest, run.problem, run) %>
+            <% end %>
+            <% if policy(run).edit? %>
+                <%= link_to "Редактиране", edit_admin_contest_problem_run_path(run.problem.contest, run.problem, run) %>
+            <% end %>
         </td>
     </tr>
 <% end %>

@@ -24,6 +24,7 @@ gem 'dalli'
 gem 'connection_pool'
 gem 'utf8-cleaner'
 gem 'coderay'
+gem 'pundit'
 
 group :production do
   gem 'SyslogLogger'
@@ -46,6 +47,7 @@ end
 
 group :test do
   gem 'rspec-rails'
+  gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'mocha', :require => 'mocha/api'
   gem 'capybara'

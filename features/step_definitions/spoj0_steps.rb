@@ -22,7 +22,7 @@ end
 
 Given /^there is an admin user with attributes:$/ do |table|
   user = build(:user, table.transpose.hashes.first)
-  user.admin = true
+  user.role = User::ADMIN
   user.save!
 end
 
@@ -65,7 +65,7 @@ Given /^the user "([^\"]*)" opens the contest "([^\"]*)"$/ do |user, contest|
 end
 
 Given(/^I am logged in as contestant user with attributes:$/) do |user_attrs|
-  user = create(:user, user_attrs.transpose.hashes.first.merge(:admin => false, :unencrypted_password => "secret", :unencrypted_password_confirmation => "secret"))
+  user = create(:user, user_attrs.transpose.hashes.first.merge(:unencrypted_password => "secret", :unencrypted_password_confirmation => "secret"))
   steps %{And I am on the login page
           And I fill in the following:
             | login                 | #{user.login}             |

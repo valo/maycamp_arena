@@ -1,17 +1,23 @@
 class Admin::CategoriesController < Admin::BaseController
   def index
+    authorize :categories, :index?
+
     @categories = Category.all
   end
 
   def show
-    @category = Category.find(params[:id])
+    authorize category
   end
 
   def new
+    authorize :categories, :new?
+
     @category = Category.new
   end
 
   def create
+    authorize :categories, :create?
+
     @category = Category.new(params.require(:category).permit!)
 
     if @category.save
@@ -22,14 +28,15 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def edit
-    @category = Category.find(params[:id])
+    authorize category
   end
 
   def update
-    @category = Category.find(params[:id])
-    @category.attributes = params.require(:category).permit!
+    authorize category
 
-    if @category.save
+    category.attributes = params.require(:category).permit!
+
+    if category.save
       redirect_to admin_categories_path
     else
       render :action => "edit"
@@ -37,9 +44,16 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def destroy
-    @category = Category.find(params[:id])
-    @category.destroy
+    authorize category
+
+    category.destroy
     redirect_to admin_categories_path
+  end
+
+  private
+
+  def category
+    @category ||= Category.find(params[:id])
   end
 
 end

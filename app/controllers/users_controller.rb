@@ -39,7 +39,7 @@ class UsersController < ApplicationController
                                 count(:id)
 
     @runs = Run.includes({:problem => :contest}, :user).
-                where(:contests => {:practicable => true, :visible => true }, :users => { :admin => false }, :runs => { :user_id => @user.id }).
+                where(:contests => {:practicable => true, :visible => true }, :runs => { :user_id => @user.id }).
                 order("runs.created_at DESC").
                 paginate(:page => params[:page], :per_page => 10)
   end

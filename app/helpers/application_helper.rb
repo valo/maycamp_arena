@@ -51,11 +51,11 @@ module ApplicationHelper
   end
 
   def problem_runs_count(problem)
-    Run.joins(:user).where(:users => { :admin => false }, :problem_id => problem.id).count
+    Run.joins(:user).where.not(:users => { :role => User::ADMIN }).where(:problem_id => problem.id).count
   end
 
   def problem_runs_total_points(problem)
-    Run.joins(:user).where(:users => { :admin => false }, :problem_id => problem.id).sum(:total_points)
+    Run.joins(:user).where.not(:users => { :role => User::ADMIN }).where(:problem_id => problem.id).sum(:total_points)
   end
 
   def coderay_language(run)

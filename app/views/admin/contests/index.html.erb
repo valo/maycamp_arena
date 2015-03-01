@@ -18,11 +18,13 @@
       <td><%= contest.end_time.to_s :long %></td>
       <td><%= duration_in_words contest.duration.minutes  %></td>
       <td>
-        <%= link_to "Промяна", edit_admin_contest_path(contest) %> |
-        <%= link_to "Изтриване", admin_contest_path(contest), :data => { :confirm => "Сигурни ли сте, че желаете да изтриете това състезание?" }, :method => :delete %> |
-        <%= link_to "Задачи", admin_contest_problems_path(contest) %> |
-        <%= link_to "Решения", admin_contest_runs_path(contest) %> |
-        <%= link_to "Свали решенията", download_sources_admin_contest_path(contest) %>
+        <%= link_to "Промяна", edit_admin_contest_path(contest) %>
+        <%= link_to "Изтриване", admin_contest_path(contest), :data => { :confirm => "Сигурни ли сте, че желаете да изтриете това състезание?" }, :method => :delete %>
+        <%= link_to "Задачи", admin_contest_problems_path(contest) %>
+        <%= link_to "Решения", admin_contest_runs_path(contest) %>
+        <% if policy(contest).download_sources? %>
+          <%= link_to "Свали решенията", download_sources_admin_contest_path(contest) %>
+        <% end %>
       </td>
     </tr>
   <% end %>

@@ -17,8 +17,6 @@ class SessionsController < ApplicationController
         back_path = session[:back]
         session[:back] = nil
         redirect_to back_path
-      elsif user.admin?
-        redirect_to :controller => :admin, :action => :index
       else
         redirect_to root_path
       end
