@@ -2,7 +2,7 @@
 db/*.sqlite3
 db/*.gz
 log/*.log
-tmp/**/*
+tmp/*
 .DS_Store
 vendor/bundle
 sets
