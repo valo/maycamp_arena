@@ -11,6 +11,6 @@ u = User.create(
   :email => "valentin.mihov@gmail.com",
   :unencrypted_password => "123123",
   :unencrypted_password_confirmation => "123123",
-  :admin => true,
+  :role => User::ADMIN,
   :city => "Sofia"
 )
