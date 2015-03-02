@@ -1,3 +1,5 @@
+require 'mocha/api'
+
 World(Mocha::API)
  
 Before do
