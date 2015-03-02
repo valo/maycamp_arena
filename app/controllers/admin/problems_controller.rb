@@ -169,7 +169,7 @@ class Admin::ProblemsController < Admin::BaseController
         end
       else
         dest = File.join(@problem.tests_dir, @upload.original_filename)
-        FileUtils.cp @upload.local_path, dest
+        FileUtils.cp @upload.path, dest
         # Set the permissions of the copied file to the right ones. This is
         # because the uploads are created with 0600 permissions in the /tmp
         # folder. The 0666 & ~File.umask will set the permissions to the default
