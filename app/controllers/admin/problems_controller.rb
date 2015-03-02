@@ -162,7 +162,7 @@ class Admin::ProblemsController < Admin::BaseController
         # Extract the bundle
         Zip::ZipFile.foreach(@upload.tempfile.path) do |filename|
           if filename.file? and !filename.name.include?('/')
-            dest = File.join(@problem.tests_dir, filename.name).downcase
+            dest = File.join(@problem.tests_dir, filename.name)
             FileUtils.rm(dest) if File.exists?(dest)
             filename.extract dest
           end
