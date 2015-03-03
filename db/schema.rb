@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150301164809) do
+ActiveRecord::Schema.define(version: 20150303090755) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20150301164809) do
     t.integer "category_id", limit: 4
     t.integer "problem_id",  limit: 4
   end
+
+  add_index "categories_problems", ["category_id"], name: "index_categories_problems_on_category_id", using: :btree
 
   create_table "configurations", force: :cascade do |t|
     t.string   "key",        limit: 255,                    null: false
@@ -40,6 +42,9 @@ ActiveRecord::Schema.define(version: 20150301164809) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "contest_results", ["contest_id"], name: "index_contest_results_on_contest_id", using: :btree
+  add_index "contest_results", ["user_id"], name: "index_contest_results_on_user_id", using: :btree
 
   create_table "contest_start_events", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -112,6 +117,8 @@ ActiveRecord::Schema.define(version: 20150301164809) do
     t.string   "diff_parameters", limit: 255,                         default: "",       null: false
   end
 
+  add_index "problems", ["contest_id"], name: "index_problems_on_contest_id", using: :btree
+
   create_table "rating_changes", force: :cascade do |t|
     t.integer  "user_id",                   limit: 4
     t.integer  "contest_result_id",         limit: 4
@@ -123,11 +130,15 @@ ActiveRecord::Schema.define(version: 20150301164809) do
     t.datetime "updated_at"
   end
 
+  add_index "rating_changes", ["user_id"], name: "index_rating_changes_on_user_id", using: :btree
+
   create_table "run_blob_collections", force: :cascade do |t|
     t.integer "run_id",      limit: 4,     null: false
     t.binary  "source_code", limit: 65535
     t.text    "log",         limit: 65535
   end
+
+  add_index "run_blob_collections", ["run_id"], name: "index_run_blob_collections_on_run_id", using: :btree
 
   create_table "runs", force: :cascade do |t|
     t.integer  "problem_id",   limit: 4,                                                 null: false
@@ -142,6 +153,7 @@ ActiveRecord::Schema.define(version: 20150301164809) do
   end
 
   add_index "runs", ["created_at"], name: "index_runs_on_created_at", using: :btree
+  add_index "runs", ["problem_id"], name: "index_runs_on_problem_id", using: :btree
   add_index "runs", ["status", "created_at"], name: "status_created_at", length: {"status"=>255, "created_at"=>nil}, using: :btree
   add_index "runs", ["updated_at"], name: "index_runs_on_updated_at", using: :btree
   add_index "runs", ["user_id", "problem_id"], name: "index_runs_on_user_id_and_problem_id", using: :btree
@@ -162,6 +174,8 @@ ActiveRecord::Schema.define(version: 20150301164809) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "user_preferences", ["user_id"], name: "index_user_preferences_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "login",      limit: 40
