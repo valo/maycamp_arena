@@ -162,14 +162,14 @@ class Admin::ProblemsController < Admin::BaseController
         # Extract the bundle
         Zip::ZipFile.foreach(@upload.tempfile.path) do |filename|
           if filename.file? and !filename.name.include?('/')
-            dest = File.join(@problem.tests_dir, filename.name).downcase
+            dest = File.join(@problem.tests_dir, filename.name)
             FileUtils.rm(dest) if File.exists?(dest)
             filename.extract dest
           end
         end
       else
         dest = File.join(@problem.tests_dir, @upload.original_filename)
-        FileUtils.cp @upload.local_path, dest
+        FileUtils.cp @upload.path, dest
         # Set the permissions of the copied file to the right ones. This is
         # because the uploads are created with 0600 permissions in the /tmp
         # folder. The 0666 & ~File.umask will set the permissions to the default
