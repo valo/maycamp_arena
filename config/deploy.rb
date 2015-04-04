@@ -1,4 +1,3 @@
-require 'airbrake/capistrano'
 
 # config valid only for Capistrano 3.1
 set :application, 'arena.maycamp.com'
@@ -77,3 +76,5 @@ namespace :deploy do
     end
   end
 end
+
+after 'deploy:finished', 'airbrake:deploy'
