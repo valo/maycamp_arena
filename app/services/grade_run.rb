@@ -9,7 +9,7 @@ class GradeRun
     run.update_attributes(:status => Run::JUDGING) unless dry_run
 
     puts "Judging run with id #{run.id} with #{tests} tests"
-    
+
     Dir.chdir(File.join(Rails.root, "sandbox")) do
       File.open("grader.log", "w") do |f|
         f.sync = true
@@ -25,7 +25,7 @@ class GradeRun
 
           status = run_tests(run, tests)
           puts "final result: #{status.inspect}"
-          
+
           run.update_attributes(:status => status, :log => File.read("grader.log")) unless dry_run
         end
 
@@ -111,7 +111,7 @@ class GradeRun
         checker = File.join(Rails.root, "ext/diff.rb")
         verbose_system "#{checker} #{run.problem.diff_parameters} #{answer_file} output"
       end
-      
+
       if $?.exitstatus != 0
         "wa"
       else
@@ -149,7 +149,7 @@ class GradeRun
       old_stdout, old_stderr = $stdout.dup, $stderr.dup
       STDOUT.reopen(new_stdout)
       STDERR.reopen(new_stderr)
-      
+
       yield
     ensure
       STDOUT.reopen(old_stdout)
