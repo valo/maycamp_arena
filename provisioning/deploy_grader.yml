@@ -44,6 +44,9 @@
     - name: Configure God
       template: src=grader.god dest={{ workdir }}/grader.god
 
+    - name: Configure Grader
+      template: src=grader.yml dest={{ workdir }}/config/grader.yml
+
     - name: Start grader
       command: god load {{ workdir }}/grader.god
       environment: env

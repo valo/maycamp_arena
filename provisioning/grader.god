@@ -4,6 +4,7 @@ God.watch do |w|
   w.start = "cd {{ workdir }} && /home/grader/.rvm/bin/rvm 2.1 do bundle exec rake RAILS_ENV=production grader:start"
   w.start_grace = 10.seconds
   w.log = "{{ workdir }}/grader.log"
+  w.pid_file = "{{ workdir }}/tmp/grader.pid"
 
   w.behavior(:clean_pid_file)
 

@@ -14,7 +14,7 @@
 
     - name: enable memcached service
       sudo: yes
-      action: service name=memcached state=started enabled=yes 
+      action: service name=memcached state=started enabled=yes
 
     - name: Add the user to the docker group
       user: name={{ ansible_ssh_user }} groups=docker
@@ -34,7 +34,7 @@
 
     - name: Restart docker
       sudo: yes
-      service: name=docker.io state=restarted
+      service: name=docker state=restarted
 
     - name: RVM public key
       shell: gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3

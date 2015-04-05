@@ -1,0 +1,4 @@
+ubuntu:
+  rsync: maycamp@arena.maycamp.com:/home/maycamp/arena.maycamp.com/shared/sets
+valosrv:
+  rsync: maycamp@arena.maycamp.com:/home/maycamp/arena.maycamp.com/shared/sets
