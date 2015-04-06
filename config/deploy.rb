@@ -4,10 +4,9 @@ set :application, 'arena.maycamp.com'
 set :repo_url, 'git://github.com/valo/maycamp_arena.git'
 
 set :rvm_type, :system
-set :rvm_ruby_version, '2.1.2'
+set :rvm_ruby_version, '2.2.1'
 
 set :puma_config_file, "config/puma.rb"
-set :puma_conf, -> { "#{shared_path}/config/puma.rb" }
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
