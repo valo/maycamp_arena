@@ -10,6 +10,8 @@ class Admin::ContestsController < Admin::BaseController
   end
 
   def show
+    authorize :contests, :show?
+
     redirect_to admin_contest_problems_path(params[:id])
   end
 

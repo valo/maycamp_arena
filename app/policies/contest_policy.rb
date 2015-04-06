@@ -23,6 +23,10 @@ class ContestPolicy < ApplicationPolicy
     admin_or_coach?
   end
 
+  def show?
+    admin_or_coach?
+  end
+
   def download_sources?
     user && user.admin?
   end

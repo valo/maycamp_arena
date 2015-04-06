@@ -32,6 +32,13 @@ describe Admin::ContestsController do
       it { is_expected.to respond_with(:success) }
     end
 
+    describe "#show" do
+      let(:contest) { create(:contest) }
+      before { get :show, id: contest.id }
+
+      it { is_expected.to redirect_to(admin_contest_problems_path(contest.id)) }
+    end
+
     describe "#create" do
       let(:contest_params) { attributes_for(:contest) }
       before { post :create, contest: contest_params }
