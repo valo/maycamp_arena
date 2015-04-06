@@ -12,3 +12,4 @@ sandbox/*
 *.sublime*
 .capistrano
 .vagrant
+config/grader.yml
