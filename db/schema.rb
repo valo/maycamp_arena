@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303090755) do
+ActiveRecord::Schema.define(version: 20150411180004) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -133,9 +133,9 @@ ActiveRecord::Schema.define(version: 20150303090755) do
   add_index "rating_changes", ["user_id"], name: "index_rating_changes_on_user_id", using: :btree
 
   create_table "run_blob_collections", force: :cascade do |t|
-    t.integer "run_id",      limit: 4,     null: false
+    t.integer "run_id",      limit: 4,        null: false
     t.binary  "source_code", limit: 65535
-    t.text    "log",         limit: 65535
+    t.binary  "log",         limit: 16777215
   end
 
   add_index "run_blob_collections", ["run_id"], name: "index_run_blob_collections_on_run_id", using: :btree
