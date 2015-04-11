@@ -85,11 +85,15 @@ class Run < ActiveRecord::Base
 
   def update_time_and_mem
     if self.log
-      max_time = self.log.scan(/Used time: ([0-9\.]+)/).map { |t| BigDecimal.new(t.first) }.max
-      max_memory = self.log.scan(/Used mem: ([0-9]+)/).map(&:first).map(&:to_i).max
+      max_time = replace_invalid_utf8_chars(self.log).scan(/Used time: ([0-9\.]+)/).map { |t| BigDecimal.new(t.first) }.max
+      max_memory = replace_invalid_utf8_chars(self.log).scan(/Used mem: ([0-9]+)/).map(&:first).map(&:to_i).max
 
       self.max_time = max_time
       self.max_memory = max_memory
     end
+  end
+
+  def replace_invalid_utf8_chars(str)
+    str.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
   end
 end
