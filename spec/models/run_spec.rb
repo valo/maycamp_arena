@@ -18,5 +18,12 @@ describe Run do
 
       expect(run.max_time).to eq(1234)
     end
+
+    it "strips invalid UTF-8 characters from the log" do
+      run.log = "Used time: 1234\255"
+      run.save!
+
+      expect(run.log).to eq("Used time: 1234")
+    end
   end
 end

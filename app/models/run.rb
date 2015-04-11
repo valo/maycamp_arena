@@ -63,11 +63,11 @@ class Run < ActiveRecord::Base
 
   def log=(content)
     self.build_run_blob_collection if self.run_blob_collection.nil?
-    self.run_blob_collection.log = content
+    self.run_blob_collection.log = replace_invalid_utf8_chars(content)
   end
 
   def log
-    self.run_blob_collection.try(:log).try(:force_encoding, "UTF-8")
+    self.run_blob_collection.log
   end
 
   def total_points_float
@@ -85,13 +85,15 @@ class Run < ActiveRecord::Base
 
   def update_time_and_mem
     if self.log
-      max_time = replace_invalid_utf8_chars(self.log).scan(/Used time: ([0-9\.]+)/).map { |t| BigDecimal.new(t.first) }.max
-      max_memory = replace_invalid_utf8_chars(self.log).scan(/Used mem: ([0-9]+)/).map(&:first).map(&:to_i).max
+      max_time = self.log.scan(/Used time: ([0-9\.]+)/).map { |t| BigDecimal.new(t.first) }.max
+      max_memory = self.log.scan(/Used mem: ([0-9]+)/).map(&:first).map(&:to_i).max
 
       self.max_time = max_time
       self.max_memory = max_memory
     end
   end
+
+  private
 
   def replace_invalid_utf8_chars(str)
     str.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
