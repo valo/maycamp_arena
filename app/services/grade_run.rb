@@ -1,4 +1,6 @@
 class GradeRun
+  DOCKER_START_TIMEOUT = 5.seconds
+
   def initialize(run, tests = nil, dry_run = false)
     @run = run
     @tests = tests
@@ -173,15 +175,16 @@ class GradeRun
     end
 
     def wait_while_finish(container_id)
-      while docker_finished_at(container_id).blank? do
+      time_start = Time.now
+      while ((docker_exitcode(container_id) == -1 && (Time.now - time_start) < DOCKER_START_TIMEOUT) || docker_running_state(container_id) == "true") do
         sleep(1)
       end
 
       docker_exitcode(container_id)
     end
 
-    def docker_finished_at(container_id)
-      `docker inspect -f '{{.State.FinishedAt}}' #{container_id}`.strip
+    def docker_running_state(container_id)
+      `docker inspect -f '{{.State.Running}}' #{container_id}`.strip
     end
 
     def docker_exitcode(container_id)
