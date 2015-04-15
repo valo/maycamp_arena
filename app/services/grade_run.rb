@@ -173,15 +173,15 @@ class GradeRun
     end
 
     def wait_while_finish(container_id)
-      while (docker_exitcode(container_id) == -1 || docker_running_state(container_id) == "true") do
+      while docker_finished_at(container_id).blank? do
         sleep(1)
       end
 
       docker_exitcode(container_id)
     end
 
-    def docker_running_state(container_id)
-      `docker inspect -f '{{.State.Running}}' #{container_id}`.strip
+    def docker_finished_at(container_id)
+      `docker inspect -f '{{.State.FinishedAt}}' #{container_id}`.strip
     end
 
     def docker_exitcode(container_id)
