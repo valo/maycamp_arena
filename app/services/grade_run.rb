@@ -180,10 +180,6 @@ class GradeRun
       docker_exitcode(container_id)
     end
 
-    def docker_running_state(container_id)
-      `docker inspect -f '{{.State.Running}}' #{container_id}`.strip
-    end
-
     def docker_finished_at(container_id)
       `docker inspect -f '{{.State.FinishedAt}}' #{container_id}`.strip
     end
