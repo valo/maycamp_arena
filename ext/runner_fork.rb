@@ -118,7 +118,8 @@ class ExecuteCommand
     end
 
     def process_stale?(pid)
-      RProcFS.state(pid) == "S" && time_since_run > (opt.timelimit + 2) # Wait 2 seconds more so that we are sure the process is stalled
+      return true if RProcFS.state(pid) == "S" && time_since_run > (opt.timelimit + 2) # Wait 2 seconds more so that we are sure the process is stalled
+      time_since_run > 10 * opt.timelimit # If the process has been running for 10 times the time limit assume it is stale
     end
 
     def print_stats
