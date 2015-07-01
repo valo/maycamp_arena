@@ -9,3 +9,8 @@ describe Admin::MainController do
     end
   end
 end
+
+
+git diff > mypatch.patch
+
+git diff playlist_spec.rb > Stanislav_Valkanov_A_25.patch

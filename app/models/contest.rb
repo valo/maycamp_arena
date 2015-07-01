@@ -34,10 +34,6 @@ class Contest < ActiveRecord::Base
     Time.now > end_time
   end
 
-  def upcoming?
-    Time.now < start_time
-  end
-
   def current?
     Time.now > start_time && Time.now < end_time
   end
