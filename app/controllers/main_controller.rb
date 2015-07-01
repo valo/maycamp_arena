@@ -15,6 +15,7 @@ class MainController < ApplicationController
     end
 
     @upcoming_contests = Contest.upcoming.select {|contest| contest.visible or current_user.andand.admin?}
+    logger.info @upcoming_contests
     @practice_contests = WillPaginate::Collection.create(params[:practice_contests_page] || 1, 20) do |pager|
       practice_contests = Contest.practicable.select {|contest| contest.visible or current_user.andand.admin?}.reverse
 
