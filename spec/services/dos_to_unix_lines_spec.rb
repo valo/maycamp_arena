@@ -9,8 +9,9 @@ describe DosToUnixLines do
     it "converts the new lines" do
       some = DosToUnixLines.new(source, destination).call
       converted = File.read(destination)
-      expect(converted).not_to include("\r\n")
+      File.delete(destination)
+      expect(converted).not_to include("\r")
     end
-    
+
   end
 end

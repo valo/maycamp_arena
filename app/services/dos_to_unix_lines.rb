@@ -1,16 +1,19 @@
 class DosToUnixLines
-  def initialize source_filepath, destination_filepath
+  def initialize source_filepath, destination_filepath, chunk_size = 2
     @source_filepath = source_filepath
     @destination_filepath = destination_filepath
+    @chunk_size = chunk_size
   end
 
   def call
-    text = File.read(@source_filepath)
-    converted = text.gsub /\r\n?/, "\n"
-    File.open(@destination_filepath, 'w') { |file| file.write(converted) }
+    File.open(source_filepath, 'r') do |text|
+      File.open( destination_filepath, 'w' ) do |file|     
+        file.write(text.read(chunk_size).gsub /\r/, "") until text.eof?
+      end
+    end
   end
 
 private
-  attr_reader :source_filepath, :destination_filepath
+  attr_reader :source_filepath, :destination_filepath, :chunk_size
 
 end
