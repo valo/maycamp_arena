@@ -1,5 +1,5 @@
 class DosToUnixLines
-  def initialize source_filepath, destination_filepath, chunk_size = 2
+  def initialize source_filepath, destination_filepath, chunk_size = 1.megabyte
     @source_filepath = source_filepath
     @destination_filepath = destination_filepath
     @chunk_size = chunk_size
