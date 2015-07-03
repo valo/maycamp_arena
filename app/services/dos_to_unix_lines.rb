@@ -1,16 +1,16 @@
 class DosToUnixLines
-	def initialize path_to_file, path_to_result
-		@path1 = path_to_file
-		@path2 = path_to_result
+	def initialize source_filepath, destination_filepath
+		@source_filepath = source_filepath
+		@destination_filepath = destination_filepath
 	end
 
 	def call
-		text = File.read(@path1)
+		text = File.read(@source_filepath)
 		converted = text.gsub /\r\n?/, "\n"
-		File.open(@path2, 'w') { |file| file.write(converted) }
+		File.open(@destination_filepath, 'w') { |file| file.write(converted) }
 	end
 
 private
-attr_reader :path_to_file, :path_to_result
+  attr_reader :source_filepath, :destination_filepath
 
 end
