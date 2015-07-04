@@ -13,7 +13,15 @@ MaycampArena::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.smtp_settings = {
+    :port           => 587,
+    :address        => 'smtp.mailgun.org',
+    :user_name      => 'postmaster@arena.maycamp.com',
+    :password       => ENV['MAILGUN_KEY'],
+    :domain         => ENV['MAILGUN_DOMAIN'],
+    :authentication => :plain,
+  }
+  config.action_mailer.delivery_method = :smtp
 
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile"
