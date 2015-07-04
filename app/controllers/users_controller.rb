@@ -27,16 +27,16 @@ class UsersController < ApplicationController
       end
     end.compact
 
-    @rating_report = rating_data
+    gon.rating_report = rating_data.to_a.sort
 
-    @daily_submits_report = Run.where("created_at > ? AND user_id = ?", 3.weeks.ago.to_s(:db), @user.id).
+    gon.daily_submits_report = Run.where("created_at > ? AND user_id = ?", 3.weeks.ago.to_s(:db), @user.id).
                                 select("id").
                                 group("DATE_FORMAT(created_at, '%Y/%m/%d')").
-                                count(:id)
-    @total_submits_report = Run.where(["user_id = ?", @user.id]).
+                                count(:id).to_a.sort
+    gon.total_submits_report = Run.where(["user_id = ?", @user.id]).
                                 select("id").
                                 group("DATE_FORMAT(created_at, '%Y/%m/%d')").
-                                count(:id)
+                                count(:id).to_a.sort
 
     @runs = Run.includes({:problem => :contest}, :user).
                 where(:contests => {:practicable => true, :visible => true }, :runs => { :user_id => @user.id }).

@@ -26,6 +26,8 @@ gem 'utf8-cleaner'
 gem 'coderay'
 gem 'pundit'
 gem 'codemirror-rails'
+gem 'highcharts-rails'
+gem 'gon'
 
 group :production do
   gem 'SyslogLogger'
