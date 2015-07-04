@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       end
     end.compact
 
-    gon.rating_report = rating_data.to_a.sort
+    gon.rating_report = rating_data.to_a
 
     gon.daily_submits_report = Run.where("created_at > ? AND user_id = ?", 3.weeks.ago.to_s(:db), @user.id).
                                 select("id").
