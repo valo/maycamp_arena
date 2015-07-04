@@ -1,3 +1,0 @@
-[submodule "vendor/plugins/ezgraphix"]
-	path = vendor/plugins/ezgraphix
-	url = git://github.com/valo/ezgraphix.git
