@@ -105,8 +105,6 @@ class Admin::ProblemsController < Admin::BaseController
     flash[:notice] = "File successfully upoaded"
 
     redirect_to admin_contest_problem_path(@problem.contest, @problem)
-  ensure
-    params[:tests][:file].tempfile.unlink
   end
 
   def download_file
@@ -152,30 +150,9 @@ class Admin::ProblemsController < Admin::BaseController
   end
 
   private
+
     def process_uploaded_file(file)
-      # Create the folders if they doesn't exist
-      FileUtils.mkdir_p(@problem.tests_dir)
-
-      @upload = file
-
-      if @upload.original_filename.end_with?("zip")
-        # Extract the bundle
-        Zip::ZipFile.foreach(@upload.tempfile.path) do |filename|
-          if filename.file? and !filename.name.include?('/')
-            dest = File.join(@problem.tests_dir, filename.name)
-            FileUtils.rm(dest) if File.exists?(dest)
-            filename.extract dest
-          end
-        end
-      else
-        dest = File.join(@problem.tests_dir, @upload.original_filename)
-        FileUtils.cp @upload.path, dest
-        # Set the permissions of the copied file to the right ones. This is
-        # because the uploads are created with 0600 permissions in the /tmp
-        # folder. The 0666 & ~File.umask will set the permissions to the default
-        # ones of the current user. See the umask man page for details
-        FileUtils.chmod 0666 & ~File.umask, dest
-      end
+      uploading = ProcessUploadedFile.new(file, @problem).extract
     end
 
     def contest
