@@ -39,26 +39,15 @@ class ProcessUploadedFile
   end
 
   def convert_lines
-    @problem.input_files.each do |filename|
-        #puts filename
-        to_converted = Tempfile.new('temp')
+    (@problem.input_files + @problem.output_files).each do |filename|
+      to_converted = Tempfile.new('temp')
 
-        file_path = File.path(filename)
-        path_to_converted = File.path(to_converted)
+      file_path = File.path(filename)
+      path_to_converted = File.path(to_converted)
 
-        DosToUnixLines.new(file_path, path_to_converted).call
-        IO.copy_stream(path_to_converted, file_path)
-        to_converted.close
-    end
-    @problem.output_files.each do |filename|
-        to_converted = Tempfile.new('temp')
-
-        file_path = File.path(filename)
-        path_to_converted = File.path(to_converted)
-
-        DosToUnixLines.new(file_path, path_to_converted).call
-        IO.copy_stream(path_to_converted, file_path)
-        to_converted.close
+      DosToUnixLines.new(file_path, path_to_converted).call
+      IO.copy_stream(path_to_converted, file_path)
+      to_converted.close   
     end
   end
 

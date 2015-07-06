@@ -31,11 +31,7 @@ describe ProcessUploadedFile do
 
     it "extracts zip files and converting new lines to unix format" do
       ProcessUploadedFile.new(file_zip, problem).extract
-      problem.input_files.each do |file_path|
-        converted = File.read(file_path)
-        expect(converted).not_to include("\r")
-      end
-      problem.output_files.each do |file_path|
+      (problem.input_files + problem.output_files).each do |file_path|
         converted = File.read(file_path)
         expect(converted).not_to include("\r")
       end
