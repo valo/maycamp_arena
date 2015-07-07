@@ -19,7 +19,7 @@ class Admin::ProblemsController < Admin::BaseController
     if @problem.save
 
       if !params[:problem][:archive].blank?
-        process_uploaded_file(params[:problem][:archive])
+        ProcessUploadedFile.new(params[:problem][:archive], @problem).extract
         ::Configuration.set!(::Configuration::TESTS_UPDATED_AT, Time.now.utc)
       end
 
@@ -99,14 +99,12 @@ class Admin::ProblemsController < Admin::BaseController
 
     authorize @problem.contest, :edit?
 
-    process_uploaded_file params[:tests][:file]
+    ProcessUploadedFile.new(params[:tests][:file], @problem).extract
 
     ::Configuration.set!(::Configuration::TESTS_UPDATED_AT, Time.now.utc)
     flash[:notice] = "File successfully upoaded"
 
     redirect_to admin_contest_problem_path(@problem.contest, @problem)
-  ensure
-    params[:tests][:file].tempfile.unlink
   end
 
   def download_file
@@ -152,31 +150,6 @@ class Admin::ProblemsController < Admin::BaseController
   end
 
   private
-    def process_uploaded_file(file)
-      # Create the folders if they doesn't exist
-      FileUtils.mkdir_p(@problem.tests_dir)
-
-      @upload = file
-
-      if @upload.original_filename.end_with?("zip")
-        # Extract the bundle
-        Zip::ZipFile.foreach(@upload.tempfile.path) do |filename|
-          if filename.file? and !filename.name.include?('/')
-            dest = File.join(@problem.tests_dir, filename.name)
-            FileUtils.rm(dest) if File.exists?(dest)
-            filename.extract dest
-          end
-        end
-      else
-        dest = File.join(@problem.tests_dir, @upload.original_filename)
-        FileUtils.cp @upload.path, dest
-        # Set the permissions of the copied file to the right ones. This is
-        # because the uploads are created with 0600 permissions in the /tmp
-        # folder. The 0666 & ~File.umask will set the permissions to the default
-        # ones of the current user. See the umask man page for details
-        FileUtils.chmod 0666 & ~File.umask, dest
-      end
-    end
 
     def contest
       @contest ||= Contest.find(params[:contest_id])
