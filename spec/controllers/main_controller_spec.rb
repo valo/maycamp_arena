@@ -13,6 +13,7 @@ describe Admin::MainController do
       
       it { is_expected.to respond_with(:success) }
     end
+
   end
 
   context "with normal user log-in" do
@@ -35,6 +36,7 @@ describe Admin::MainController do
       
       it { is_expected.to respond_with(:success) }
     end
+    
   end
 
   describe "#index" do
