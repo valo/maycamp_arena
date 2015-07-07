@@ -19,7 +19,7 @@ class Admin::ProblemsController < Admin::BaseController
     if @problem.save
 
       if !params[:problem][:archive].blank?
-        process_uploaded_file(params[:problem][:archive])
+        ProcessUploadedFile.new(params[:problem][:archive]).extract
         ::Configuration.set!(::Configuration::TESTS_UPDATED_AT, Time.now.utc)
       end
 
@@ -99,7 +99,7 @@ class Admin::ProblemsController < Admin::BaseController
 
     authorize @problem.contest, :edit?
 
-    process_uploaded_file params[:tests][:file]
+    ProcessUploadedFile.new(params[:tests][:file]).extract
 
     ::Configuration.set!(::Configuration::TESTS_UPDATED_AT, Time.now.utc)
     flash[:notice] = "File successfully upoaded"
@@ -150,10 +150,6 @@ class Admin::ProblemsController < Admin::BaseController
   end
 
   private
-
-    def process_uploaded_file(file)
-      uploading = ProcessUploadedFile.new(file, @problem).extract
-    end
 
     def contest
       @contest ||= Contest.find(params[:contest_id])
