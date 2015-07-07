@@ -1,27 +1,30 @@
 class ProcessUploadedFile
-  def initialize file, problem
+  def initialize uploaded_file, problem
     @problem = problem
-    @upload = file
+    @uploaded_file = uploaded_file
   end
 
   def extract
-    # Create the folders if they doesn't exist
-    FileUtils.mkdir_p(@problem.tests_dir)
 
-    if @upload.original_filename.end_with?("zip")
+    create_test_dir
+    if is_zip?
       zip_extract
     else
       file_extract
     end
+
     convert_lines
   end
 
+private
+  attr_reader :uploaded_file, :problem
+
   def zip_extract
-      # Extract the bundle
-    Zip::ZipFile.foreach(@upload.tempfile.path) do |filename|
+    # Extract the bundle
+    Zip::ZipFile.foreach(uploaded_file.tempfile.path) do |filename|
 
       if filename.file? and !filename.name.include?('/')
-        dest = File.join(@problem.tests_dir, filename.name)
+        dest = File.join(problem.tests_dir, filename.name)
         FileUtils.rm(dest) if File.exists?(dest)
         filename.extract dest
       end
@@ -29,8 +32,8 @@ class ProcessUploadedFile
   end
 
   def file_extract
-    dest = File.join(@problem.tests_dir, @upload.original_filename)
-    FileUtils.cp @upload.path, dest
+    dest = path_to_files
+    FileUtils.cp uploaded_file.path, dest
     # Set the permissions of the copied file to the right ones. This is
     # because the uploads are created with 0600 permissions in the /tmp
     # folder. The 0666 & ~File.umask will set the permissions to the default
@@ -39,19 +42,28 @@ class ProcessUploadedFile
   end
 
   def convert_lines
-    (@problem.input_files + @problem.output_files).each do |filename|
+    input_and_output_files.each do |unconverted_file_path|
       to_converted = Tempfile.new('temp')
 
-      file_path = File.path(filename)
-      path_to_converted = File.path(to_converted)
-
-      DosToUnixLines.new(file_path, path_to_converted).call
-      IO.copy_stream(path_to_converted, file_path)
+      DosToUnixLines.new(unconverted_file_path, to_converted.path).call
+      IO.copy_stream(to_converted.path, unconverted_file_path)
       to_converted.close   
     end
   end
 
+  def create_test_dir
+    FileUtils.mkdir_p(problem.tests_dir)
+  end
 
-private
-  attr_reader :file, :problem
+  def is_zip?
+    uploaded_file.original_filename.end_with?("zip")
+  end
+
+  def input_and_output_files
+    problem.input_files + problem.output_files
+  end
+
+  def path_to_files
+    File.join(problem.tests_dir, uploaded_file.original_filename)
+  end
 end
