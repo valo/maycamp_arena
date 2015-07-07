@@ -17,15 +17,15 @@ describe Admin::MainController do
   end
 
   context "with normal user log-in" do
-  	describe "#results with non-visible results" do
+    describe "#results with non-visible results" do
       let(:contest) { create(:contest, start_time: 2.days.ago, end_time: 1.day.ago, results_visible: false) }
 
-  	  before do
+      before do
         get :results, contest_id: contest.id
       end
       
       it { is_expected.to redirect_to(root_path) }
-  	end
+    end
 
     describe "#results with visible results" do
       let(:contest) { create(:contest, start_time: 2.days.ago, end_time: 1.day.ago, results_visible: true) }
