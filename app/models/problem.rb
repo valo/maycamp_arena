@@ -7,6 +7,7 @@ class Problem < ActiveRecord::Base
   belongs_to :contest
   has_and_belongs_to_many :categories
 
+  validates :runs_visible, acceptance: false
   validates_presence_of :name, :time_limit
   validates_numericality_of :time_limit, :memory_limit, :greater_than => 0
 
@@ -64,4 +65,5 @@ class Problem < ActiveRecord::Base
   def filesystem_name
     id.to_s
   end
+
 end
