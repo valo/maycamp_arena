@@ -87,6 +87,4 @@ describe RunPolicy do
     end
 
   end
-
-
 end
