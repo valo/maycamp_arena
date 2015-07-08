@@ -10,7 +10,7 @@ describe ContestPolicy do
   ].each do |action|
     permissions action do
       it "denies access to anonymous users" do
-        expect(ContestPolicy).not_to permit(nil, contest) #user, policy
+        expect(ContestPolicy).not_to permit(nil, contest)
       end
 
       it "denies access to contesters" do

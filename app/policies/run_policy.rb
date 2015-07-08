@@ -1,6 +1,6 @@
 class RunPolicy < ApplicationPolicy
   def show?
-    user_admin? || user_is_coach_and_owns_run? || problem_is_visible?
+    user_admin? || user_is_coach_and_owns_run? || problem_visible?
   end    
 
   def index?
@@ -41,7 +41,7 @@ class RunPolicy < ApplicationPolicy
     user && user.coach?
   end
 
-  def problem_is_visible?
+  def problem_visible?
     record.problem.runs_visible
   end
 
