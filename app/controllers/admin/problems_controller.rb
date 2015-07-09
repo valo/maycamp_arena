@@ -61,13 +61,21 @@ class Admin::ProblemsController < Admin::BaseController
 
     authorize @problem.contest, :edit?
 
-    @problem.attributes = params.require(:problem).permit!
+    @problem.attributes = params.require(:problem).permit(:id, :contest_id, :letter, :name, :time_limit, :created_at, :updated_at, :memory_limit, :diff_parameters)
 
     if @problem.save
       redirect_to admin_contest_problems_path(@problem.contest)
     else
       render :action => "edit"
     end
+  end
+
+  def toggle_runs_visible
+    @problem = Problem.find(params[:id])
+    authorize @problem.contest
+
+    @problem.update_attribute(:runs_visible, !@problem.runs_visible)
+    redirect_to admin_contest_problems_path(@problem.contest)
   end
 
   def purge_files

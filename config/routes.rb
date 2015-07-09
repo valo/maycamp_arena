@@ -68,6 +68,7 @@ MaycampArena::Application.routes.draw do
           get :download_file
           get :upload_file
           get :compile_checker
+          put :toggle_runs_visible
           post :do_upload_file
         end
         resources :runs do
