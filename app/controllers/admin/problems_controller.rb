@@ -73,6 +73,7 @@ class Admin::ProblemsController < Admin::BaseController
   def toggle_runs_visible
     @problem = Problem.find(params[:id])
     authorize @problem.contest
+
     @problem.update_attribute(:runs_visible, !@problem.runs_visible)
     redirect_to admin_contest_problems_path(@problem.contest)
   end
