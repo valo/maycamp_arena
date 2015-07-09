@@ -13,6 +13,9 @@
             <th class="status">Статус</th>
             <th>Max Време</th>
             <th>Max Памет</th>
+            <% if have_visible?(@runs) %>
+              <th>Решения</th>
+            <% end %>
         </tr>
     <% for run in @runs do %>
         <tr>
@@ -24,6 +27,15 @@
             <td class="status"><%= run.status %></td>
             <td class="time"><%= run.max_time.to_f %> sec.</td>
             <td class="mem"><%= run.max_memory.to_i / 1024 %> KB</td>
+            <% if have_visible?(@runs) %>
+              <td>
+                <% if policy(run).show? %>
+                  <%= link_to "Решение", admin_contest_problem_run_path(run.problem.contest, run.problem, run) %>
+                <% else %>
+                  Not visible
+                <% end %>
+              </td>
+            <% end %>
         </tr>
     <% end %>
     </table>

@@ -11,8 +11,7 @@ class Admin::ProblemsController < Admin::BaseController
   end
 
   def create
-    authorize contest, :edit?
-
+    authorize contest, :edit?   
     params[:problem][:category_ids] ||= []
     @problem = contest.problems.build(params.require(:problem).permit!.except(:archive, :solution))
 
