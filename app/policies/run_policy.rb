@@ -1,8 +1,8 @@
 class RunPolicy < ApplicationPolicy
   def show?
     user_admin? || user_is_coach_and_owns_run? || problem_visible?
-  end    
-
+  end
+  
   def index?
     user_admin? || user_coach?
   end
