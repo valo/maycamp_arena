@@ -42,7 +42,7 @@ class RunPolicy < ApplicationPolicy
   end
 
   def problem_visible?
-    record.problem.runs_visible
+    record.problem.runs_visible?
   end
 
 end

@@ -1,11 +1,13 @@
 describe RunPolicy do
   let(:run) { create(:run) }
+  let(:coach_run) { create(:run, user_id: coach.id, problem: coach_problem) }
   
-  let(:problem_true) { create(:problem, runs_visible: true) }
-  let(:problem_false) { create(:problem, runs_visible: false) }
+  let(:problem_with_visible_runs) { create(:problem, runs_visible: true) }
+  let(:problem_without_visible_runs) { create(:problem, runs_visible: false) }
+  let(:coach_problem) { create(:problem, runs_visible: false) }
 
-  let(:false_checkbox_run) { create(:run, problem: problem_false) }
-  let(:true_checkbox_run) { create(:run, problem: problem_true) }
+  let(:private_run) { create(:run, problem: problem_without_visible_runs) }
+  let(:public_run) { create(:run, problem: problem_with_visible_runs) }
 
   let(:admin) { create(:user, role: User::ADMIN) }
   let(:coach) { create(:user, role: User::COACH) }
@@ -65,25 +67,25 @@ describe RunPolicy do
     end
 
     it "allows access to contesters if the run is visible for them" do
-      expect(RunPolicy).to permit(contester, true_checkbox_run)
+      expect(RunPolicy).to permit(contester, public_run)
     end
 
     it "denies access to contesters if the run is not visible for them" do
-      expect(RunPolicy).not_to permit(contester, false_checkbox_run)
+      expect(RunPolicy).not_to permit(contester, private_run)
     end
 
     it "allows access to admins independently" do
-      expect(RunPolicy).to permit(admin, false_checkbox_run)
-      expect(RunPolicy).to permit(admin, true_checkbox_run)
+      expect(RunPolicy).to permit(admin, private_run)
+      expect(RunPolicy).to permit(admin, public_run)
     end
 
     it "allows access to coaches if they created the run or if it's visible to them" do
-      expect(RunPolicy).to permit(coach, false_checkbox_run) if coach.id == run.user_id
-      expect(RunPolicy).to permit(coach, true_checkbox_run)
+      expect(RunPolicy).to permit(coach, coach_run) 
+      expect(RunPolicy).to permit(coach, public_run)
     end
 
     it "denies access to coacehs if the didn't created the run and isn't visible to them" do
-      expect(RunPolicy).not_to permit(coach, false_checkbox_run) if coach.id != run.user_id
+      expect(RunPolicy).not_to permit(coach, private_run) 
     end
 
   end
