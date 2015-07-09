@@ -32,7 +32,7 @@ class ContestPolicy < ApplicationPolicy
   end
 
   def toggle_runs_visible?
-    user.admin?
+    user && user.admin?
   end
 
   private
