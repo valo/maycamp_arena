@@ -61,7 +61,7 @@ class Admin::ProblemsController < Admin::BaseController
 
     authorize @problem.contest, :edit?
 
-    @problem.attributes = params.require(:problem).permit(:id, :contest_id, :letter, :name, :time_limit, :created_at, :updated_at, :memory_limit, :diff_parameters)
+    @problem.attributes = params.require(:problem).permit(:id, :contest_id, :letter, :name, :time_limit, :created_at, :updated_at, :memory_limit, :diff_parameters, :category_ids => [])
 
     if @problem.save
       redirect_to admin_contest_problems_path(@problem.contest)
