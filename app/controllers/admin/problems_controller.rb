@@ -60,7 +60,6 @@ class Admin::ProblemsController < Admin::BaseController
     @problem = Problem.find(params[:id])
 
     authorize @problem.contest, :edit?
-
     @problem.attributes = params.require(:problem).permit(:id, :contest_id, :letter, :name, :time_limit, :created_at, :updated_at, :memory_limit, :diff_parameters, :category_ids => [])
 
     if @problem.save
