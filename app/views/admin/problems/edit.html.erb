@@ -3,8 +3,24 @@
   <p>
     <%= f.error_messages %>
   </p>
+
   <%= render :partial => 'problem_fields', :locals => { :f => f } %>
   <p>
+    <p>
+      <%= f.label :runs_visible, "Видими ли са отговорите:"%>
+      <%= f.check_box :runs_visible, :disabled => true %>
+    </p>
     <%= f.submit "Обновяване" %><%= link_to "Отказ", admin_contest_problems_path(@problem.contest) %>
   </p>
+
 <% end -%>
+
+<%if policy(@problem).toggle_runs_visible? %>
+  <% if @problem.runs_visible? %>
+    <em>Да бъдат ли скрити решенията на участниците?</em>
+  <% else %>
+    <em>Да бъдат ли публични решенията на участниците?</em>
+  <% end %>
+  <%= button_to "Switch Visibility", {:action => "toggle_runs_visible"}, :method => "put"%>
+<%end%>
+    

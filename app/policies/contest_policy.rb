@@ -36,4 +36,5 @@ class ContestPolicy < ApplicationPolicy
   def admin_or_coach?
     user && (user.admin? || user.coach?)
   end
+
 end
