@@ -27,25 +27,21 @@ describe ContestPolicy do
     end
   end
 
-  [
-    :download_sources?, :toggle_runs_visible?
-  ].each do |action|
-    permissions action do
-      it "denies access to anonymous users" do
-        expect(ContestPolicy).not_to permit(nil, contest)
-      end
+  permissions :download_sources? do
+    it "denies access to anonymous users" do
+      expect(ContestPolicy).not_to permit(nil, contest)
+    end
 
-      it "denies access to contesters" do
-        expect(ContestPolicy).not_to permit(contester, contest)
-      end
+    it "denies access to contesters" do
+      expect(ContestPolicy).not_to permit(contester, contest)
+    end
 
-      it "allows access to admins" do
-        expect(ContestPolicy).to permit(admin, contest)
-      end
+    it "allows access to admins" do
+      expect(ContestPolicy).to permit(admin, contest)
+    end
 
-      it "denies access to coaches" do
-        expect(ContestPolicy).not_to permit(coach, contest)
-      end
+    it "denies access to coaches" do
+      expect(ContestPolicy).not_to permit(coach, contest)
     end
   end
 

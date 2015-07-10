@@ -31,10 +31,6 @@ class ContestPolicy < ApplicationPolicy
     user && user.admin?
   end
 
-  def toggle_runs_visible?
-    user && user.admin?
-  end
-
   private
 
   def admin_or_coach?

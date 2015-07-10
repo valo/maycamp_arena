@@ -44,20 +44,20 @@ class Admin::ProblemsController < Admin::BaseController
   end
 
   def show
-    @problem = Problem.find(params[:id])
+    problem
 
     authorize @problem.contest, :edit?
   end
 
   def edit
-    @problem = Problem.find(params[:id])
+    problem
 
     authorize @problem.contest, :edit?
   end
 
   def update
     params[:problem][:category_ids] ||= []
-    @problem = Problem.find(params[:id])
+    problem
 
     authorize @problem.contest, :edit?
     @problem.attributes = params.require(:problem).permit(:id, :contest_id, :letter, :name, :time_limit, :created_at, :updated_at, :memory_limit, :diff_parameters, :category_ids => [])
@@ -70,15 +70,15 @@ class Admin::ProblemsController < Admin::BaseController
   end
 
   def toggle_runs_visible
-    @problem = Problem.find(params[:id])
-    authorize @problem.contest
+    problem
+    authorize @problem
 
     @problem.update_attribute(:runs_visible, !@problem.runs_visible)
     redirect_to admin_contest_problems_path(@problem.contest)
   end
 
   def purge_files
-    @problem = Problem.find(params[:id])
+    problem
 
     authorize @problem.contest, :edit?
 
@@ -95,13 +95,13 @@ class Admin::ProblemsController < Admin::BaseController
   end
 
   def upload_file
-    @problem = Problem.find(params[:id])
+    problem
 
     authorize @problem.contest, :edit?
   end
 
   def do_upload_file
-    @problem = Problem.find(params[:id])
+    problem
 
     authorize @problem.contest, :edit?
 
@@ -114,7 +114,7 @@ class Admin::ProblemsController < Admin::BaseController
   end
 
   def download_file
-    @problem = Problem.find(params[:id])
+    problem
 
     authorize @problem.contest, :edit?
 
@@ -122,7 +122,7 @@ class Admin::ProblemsController < Admin::BaseController
   end
 
   def compile_checker
-    @problem = Problem.find(params[:id])
+    problem
 
     authorize @problem.contest, :edit?
 
@@ -156,6 +156,10 @@ class Admin::ProblemsController < Admin::BaseController
   end
 
   private
+
+    def problem
+      @problem = Problem.find(params[:id])
+    end
 
     def contest
       @contest ||= Contest.find(params[:contest_id])

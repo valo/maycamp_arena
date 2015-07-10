@@ -14,7 +14,13 @@
   </p>
 
 <% end -%>
-    <%if current_user.admin?%>
-      <%= button_to "Switch Visibility", {:action => "toggle_runs_visible"}, :method => "put"%>
-    <%end%>
+
+<%if policy(@problem).toggle_runs_visible? %>
+  <% if @problem.runs_visible? %>
+    <em>Да бъдат ли скрити решенията на участниците?</em>
+  <% else %>
+    <em>Да бъдат ли публични решенията на участниците?</em>
+  <% end %>
+  <%= button_to "Switch Visibility", {:action => "toggle_runs_visible"}, :method => "put"%>
+<%end%>
     
