@@ -133,12 +133,13 @@ describe Admin::ProblemsController do
 
     describe "#destroy" do
       let(:problem) { create(:problem, contest: contest) }
+
       before { delete :destroy, id: problem.id, contest_id: contest.id }
 
       it { is_expected.to redirect_to(admin_contest_problems_path(contest)) }
 
       it "deletes the problem" do
-        expect(Contest.find_by_id(problem.id)).to be_nil
+        expect(Problem.find_by_id(problem.id)).to be_nil
       end
     end
 
