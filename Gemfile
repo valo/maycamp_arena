@@ -27,6 +27,8 @@ gem 'coderay'
 gem 'pundit'
 gem 'codemirror-rails'
 gem 'bootstrap-sass', '~> 3.3.5'
+gem 'highcharts-rails'
+gem 'gon'
 
 group :production do
   gem 'SyslogLogger'
