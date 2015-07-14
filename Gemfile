@@ -28,6 +28,7 @@ gem 'pundit'
 gem 'codemirror-rails'
 gem 'highcharts-rails'
 gem 'gon'
+gem 'bootstrap-sass', '~> 3.3.5'
 
 group :production do
   gem 'SyslogLogger'
@@ -38,8 +39,8 @@ group :development do
   gem "spring-commands-rspec"
   gem 'sprockets-rails'
   gem 'uglifier', '>= 1.0.3'
+  # Deploy with 
   gem 'sass-rails'
-  # Deploy with Capistrano
   gem 'capistrano'
   gem 'capistrano3-puma'
   gem 'capistrano-rvm'

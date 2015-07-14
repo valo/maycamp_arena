@@ -1,0 +1,24 @@
+<h1>Състезания за група <%= @group.name %></h1>
+<h2><%= @group.name %></h2> 
+<br>
+
+<% cache ["practice_area" || 1, Contest.last, Run.where(:user_id => current_user.id).last] do %>
+  <table>
+    <tr>
+      <th>Име</th>
+      <th>Вашите точки</th>
+      <th></th>
+    </tr>
+    <% for contest in Contest.all do %>
+      <% if @group.id == contest.group_id%>
+        <tr>
+          <td><%= contest.name %></td>
+          <td><strong><%= current_user.best_practice_score(contest) %></strong> от максимално <%= contest.max_score %></td>
+          <td>
+            <%= link_to "Практикувай", open_contest_practice_path(:contest_id => contest.id) %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+<% end %>

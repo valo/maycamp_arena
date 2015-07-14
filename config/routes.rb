@@ -29,6 +29,7 @@ MaycampArena::Application.routes.draw do
   resource :session
 
   resources :categories
+  resources :groups
 
   namespace :admin do
     resource :status
@@ -83,6 +84,7 @@ MaycampArena::Application.routes.draw do
       end
     end
 
+    resources :groups
     resources :categories
     resource :reports
     resource :ratings do
