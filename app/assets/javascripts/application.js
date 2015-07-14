@@ -4,6 +4,7 @@
 //= require jquery_ujs
 //= require highcharts
 //= require codemirror
+//= require bootstrap-sprockets
 
 $(function() {
   if (typeof(daily_submits_report) != "undefined")

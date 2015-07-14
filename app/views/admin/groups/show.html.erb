@@ -1,0 +1,8 @@
+<h1>Състезания по групи</h1>
+<h2><%= @group.name %></h2> 
+<br>
+<% for contest in Contest.all do %>
+  <% if @group.id == contest.group_id%>
+    <%= link_to contest.name, open_contest_practice_path(:contest_id => contest.id) %><br>
+  <% end %>
+<% end %>

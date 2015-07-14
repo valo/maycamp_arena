@@ -1,0 +1,21 @@
+<h2>Състезания по групи</h2>
+<br />
+<style type="text/css">
+    .group {
+        font-weight: bold;
+        text-align: center;
+        background: #f2f2f2;
+    }
+
+
+</style>
+<% @groups = Group.all %>
+<% if !@groups.blank? %>
+      <div class="container-fluid">
+        <div class="row">
+          <% for group in @groups do %> 
+            <div class="col-xs-3"><p class="group"><%= link_to image_tag("https://robohash.org/#{group.name}.jpg?size=200x200&bgset=trill") + "#{group.name}", group_path(group) %></p></div>
+          <% end %>
+        </div>
+      </div>
+<% end %>
