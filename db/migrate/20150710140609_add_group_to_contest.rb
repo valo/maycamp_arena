@@ -3,60 +3,48 @@ class AddGroupToContest < ActiveRecord::Migration
     create_table :groups do |t|
       t.string :name
     end
-    add_reference :contests, :group, index: true, foreign_key: true, null: false, :default => 1
+    add_reference :contests, :group, index: true, foreign_key: true, null: false
 
   #create groups
-    Group.new(name: "Общи").save!
-    Group.new(name: "Контроли за IOI").save!
-    Group.new(name: "Пролетен турнир").save!
-    Group.new(name: "НОИ").save!
-    Group.new(name: "Зимни състезания").save!
-    Group.new(name: "Есенен турнир").save!
-    Group.new(name: "RMMS").save!
-    Group.new(name: "APIO").save!
-    Group.new(name: "USACO").save!
-    Group.new(name: "BOI and JBOI").save!
-    Group.new(name: "ДАА").save!
-    Group.new(name: "Арена").save!
-
+    
+    general_group = Group.create(name: "Общи")
+    control_group = Group.create(name: "Контроли за IOI")
+    spring_group = Group.create(name: "Пролетен турнир")
+    noi_group = Group.create(name: "НОИ")
+    winter_group = Group.create(name: "Зимни състезания")
+    autumn_group = Group.create(name: "Есенен турнир")
+    rmms_group = Group.create(name: "RMMS")
+    apio_group = Group.create(name: "APIO")
+    usaco_group = Group.create(name: "USACO")
+    boi_group = Group.create(name: "BOI and JBOI")
+    daa_group = Group.create(name: "ДАА")
+    arena_group = Group.create(name: "Арена")
       #match groups      
       Contest.find_each do |contest|
         if(contest.name.include? "контролно група")||(contest.name.include? "контролно групи")||(contest.name.include? "Контрол")||(contest.name.include? "контролно")
-          contest.group_id = 2
-          contest.save!
+          contest.update!(group: control_group)
         elsif(contest.name.include? "Пролетен")
-          contest.group_id = 3
-          contest.save!
+          contest.update!(group: spring_group)
         elsif(contest.name.include? "НОИ")
-          contest.group_id = 4
-          contest.save!
+          contest.update!(group: noi_group)
         elsif(contest.name.include? "Зимни")||(contest.name.include? "ЗМП")
-          contest.group_id = 5
-          contest.save!
+          contest.update!(group: winter_group)
         elsif(contest.name.include? "Есенен")
-          contest.group_id = 6
-          contest.save!
+          contest.update!(group: autumn_group)
         elsif(contest.name.include? "RMMS")
-          contest.group_id = 7
-          contest.save!
+          contest.update!(group: rmms_group)
         elsif(contest.name.include? "APIO")
-          contest.group_id = 8
-          contest.save!
+          contest.update!(group: apio_group)
         elsif(contest.name.include? "USACO")
-          contest.group_id = 9
-          contest.save!
+          contest.update!(group: usaco_group)
         elsif(contest.name.include? "BOI")
-          contest.group_id = 10
-          contest.save!
+          contest.update!(group: boi_group)
         elsif(contest.name.include? "ДАА")
-          contest.group_id = 11
-          contest.save!        
+          contest.update!(group: daa_group)        
         elsif(contest.name.include? "Арена")||(contest.name.include? "Maycamp")
-          contest.group_id = 12
-          contest.save!
+          contest.update!(group: arena_group)
         else
-          contest.group_id = 1
-          contest.save!
+          contest.update!(group: general_group)
         end
       end
   end
@@ -65,6 +53,7 @@ class AddGroupToContest < ActiveRecord::Migration
 
   def down
     drop_table :groups
+    remove_reference :contests, :group
   end
 end
 
