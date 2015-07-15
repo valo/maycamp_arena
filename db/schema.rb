@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 20150710140609) do
     t.datetime "updated_at"
     t.integer  "memory_limit",    limit: 4,                           default: 16777216
     t.string   "diff_parameters", limit: 255,                         default: "",       null: false
+    t.boolean  "runs_visible",    limit: 1
   end
 
   add_index "problems", ["contest_id"], name: "index_problems_on_contest_id", using: :btree
