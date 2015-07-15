@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707154218) do
+ActiveRecord::Schema.define(version: 20150710140609) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -70,7 +70,10 @@ ActiveRecord::Schema.define(version: 20150707154218) do
     t.boolean  "visible",             limit: 1,   default: true
     t.string   "runner_type",         limit: 255, default: "box"
     t.boolean  "best_submit_results", limit: 1,   default: false
+    t.integer  "group_id",            limit: 4,                   null: false
   end
+
+  add_index "contests", ["group_id"], name: "index_contests_on_group_id", using: :btree
 
   create_table "external_contest_results", force: :cascade do |t|
     t.integer  "external_contest_id", limit: 4
@@ -87,6 +90,10 @@ ActiveRecord::Schema.define(version: 20150707154218) do
     t.datetime "date"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name", limit: 255
   end
 
   create_table "messages", force: :cascade do |t|
