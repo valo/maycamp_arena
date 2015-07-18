@@ -3,7 +3,7 @@ class AddGroupToContest < ActiveRecord::Migration
     create_table :groups do |t|
       t.string :name
     end
-    add_reference :contests, :group, index: true, foreign_key: true, null: false
+    add_reference :contests, :group, index: true, foreign_key: true, null: false, default: 1
 
   #create groups
     
