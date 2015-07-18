@@ -4,6 +4,7 @@ class AddGroupToContest < ActiveRecord::Migration
       t.string :name
     end
     add_reference :contests, :group, index: true, foreign_key: true, null: false, default: 1
+    add_column :problems, :runs_visible, :boolean
 
   #create groups
     
@@ -53,7 +54,9 @@ class AddGroupToContest < ActiveRecord::Migration
 
   def down
     drop_table :groups
-    remove_reference :contests, :group
+    remove_index :contests, :group_id
+    remove_column :contests, :group_id
+    remove_column :problems, :runs_visible
   end
 end
 
