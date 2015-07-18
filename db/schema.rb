@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20150710140609) do
     t.boolean  "visible",             limit: 1,   default: true
     t.string   "runner_type",         limit: 255, default: "box"
     t.boolean  "best_submit_results", limit: 1,   default: false
-    t.integer  "group_id",            limit: 4,                   null: false
+    t.integer  "group_id",            limit: 4,   default: 1,     null: false
   end
 
   add_index "contests", ["group_id"], name: "index_contests_on_group_id", using: :btree
@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20150710140609) do
     t.datetime "updated_at"
     t.integer  "memory_limit",    limit: 4,                           default: 16777216
     t.string   "diff_parameters", limit: 255,                         default: "",       null: false
-    t.boolean  "runs_visible",    limit: 1
+    t.boolean "runs_visible", limit: 1
   end
 
   add_index "problems", ["contest_id"], name: "index_problems_on_contest_id", using: :btree
