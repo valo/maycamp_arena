@@ -1,7 +1,9 @@
 class Admin::GroupsController < Admin::BaseController
 
+  after_action :verify_authorized
+
   def index
-    authorize :groups, :index?
+    authorize :groups
 
     @groups = Group.all
   end

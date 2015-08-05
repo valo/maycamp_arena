@@ -2,7 +2,7 @@
 <h2><%= @group.name %></h2> 
 <br>
 
-<% cache ["practice_area" || 1, Contest.last, Run.where(:user_id => current_user.id).last] do %>
+<% cache ["contest_group", @group, @group.contests.last, Run.where(:user_id => current_user.id).last] do %>
   <table>
     <tr>
       <th>Име</th>
