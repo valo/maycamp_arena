@@ -138,6 +138,8 @@ class GradeRun
         "/sandbox/program"
       when Run::LANG_PYTHON2
         "/usr/bin/python2.7 program#{ Run::EXTENSIONS[run.language] }"
+      when Run::LANG_PYTHON3
+        "/usr/bin/python3.4 program#{ Run::EXTENSIONS[run.language] }"
       end
     end
 

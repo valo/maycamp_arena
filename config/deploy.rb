@@ -64,7 +64,14 @@ namespace :deploy do
     end
   end
 
+  task :build_docker_image do
+    on roles(:grader), in: :sequence, wait: 5 do
+      execute "cd #{release_path} && docker build -t grader ."
+    end
+  end
+
   after :publishing, :restart
+  after :restart, :build_docker_image
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
