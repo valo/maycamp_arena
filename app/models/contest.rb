@@ -11,6 +11,7 @@ class Contest < ActiveRecord::Base
   has_many :contest_start_events, :dependent => :destroy
   has_many :contest_results
   has_many :rating_changes, :through => :contest_results
+  belongs_to :group
 
   scope :upcoming, -> { where('? < start_time', Time.now.utc) }
   scope :current, -> { where('? > start_time AND ? < end_time', Time.now.utc, Time.now.utc) }

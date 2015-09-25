@@ -1,0 +1,8 @@
+<h1>Състезания по Групи</h1>
+<% for @grp in @groups do %>
+  <h2><%= link_to h(@grp.name), admin_group_path(@grp) %></h2>
+  <%= link_to 'Промени', edit_admin_group_path(@grp) %> -
+  <%= link_to 'Изтрий', admin_group_path(@grp), { method: :delete, data: { confirm: "Сигурни ли сте, че искате да изтриете група #{ @grp.name }?" } } %>
+<% end %>
+<br><br>
+<%= link_to "Нова група", new_admin_group_path() %>
