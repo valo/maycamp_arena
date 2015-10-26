@@ -6,6 +6,10 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+#wrap {
+  padding:20px 0;
+}
+
 body {
   font-family: Lucida Grande, Arial, "MS Trebuchet", sans-serif;
 }
@@ -43,6 +47,10 @@ td, th {
 textarea.source_code {
     width: 600px;
     height: 600px;
+}
+
+#navigation ul, #submenu ul {
+  margin-bottom: 0;
 }
 
 .new_run p, .edit_contest p, .new_contest p, .new_user p, .edit_user p, .new_problem p, .edit_problem p {
