@@ -4,10 +4,9 @@ class AddGroupToContest < ActiveRecord::Migration
       t.string :name
     end
     add_reference :contests, :group, index: true, foreign_key: true, null: false, default: 1
-    add_column :problems, :runs_visible, :boolean
 
-  #create groups
-    
+    #create groups
+
     general_group = Group.create(name: "Общи")
     control_group = Group.create(name: "Контроли за IOI")
     spring_group = Group.create(name: "Пролетен турнир")
@@ -20,7 +19,7 @@ class AddGroupToContest < ActiveRecord::Migration
     boi_group = Group.create(name: "BOI and JBOI")
     daa_group = Group.create(name: "ДАА")
     arena_group = Group.create(name: "Арена")
-      #match groups      
+      #match groups
       Contest.find_each do |contest|
         if(contest.name.include? "контролно група")||(contest.name.include? "контролно групи")||(contest.name.include? "Контрол")||(contest.name.include? "контролно")
           contest.update!(group: control_group)
@@ -41,7 +40,7 @@ class AddGroupToContest < ActiveRecord::Migration
         elsif(contest.name.include? "BOI")
           contest.update!(group: boi_group)
         elsif(contest.name.include? "ДАА")
-          contest.update!(group: daa_group)        
+          contest.update!(group: daa_group)
         elsif(contest.name.include? "Арена")||(contest.name.include? "Maycamp")
           contest.update!(group: arena_group)
         else
@@ -56,7 +55,6 @@ class AddGroupToContest < ActiveRecord::Migration
     drop_table :groups
     remove_index :contests, :group_id
     remove_column :contests, :group_id
-    remove_column :problems, :runs_visible
   end
 end
 
