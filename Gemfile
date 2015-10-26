@@ -46,6 +46,12 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem "capistrano-db-tasks", require: false
+
+  gem 'terminal-notifier-guard', require: false
+  gem 'guard-bundler', require: false
+  gem 'guard-livereload', require: false
+  gem 'guard-rspec', require: false
+  gem 'guard-shell', require: false
 end
 
 group :test do

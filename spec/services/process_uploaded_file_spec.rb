@@ -5,7 +5,7 @@ describe ProcessUploadedFile do
   after(:all) do
     contest = Contest.new
     filesystem = Problem.new.filesystem_name
-    tests_dir = File.join(contest.root_dir, filesystem)   
+    tests_dir = File.join(contest.root_dir, filesystem)
     tests_dir = File.join(tests_dir, "/*")
     FileUtils.rm_rf(Dir.glob(tests_dir))
   end
@@ -21,8 +21,8 @@ describe ProcessUploadedFile do
       ProcessUploadedFile.new(file_in, problem).extract
       ProcessUploadedFile.new(file_ans, problem).extract
 
-      expect(File).to exist(problem.input_files.first) 
-      expect(File).to exist(problem.output_files.first)  
+      expect(File).to exist(problem.input_files.first)
+      expect(File).to exist(problem.output_files.first)
 
       expect(File.read(problem.input_files.first)).not_to include("\r")
       expect(File.read(problem.output_files.first)).not_to include("\r")

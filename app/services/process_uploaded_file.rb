@@ -28,7 +28,7 @@ private
         FileUtils.rm(dest) if File.exists?(dest)
         filename.extract dest
       end
-    end  
+    end
   end
 
   def file_extract

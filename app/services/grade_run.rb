@@ -3,7 +3,7 @@ class GradeRun
 
   def initialize(run, tests = nil, dry_run = false)
     @run = run
-    @tests = tests
+    @tests = tests || run.problem.number_of_tests
     @dry_run = dry_run
   end
 
@@ -158,10 +158,6 @@ class GradeRun
     ensure
       STDOUT.reopen(old_stdout)
       STDERR.reopen(old_stderr)
-    end
-
-    def tests
-      @tests ||= run.problem.number_of_tests
     end
 
     def timeout
