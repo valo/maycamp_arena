@@ -3,7 +3,7 @@
 ## Status
 
 [![Gemnasium Status](https://gemnasium.com/valo/maycamp_arena.png)](https://gemnasium.com/valo/maycamp_arena)
-[![Travis CI Status](https://travis-ci.org/valo/maycamp_arena.png)](https://travis-ci.org/valo/maycamp_arena)
+[![Travis CI Status](https://travis-ci.org/valo/maycamp_arena.svg?branch=master)](https://travis-ci.org/valo/maycamp_arena)
 
 ## Description
 
