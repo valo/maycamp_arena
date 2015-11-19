@@ -6,6 +6,7 @@ class Contest < ActiveRecord::Base
 
   RUNNER_TYPES = ["fork", "box"]
 
+  belongs_to :contest_groups
   has_many :problems, :dependent => :destroy
   has_many :runs, :through => :problems
   has_many :contest_start_events, :dependent => :destroy

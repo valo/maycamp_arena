@@ -1,32 +1,48 @@
 <h2>Предишни състезания</h2>
 <br />
-<% unless @past_contests.blank? %>
-  <%= will_paginate @past_contests, :param_name => :past_contests_page %>
-  <table>
-    <tr>
-      <th>Име</th>
-      <th>Начало</th>
-      <th>Край</th>
-      <th>Продължителност</th>
-      <th>Резултати</th>
-    </tr>
-    <% for contest in @past_contests do %>
-      <tr>
-        <td><%= contest.name %></td>
-        <td><%= contest.start_time.to_s :long %></td>
-        <td><%= contest.end_time.to_s :long %></td>
-        <td><%= duration_in_words contest.duration.minutes %></td>
-        <td>
-          <% if contest.results_visible? or current_user.andand.admin? %>
-            <%= link_to "Резултати", :action => :results, :contest_id => contest.id %>
-          <% else %>
-            Очаквайте скоро
-          <% end %>
-        </td>
-      </tr>
+
+<% unless @contest_groups.blank? %>
+    <table>
+        <tr>
+    <% @contest_groups.each do |g| %>
+            <td onclick="show_contest_group('<%= g.id %>')"><%= g.name %></td>
     <% end %>
-  </table>
-  <%= will_paginate @past_contests, :param_name => :past_contests_page %>
-<% else %>
-  Няма предишни състезания.
+        </tr>
+    </table>
 <% end %>
+<br />
+
+<% @sort_contests.each_with_index do |c, index| %>
+    <div id="groupid_<%= c[0]%>" style="<%= (c[0].to_i != 1 ? "display:none;" : '') %>" >
+        <% unless c[1].blank? %>
+          <table>
+            <tr>
+              <th>Име</th>
+              <th>Начало</th>
+              <th>Край</th>
+              <th>Продължителност</th>
+              <th>Резултати</th>
+            </tr>
+            <% for contest in c[1]do %>
+              <tr>
+                <td><%= contest.name %></td>
+                <td><%= contest.start_time.to_s :long %></td>
+                <td><%= contest.end_time.to_s :long %></td>
+                <td><%= duration_in_words contest.duration.minutes %></td>
+                <td>
+                  <% if contest.results_visible? or current_user.andand.admin? %>
+                    <%= link_to "Резултати", :action => :results, :contest_id => contest.id %>
+                  <% else %>
+                    Очаквайте скоро
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        <% else %>
+          Няма предишни състезания.
+        <% end %>
+    </div>
+<% end %>
+
+
