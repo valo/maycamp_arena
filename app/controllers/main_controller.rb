@@ -6,12 +6,12 @@ class MainController < ApplicationController
   before_filter :check_user_profile
 
   def index
-    @past_contests = Contest.finished.paginate(:page => params.fetch(:past_contest_page, 1), :per_page => 20)
-    @contests = WillPaginate::Collection.create(params[:contest_page] || 1, 20) do |pager|
-      contests = Contest.current.select {|contest| contest.visible or current_user.andand.admin?}
+    @sort_contests = {}
+    @contest_groups = ContestGroup.all()
 
-      pager.replace contests[pager.offset, pager.per_page]
-      pager.total_entries = contests.length
+    @contest_groups.each do |g|
+        group_contests = Contest.where(:contest_group_id => g.id).all
+        @sort_contests["#{g.id}"] = group_contests
     end
 
     @upcoming_contests = Contest.upcoming.select {|contest| contest.visible or current_user.andand.admin?}
