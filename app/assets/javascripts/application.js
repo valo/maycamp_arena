@@ -5,6 +5,19 @@
 //= require highcharts
 //= require codemirror
 
+function show_contest_group(id)
+{
+    if (typeof(id) != undefined)
+    {
+        //hide all
+        $('[id*="groupid_"]').each(function() {
+            $(this).hide();
+        });
+
+        $("#groupid_" + id).show();
+    }
+}
+
 $(function() {
   if (gon.daily_submits_report) {
     $('#daily_submits_report').highcharts({

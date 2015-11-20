@@ -5,23 +5,35 @@ class MainController < ApplicationController
   layout "main", :except => :results
   before_filter :check_user_profile
 
-  def index
-    @past_contests = Contest.finished.paginate(:page => params.fetch(:past_contest_page, 1), :per_page => 20)
-    @contests = WillPaginate::Collection.create(params[:contest_page] || 1, 20) do |pager|
-      contests = Contest.current.select {|contest| contest.visible or current_user.andand.admin?}
 
-      pager.replace contests[pager.offset, pager.per_page]
-      pager.total_entries = contests.length
-    end
+    def index
+        @sort_contests = {}
+        @contest_groups = ContestGroup.all()
 
-    @upcoming_contests = Contest.upcoming.select {|contest| contest.visible or current_user.andand.admin?}
-    @practice_contests = WillPaginate::Collection.create(params[:practice_contests_page] || 1, 20) do |pager|
-      practice_contests = Contest.practicable.select {|contest| contest.visible or current_user.andand.admin?}.reverse
+        unless @contest_groups.blank?
+            @contest_groups.each do |g|
+                group_contests = Contest.finished.where(:contest_group_id => g.id).order(created_at: :desc).all
+                @sort_contests["#{g.id}"] = group_contests
+            end
+        else
+            @sort_contests["1"] = Contest.finished.order(created_at: :desc).all
+        end
 
-      pager.replace (practice_contests[pager.offset, pager.per_page] || [])
-      pager.total_entries = practice_contests.length
-    end
+        @contests = WillPaginate::Collection.create(params[:contest_page] || 1, 20) do |pager|
+            contests = Contest.current.select {|contest| contest.visible or current_user.andand.admin?}
+            pager.replace contests[pager.offset, pager.per_page]
+            pager.total_entries = contests.length
+        end
+
+        @upcoming_contests = Contest.upcoming.select {|contest| contest.visible or current_user.andand.admin?}
+
+        @practice_contests = WillPaginate::Collection.create(params[:practice_contests_page] || 1, 20) do |pager|
+            practice_contests = Contest.practicable.select {|contest| contest.visible or current_user.andand.admin?}.reverse
+            pager.replace (practice_contests[pager.offset, pager.per_page] || [])
+            pager.total_entries = practice_contests.length
+        end
   end
+
 
   def rules
   end

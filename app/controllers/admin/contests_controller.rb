@@ -18,6 +18,7 @@ class Admin::ContestsController < Admin::BaseController
   def new
     authorize :contests, :new?
 
+    @contest_grups = ContestGroup.all()
     @contest = Contest.new
   end
 
@@ -34,6 +35,7 @@ class Admin::ContestsController < Admin::BaseController
   end
 
   def edit
+    @contest_grups = ContestGroup.all()
     authorize contest
   end
 
