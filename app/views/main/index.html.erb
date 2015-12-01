@@ -3,6 +3,7 @@
   <br />
   <p>Не сте влезли в системата. Трябва да <%= link_to "влезете", new_session_path %> ако искате да участвате в състезанията.
   <br />
+  <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
   <br />
   Ако нямате потребител можете да си създадете от <%= link_to "тук", signup_path %>.</p>
 <% end %>

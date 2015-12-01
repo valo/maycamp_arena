@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707154218) do
+ActiveRecord::Schema.define(version: 20151129133445) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -179,17 +179,32 @@ ActiveRecord::Schema.define(version: 20150707154218) do
   add_index "user_preferences", ["user_id"], name: "index_user_preferences_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "login",      limit: 40
-    t.string   "name",       limit: 100, default: ""
-    t.string   "email",      limit: 100
+    t.string   "login",                  limit: 40
+    t.string   "name",                   limit: 100, default: ""
+    t.string   "email",                  limit: 255, default: "",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "password",   limit: 40,                        null: false
-    t.string   "city",       limit: 255
-    t.string   "token",      limit: 16
-    t.string   "role",       limit: 255, default: "contester", null: false
+    t.string   "password",               limit: 40,                        null: false
+    t.string   "city",                   limit: 255
+    t.string   "token",                  limit: 16
+    t.string   "role",                   limit: 255, default: "contester", null: false
+    t.string   "encrypted_password",     limit: 255, default: "",          null: false
+    t.string   "reset_password_token",   limit: 255
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          limit: 4,   default: 0,           null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "provider",               limit: 255
+    t.string   "uid",                    limit: 255
   end
 
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
+  add_index "users", ["provider"], name: "index_users_on_provider", using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
 
 end

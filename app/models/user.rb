@@ -4,6 +4,8 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   include Latinize
 
+  devise :omniauthable, :omniauth_providers => [:facebook]
+
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login
@@ -46,6 +48,15 @@ class User < ActiveRecord::Base
   # We really need a Dispatch Chain here or something.
   # This will also let us return a human error message.
   #
+
+  def self.from_omniauth(auth)
+    where( email: auth.info.email).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+      user.name = auth.info.name   # assuming the user model has a name
+    end
+  end
+
   def self.authenticate(login, password)
     user = find_by_login(login.downcase) || find_by_email(login.downcase) # need to get the salt
 

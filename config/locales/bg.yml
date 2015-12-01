@@ -3,6 +3,10 @@
 #
 # Минимална локализация на приложения за поддръжка на български език.
 bg:
+  devise:
+    omniauth_callbacks:
+      failure: "Грешка при влизане %{kind} because \"%{reason}\"."
+      success: "Добре дошли %{kind} account."
   date:
     formats:
       default: "%d.%m.%Y"
