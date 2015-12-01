@@ -5,8 +5,8 @@
 bg:
   devise:
     omniauth_callbacks:
-      failure: "Грешка при влизане %{kind} because \"%{reason}\"."
-      success: "Добре дошли %{kind} account."
+      failure: "Грешка при влизане чрез %{kind} защото: \"%{reason}\"."
+      success: "Добре дошли %{name}!"
   date:
     formats:
       default: "%d.%m.%Y"
