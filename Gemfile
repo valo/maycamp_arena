@@ -28,6 +28,8 @@ gem 'pundit'
 gem 'codemirror-rails'
 gem 'highcharts-rails'
 gem 'gon'
+gem 'devise'
+gem 'omniauth-facebook'
 
 group :production do
   gem 'SyslogLogger'

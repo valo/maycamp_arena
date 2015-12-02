@@ -11,6 +11,7 @@
   <%= password_field_tag 'password', nil %></p>
   <br />
   <p><%= submit_tag 'Влез' %></p>
+  <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
   <p>Нямате акаунт? Можете да си направите ето <%= link_to "тук", new_user_path %></p>
   <p><%= link_to "Забравена парола?", :controller => :users, :action => "password_forgot" %></p>
 <% end -%>
