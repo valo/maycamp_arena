@@ -11,6 +11,7 @@ u = User.create(
   :email => "valentin.mihov@gmail.com",
   :unencrypted_password => "123123",
   :unencrypted_password_confirmation => "123123",
+  :encrypted_password => User.devise_encrypt_password("123123"),
   :role => User::ADMIN,
   :city => "Sofia"
 )
