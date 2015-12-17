@@ -24,6 +24,7 @@ class Admin::UsersController < Admin::BaseController
     @user = User.new(params.require(:user).permit!)
     @user.unencrypted_password = params[:user][:unencrypted_password]
     @user.unencrypted_password_confirmation = params[:user][:unencrypted_password_confirmation]
+    @user.encrypted_password = User.devise_encrypt_password(params[:user][:unencrypted_password])
 
     if @user.save
       redirect_to :action => "index"
@@ -45,6 +46,7 @@ class Admin::UsersController < Admin::BaseController
     unless params[:user][:unencrypted_password].blank?
       user.unencrypted_password = params[:user][:unencrypted_password]
       user.unencrypted_password_confirmation = params[:user][:unencrypted_password_confirmation]
+      user.encrypted_password = User.devise_encrypt_password(params[:user][:unencrypted_password])
     end
 
     if user.save

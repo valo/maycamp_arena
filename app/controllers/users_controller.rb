@@ -56,6 +56,7 @@ class UsersController < ApplicationController
     if !params[:user][:unencrypted_password].blank?
       @user.unencrypted_password = params[:user][:unencrypted_password]
       @user.unencrypted_password_confirmation = params[:user][:unencrypted_password_confirmation]
+      @user.encrypted_password = User.devise_encrypt_password(params[:user][:unencrypted_password])
     end
 
     if @user.save
@@ -71,6 +72,7 @@ class UsersController < ApplicationController
     @user = User.new(params.require(:user).permit(:login, :name, :email, :city))
     @user.unencrypted_password = params[:user][:unencrypted_password]
     @user.unencrypted_password_confirmation = params[:user][:unencrypted_password_confirmation]
+    @user.encrypted_password = User.devise_encrypt_password(params[:user][:unencrypted_password])
 
     if @user.save
       self.current_user = @user # !! now logged in
@@ -105,6 +107,7 @@ class UsersController < ApplicationController
 
     @user.unencrypted_password = params[:user][:unencrypted_password]
     @user.unencrypted_password_confirmation = params[:user][:unencrypted_password_confirmation]
+    @user.encrypted_password = User.devise_encrypt_password(params[:user][:unencrypted_password])
 
     if @user.unencrypted_password == @user.unencrypted_password_confirmation
       @user.save(validate: false)

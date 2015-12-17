@@ -28,6 +28,7 @@ gem 'pundit'
 gem 'codemirror-rails'
 gem 'highcharts-rails'
 gem 'gon'
+gem 'devise'
 
 group :production do
   gem 'SyslogLogger'
@@ -46,6 +47,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem "capistrano-db-tasks", require: false
+  gem 'pry'
 end
 
 group :test do

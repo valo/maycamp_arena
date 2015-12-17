@@ -4,6 +4,8 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   include Latinize
 
+  devise :database_authenticatable
+
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login
@@ -49,11 +51,24 @@ class User < ActiveRecord::Base
   def self.authenticate(login, password)
     user = find_by_login(login.downcase) || find_by_email(login.downcase) # need to get the salt
 
-    if user and user.password == encrypt_password(password)
-      return user
+    if user
+      if user[:password].length != 0
+        if user.password_before_type_cast == encrypt_password(password)
+          user[:password] = ""
+          user[:encrypted_password] = devise_encrypt_password(password)
+          user.save
+          return user
+        end
+      elsif user.valid_password?(password)
+        return user
+      end
     end
 
     nil
+  end
+
+  def self.devise_encrypt_password(password)
+    Devise::Encryptor.digest(Devise, password)
   end
 
   def admin?
