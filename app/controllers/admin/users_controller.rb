@@ -2,7 +2,7 @@ require 'ostruct'
 
 class Admin::UsersController < Admin::BaseController
   def index
-    authorize :users, :index?
+    authorize :user, :index?
 
     @search = OpenStruct.new(params[:search])
     @users = User.all
@@ -13,13 +13,13 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def new
-    authorize :users, :new?
+    authorize :user, :new?
 
     @user = User.new
   end
 
   def create
-    authorize :users, :create?
+    authorize :user, :create?
 
     @user = User.new(params.require(:user).permit!)
     @user.unencrypted_password = params[:user][:unencrypted_password]

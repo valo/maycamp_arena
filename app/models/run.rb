@@ -3,8 +3,9 @@ class Run < ActiveRecord::Base
     LANG_C_CPP = "C/C++"
     LANG_JAVA = "Java"
     LANG_PYTHON2 = "Python 2.7"
+    LANG_PYTHON3 = "Python 3.4"
 
-    LANGUAGES = [LANG_C_CPP, LANG_JAVA, LANG_PYTHON2]
+    LANGUAGES = [LANG_C_CPP, LANG_JAVA, LANG_PYTHON2, LANG_PYTHON3]
     WAITING = "waiting"
     JUDGING = "judging"
     CHECKING = "checking"
@@ -12,6 +13,7 @@ class Run < ActiveRecord::Base
     EXTENSIONS = {
       LANG_C_CPP => ".cpp",
       LANG_PYTHON2 => ".py",
+      LANG_PYTHON3 => ".py",
       LANG_JAVA => ".java"
     }
   end
