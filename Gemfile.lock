@@ -37,9 +37,6 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    airbrake (5.0.1)
-      airbrake-ruby (~> 1.0)
-    airbrake-ruby (1.0.1)
     andand (1.3.3)
     arel (6.0.3)
     builder (3.2.2)
@@ -226,7 +223,6 @@ PLATFORMS
 
 DEPENDENCIES
   SyslogLogger
-  airbrake
   andand
   capistrano
   capistrano-bundler
