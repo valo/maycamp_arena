@@ -14,7 +14,6 @@ gem 'mysql2'
 gem 'rubyzip'
 gem 'zip-zip'
 gem 'andand'
-gem 'airbrake'
 gem 'newrelic_rpm'
 gem 'will_paginate'
 gem 'rubystats'
@@ -50,7 +49,7 @@ end
 
 group :test do
   gem 'rspec-rails'
-  gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers', '~> 3.0'
   gem 'factory_girl_rails'
   gem 'mocha', :require => 'mocha/api'
   gem 'capybara'

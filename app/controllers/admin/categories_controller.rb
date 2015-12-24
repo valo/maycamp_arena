@@ -1,6 +1,6 @@
 class Admin::CategoriesController < Admin::BaseController
   def index
-    authorize :categories, :index?
+    authorize :category, :index?
 
     @categories = Category.all
   end
@@ -10,13 +10,13 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def new
-    authorize :categories, :new?
+    authorize :category, :new?
 
     @category = Category.new
   end
 
   def create
-    authorize :categories, :create?
+    authorize :category, :create?
 
     @category = Category.new(params.require(:category).permit!)
 
