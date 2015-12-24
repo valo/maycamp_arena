@@ -6,6 +6,7 @@ FactoryGirl.define do
     u.sequence(:login) { |n| "login#{n}" }
     u.unencrypted_password "secret"
     u.unencrypted_password_confirmation "secret"
+    u.encrypted_password User.devise_encrypt_password("secret")
     u.role User::CONTESTER
     u.name "Valentin Mihov"
     u.city { BG_CITIES.first }

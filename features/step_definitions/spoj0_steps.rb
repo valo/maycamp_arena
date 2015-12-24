@@ -65,7 +65,14 @@ Given /^the user "([^\"]*)" opens the contest "([^\"]*)"$/ do |user, contest|
 end
 
 Given(/^I am logged in as contestant user with attributes:$/) do |user_attrs|
-  user = create(:user, user_attrs.transpose.hashes.first.merge(:unencrypted_password => "secret", :unencrypted_password_confirmation => "secret"))
+  user = create(
+    :user,
+    user_attrs.transpose.hashes.first.merge(
+      :unencrypted_password => "secret",
+      :unencrypted_password_confirmation => "secret",
+      :encrypted_password => User.devise_encrypt_password("secret")
+    )
+  )
   steps %{And I am on the login page
           And I fill in the following:
             | login                 | #{user.login}             |
