@@ -261,7 +261,7 @@ DEPENDENCIES
   rubystats
   rubyzip
   sass-rails
-  shoulda-matchers
+  shoulda-matchers (~> 3.0)
   spring
   spring-commands-rspec
   sprockets-rails

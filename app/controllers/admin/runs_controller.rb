@@ -2,7 +2,7 @@
 
 class Admin::RunsController < Admin::BaseController
   def index
-    authorize :runs, :index?
+    authorize :run, :index?
 
     @runs = Run.includes({ :problem => :contest }, :user).order("runs.created_at DESC")
     @runs = @runs.where(:problem_id => params[:problem_id]) unless params[:problem_id].blank?
@@ -14,7 +14,7 @@ class Admin::RunsController < Admin::BaseController
   end
 
   def queue
-    authorize :runs, :queue?
+    authorize :run, :queue?
     @runs = Run.includes(:problem)
     @runs = @runs.where(:problem_id => params[:problem_id]) unless params[:problem_id].blank?
     @runs = @runs.where(:id => params[:id]) unless params[:id].blank?
@@ -28,7 +28,7 @@ class Admin::RunsController < Admin::BaseController
   end
 
   def new
-    authorize :runs, :new?
+    authorize :run, :new?
 
     @contest = Contest.find(params[:contest_id])
     @problem = Problem.find(params[:problem_id])
@@ -51,7 +51,7 @@ class Admin::RunsController < Admin::BaseController
   end
 
   def create
-    authorize :runs, :create?
+    authorize :run, :create?
 
     @contest = Contest.find(params[:contest_id])
     @problem = Problem.find(params[:problem_id])
