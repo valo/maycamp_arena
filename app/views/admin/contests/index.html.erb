@@ -2,7 +2,7 @@
 <br />
 
 <% if !@contests.blank? %>
-  <p><%= will_paginate @contests %></p>
+  <p><%= will_paginate @contests, renderer: BootstrapPagination::Rails %></p>
   <table>
     <tr>
       <th>Име</th>
@@ -29,7 +29,7 @@
     </tr>
   <% end %>
   </table>
-  <p><%= will_paginate @contests %></p>
+  <p><%= will_paginate @contests, renderer: BootstrapPagination::Rails %></p>
 <% else %>
   Няма състезания в системата.
 <% end %>
