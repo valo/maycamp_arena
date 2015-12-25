@@ -18,27 +18,16 @@
 
 <!-- content START -->
 <div id="content">
-
-	<!-- main START -->
-	<div id="main">
-
-	<div class="post">
-	    <% if current_user.andand.admin? and controller.is_a?(Admin::BaseController) %>
-	      <p id="breadcrumbs"><strong>Вие сте тук:</strong> <%= get_bread_crumb(request.path) %></p>
-	    <% end %>
-      <%- if flash[:notice] -%>
-        <p class="notice"><%= flash[:notice] %></p>
-      <%- end -%>
-      <%- if flash[:error] -%>
-        <p class="error"><%= flash[:error] %></p>
-      <%- end -%>
-      <%= yield %>
-	</div>
-
-	</div>
-	<!-- main END -->
-
-	<div class="fixed"></div>
+  <% if current_user.andand.admin? and controller.is_a?(Admin::BaseController) %>
+    <p id="breadcrumbs"><strong>Вие сте тук:</strong> <%= get_bread_crumb(request.path) %></p>
+  <% end %>
+  <%- if flash[:notice] -%>
+    <p class="notice"><%= flash[:notice] %></p>
+  <%- end -%>
+  <%- if flash[:error] -%>
+    <p class="error"><%= flash[:error] %></p>
+  <%- end -%>
+  <%= yield %>
 </div>
 <!-- content END -->
 
@@ -56,7 +45,3 @@
 <%= render :partial => "common/chartbeat_analytics" %>
 </body>
 </html>
-
-
-
-
