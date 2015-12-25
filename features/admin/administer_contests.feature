@@ -3,13 +3,15 @@ Feature: Administer contests
   In order to be able to control the system
   As a administrator
   I want to be able to administer the contests
-  
+
   Background:
     Given there is an admin user with attributes:
       | login                 | valo                      |
       | name                  | Valentin Mihov            |
       | email                 | valentin.mihov@gmail.com  |
       | unencrypted_password  | secret                    |
+    And there is a group with attributes:
+      | name | Content group |
     And I am not logged in
     And I am on the login page
     And I fill in the following:
@@ -25,6 +27,7 @@ Feature: Administer contests
       | Продължителност: | 120 |
     And I select "October 16, 2014 16:21:39" as the "Начало:" datetime
     And I select "October 18, 2014 16:21:39" as the "Край:" datetime
+    And I select "Content group" from "Група"
     And I press "Създаване"
     Then I should be on the contest list in the admin panel
     And I should see "Fall contest"

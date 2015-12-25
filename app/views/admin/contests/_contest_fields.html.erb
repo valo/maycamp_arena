@@ -3,7 +3,7 @@
   <%= f.text_field :name %>
 </p>
 <p>
-  <%= f.label :group_id, "Groups:" %>
+  <%= f.label :group_id, "Група:" %>
   <%= f.select :group_id, Group.all.collect {|g| [ g.name, g.id ] }%>
 </p>
 <p>
