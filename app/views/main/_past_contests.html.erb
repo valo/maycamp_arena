@@ -1,7 +1,6 @@
 <h2>Предишни състезания</h2>
-<br />
 <% unless @past_contests.blank? %>
-  <%= will_paginate @past_contests, :param_name => :past_contests_page %>
+  <%= will_paginate @past_contests, :param_name => :past_contests_page, renderer: BootstrapPagination::Rails %>
   <table>
     <tr>
       <th>Име</th>
@@ -26,7 +25,7 @@
       </tr>
     <% end %>
   </table>
-  <%= will_paginate @past_contests, :param_name => :past_contests_page %>
+  <%= will_paginate @past_contests, :param_name => :past_contests_page, renderer: BootstrapPagination::Rails %>
 <% else %>
   Няма предишни състезания.
 <% end %>

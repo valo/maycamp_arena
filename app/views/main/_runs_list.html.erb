@@ -1,4 +1,4 @@
-<%= will_paginate runs %>
+<%= will_paginate runs, renderer: BootstrapPagination::Rails %>
 <table class="runs_list">
     <tr>
         <th class="created_at">Пратено на</th>
@@ -22,7 +22,7 @@
         <td class="time"><%= run.max_time.to_f %> sec.</td>
         <td class="mem"><%= run.max_memory.to_i / 1024 %> KB</td>
         <% if have_visible?(runs) %>
-          <td>         
+          <td>
             <% if policy(run).show? %>
               <%= link_to "Решение", admin_contest_problem_run_path(run.problem.contest, run.problem, run) %>
             <% else %>
@@ -33,4 +33,4 @@
     </tr>
 <% end %>
 </table>
-<%= will_paginate runs %>
+<%= will_paginate runs, renderer: BootstrapPagination::Rails %>

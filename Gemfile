@@ -15,7 +15,7 @@ gem 'rubyzip'
 gem 'zip-zip'
 gem 'andand'
 gem 'newrelic_rpm'
-gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 gem 'rubystats'
 gem 'dynamic_form'
 gem 'rprocfs'
@@ -38,7 +38,7 @@ group :development do
   gem "spring-commands-rspec"
   gem 'sprockets-rails'
   gem 'uglifier', '>= 1.0.3'
-  # Deploy with 
+  # Deploy with
   gem 'sass-rails'
   gem 'capistrano'
   gem 'capistrano3-puma'
