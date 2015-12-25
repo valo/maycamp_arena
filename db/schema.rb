@@ -189,4 +189,5 @@ ActiveRecord::Schema.define(version: 20150710140609) do
 
   add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
 
+  add_foreign_key "contests", "groups"
 end
