@@ -108,6 +108,7 @@ textarea.source_code {
 }
 
 #submenu {
+  border-bottom: 1px solid #999;
 	background:#FFF;
 }
 
@@ -210,4 +211,12 @@ form p em {
 .message .body {
 	border: 1px solid #999;
 	padding: 5px;
+}
+
+#content {
+  padding: 15px;
+}
+
+.group {
+  text-align: center;
 }

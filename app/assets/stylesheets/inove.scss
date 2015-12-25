@@ -21,20 +21,7 @@ body {
 	background:#BEC3C6 image-url("inove/bg.jpg") repeat-x;
   background-size: auto 100%;
 	color:#555;
-	font-family:Verdana,"BitStream vera Sans",Tahoma,Helvetica,Sans-serif;
-	font-size:12px;
 }
-h1, h2, h3, h4, h5, h6 {
-	font-weight:bold;
-	letter-spacing:-0.05em;
-	font-family:Arial;
-}
-h1 {font-size:200%;}
-h2 {font-size:170%;}
-h3 {font-size:150%;}
-h4 {font-size:130%;}
-h5 {font-size:110%;}
-h6 {font-size:100%;}
 img {
   background-size: cover;
   width: 100%;
@@ -370,24 +357,6 @@ textarea {
 }
 *+html .post {
 	padding-bottom:15px !important;
-}
-.post h2 {
-	display:block;
-	margin-top:10px;
-	border-bottom:1px solid #CCC;
-	padding:0 5px 3px;
-	font-size:16px;
-	font-family:Verdana,"BitStream vera Sans";
-}
-.post h2 a.title {
-	text-decoration:none;
-	color:#4C4C4C;
-}
-.post h2 a.title:hover {
-	color:#2970A6;
-}
-.post h2 .act a {
-	font-weight:normal;
 }
 .post .info {
 	margin:5px;
