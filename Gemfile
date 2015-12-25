@@ -29,6 +29,8 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'highcharts-rails'
 gem 'gon'
 gem 'js_cookie_rails'
+gem 'sass-rails'
+gem 'coffee-rails'
 
 group :production do
   gem 'SyslogLogger'
@@ -38,10 +40,8 @@ group :development do
   gem 'spring'
   gem "spring-commands-rspec"
   gem 'sprockets-rails'
-  gem 'coffee-rails'
   gem 'uglifier', '>= 1.0.3'
   # Deploy with
-  gem 'sass-rails'
   gem 'capistrano'
   gem 'capistrano3-puma'
   gem 'capistrano-rvm'
