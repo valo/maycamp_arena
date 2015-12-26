@@ -1,7 +1,7 @@
 <h1>Задачи</h1>
 <p><%= link_to "Задачи по категории", categories_path %></p>
 <%= will_paginate @problems, renderer: BootstrapPagination::Rails %>
-<table>
+<table class="table table-bordered">
   <tr>
     <th>Име</th>
     <th>Състезание</th>

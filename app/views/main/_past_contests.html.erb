@@ -1,7 +1,7 @@
 <h2>Предишни състезания</h2>
 <% unless @past_contests.blank? %>
   <%= will_paginate @past_contests, :param_name => :past_contests_page, renderer: BootstrapPagination::Rails %>
-  <table>
+  <table class="table table-bordered">
     <tr>
       <th>Име</th>
       <th>Начало</th>

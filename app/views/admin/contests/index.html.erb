@@ -3,7 +3,7 @@
 
 <% if !@contests.blank? %>
   <p><%= will_paginate @contests, renderer: BootstrapPagination::Rails %></p>
-  <table>
+  <table class="table table-bordered">
     <tr>
       <th>Име</th>
       <th>Начало</th>

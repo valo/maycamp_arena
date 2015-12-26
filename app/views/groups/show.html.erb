@@ -1,9 +1,9 @@
 <h1>Състезания за група <%= @group.name %></h1>
-<h2><%= @group.name %></h2> 
+<h2><%= @group.name %></h2>
 <br>
 
 <% cache ["contest_group", @group, @group.contests.last, Run.where(:user_id => current_user.id).last] do %>
-  <table>
+  <table class="table table-bordered">
     <tr>
       <th>Име</th>
       <th>Вашите точки</th>
