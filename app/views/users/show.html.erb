@@ -22,7 +22,7 @@
           <th>Език</th>
           <th>Статус</th>
       </tr>
-  <% for run in @runs do %>
+  <% @runs.each do |run| %>
       <tr>
           <td><%= run.created_at %></td>
           <td><%= link_to run.problem.contest.name, :controller => :practice, :action => :open_contest, :contest_id => run.problem.contest.id %></td>
