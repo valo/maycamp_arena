@@ -1,6 +1,6 @@
 <%= will_paginate @practice_contests, :param_name => :practice_contests_page, renderer: BootstrapPagination::Rails %>
 <% cache ["practice_area", params[:practice_contests_page] || 1, Contest.last, Run.where(:user_id => current_user.id).last] do %>
-  <table>
+  <table class="table table-bordered">
     <tr>
       <th>Име</th>
       <th>Вашите точки</th>
