@@ -242,7 +242,7 @@ PLATFORMS
 DEPENDENCIES
   SyslogLogger
   andand
-  bootstrap-sass (~> 3.3.5)
+  bootstrap-sass
   capistrano
   capistrano-bundler
   capistrano-db-tasks
