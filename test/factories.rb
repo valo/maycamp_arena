@@ -9,6 +9,12 @@ FactoryGirl.define do
     u.role User::CONTESTER
     u.name "Valentin Mihov"
     u.city { BG_CITIES.first }
+
+    User::ROLES.each do |role|
+      trait role.to_sym do |u|
+        u.role role
+      end
+    end
   end
 
   factory :contest do |c|

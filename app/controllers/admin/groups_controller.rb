@@ -3,7 +3,7 @@ class Admin::GroupsController < Admin::BaseController
   after_action :verify_authorized
 
   def index
-    authorize :groups
+    authorize :group
 
     @groups = Group.all
   end
@@ -13,13 +13,13 @@ class Admin::GroupsController < Admin::BaseController
   end
 
   def new
-    authorize :groups, :new?
+    authorize :group
 
     @group = Group.new
   end
 
   def create
-    authorize :groups, :create?
+    authorize :group
 
     @group = Group.new(params.require(:group).permit!)
 
@@ -35,7 +35,7 @@ class Admin::GroupsController < Admin::BaseController
   end
 
   def update
-    authorize :groups, :update?
+    authorize :group
 
     group.attributes = params.require(:group).permit!
 
