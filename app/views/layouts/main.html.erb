@@ -39,7 +39,7 @@
 </div>
 <!-- wrap END -->
 
-<%= include_gon %>
+<%= include_gon(init: true) %>
 <%= javascript_include_tag "application" %>
 <%= render :partial => "common/google_analytics" %>
 <%= render :partial => "common/chartbeat_analytics" %>

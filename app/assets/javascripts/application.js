@@ -9,7 +9,7 @@
 //= require_tree ./main
 
 $(function() {
-  if (typeof(gon) != "undefined" && gon.daily_submits_report) {
+  if (gon.daily_submits_report) {
     $('#daily_submits_report').highcharts({
        chart: {
           defaultSeriesType: 'line',
@@ -37,7 +37,7 @@ $(function() {
     });
   }
 
-  if (typeof(gon) != "undefined" && gon.total_submits_report) {
+  if (gon.total_submits_report) {
     $('#total_submits_report').highcharts({
        chart: {
           marginRight: 0,
@@ -81,7 +81,7 @@ $(function() {
     });
   }
 
-  if (typeof(gon) != "undefined" && gon.contest_submit_report) {
+  if (gon.contest_submit_report) {
     $('#contest_submit_report').highcharts({
        chart: {
           renderTo: 'contest_submit_report',
@@ -118,7 +118,7 @@ $(function() {
     });
   }
 
-  if (typeof(gon) != "undefined" && gon.rating_report) {
+  if (gon.rating_report) {
     $('#rating_report').highcharts({
        chart: {
           defaultSeriesType: 'line',
