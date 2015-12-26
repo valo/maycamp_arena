@@ -1,8 +1,6 @@
-<h1>Състезания по групи</h1>
-<h2><%= @group.name %></h2> 
-<br>
-<% for contest in Contest.all do %>
-  <% if @group.id == contest.group_id%>
-    <%= link_to contest.name, open_contest_practice_path(:contest_id => contest.id) %><br>
+<h2><%= @group.name %></h2>
+<ul class="list-group">
+  <% @group.contests.each do |contest| %>
+    <li class="list-group-item"><%= link_to contest.name, open_contest_practice_path(:contest_id => contest.id) %></li>
   <% end %>
-<% end %>
+</ul>
