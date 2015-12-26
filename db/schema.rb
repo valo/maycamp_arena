@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707154218) do
+ActiveRecord::Schema.define(version: 20150710140609) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -64,13 +64,16 @@ ActiveRecord::Schema.define(version: 20150707154218) do
     t.integer  "show_sources",        limit: 4,   default: 0,     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "practicable",         limit: 1,   default: false
-    t.boolean  "results_visible",     limit: 1,   default: false
-    t.boolean  "auto_test",           limit: 1,   default: false
-    t.boolean  "visible",             limit: 1,   default: true
+    t.boolean  "practicable",                     default: false
+    t.boolean  "results_visible",                 default: false
+    t.boolean  "auto_test",                       default: false
+    t.boolean  "visible",                         default: true
     t.string   "runner_type",         limit: 255, default: "box"
-    t.boolean  "best_submit_results", limit: 1,   default: false
+    t.boolean  "best_submit_results",             default: false
+    t.integer  "group_id",            limit: 4,   default: 1,     null: false
   end
+
+  add_index "contests", ["group_id"], name: "index_contests_on_group_id", using: :btree
 
   create_table "external_contest_results", force: :cascade do |t|
     t.integer  "external_contest_id", limit: 4
@@ -87,6 +90,10 @@ ActiveRecord::Schema.define(version: 20150707154218) do
     t.datetime "date"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name", limit: 255
   end
 
   create_table "messages", force: :cascade do |t|
@@ -115,7 +122,7 @@ ActiveRecord::Schema.define(version: 20150707154218) do
     t.datetime "updated_at"
     t.integer  "memory_limit",    limit: 4,                           default: 16777216
     t.string   "diff_parameters", limit: 255,                         default: "",       null: false
-    t.boolean  "runs_visible",    limit: 1
+    t.boolean  "runs_visible"
   end
 
   add_index "problems", ["contest_id"], name: "index_problems_on_contest_id", using: :btree
@@ -159,16 +166,6 @@ ActiveRecord::Schema.define(version: 20150707154218) do
   add_index "runs", ["updated_at"], name: "index_runs_on_updated_at", using: :btree
   add_index "runs", ["user_id", "problem_id"], name: "index_runs_on_user_id_and_problem_id", using: :btree
 
-  create_table "sessions", force: :cascade do |t|
-    t.string   "session_id", limit: 255,   null: false
-    t.text     "data",       limit: 65535
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
-
   create_table "user_preferences", force: :cascade do |t|
     t.integer  "user_id",     limit: 4
     t.binary   "preferences", limit: 65535
@@ -192,4 +189,5 @@ ActiveRecord::Schema.define(version: 20150707154218) do
 
   add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
 
+  add_foreign_key "contests", "groups"
 end

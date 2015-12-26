@@ -15,7 +15,7 @@ gem 'rubyzip'
 gem 'zip-zip'
 gem 'andand'
 gem 'newrelic_rpm'
-gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 gem 'rubystats'
 gem 'dynamic_form'
 gem 'rprocfs'
@@ -25,8 +25,12 @@ gem 'utf8-cleaner'
 gem 'coderay'
 gem 'pundit'
 gem 'codemirror-rails'
+gem 'bootstrap-sass'
 gem 'highcharts-rails'
 gem 'gon'
+gem 'js_cookie_rails'
+gem 'sass-rails'
+gem 'coffee-rails'
 
 group :production do
   gem 'SyslogLogger'
@@ -37,8 +41,7 @@ group :development do
   gem "spring-commands-rspec"
   gem 'sprockets-rails'
   gem 'uglifier', '>= 1.0.3'
-  gem 'sass-rails'
-  # Deploy with Capistrano
+  # Deploy with
   gem 'capistrano'
   gem 'capistrano3-puma'
   gem 'capistrano-rvm'

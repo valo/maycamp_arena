@@ -1,0 +1,11 @@
+<% unless Group.all.blank? %>
+  <div class="container-fluid">
+    <div class="row">
+      <% Group.all.each do |group| %>
+        <div class="col-xs-3 group">
+          <%= link_to image_tag("https://robohash.org/#{group.name}.jpg?size=200x200&bgset=trill") + "#{group.name}", group_path(group) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

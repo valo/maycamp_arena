@@ -32,6 +32,8 @@ module NavigationHelpers
       admin_users_path
     when /the categories list in the admin panel/
       admin_categories_path
+    when /the groups list in the admin panel/
+      admin_groups_path
     when /the status in the admin panel/
       admin_status_path
     when /the results page for contest "([^\"]+)"/

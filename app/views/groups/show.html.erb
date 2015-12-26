@@ -1,0 +1,7 @@
+<h1>Състезания за група <%= @group.name %></h1>
+<h2><%= @group.name %></h2>
+<br>
+
+<% cache ["contest_group", @group, @group.contests.last, Run.where(:user_id => current_user.id).last] do %>
+  <%= render 'common/contests_list', contests: @group.contests %>
+<% end %>

@@ -1,0 +1,13 @@
+<h1>Промяна на <%= @group.name %></h1>
+<%= form_for [:admin, @group] do |f| -%>
+  <p>
+    <%= f.error_messages %>
+  </p>
+  <p>
+    <%= f.label :name, "Име:" %>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit "Обновяване" %><%= link_to "Отказ", admin_groups_path %>
+  </p>
+<% end -%>

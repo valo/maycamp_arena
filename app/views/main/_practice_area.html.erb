@@ -1,28 +1,18 @@
 <h2>Практика</h2>
-<br />
-<p>Тук можете да се упражнявате на вече минали състезания.</p>
-<br />
+<p>Тук можете да се упражнявате на вече минали състезания. Използвайте бутоните за да превключвате между групиран изглед и списък от всички състезания</p>
 <% if !@practice_contests.blank? %>
-<%= will_paginate @practice_contests, :param_name => :practice_contests_page %>
-<% cache ["practice_area", params[:practice_contests_page] || 1, Contest.last, Run.where(:user_id => current_user.id).last] do %>
-  <table>
-    <tr>
-      <th>Име</th>
-      <th>Вашите точки</th>
-      <th></th>
-    </tr>
-    <% @practice_contests.each do |contest| %>
-      <tr>
-        <td><%= contest.name %></td>
-        <td><strong><%= current_user.best_practice_score(contest) %></strong> от максимално <%= contest.max_score %></td>
-        <td>
-          <%= link_to "Практикувай", open_contest_practice_path(:contest_id => contest.id) %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-<% end %>
-<%= will_paginate @practice_contests, :param_name => :practice_contests_page %>
+  <button class="btn btn-default btn-lg <%= practice_groups_button_class %>" id="group-view" aria-pressed="true">
+    <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+  </button>
+  <button class="btn btn-default btn-lg <%= practice_list_button_class %>" id="list-view" aria-pressed="true">
+    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+  </button>
+  <div id="practice-groups" class="<%= practice_groups_class %>">
+    <%= render "groups_list" %>
+  </div>
+  <div id="practice-list" class="<%= practice_list_class %>">
+    <%= render 'practice_list' %>
+  </div>
 <% else %>
-В момента няма състезания, на които да можете да се упражнявате.
+  В момента няма състезания, на които да можете да се упражнявате.
 <% end %>
