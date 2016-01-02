@@ -40,7 +40,7 @@
     <% if policy(:group).index? %>
       <li><%= link_to "Групи", admin_groups_path %></li>
     <% end %>
-    <% if policy(:external_contests).index? %>
+    <% if policy(:external_contest).index? %>
       <li><%= link_to "Външни състезания", admin_external_contests_path %></li>
     <% end %>
     <% if current_user %>
