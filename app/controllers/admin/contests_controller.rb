@@ -4,25 +4,25 @@ require 'zip/zipfilesystem'
 
 class Admin::ContestsController < Admin::BaseController
   def index
-    authorize :contests, :index?
+    authorize :contest, :index?
 
     @contests = Contest.order("end_time DESC").paginate(:page => params[:page], :per_page => 20)
   end
 
   def show
-    authorize :contests, :show?
+    authorize :contest, :show?
 
     redirect_to admin_contest_problems_path(params[:id])
   end
 
   def new
-    authorize :contests, :new?
+    authorize :contest, :new?
 
     @contest = Contest.new
   end
 
   def create
-    authorize :contests, :create?
+    authorize :contest, :create?
 
     @contest = Contest.new(params.require(:contest).permit!)
 

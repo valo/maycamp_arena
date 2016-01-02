@@ -1,0 +1,16 @@
+<table class="table table-bordered">
+  <tr>
+    <th>Име</th>
+    <th>Вашите точки</th>
+    <th></th>
+  </tr>
+  <% contests.each do |contest| %>
+    <tr>
+      <td><%= contest.name %></td>
+      <td><strong><%= current_user.best_practice_score(contest) %></strong> от максимално <%= contest.max_score %></td>
+      <td>
+        <%= link_to "Практикувай", open_contest_practice_path(:contest_id => contest.id) %>
+      </td>
+    </tr>
+  <% end %>
+</table>

@@ -10,6 +10,12 @@ FactoryGirl.define do
     u.role User::CONTESTER
     u.name "Valentin Mihov"
     u.city { BG_CITIES.first }
+
+    User::ROLES.each do |role|
+      trait role.to_sym do |u|
+        u.role role
+      end
+    end
   end
 
   factory :contest do |c|
@@ -17,6 +23,8 @@ FactoryGirl.define do
     c.start_time { 1.hour.ago }
     c.end_time { 1.hour.from_now }
     c.name "Test contest"
+
+    association :group
   end
 
   factory :run do |r|
@@ -61,5 +69,9 @@ FactoryGirl.define do
     r.city "Varna"
     r.points "100"
     r.user_id nil
+  end
+
+  factory :group do
+    sequence(:name) { |n| "Group #{ n }" }
   end
 end

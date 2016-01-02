@@ -2,8 +2,8 @@
 
 <h3>Последни събмити</h3>
 <% cache ["status", params.fetch(:page, 1), Run.maximum(:updated_at)] do %>
-    <%= will_paginate @runs %>
-    <table class="runs_list">
+    <%= will_paginate @runs, renderer: BootstrapPagination::Rails %>
+    <table class="table table-bordered runs_list table-condensed">
         <tr>
             <th>Пратено на</th>
             <th>Език</th>
@@ -39,5 +39,5 @@
         </tr>
     <% end %>
     </table>
-    <%= will_paginate @runs %>
+    <%= will_paginate @runs, renderer: BootstrapPagination::Rails %>
 <% end %>

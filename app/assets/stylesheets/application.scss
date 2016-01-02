@@ -1,8 +1,13 @@
-//= require inove
-//= require inove_admin
-//= require coderay
-//= require ratings
-//= require codemirror
+@import "inove";
+@import "coderay";
+@import "ratings";
+@import "codemirror";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+#wrap {
+  padding:20px 0;
+}
 
 body {
   font-family: Lucida Grande, Arial, "MS Trebuchet", sans-serif;
@@ -14,18 +19,6 @@ label {
 
 h1 {
   margin-top: 0;
-}
-
-table {
-  border-right: 1px solid #999;
-  border-top: 1px solid #999;
-  border-collapse: collapse;
-}
-
-td, th {
-  border-left: 1px solid #999;
-  border-bottom: 1px solid #999;
-  padding: 4px;
 }
 
 .notice {
@@ -43,12 +36,16 @@ textarea.source_code {
     height: 600px;
 }
 
+#navigation ul, #submenu ul {
+  margin-bottom: 0;
+}
+
 .new_run p, .edit_contest p, .new_contest p, .new_user p, .edit_user p, .new_problem p, .edit_problem p {
   margin-top: 1em;
 }
 
 #rules_page_main {
-    margin-left: 20px; 
+    margin-left: 20px;
     margin-right: 120px;
 }
 
@@ -99,6 +96,7 @@ textarea.source_code {
 }
 
 #submenu {
+  border-bottom: 1px solid #999;
 	background:#FFF;
 }
 
@@ -167,19 +165,17 @@ form p em {
 
 .runs_list {
 	font-size: 0.8em;
-	width: 100%;
-}
 
-.runs_list .status {
-  width: 200px;
-}
+  .status {
+    width: 200px;
+  }
+  .created_at {
+    width: 150px;
+  }
 
-.runs_list .created_at {
-  width: 150px;
-}
-
-.runs_list .time, .runs_list .mem {
-  width: 60px;
+  .time, .mem {
+    width: 60px;
+  }
 }
 
 .label {
@@ -201,4 +197,12 @@ form p em {
 .message .body {
 	border: 1px solid #999;
 	padding: 5px;
+}
+
+#content {
+  padding: 15px;
+}
+
+.group {
+  text-align: center;
 }

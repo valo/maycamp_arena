@@ -1,0 +1,17 @@
+<h1>Състезания по Групи</h1>
+<table class="table table-bordered">
+  <tr>
+    <th>Име</th>
+    <th></th>
+  </tr>
+  <% @groups.each do |group| %>
+    <tr>
+      <td><%= link_to h(group.name), admin_group_path(group) %></td>
+      <td>
+        <%= link_to 'Промени', edit_admin_group_path(group) %>|
+        <%= link_to 'Изтрий', admin_group_path(group), { method: :delete, data: { confirm: "Сигурни ли сте, че искате да изтриете група #{ group.name }?" } } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to "Нова група", new_admin_group_path, class: "btn btn-default" %>
