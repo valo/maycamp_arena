@@ -198,7 +198,6 @@ ActiveRecord::Schema.define(version: 20151211212649) do
     t.string   "encrypted_password", limit: 255, default: "",          null: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
 
   add_foreign_key "contests", "groups"
