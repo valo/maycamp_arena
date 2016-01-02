@@ -3,7 +3,7 @@ require 'pry'
 
 RSpec.describe SessionsController, type: :controller do
 
-  context 'with regular user' do
+  context 'with user' do
     describe 'login' do
 
       it 'set devise encryption and empty old password field' do
