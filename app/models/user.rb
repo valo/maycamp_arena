@@ -76,15 +76,6 @@ class User < ActiveRecord::Base
     write_attribute :email, (value ? value.downcase : nil)
   end
 
-  def best_practice_score(contest)
-    Run.where(:user_id => self.id).scoping do
-      contest.problems.map do |problem|
-        # Find the max run for each problem
-        problem.runs.map(&:total_points).max
-      end.compact.sum
-    end
-  end
-
   def full_tasks
     Run.count('problem_id', :conditions => { :user_id => self.id, :total_points => 100 }, :distinct => true)
   end

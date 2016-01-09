@@ -1,5 +1,4 @@
 <h2>Изпрати решение</h2>
-<br />
 <%= form_for @run, :url => { :action => :submit_solution, :contest_id => @contest.id }, :html => { :multipart => true } do |f| -%>
   <%= f.error_messages %>
   <p>
@@ -13,7 +12,7 @@
   <p>
     <%= f.label :source_file, "Качи решение:" %>
     <%= f.file_field :source_file %>
-    <%= f.submit "Изпрати" %>
+    <%= f.submit "Изпрати", class: "btn btn-default" %>
   </p>
   <p>Или прати сорс кода направо от тук</p>
   <p>
@@ -21,6 +20,6 @@
     <%= f.text_area :source_code, :class => "source_code" %>
   </p>
   <p>
-    <%= f.submit "Изпрати" %>
+    <%= f.submit "Изпрати", class: "btn btn-default" %>
   </p>
 <% end -%>

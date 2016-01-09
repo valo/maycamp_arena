@@ -4,6 +4,6 @@
 <%= form_for @user do |f| -%>
 <%= render :partial => 'user_fields', :locals => { :f => f, :update => false } %>
 <p>
-  <%= submit_tag 'Създай нов потребител' %>
+  <%= submit_tag 'Създай нов потребител', class: "btn btn-default" %>
 </p>
 <% end -%>

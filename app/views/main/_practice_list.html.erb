@@ -1,5 +1,5 @@
-<%= will_paginate @practice_contests, :param_name => :practice_contests_page, renderer: BootstrapPagination::Rails %>
-<% cache ["practice_area", params[:practice_contests_page] || 1, Contest.last, Run.where(:user_id => current_user.id).last] do %>
-  <%= render 'common/contests_list', contests: @practice_contests %>
+<%= will_paginate contests, :param_name => :practice_contests_page, renderer: BootstrapPagination::Rails %>
+<% cache ["practice_area", params.fetch(:practice_contests_page, 1), Contest.last, current_user.runs.last] do %>
+  <%= render 'common/contests_list', contests: contests %>
 <% end %>
-<%= will_paginate @practice_contests, :param_name => :practice_contests_page, renderer: BootstrapPagination::Rails %>
+<%= will_paginate contests, :param_name => :practice_contests_page, renderer: BootstrapPagination::Rails %>

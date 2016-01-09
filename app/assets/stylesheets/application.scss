@@ -11,6 +11,7 @@
 
 body {
   font-family: Lucida Grande, Arial, "MS Trebuchet", sans-serif;
+  font-size: 13px;
 }
 
 label {
@@ -170,11 +171,11 @@ form p em {
     width: 200px;
   }
   .created_at {
-    width: 150px;
+    min-width: 90px;
   }
 
   .time, .mem {
-    width: 60px;
+    width: 80px;
   }
 }
 
@@ -205,4 +206,23 @@ form p em {
 
 .group {
   text-align: center;
+  p {
+    font-size: 1.4em;
+  }
+}
+
+.contests {
+  .practice_score {
+    min-width: 500px;
+    .progress-bar {
+      min-width: 6em;
+    }
+  }
+  .actions {
+    max-width: 105px;
+  }
+}
+
+.progress {
+  margin-bottom: 0;
 }
