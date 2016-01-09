@@ -13,7 +13,7 @@
 <% if @runs.empty? %>
   <p>Потребителя няма пратени решения</p>
 <% else %>
-  <table class="table table-bordered runs_list">
+  <table class="table table-bordered table-condensed runs_list">
       <tr>
           <th>Пратено на</th>
           <th>Състезание</th>
@@ -24,7 +24,7 @@
       </tr>
   <% @runs.each do |run| %>
       <tr>
-          <td><%= run.created_at.to_s :short %></td>
+          <td class="created_at"><%= l run.created_at, format: :short %></td>
           <td><%= link_to run.problem.contest.name, :controller => :practice, :action => :open_contest, :contest_id => run.problem.contest.id %></td>
           <td><%= link_to run.problem.name, :controller => :practice, :action => :get_problem_description, :contest_id => run.problem.contest.id, :problem_id => run.problem.id %></td>
           <td><%= link_to run.user.name, user_path(run.user) %></td>
