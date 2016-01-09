@@ -17,6 +17,7 @@ class Contest < ActiveRecord::Base
   scope :current, -> { where('? > start_time AND ? < end_time', Time.now.utc, Time.now.utc) }
   scope :finished, -> { where('? > end_time', Time.now.utc) }
   scope :practicable, -> { where(:practicable => true) }
+  scope :visible, -> { where(:visible => true) }
 
   validates_presence_of :name, :duration, :start_time
   validates_numericality_of :duration

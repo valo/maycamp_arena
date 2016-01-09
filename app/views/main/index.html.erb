@@ -16,7 +16,7 @@
 <% if current_user %>
   <%= render :partial => "current_contests" %>
   <%= render :partial => "upcoming_contests" %>
-  <%= render :partial => "practice_area" %>
+  <%= render "practice_area", contests: @practice_contests %>
 <% end %>
 <br />
 <h2>Състезания на други сайтове</h2>
