@@ -8,7 +8,7 @@ describe GroupsController do
         get :show, id: group.id
       end
 
-      it { is_expected.to redirect_to(login_path) }
+      it { is_expected.to redirect_to(new_session_path) }
     end
 
     context "with a signed in user" do
