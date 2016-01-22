@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
   end
 
   def full_tasks
-    Run.count('problem_id', :conditions => { :user_id => self.id, :total_points => 100 }, :distinct => true)
+    runs.where(total_points: 100).select(:problem_id).distinct.count
   end
 
   def full_tasks_list
