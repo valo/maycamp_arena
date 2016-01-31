@@ -4,7 +4,7 @@ require 'ostruct'
 class MainController < ApplicationController
   layout "main", :except => :results
   before_filter :check_user_profile
-  decorates_assigned :practice_contests
+  decorates_assigned :practice_contests, :groups
 
   def index
     @past_contests = Contest.finished.paginate(:page => params.fetch(:past_contests_page, 1), :per_page => 20)
@@ -17,6 +17,7 @@ class MainController < ApplicationController
 
     @upcoming_contests = Contest.upcoming.visible
     @practice_contests = Contest.practicable.visible.order(start_time: :desc).paginate(page: params.fetch(:practice_contests_page, 1), per_page: 20)
+    @groups = Group.all
   end
 
   def rules
