@@ -8,7 +8,7 @@ describe GroupDecorator do
   let(:helpers) { double("Helpers", current_user: user) }
 
   before do
-    expect(group_decorator).to receive(:contests).and_return(contests_decorator)
+    allow(group_decorator).to receive(:contests).and_return(contests_decorator)
   end
 
   describe "#best_practice_score" do
@@ -26,6 +26,12 @@ describe GroupDecorator do
   end
 
   describe "#practice_score_percent" do
+    it "return 0 if there are contests" do
+      expect(group_decorator).to receive(:contests).and_return([])
+
+      expect(group_decorator.practice_score_percent).to be_zero
+    end
+
     it "return 0 if there are no contests for the group" do
       expect(contests_decorator.first).to receive(:practice_score_percent).and_return(0)
 

@@ -8,6 +8,7 @@ class GroupDecorator < Draper::Decorator
   end
 
   def practice_score_percent
+    return 0 if contests.length == 0
     contests.sum(&:practice_score_percent) / contests.length
   end
 
