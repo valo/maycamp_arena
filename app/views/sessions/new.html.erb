@@ -10,7 +10,7 @@
   <p><%= label_tag 'password', "Парола" %>
   <%= password_field_tag 'password', nil %></p>
   <br />
-  <p><%= submit_tag 'Влез' %></p>
+  <p><%= submit_tag 'Влез', class: "btn btn-default" %></p>
   <p>Нямате акаунт? Можете да си направите ето <%= link_to "тук", new_user_path %></p>
   <p><%= link_to "Забравена парола?", :controller => :users, :action => "password_forgot" %></p>
 <% end -%>

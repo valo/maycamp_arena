@@ -32,6 +32,7 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'js_cookie_rails'
 gem 'sass-rails'
 gem 'coffee-rails'
+gem 'draper'
 
 group :production do
   gem 'SyslogLogger'

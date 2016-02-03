@@ -1,4 +1,4 @@
-<table class="table table-bordered">
+<table class="table table-bordered table-condensed contests">
   <tr>
     <th>Име</th>
     <th>Вашите точки</th>
@@ -6,9 +6,15 @@
   </tr>
   <% contests.each do |contest| %>
     <tr>
-      <td><%= contest.name %></td>
-      <td><strong><%= current_user.best_practice_score(contest) %></strong> от максимално <%= contest.max_score %></td>
-      <td>
+      <td class="name"><%= contest.name %></td>
+      <td class="practice_score">
+        <div class="progress">
+          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= contest.decorate.best_practice_score %>" aria-valuemax="<%= contest.max_score %>" aria-valuemin="0" style="width: <%= contest.decorate.practice_score_percent %>%;">
+            <%= contest.decorate.best_practice_score %>/<%= contest.max_score %>
+          </div>
+        </div>
+      </td>
+      <td class="actions">
         <%= link_to "Практикувай", open_contest_practice_path(:contest_id => contest.id) %>
       </td>
     </tr>

@@ -14,7 +14,7 @@
     </tr>
 <% for run in runs %>
     <tr>
-        <td class="created_at"><%= run.created_at %></td>
+        <td class="created_at"><%= l run.created_at, format: :short %></td>
         <td><%= link_to run.problem.contest.name, :controller => :practice, :action => :open_contest, :contest_id => run.problem.contest.id %></td>
         <td><%= link_to run.problem.name, :controller => :practice, :action => :get_problem_description, :contest_id => run.problem.contest.id, :problem_id => run.problem.id %></td>
         <td><%= link_to run.user.name, user_path(run.user) %></td>

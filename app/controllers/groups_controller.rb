@@ -1,10 +1,6 @@
 class GroupsController < ApplicationController
   layout "main"
-  before_filter :check_user_profile
-
-  def index
-    @groups = Group.all.sort {|x, y| x.name.casecmp(y.name) }
-  end
+  before_filter :login_required
 
   def show
     @group = Group.find(params[:id])
