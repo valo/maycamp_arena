@@ -12,8 +12,8 @@
     <% for contest in @past_contests do %>
       <tr>
         <td><%= contest.name %></td>
-        <td><%= contest.start_time.to_s :long %></td>
-        <td><%= contest.end_time.to_s :long %></td>
+        <td><%= l contest.start_time, format: :long %></td>
+        <td><%= l contest.end_time, format: :long %></td>
         <td><%= duration_in_words contest.duration.minutes %></td>
         <td>
           <% if contest.results_visible? or current_user.andand.admin? %>
