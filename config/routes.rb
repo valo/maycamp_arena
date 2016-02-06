@@ -1,5 +1,7 @@
 MaycampArena::Application.routes.draw do
 
+  devise_for :users, :controllers => { :omniauth_callbacks => "sessions" }
+
   get '/logout', to: 'sessions#destroy', :as => 'logout'
   get '/login', to: 'sessions#new', :as => 'login'
   get '/register', to: 'users#create', :as => 'register'
