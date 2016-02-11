@@ -231,3 +231,14 @@ form p em {
 .progress {
   margin-bottom: 0;
 }
+
+.facebook-login {
+  display: block;
+
+  background-image: asset-url('facebook-login.png');
+  background-size: cover;
+
+  height: 30px;
+  width: 160px;
+  margin: 10px 0;
+}

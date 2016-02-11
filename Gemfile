@@ -66,6 +66,7 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'cucumber-rails', :require => false
+  gem 'byebug'
 end
 
 gem 'jquery-rails'
