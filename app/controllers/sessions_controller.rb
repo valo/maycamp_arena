@@ -27,26 +27,46 @@ class SessionsController < ApplicationController
     handle_login(user, facebook_email)
   end
 
+  def failure
+    handle_provider_failure(request.env['omniauth.strategy'].name)
+  end
+
   private
 
   def handle_login(user, login)
     if user
-      self.current_user = user
-
-      if session[:back]
-        back_path = session[:back]
-        session[:back] = nil
-        redirect_to back_path
-      else
-        redirect_to root_path
-      end
+      handle_success(user)
     else
-      flash.now[:error] = "Неуспешно влизане с потребителско име '#{login}'"
-      logger.warn "Failed login for '#{login}' from #{request.remote_ip} at #{Time.now.utc}"
-
-      @login       = login
-      @remember_me = params[:remember_me]
-      render :action => 'new'
+      handle_failure(login)
     end
+  end
+
+  def handle_success(user)
+    self.current_user = user
+
+    if session[:back]
+      back_path = session[:back]
+      session[:back] = nil
+      redirect_to back_path
+    else
+      redirect_to root_path
+    end
+  end
+
+  def handle_provider_failure(provider)
+    handle_failure(nil, provider.capitalize)
+  end
+
+  def handle_failure(login = nil, provider = nil)
+    flash.now[:error] = login ? "Неуспешно влизане с потребителско име '#{login}'"
+                              : "Неуспешно влизане с #{provider}"
+
+    if login
+      logger.warn "Failed login for '#{login}' from #{request.remote_ip} at #{Time.now.utc}"
+      @login = login
+    end
+
+    @remember_me = params[:remember_me]
+    render :action => 'new'
   end
 end
