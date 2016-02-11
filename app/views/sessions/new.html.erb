@@ -2,6 +2,7 @@
 <br />
 <%= form_tag session_path {}, :class => "new_session" do -%>
   <p>
+    <%= link_to '', user_omniauth_authorize_path(:facebook), class: "facebook-login"%>
     <%= label_tag 'login', "Потребителско име или Email адрес" %>
     <%= text_field_tag 'login', @login %>
     <em>Можете да въведете както потребителското си име, така и email адреса си. Няма значение кое от двете.</em>

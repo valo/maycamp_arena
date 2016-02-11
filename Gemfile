@@ -33,6 +33,10 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'draper'
 
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
+
 group :production do
   gem 'SyslogLogger'
 end
@@ -49,6 +53,9 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem "capistrano-db-tasks", require: false
+
+  gem 'pry-rails'
+  gem 'byebug'
 end
 
 group :test do
@@ -59,6 +66,7 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'cucumber-rails', :require => false
+  gem 'byebug'
 end
 
 gem 'jquery-rails'
