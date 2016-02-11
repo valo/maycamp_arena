@@ -189,7 +189,6 @@ ActiveRecord::Schema.define(version: 20160205194153) do
     t.string   "uid",        limit: 255
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
 
   add_foreign_key "contests", "groups"

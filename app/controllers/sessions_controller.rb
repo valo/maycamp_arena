@@ -21,7 +21,9 @@ class SessionsController < ApplicationController
   end
 
   def facebook
-    facebook_email = request.env['omniauth.auth']['info']['email']
+    omniauth_response = request.env['omniauth.auth']
+    facebook_email = omniauth_response['info']['email'] if omniauth_response.is_a?(Hash)
+
     user = User.where(email: facebook_email).last
 
     handle_login(user, facebook_email)

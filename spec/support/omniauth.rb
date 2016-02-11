@@ -11,6 +11,12 @@ module OmniauthHelpers
   end
 end
 
+OmniAuth.config.test_mode = true
+
+OmniAuth.config.on_failure = Proc.new { |env|
+  OmniAuth::FailureEndpoint.new(env).redirect_to_failure
+}
+
 RSpec.configure do |config|
   config.include OmniauthHelpers
 end
