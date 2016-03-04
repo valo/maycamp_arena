@@ -24,8 +24,8 @@
   <%- if flash[:notice] -%>
     <p class="notice"><%= flash[:notice] %></p>
   <%- end -%>
-  <%- if flash[:error] -%>
-    <p class="error"><%= flash[:error] %></p>
+  <%- if flash[:error] or flash[:alert]-%>
+    <p class="error"><%= flash[:error] %><%= flash[:alert] %></p>
   <%- end -%>
   <%= yield %>
 </div>

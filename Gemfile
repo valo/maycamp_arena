@@ -33,6 +33,12 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'draper'
 
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'awesome_print'
+
+
 group :production do
   gem 'SyslogLogger'
 end

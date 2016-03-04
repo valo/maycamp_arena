@@ -4,6 +4,7 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   include Latinize
 
+  devise :omniauthable, :omniauth_providers => [:google_oauth2]
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
   validates_uniqueness_of   :login
