@@ -14,3 +14,7 @@
   <p>Нямате акаунт? Можете да си направите ето <%= link_to "тук", new_user_path %></p>
   <p><%= link_to "Забравена парола?", :controller => :users, :action => "password_forgot" %></p>
 <% end -%>
+<br />
+<%= link_to image_tag("sign-in-with-google2.png", alt: "Sign in with google", class: 'google-sign-in'),
+              user_omniauth_authorize_path(:google_oauth2) -%>
+

@@ -33,6 +33,12 @@ gem 'sass-rails'
 gem 'coffee-rails'
 gem 'draper'
 
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+
+
+
 group :production do
   gem 'SyslogLogger'
 end
@@ -49,6 +55,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem "capistrano-db-tasks", require: false
+  gem 'awesome_print'
 end
 
 group :test do
