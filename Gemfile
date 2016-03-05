@@ -36,7 +36,7 @@ gem 'draper'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
-gem 'awesome_print'
+
 
 
 group :production do
@@ -55,6 +55,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem "capistrano-db-tasks", require: false
+  gem 'awesome_print'
 end
 
 group :test do
