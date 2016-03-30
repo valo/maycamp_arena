@@ -1,10 +1,29 @@
-  <div class="post" id="notice">
-    <div class="content">
-      <h3>Добре дошли на арената на maycamp!</h3>
-      <br />
-      <p>Тук може да премерите силите си в областта на алгоритмите. Успех!</p>
-      <p><strong>Важно:</strong> <%= link_to "Тук", "/rules" %> може да прочетете <strong>правилата за 
-         участие</strong> на арената, както и информация за системата.</p>
-      <div class="fixed"></div>
+<div class="container-fluid">
+  <div class="jumbotron">
+    <h1>Добре дошли!</h1>
+
+    <br />
+
+    <p>
+      <strong>Maycamp arena</strong> е място, където можете да премерите и подобрите
+      силите си в областта на алгоритмите. Успех!
+    </p>
+
+    <p><strong>Важно:</strong> <%= link_to "Тук", "/rules" %> може да прочетете
+      <strong>правилата за участие</strong> на арената, както и информация за системата.
+    </p>
+
+    <br />
+
+    <div class="row">
+      <div class="col-sm-2 text-left">
+        <%= link_to "Регистрация", signup_path, class: 'btn btn-primary btn-lg' %>
+      </div>
+      <div class="col-sm-2 text-right">
+        <%= link_to "Вход", new_session_path, class: 'btn btn-primary btn-lg' %>
+      </div>
     </div>
+
   </div>
+
+</div>
