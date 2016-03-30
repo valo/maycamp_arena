@@ -1,37 +1,57 @@
-<h2>Текущи състезания</h2>
-<br />
-<% if !@contests.blank? %>
-<table class="table table-bordered">
-  <tr>
-    <th>Име на състезанието</th>
-    <th>Започнало</th>
-    <th>Приключва</th>
-    <th>Продължителност</th>
-    <th></th>
-  </tr>
-<% for contest in @contests do %>
-  <tr>
-    <td><%= contest.name %></td>
-    <td><%= contest.start_time.to_s :long %></td>
-    <td><%= contest.end_time.to_s :long %></td>
-    <td><%= duration_in_words contest.duration.minutes %></td>
-    <td>
-      <% if can_user_submit_in_contest?(current_user, contest) %>
-        Оставащо време: <%= time_left_for_user_in_contest(current_user, contest) %>
-        <br/>
-        <%= link_to "Отвори", :controller => :timed_contest, :action => :open_contest, :contest_id => contest.id %>
-      <% elsif !contest.allow_user_submit(current_user) %>
-        Състезанието е свършило за вас.
-      <% else %>
-        <%= link_to "ЗАПОЧНИ СЪСТЕЗАНИЕТО!", :controller => :timed_contest, :action => :open_contest, :contest_id => contest.id %>
-      <% end %>
-    </td>
-  </tr>
-<% end %>
-</table>
-<% else %>
-Няма състезания, които текат в момента.
-<br />
-<br />
-Кога е следващото състезание? Вижте <%= link_to "календара", "http://cs.maycamp.com/?page_id=13" %> или секцията "Предстоящи състезания".
+<% unless @contests.blank? %>
+<div class="panel panel-default">
+	<div class="panel-heading" role="tab" id="headingCurrentContests">
+		<h4 class="panel-title">
+			<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseCurrentContests" aria-expanded="false" aria-controls="collapseCurrentContests">
+				Текущи състезания
+			</a>
+		</h4>
+	</div>
+	<div id="collapseCurrentContests" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingCurrentContests">
+		<div class="panel-body">
+
+			<table class="table table-bordered table-hover">
+				<tr>
+					<th>Име на състезанието</th>
+					<th>Започнало</th>
+					<th>Приключва</th>
+					<th>Продължителност</th>
+					<th></th>
+				</tr>
+				<% for contest in @contests do %>
+				<tr>
+					<td><%= contest.name %></td>
+					<td><%= contest.start_time.to_s :long %></td>
+					<td><%= contest.end_time.to_s :long %></td>
+					<td><%= duration_in_words contest.duration.minutes %></td>
+					<td>
+						<% if can_user_submit_in_contest?(current_user, contest) %>
+						Оставащо време:
+						<%= time_left_for_user_in_contest(current_user, contest) %>
+						<br/>
+						<%= link_to "Отвори", :controller => :timed_contest, :action => :open_contest, :contest_id => contest.id %>
+						<% elsif !contest.allow_user_submit(current_user) %>
+						Състезанието е свършило за вас.
+					<% else %>
+						<%= link_to "ЗАПОЧНИ СЪСТЕЗАНИЕТО!", :controller => :timed_contest, :action => :open_contest, :contest_id => contest.id %>
+						<% end %>
+					</td>
+				</tr>
+				<% end %>
+			</table>
+
+			<br/>
+			<br/>
+
+			<p>
+				Кога е следващото състезание? Вижте
+				<%= link_to "календара", "http://cs.maycamp.com/?page_id=13" %>
+				или секцията "Предстоящи състезания".
+			</p>
+		</div>
+	</div>
+</div>
+
+<br/>
+
 <% end %>
