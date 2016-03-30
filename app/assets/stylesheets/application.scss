@@ -98,27 +98,11 @@ textarea.source_code {
 
 #submenu {
   border-bottom: 1px solid #999;
-	background:#FFF;
+	background: #f8f8f8;
 }
 
-#submenu ul {
-	background:#FFF;
-}
-
-#submenu li {
-	display:block;
-	float: left;
-	list-style:none;
-	padding: 8px;
-}
-
-#submenu li a {
-  font-weight: bold;
-  color: black;
-}
-
-#submenu li:hover {
-  background: #EDEFF0;
+.navbar {
+  margin-bottom: 0px;
 }
 
 form p em {
