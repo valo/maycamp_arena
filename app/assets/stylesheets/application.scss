@@ -15,6 +15,16 @@ body {
   font-size: 13px;
 }
 
+// Body Containers
+#content-box {
+	background:#FFFFFF;
+	min-height:400px;
+}
+
+#outter-wrapper {
+  padding-top: 20px;
+}
+
 label {
   display: block;
 }
@@ -23,29 +33,34 @@ h1 {
   margin-top: 0;
 }
 
-.header-title {
-  color: #ffffff;
+// Header styles
+#header {
+  .header-title {
+    color: #ffffff;
 
-  a:link,
-  a:visited,
-  a:hover,
-  a:active {
-    color: inherit;
-    text-decoration: none;
+    a:link,
+    a:visited,
+    a:hover,
+    a:active {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+
+  .header-caption {
+    color: #ffffff;
   }
 }
 
-.header-caption {
-  color: #ffffff;
-}
+// Footer styles
+#footer {
+  height: auto;
+  background: #eeeeee;
+  margin-bottom: 12px;
 
-#content-box {
-	background:#FFFFFF;
-	min-height:400px;
-}
-
-#outter-wrapper {
-  padding-top: 20px;
+  .space-from-top {
+    margin-top: 5px;
+  }
 }
 
 .notice {
