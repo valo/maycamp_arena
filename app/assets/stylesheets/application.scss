@@ -1,3 +1,4 @@
+@import "customized-bootstrap-variables";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "inove";
@@ -20,6 +21,15 @@ label {
 
 h1 {
   margin-top: 0;
+}
+
+#content-box {
+	background:#FFFFFF;
+	min-height:400px;
+}
+
+#outter-wrapper {
+  padding-top: 20px;
 }
 
 .notice {
