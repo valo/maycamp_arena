@@ -9,15 +9,13 @@
   <%= stylesheet_link_tag "application" %>
 </head>
 <body>
-<!-- wrap START -->
-<div id="wrap">
-<!-- container START -->
-<div id="container" class="one-column" >
+
+<div id="outter-wrapper" class="container">
 <%= render :partial => "main/header" %>
 <%= render :partial => "main/navigation" %>
 
 <!-- content START -->
-<div id="content">
+<div id="content-box" class="container-fluid">
   <% if current_user.andand.admin? and controller.is_a?(Admin::BaseController) %>
     <p id="breadcrumbs"><strong>Вие сте тук:</strong> <%= get_bread_crumb(request.path) %></p>
   <% end %>
@@ -34,10 +32,6 @@
 <%= render :partial => "main/footer" %>
 
 </div>
-<!-- container END -->
-
-</div>
-<!-- wrap END -->
 
 <%= include_gon(init: true) %>
 <%= javascript_include_tag "application" %>
