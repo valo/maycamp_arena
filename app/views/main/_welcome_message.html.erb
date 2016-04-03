@@ -16,8 +16,13 @@
     <br />
 
     <div class="btn-group" role="group" aria-label="...">
-      <%= link_to "Регистрация", signup_path, class: 'btn btn-default btn-lg', role: 'button' %>
-      <%= link_to "Вход", new_session_path, class: 'btn btn-default btn-lg', role: 'button' %>
+      <%= link_to signup_path, class: 'btn btn-default btn-lg', role: 'button' do %>
+        <span class="glyphicon glyphicon-hand-up"></span> Регистрация
+      <% end %>
+
+      <%= link_to new_session_path, class: 'btn btn-default btn-lg', role: 'button' do %>
+        <span class="glyphicon glyphicon-log-in"></span> Вход
+      <% end %>
     </div>
 
   </div>
