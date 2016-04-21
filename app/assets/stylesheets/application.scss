@@ -63,6 +63,22 @@ h1 {
   }
 }
 
+// Collapse the navbar after 991px, since the glyphicons break the default responsive configs.
+@media (min-width: 768px) and (max-width: 991px) {
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+    .navbar-collapse.collapse.in {
+        display: block !important;
+    }
+    .navbar-header .collapse, .navbar-toggle {
+        display:block !important;
+    }
+    .navbar-header {
+        float:none;
+    }
+}
+
 // Footer styles
 #footer {
   height: auto;
