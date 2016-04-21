@@ -107,7 +107,11 @@
           <ul class="dropdown-menu">
             <li><%= link_to "Профил", edit_user_path(current_user) %></li>
             <li role="separator" class="divider"></li>
-            <li><%= link_to "Изход", logout_path %></li>
+            <li>
+              <%= link_to logout_path do %>
+                <span class="glyphicon glyphicon-log-out"></span> Изход
+              <% end %>
+            </li>
           </ul>
         </li>
         <% else %>
