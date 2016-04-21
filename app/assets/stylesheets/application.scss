@@ -52,6 +52,17 @@ h1 {
   }
 }
 
+// Navigation Styles
+#navigation {
+  a:link,
+  a:visited,
+  a:hover,
+  a:active {
+    color: #000000;
+    text-decoration: none;
+  }
+}
+
 // Footer styles
 #footer {
   height: auto;
