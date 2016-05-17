@@ -1,5 +1,4 @@
 MaycampArena::Application.routes.draw do
-
   get '/logout', to: 'sessions#destroy', as: 'logout'
   get '/login', to: 'sessions#new', as: 'login'
   get '/register', to: 'users#create', as: 'register'
@@ -10,11 +9,10 @@ MaycampArena::Application.routes.draw do
   get '/rankings_practice', to: 'main#rankings_practice', as: 'rankings_practice'
   get '/status', to: 'main#status', as: 'status'
   get '/rules', to: 'main#rules'
-  get '/problem_runs/:id', to: 'main#problem_runs', as: 'problem_runs'
   get '/main/results', to: 'main#results'
 
   resources :problems, only: [:index]
-  resources :problem_runs, only: [:index]
+  resources :problem_runs, only: [:show]
 
   resources :users do
     collection do
@@ -111,7 +109,7 @@ MaycampArena::Application.routes.draw do
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   root to: 'main#index'
 
-  ['practice', 'timed_contest'].each do |contest_type|
+  %w(practice timed_contest).each do |contest_type|
     resource contest_type, controller: contest_type do
       post :submit_solution
       get :view_source

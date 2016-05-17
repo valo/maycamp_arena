@@ -78,15 +78,6 @@ class MainController < ApplicationController
                .paginate(per_page: 50, page: params.fetch(:page, 1))
   end
 
-  def problem_runs
-    @problem = Problem.joins(:contest).where(contests: { visible: true, practicable: true }).find(params[:id])
-    @runs = Run.includes(:user)
-               .where.not(users: { role: User::ADMIN })
-               .where(problem: @problem.id)
-               .order('runs.created_at DESC')
-               .paginate(per_page: 50, page: params.fetch(:page, 1))
-  end
-
   private
 
   helper_method :calc_rankings
