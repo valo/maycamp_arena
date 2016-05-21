@@ -11,8 +11,12 @@ class PracticeController < ApplicationController
   end
 
   private
-    def validate_contest
-      @contest = Contest.find(params[:contest_id])
-      redirect_to root_path if !@contest.practicable?
-    end
+
+  def validate_contest
+    redirect_to root_path unless contest.practicable?
+  end
+
+  def contest
+    @contest ||= Contest.find(params[:contest_id])
+  end
 end
