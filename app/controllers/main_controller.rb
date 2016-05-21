@@ -57,20 +57,6 @@ class MainController < ApplicationController
   def activity
   end
 
-  def download_tests
-    Dir.chdir $config[:sets_root] do
-      FileUtils.rm 'sets.zip' if File.file?('sets.zip')
-      Zip::ZipFile.open('sets.zip', Zip::ZipFile::CREATE) do |zipfile|
-        Dir.glob('**/*') do |entry|
-          zipfile.mkdir(entry) if File.directory?(entry)
-          zipfile.add entry, entry if File.file?(entry)
-        end
-      end
-    end
-
-    send_file File.join($config[:sets_root], 'sets.zip')
-  end
-
   def status
     @runs = Run.joins(:user, problem: :contest)
                .where(contests: { practicable: true, visible: true }).where.not(users: { role: User::ADMIN })
