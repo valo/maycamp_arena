@@ -4,7 +4,7 @@ set :application, 'arena.maycamp.com'
 set :repo_url, 'git://github.com/valo/maycamp_arena.git'
 
 set :rvm_type, :system
-set :rvm_ruby_version, '2.2.1'
+set :rvm_ruby_version, '2.3.1'
 
 set :puma_config_file, "config/puma.rb"
 
