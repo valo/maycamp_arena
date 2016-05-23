@@ -21,7 +21,7 @@ FactoryGirl.define do
     c.duration 120
     c.start_time { 1.hour.ago }
     c.end_time { 1.hour.from_now }
-    c.name "Test contest"
+    c.name 'Test contest'
 
     association :group
   end

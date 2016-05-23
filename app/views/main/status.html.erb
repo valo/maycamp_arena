@@ -2,5 +2,5 @@
 
 <h3>Последни събмити</h3>
 <% cache ["status", params.fetch(:page, 1), Run.maximum(:updated_at)] do %>
-  <%= render "runs_list", runs: @runs %>
+  <%= render "common/runs_list", runs: @runs %>
 <% end %>
