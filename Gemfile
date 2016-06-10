@@ -2,11 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-#gem 'sqlite3-ruby', :require => 'sqlite3'
-
 # Use unicorn as the web server
 gem 'puma'
 
@@ -14,9 +9,8 @@ gem 'mysql2'
 gem 'rubyzip'
 gem 'zip-zip'
 gem 'andand'
-gem 'airbrake'
 gem 'newrelic_rpm'
-gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 gem 'rubystats'
 gem 'dynamic_form'
 gem 'rprocfs'
@@ -26,8 +20,13 @@ gem 'utf8-cleaner'
 gem 'coderay'
 gem 'pundit'
 gem 'codemirror-rails'
+gem 'bootstrap-sass'
 gem 'highcharts-rails'
 gem 'gon'
+gem 'js_cookie_rails'
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'draper'
 
 group :production do
   gem 'SyslogLogger'
@@ -38,8 +37,7 @@ group :development do
   gem "spring-commands-rspec"
   gem 'sprockets-rails'
   gem 'uglifier', '>= 1.0.3'
-  gem 'sass-rails'
-  # Deploy with Capistrano
+  # Deploy with
   gem 'capistrano'
   gem 'capistrano3-puma'
   gem 'capistrano-rvm'
@@ -50,7 +48,7 @@ end
 
 group :test do
   gem 'rspec-rails'
-  gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers', '~> 3.0'
   gem 'factory_girl_rails'
   gem 'mocha', :require => 'mocha/api'
   gem 'capybara'

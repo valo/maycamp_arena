@@ -68,7 +68,7 @@ class GradeRun
       run.problem.input_files[0...tests].zip(run.problem.output_files).map { |input_file, answer_file|
         command = %Q{docker run #{ mappings(input_file) }\
           -m #{docker_memory_limit}\
-          --cpuset=0\
+          --cpuset-cpus=0\
           -u grader -d --net=none grader\
            /sandbox/runner_fork.rb -i /sandbox/input -o /sandbox/output -p 50 -m #{memory_limit} -t #{ timeout } -- #{ executable }}
         puts command
@@ -138,6 +138,8 @@ class GradeRun
         "/sandbox/program"
       when Run::LANG_PYTHON2
         "/usr/bin/python2.7 program#{ Run::EXTENSIONS[run.language] }"
+      when Run::LANG_PYTHON3
+        "/usr/bin/python3.4 program#{ Run::EXTENSIONS[run.language] }"
       end
     end
 

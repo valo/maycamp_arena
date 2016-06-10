@@ -12,9 +12,9 @@
 </p>
 <br />
 </p>
-	<%= will_paginate @users %>
+	<%= will_paginate @users, renderer: BootstrapPagination::Rails %>
 	<% if !@users.blank? %>
-  <table>
+  <table class="table table-bordered">
     <tr>
       <th>Login</th>
       <th>Име</th>
@@ -38,6 +38,6 @@
     </tr>
   <% end %>
   </table>
-	<%= will_paginate @users %>
+	<%= will_paginate @users, renderer: BootstrapPagination::Rails %>
 <% end %>
 <br />

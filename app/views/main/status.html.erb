@@ -2,30 +2,5 @@
 
 <h3>Последни събмити</h3>
 <% cache ["status", params.fetch(:page, 1), Run.maximum(:updated_at)] do %>
-    <%= will_paginate @runs %>
-    <table class="runs_list">
-        <tr>
-            <th>Пратено на</th>
-            <th>Език</th>
-            <th>Състезание</th>
-            <th>Задача</th>
-            <th>Потребител</th>
-            <th class="status">Статус</th>
-            <th>Max Време</th>
-            <th>Max Памет</th>
-        </tr>
-    <% for run in @runs do %>
-        <tr>
-            <td><%= run.created_at.to_s :long %></td>
-            <td><%= run.language %></td>
-            <td><%= link_to run.problem.contest.name, :controller => :practice, :action => :open_contest, :contest_id => run.problem.contest.id %></td>
-            <td><%= link_to run.problem.name, :controller => :practice, :action => :get_problem_description, :contest_id => run.problem.contest.id, :problem_id => run.problem.id %></td>
-            <td><%= link_to run.user.name, user_path(run.user) %></td>
-            <td class="status"><%= run.status %></td>
-            <td class="time"><%= run.max_time.to_f %> sec.</td>
-            <td class="mem"><%= run.max_memory.to_i / 1024 %> KB</td>
-        </tr>
-    <% end %>
-    </table>
-    <%= will_paginate @runs %>
+  <%= render "common/runs_list", runs: @runs %>
 <% end %>

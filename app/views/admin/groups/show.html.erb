@@ -1,0 +1,6 @@
+<h2><%= @group.name %></h2>
+<ul class="list-group">
+  <% @group.contests.each do |contest| %>
+    <li class="list-group-item"><%= link_to contest.name, open_contest_practice_path(:contest_id => contest.id) %></li>
+  <% end %>
+</ul>

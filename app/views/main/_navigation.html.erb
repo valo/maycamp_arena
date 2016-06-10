@@ -19,26 +19,28 @@
   <ul>
     <li><%= link_to "Начало", root_path %></li>
     <li><%= link_to "Активност", activity_path %></li>
-    <li><%= link_to "Ранглиста по рейтинг", rankings_path %></li>
-    <li><%= link_to "Ранглиста по практика", rankings_practice_path %></li>
+    <li><%= link_to "Класиране", rankings_practice_path %></li>
     <li><%= link_to "Статус", status_path %></li>
     <li><%= link_to "Задачи", problems_path %></li>
-    <% if policy(:reports).show? %>
+    <% if policy(:report).show? %>
       <li><%= link_to "Доклади", admin_reports_path %></li>
     <% end %>
-    <% if policy(:contests).index? %>
+    <% if policy(:contest).index? %>
       <li><%= link_to "Състезания", admin_contests_path %></li>
     <% end %>
-    <% if policy(:users).index? %>
+    <% if policy(:user).index? %>
       <li><%= link_to "Потребители", admin_users_path %></li>
     <% end %>
     <% if policy(:admin_status).show? %>
-      <li><%= link_to "Статус", admin_status_path %></li>
+      <li><%= link_to "Админ Статус", admin_status_path %></li>
     <% end %>
-    <% if policy(:categories).index? %>
+    <% if policy(:category).index? %>
       <li><%= link_to "Категории", admin_categories_path %></li>
     <% end %>
-    <% if policy(:external_contests).index? %>
+    <% if policy(:group).index? %>
+      <li><%= link_to "Групи", admin_groups_path %></li>
+    <% end %>
+    <% if policy(:external_contest).index? %>
       <li><%= link_to "Външни състезания", admin_external_contests_path %></li>
     <% end %>
     <% if current_user %>

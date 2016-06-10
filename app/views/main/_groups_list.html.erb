@@ -1,0 +1,21 @@
+<% unless groups.blank? %>
+  <div class="container-fluid">
+    <div class="row">
+      <% groups.each do |group| %>
+        <% cache ["practice_group", group.id, current_user.runs.last] do %>
+          <div class="col-xs-3 group">
+            <%= link_to group_path(group) do %>
+              <%= image_tag("https://robohash.org/#{group.name}.jpg?size=200x200&bgset=trill") %>
+              <p><%= group.name %></p>
+              <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<%= group.best_practice_score %>" aria-valuemax="<%= group.max_score %>" aria-valuemin="0" style="width: <%= group.practice_score_percent %>%;">
+                  <%= group.best_practice_score %>/<%= group.max_score %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

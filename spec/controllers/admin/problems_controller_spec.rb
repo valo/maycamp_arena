@@ -133,12 +133,13 @@ describe Admin::ProblemsController do
 
     describe "#destroy" do
       let(:problem) { create(:problem, contest: contest) }
+
       before { delete :destroy, id: problem.id, contest_id: contest.id }
 
       it { is_expected.to redirect_to(admin_contest_problems_path(contest)) }
 
       it "deletes the problem" do
-        expect(Contest.find_by_id(problem.id)).to be_nil
+        expect(Problem.find_by_id(problem.id)).to be_nil
       end
     end
 
@@ -158,8 +159,16 @@ describe Admin::ProblemsController do
 
     describe "#do_upload_file" do
       let(:problem) { create(:problem, contest: contest) }
-      before { post :do_upload_file, id: problem.id, contest_id: contest.id, tests: { file: fixture_file_upload("archive.zip")} }
-
+      let(:process_uploaded_file) { double(ProcessUploadedFile) }
+      let(:dummy_file) { double(File) }
+ 
+      before do
+        expect(ProcessUploadedFile).to receive(:new).and_return(process_uploaded_file)
+        expect(process_uploaded_file).to receive(:extract).and_return(true)
+ 
+        post :do_upload_file, id: problem.id, contest_id: contest.id, tests: { file: "task_input.in00" }
+      end
+ 
       it { is_expected.to redirect_to(admin_contest_problem_path(contest, problem)) }
     end
 

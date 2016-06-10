@@ -4,6 +4,9 @@
 //= require jquery_ujs
 //= require highcharts
 //= require codemirror
+//= require bootstrap-sprockets
+//= require js.cookie
+//= require_tree ./main
 
 $(function() {
   if (gon.daily_submits_report) {

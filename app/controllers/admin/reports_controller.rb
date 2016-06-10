@@ -1,6 +1,6 @@
 class Admin::ReportsController < Admin::BaseController
   def show
-    authorize :reports, :show?
+    authorize :report, :show?
 
     gon.daily_submits_report = Run.where("created_at > ?", 3.weeks.ago.to_s(:db)).
                                 select("id").

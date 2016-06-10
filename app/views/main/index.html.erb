@@ -1,12 +1,10 @@
-﻿<% if !current_user %>
+<% if !current_user %>
   <%= render :partial => "welcome_message" %>
-  <br />
   <p>Не сте влезли в системата. Трябва да <%= link_to "влезете", new_session_path %> ако искате да участвате в състезанията.
   <br />
   <br />
   Ако нямате потребител можете да си създадете от <%= link_to "тук", signup_path %>.</p>
 <% end %>
-
 <h2>Топ 10</h2>
 <br />
 <p>Това са текущите топ десет участника в системата по практиката. <b>Участници, които не са пращали решения през последната година не влизат в класирането.</b> За пълно класиране кликнете <%= link_to "тук", :action => :rankings_practice %>.</p>
@@ -17,15 +15,11 @@
 
 <% if current_user %>
   <%= render :partial => "current_contests" %>
-  <br />
-  <br />
   <%= render :partial => "upcoming_contests" %>
-  <br />
-  <br />
-  <%= render :partial => "practice_area" %>
+  <%= render "practice_area", contests: @practice_contests %>
 <% end %>
 <br />
-<h2>Състезания на други сайтове</h3>
+<h2>Състезания на други сайтове</h2>
 <iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;mode=AGENDA&amp;height=300&amp;wkst=1&amp;hl=bg&amp;bgcolor=%23FFFFFF&amp;src=sk5l6ih2bitggmvbup4p3m40k4%40group.calendar.google.com&amp;color=%230F4B38&amp;src=codechef.com_3ilksfmv45aqr3at9ckm95td5g%40group.calendar.google.com&amp;color=%2328754E&amp;src=br1o1n70iqgrrbc875vcehacjg%40group.calendar.google.com&amp;color=%2323164E&amp;src=b83nru7pav6sremsotbjmq207jjfbdli%40import.calendar.google.com&amp;color=%236B3304&amp;ctz=Europe%2FSofia" style=" border-width:0 " width="970" height="300" frameborder="0" scrolling="no"></iframe>
 <br />
 <%= render :partial => "past_contests" %>

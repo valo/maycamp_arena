@@ -44,4 +44,5 @@ describe ContestPolicy do
       expect(ContestPolicy).not_to permit(coach, contest)
     end
   end
+
 end
