@@ -57,19 +57,6 @@ FactoryGirl.define do
     association :user
   end
 
-  factory :external_contest do |c|
-    c.name "Some external contest"
-    c.date 1.day.ago
-  end
-
-  factory :external_contest_result do |r|
-    r.external_contest { |c| c.association(:external_contest) }
-    r.coder_name "Valentin Mihov"
-    r.city "Varna"
-    r.points "100"
-    r.user_id nil
-  end
-
   factory :group do
     sequence(:name) { |n| "Group #{ n }" }
   end

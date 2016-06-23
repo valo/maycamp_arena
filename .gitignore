@@ -13,3 +13,4 @@ sandbox/*
 .capistrano
 .vagrant
 config/grader.yml
+.tags

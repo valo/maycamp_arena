@@ -26,10 +26,6 @@ Given /^there is an admin user with attributes:$/ do |table|
   user.save!
 end
 
-Given(/^there is an external_contest_result for user "(.*?)"$/) do |user_name|
-  create(:external_contest_result, :user_id => User.find_by_name!(user_name).id)
-end
-
 Given /^the user "([^\"]*)" submits a source for problem "([^\"]*)"$/ do |user, problem|
   create(:run, :user_id => User.find_by_login(user).id,
                 :problem_id => Problem.find_by_name(problem).id)
