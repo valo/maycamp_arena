@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160623155319) do
+ActiveRecord::Schema.define(version: 20160623162204) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -109,19 +109,6 @@ ActiveRecord::Schema.define(version: 20160623155319) do
   end
 
   add_index "problems", ["contest_id"], name: "index_problems_on_contest_id", using: :btree
-
-  create_table "rating_changes", force: :cascade do |t|
-    t.integer  "user_id",                   limit: 4
-    t.integer  "contest_result_id",         limit: 4
-    t.string   "contest_result_type",       limit: 255
-    t.integer  "previous_rating_change_id", limit: 4
-    t.decimal  "rating",                                precision: 10, scale: 2
-    t.decimal  "volatility",                            precision: 10, scale: 2
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "rating_changes", ["user_id"], name: "index_rating_changes_on_user_id", using: :btree
 
   create_table "run_blob_collections", force: :cascade do |t|
     t.integer "run_id",      limit: 4,        null: false

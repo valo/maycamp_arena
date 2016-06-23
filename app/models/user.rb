@@ -24,7 +24,6 @@ class User < ActiveRecord::Base
   has_many :contest_start_events, :dependent => :destroy
   has_many :runs, :dependent => :destroy
   has_many :runs_with_log, :class_name => 'Run'
-  has_many :rating_changes
   has_many :contest_results
 
   latinize :name
@@ -166,10 +165,6 @@ class User < ActiveRecord::Base
         ranklist << [user, row['score'], row['runs_count'], row['full_solutions']]
       end
     end
-  end
-
-  def times_rated
-    rating_changes.count
   end
 
   def participates_in_contests?
