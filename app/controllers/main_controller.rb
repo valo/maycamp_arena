@@ -37,10 +37,6 @@ class MainController < ApplicationController
     render action: :results, layout: 'results'
   end
 
-  def rankings
-    @rankings = User.rating_ordering
-  end
-
   def rankings_practice
   end
 
