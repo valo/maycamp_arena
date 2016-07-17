@@ -33,12 +33,7 @@ class MainController < ApplicationController
       return
     end
     @results = @contest.generate_contest_results
-    @ratings = @results.map { |result| @contest.rating_changes.detect { |change| change.user == result.second } }
     render action: :results, layout: 'results'
-  end
-
-  def rankings
-    @rankings = User.rating_ordering
   end
 
   def rankings_practice
@@ -64,8 +59,7 @@ class MainController < ApplicationController
           user: row[0],
           total_points: row[1].to_i,
           total_runs: row[2],
-          full_solutions: row[3],
-          rating: row[4]
+          full_solutions: row[3]
         )
       end
 
