@@ -9,13 +9,6 @@ Feature: User stats
     When I am on the user stats page for user "Valentin Mihov"
     Then I should see "Статистика"
 
-  Scenario: Open a user stats for a user with external contests as anonmous
-    Given there is a user with attributes:
-      | name                  | Valentin Mihov            |
-    And there is an external_contest_result for user "Valentin Mihov"
-    When I am on the user stats page for user "Valentin Mihov"
-    Then I should see "Статистика"
-
   Scenario: Update user profile
     Given I am logged in as contestant user with attributes:
       | name | Valentin Mihov |
