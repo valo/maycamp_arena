@@ -30,6 +30,7 @@ class Run < ActiveRecord::Base
 
   before_save :update_total_points, :update_time_and_mem
   after_save :update_best_scores
+  after_save :update_problem_stats
   has_one :run_blob_collection, :dependent => :destroy, :autosave => true
 
   def self.languages
@@ -88,6 +89,10 @@ class Run < ActiveRecord::Base
 
   def update_best_scores
     UpdateProblemBestScoresJob.perform_later(user_id)
+  end
+
+  def update_problem_stats
+    CalculateProblemStatsJob.perform_later(problem_id)
   end
 
   def update_time_and_mem

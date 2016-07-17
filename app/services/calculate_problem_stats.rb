@@ -25,7 +25,6 @@ class CalculateProblemStats
     @runs ||= problem
       .runs
       .select('MAX(total_points) AS max_points')
-      .where('created_at > ?', 1.year.ago)
       .group(:user_id)
   end
 end
