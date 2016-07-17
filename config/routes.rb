@@ -91,23 +91,6 @@ MaycampArena::Application.routes.draw do
     resources :groups
     resources :categories
     resource :reports
-    resource :ratings do
-      member do
-        post :recalculate
-      end
-    end
-    resources :external_contests do
-      member do
-        post :rematch
-        post :remove_links
-      end
-
-      resources :external_contest_results do
-        member do
-          post :remove_user
-        end
-      end
-    end
   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.

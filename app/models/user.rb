@@ -24,9 +24,7 @@ class User < ActiveRecord::Base
   has_many :contest_start_events, dependent: :destroy
   has_many :runs, dependent: :destroy
   has_many :runs_with_log, class_name: 'Run'
-  has_many :rating_changes
   has_many :contest_results
-  has_many :external_contest_results
   has_many :problem_best_scores, dependent: :destroy
 
   has_one :level_info, dependent: :destroy
@@ -163,51 +161,12 @@ class User < ActiveRecord::Base
 
       query += " LIMIT #{options[:offset] || 0}, #{options[:limit]}" if options[:limit]
 
-      ratings = rating_hash
-
       ranklist = []
       User.connection.select_all(query).inject([]) do |ranklist, row|
-        user = User.send(:instantiate, row.merge(ratings[row["id"].to_i] || {"user_rating" => "unrated"}))
+        user = User.new(row.except('score', 'runs_count', 'full_solutions', 'last_run_send'))
         ranklist << [user, row['score'], row['runs_count'], row['full_solutions']]
       end
     end
-  end
-
-  def self.rating_ordering(limit = nil)
-    query = %Q{
-      SELECT users.*, rating_changes.rating as user_rating, last_rating.rating_updates FROM users,
-        (
-          SELECT
-            MAX(rating_changes.id) as change_id,
-            COUNT(rating_changes.id) - 1 as rating_updates,
-            user_id
-          FROM rating_changes
-          GROUP BY rating_changes.user_id
-          HAVING COUNT(rating_changes.id) > 1
-        ) as last_rating
-      LEFT JOIN rating_changes
-      ON rating_changes.id = last_rating.change_id
-      WHERE last_rating.change_id IS NOT NULL AND last_rating.user_id = users.id
-      ORDER BY rating_changes.rating DESC
-    }
-
-    query << "\nLIMIT 0, #{limit}" if limit
-    User.find_by_sql(query)
-  end
-
-  def self.rating_hash
-    rating_ordering.inject({}) do |hash, user|
-      hash.merge!(user.id => { "user_rating" => user.user_rating, "rating_updates" => user.rating_updates})
-    end
-  end
-
-  def current_rating
-    rating_changes.last || rating_changes.create(:rating => RatingChange::DEFAULT_INITIAL_RATING,
-                                                 :volatility => RatingChange::DEFAULT_INITIAL_VOLATILITY)
-  end
-
-  def times_rated
-    rating_changes.count
   end
 
   def participates_in_contests?

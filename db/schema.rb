@@ -75,23 +75,6 @@ ActiveRecord::Schema.define(version: 20160717145240) do
 
   add_index "contests", ["group_id"], name: "index_contests_on_group_id", using: :btree
 
-  create_table "external_contest_results", force: :cascade do |t|
-    t.integer  "external_contest_id", limit: 4
-    t.string   "coder_name",          limit: 255
-    t.string   "city",                limit: 255
-    t.integer  "user_id",             limit: 4
-    t.decimal  "points",                          precision: 10
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "external_contests", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "groups", force: :cascade do |t|
     t.string "name", limit: 255
   end
@@ -157,19 +140,6 @@ ActiveRecord::Schema.define(version: 20160717145240) do
   end
 
   add_index "problems", ["contest_id"], name: "index_problems_on_contest_id", using: :btree
-
-  create_table "rating_changes", force: :cascade do |t|
-    t.integer  "user_id",                   limit: 4
-    t.integer  "contest_result_id",         limit: 4
-    t.string   "contest_result_type",       limit: 255
-    t.integer  "previous_rating_change_id", limit: 4
-    t.decimal  "rating",                                precision: 10, scale: 2
-    t.decimal  "volatility",                            precision: 10, scale: 2
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "rating_changes", ["user_id"], name: "index_rating_changes_on_user_id", using: :btree
 
   create_table "run_blob_collections", force: :cascade do |t|
     t.integer "run_id",      limit: 4,        null: false

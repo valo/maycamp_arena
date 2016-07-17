@@ -40,16 +40,6 @@ module ApplicationHelper
     result
   end
 
-  def user_rating_css_class(user)
-    rating = user.has_attribute?(:user_rating) ? user.user_rating.to_i : user.current_rating.rating
-    rating = rating.to_i
-    return "rating rating_ultra" if rating >= 2000
-    return "rating rating_high" if rating >= 1500
-    return "rating rating_average" if rating >= 1200
-    return "rating rating_low" if rating >= 900
-    "rating rating_bad"
-  end
-
   def problem_runs_count(problem)
     Run.joins(:user).where.not(:users => { :role => User::ADMIN }).where(:problem_id => problem.id).count
   end

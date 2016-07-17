@@ -27,29 +27,13 @@ class MainController < ApplicationController
   end
 
   def results
-    case params[:contest_type]
-    when 'ExternalContestResult'
-      @contest = ExternalContest.includes(
-        contest_results: {
-          rating_change: :previous_rating_change, user: :rating_changes
-        }
-      ).find(params[:contest_id])
-
-      render action: :external_results, layout: 'results'
-    else
-      @contest = Contest.find(params[:contest_id])
-      unless @contest.results_visible? || current_user.andand.admin?
-        redirect_to root_path
-        return
-      end
-      @results = @contest.generate_contest_results
-      @ratings = @results.map { |result| @contest.rating_changes.detect { |change| change.user == result.second } }
-      render action: :results, layout: 'results'
+    @contest = Contest.find(params[:contest_id])
+    unless @contest.results_visible? || current_user.andand.admin?
+      redirect_to root_path
+      return
     end
-  end
-
-  def rankings
-    @rankings = User.rating_ordering
+    @results = @contest.generate_contest_results
+    render action: :results, layout: 'results'
   end
 
   def rankings_practice
@@ -75,8 +59,7 @@ class MainController < ApplicationController
           user: row[0],
           total_points: row[1].to_i,
           total_runs: row[2],
-          full_solutions: row[3],
-          rating: row[4]
+          full_solutions: row[3]
         )
       end
 

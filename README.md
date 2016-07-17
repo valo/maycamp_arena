@@ -51,7 +51,6 @@ It monitors the consumption of the system resources - time limit, memory limit, 
 
 * Participation in live contests.
 * Practicing old contests.
-* Ranking system based on rating.
 * Grouping contests by categories.
 * Grouping problems by categories.
 * Evaluation of regular [input/output tasks](https://github.com/valo/maycamp_arena/wiki/Format-of-the-tasks#regular-inputoutput-tasks)
