@@ -38,6 +38,6 @@ class IncreaseExpForUser
   end
 
   def next_level_exp
-    level_info.level * LevelInfo::BASE_LEVEL_MULTIPLIER
+    level_info.next_level_exp
   end
 end

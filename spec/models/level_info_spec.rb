@@ -17,4 +17,12 @@ describe LevelInfo do
       expect(level_info.total_exp).to eq(level_info.current_exp + (1 + 2) * LevelInfo::BASE_LEVEL_MULTIPLIER)
     end
   end
+
+  describe '#next_level_exp' do
+    let(:level_info) { create(:level_info, level: 1) }
+
+    it 'returns the experience needed for the next level' do
+      expect(level_info.next_level_exp).to eq(LevelInfo::BASE_LEVEL_MULTIPLIER)
+    end
+  end
 end

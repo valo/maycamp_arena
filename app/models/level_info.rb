@@ -9,4 +9,8 @@ class LevelInfo < ActiveRecord::Base
   def total_exp
     current_exp + (level - 1) * level / 2 * BASE_LEVEL_MULTIPLIER
   end
+
+  def next_level_exp
+    level * LevelInfo::BASE_LEVEL_MULTIPLIER
+  end
 end

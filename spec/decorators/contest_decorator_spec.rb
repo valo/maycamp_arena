@@ -15,8 +15,7 @@ describe ContestDecorator do
 
     it "return 100 if all the problems are solved" do
       problem = create(:problem, contest: contest)
-      run = create(:run, problem: problem, user: user)
-      run.update_columns(total_points: 100)
+      create(:run, problem: problem, user: user, status: "ok ok")
 
       expect(contest_decorator.best_practice_score).to eq(100)
     end
@@ -24,8 +23,7 @@ describe ContestDecorator do
     it "return 50 if there is a bad solution and a solution with half the points" do
       problem = create(:problem, contest: contest)
       create(:run, problem: problem, user: user)
-      run = create(:run, problem: problem, user: user)
-      run.update_columns(total_points: 50)
+      create(:run, problem: problem, user: user, status: "ok wa")
 
       expect(contest_decorator.best_practice_score).to eq(50)
     end
@@ -38,8 +36,7 @@ describe ContestDecorator do
 
     it "return 100 if all the problems are solved" do
       problem = create(:problem, contest: contest)
-      run = create(:run, problem: problem, user: user)
-      run.update_columns(total_points: 100)
+      create(:run, problem: problem, user: user, status: "ok")
 
       expect(contest_decorator.practice_score_percent).to eq(100)
     end
@@ -47,9 +44,8 @@ describe ContestDecorator do
     it "return 25% if there is an unsolved problem and a half solved problem" do
       create(:problem, contest: contest)
       problem = create(:problem, contest: contest)
-      create(:run, problem: problem, user: user)
-      run = create(:run, problem: problem, user: user)
-      run.update_columns(total_points: 50)
+      create(:run, problem: problem, user: user, status: "wa wa")
+      create(:run, problem: problem, user: user, status: "ok wa")
 
       expect(contest_decorator.practice_score_percent).to eq(25)
     end
