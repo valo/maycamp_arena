@@ -33,4 +33,7 @@ MaycampArena::Application.configure do
   config.assets.digest = false
   config.assets.compress = false
   config.assets.debug = true
+
+  # Active Job config
+  config.active_job.queue_adapter = :sidekiq
 end

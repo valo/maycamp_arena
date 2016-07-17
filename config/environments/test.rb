@@ -34,4 +34,7 @@ MaycampArena::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # Active Job config
+  config.active_job.queue_adapter = :inline
 end

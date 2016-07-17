@@ -29,6 +29,7 @@ class Run < ActiveRecord::Base
   scope :during_contest, -> { joins(:problem => :contest).where("runs.created_at >= contests.start_time").where("runs.created_at <= contests.end_time") }
 
   before_save :update_total_points, :update_time_and_mem
+  after_save :update_best_scores
   has_one :run_blob_collection, :dependent => :destroy, :autosave => true
 
   def self.languages
@@ -83,6 +84,10 @@ class Run < ActiveRecord::Base
 
   def update_total_points
     self.total_points = points_float.sum { |test| test.is_a?(BigDecimal) ? test : 0 }.round.to_i
+  end
+
+  def update_best_scores
+    UpdateProblemBestScoresJob.perform_later(user_id)
   end
 
   def update_time_and_mem

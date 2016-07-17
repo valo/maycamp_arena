@@ -27,6 +27,7 @@ gem 'js_cookie_rails'
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'draper'
+gem 'sidekiq'
 
 group :production do
   gem 'SyslogLogger'

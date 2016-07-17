@@ -21,12 +21,15 @@ class User < ActiveRecord::Base
 
   attr_accessor :unencrypted_password
 
-  has_many :contest_start_events, :dependent => :destroy
-  has_many :runs, :dependent => :destroy
-  has_many :runs_with_log, :class_name => 'Run'
+  has_many :contest_start_events, dependent: :destroy
+  has_many :runs, dependent: :destroy
+  has_many :runs_with_log, class_name: 'Run'
   has_many :rating_changes
   has_many :contest_results
   has_many :external_contest_results
+  has_many :problem_best_scores, dependent: :destroy
+
+  has_one :level_info, dependent: :destroy
 
   latinize :name
 
@@ -113,7 +116,6 @@ class User < ActiveRecord::Base
                   FROM runs
                   JOIN problems ON problems.id = problem_id
                   JOIN contests ON contests.id = problems.contest_id
-                  WHERE contests.results_visible = TRUE
                   GROUP BY user_id, problem_id
                 ) as problem_points
               ON problem_points.user_id = users.id

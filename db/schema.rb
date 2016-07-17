@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710140609) do
+ActiveRecord::Schema.define(version: 20160717145240) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -96,6 +96,17 @@ ActiveRecord::Schema.define(version: 20150710140609) do
     t.string "name", limit: 255
   end
 
+  create_table "level_infos", force: :cascade do |t|
+    t.integer  "user_id",              limit: 4
+    t.integer  "level",                limit: 4, default: 1, null: false
+    t.integer  "current_exp",          limit: 4, default: 0, null: false
+    t.datetime "last_level_showed_at"
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
+
+  add_index "level_infos", ["user_id"], name: "index_level_infos_on_user_id", unique: true, using: :btree
+
   create_table "messages", force: :cascade do |t|
     t.string   "subject",     limit: 255,   null: false
     t.text     "body",        limit: 65535, null: false
@@ -112,6 +123,26 @@ ActiveRecord::Schema.define(version: 20150710140609) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "problem_best_scores", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "problem_id", limit: 4
+    t.integer  "top_points", limit: 4, default: 0, null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "problem_best_scores", ["problem_id"], name: "fk_rails_b80e9ab572", using: :btree
+  add_index "problem_best_scores", ["user_id", "problem_id"], name: "index_problem_best_scores_on_user_id_and_problem_id", unique: true, using: :btree
+
+  create_table "problem_stats", force: :cascade do |t|
+    t.integer  "problem_id",      limit: 4,                null: false
+    t.float    "percent_success", limit: 24, default: 0.0, null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  add_index "problem_stats", ["problem_id"], name: "index_problem_stats_on_problem_id", unique: true, using: :btree
 
   create_table "problems", force: :cascade do |t|
     t.integer  "contest_id",      limit: 4,                                              null: false
@@ -190,4 +221,7 @@ ActiveRecord::Schema.define(version: 20150710140609) do
   add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree
 
   add_foreign_key "contests", "groups"
+  add_foreign_key "level_infos", "users"
+  add_foreign_key "problem_best_scores", "problems"
+  add_foreign_key "problem_best_scores", "users"
 end

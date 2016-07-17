@@ -1,4 +1,8 @@
+require 'sidekiq/web'
+
 MaycampArena::Application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
+
   get '/logout', to: 'sessions#destroy', as: 'logout'
   get '/login', to: 'sessions#new', as: 'login'
   get '/register', to: 'users#create', as: 'register'

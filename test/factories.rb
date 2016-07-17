@@ -73,4 +73,8 @@ FactoryGirl.define do
   factory :group do
     sequence(:name) { |n| "Group #{ n }" }
   end
+
+  factory :level_info do
+    association :user
+  end
 end
