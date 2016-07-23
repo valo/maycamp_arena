@@ -111,7 +111,7 @@ GEM
       request_store (~> 1.0)
     dynamic_form (1.1.4)
     erubis (2.7.0)
-    execjs (2.6.0)
+    execjs (2.7.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -247,9 +247,10 @@ GEM
     tilt (2.0.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (2.7.2)
-      execjs (>= 0.3.0)
-      json (>= 1.8.0)
+    tzinfo-data (1.2016.6)
+      tzinfo (>= 1.0.0)
+    uglifier (3.0.0)
+      execjs (>= 0.3.0, < 3)
     utf8-cleaner (0.2.1)
       activesupport
     will_paginate (3.1.0)
@@ -304,7 +305,8 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   sprockets-rails
-  uglifier (>= 1.0.3)
+  tzinfo-data
+  uglifier
   utf8-cleaner
   will_paginate-bootstrap
   zip-zip

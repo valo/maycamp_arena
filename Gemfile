@@ -29,36 +29,39 @@ gem 'coffee-rails'
 gem 'draper'
 gem 'sidekiq'
 
+# Timezone data source
+gem 'tzinfo-data'
+
+gem 'sprockets-rails'
+gem 'uglifier'
+
 group :production do
   gem 'SyslogLogger'
 end
 
 group :development do
   gem 'spring'
-  gem "spring-commands-rspec"
-  gem 'sprockets-rails'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'spring-commands-rspec'
   # Deploy with
   gem 'capistrano'
   gem 'capistrano3-puma'
   gem 'capistrano-rvm'
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
-  gem "capistrano-db-tasks", require: false
+  gem 'capistrano-db-tasks', require: false
 end
 
 group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers', '~> 3.0'
   gem 'factory_girl_rails'
-  gem 'mocha', :require => 'mocha/api'
+  gem 'mocha', require: 'mocha/api'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails', require: false
 end
 
 gem 'jquery-rails'
-
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug19'
