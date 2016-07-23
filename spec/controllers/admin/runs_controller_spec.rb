@@ -97,8 +97,12 @@ describe Admin::RunsController do
         request.env["HTTP_REFERER"] = "test"
       end
 
-      let(:run) { create(:run) }
-      before { get :queue, id: run.id, contest_id: contest.id, problem_id: problem.id }
+      let(:run) { create(:run, problem: problem) }
+      before do
+        expect(GradeRunJob).to receive(:perform_later).with(run.id)
+
+        get :queue, id: run.id, contest_id: contest.id, problem_id: problem.id
+      end
 
       it { is_expected.to redirect_to(request.env["HTTP_REFERER"]) }
     end
@@ -148,8 +152,12 @@ describe Admin::RunsController do
         request.env["HTTP_REFERER"] = "test"
       end
 
-      let(:run) { create(:run) }
-      before { get :queue, id: run.id, contest_id: contest.id, problem_id: problem.id }
+      let(:run) { create(:run, problem: problem) }
+      before do
+        expect(GradeRunJob).to receive(:perform_later).with(run.id)
+
+        get :queue, id: run.id, contest_id: contest.id, problem_id: problem.id
+      end
 
       it { is_expected.to redirect_to(request.env["HTTP_REFERER"]) }
     end

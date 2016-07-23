@@ -31,7 +31,7 @@ services:
     volumes:
       - ./data/db:/var/lib/mysql
   redis:
-    image: redis
+    image: redis:alpine
     volumes:
       - ./data/redis:/data
   memcached:
@@ -48,3 +48,4 @@ services:
       - .env
     volumes:
       - ./sets:/maycamp/sets
+      - /var/run/docker.sock:/var/run/docker.sock:ro

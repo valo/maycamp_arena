@@ -19,7 +19,8 @@ class Admin::RunsController < Admin::BaseController
     @runs = @runs.where(:problem_id => params[:problem_id]) unless params[:problem_id].blank?
     @runs = @runs.where(:id => params[:id]) unless params[:id].blank?
     @runs = @runs.where(:problems => { :contest_id => params[:contest_id] }) unless params[:contest_id].blank?
-    @runs.each { |run| run.update_attributes(:status => Run::WAITING) }
+    @runs.each { |run| run.update(status: Run::WAITING) }
+    @runs.each { |run| GradeRunJob.perform_later(run.id) }
     redirect_to :back
   end
 

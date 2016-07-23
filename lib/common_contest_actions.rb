@@ -11,6 +11,7 @@ module CommonContestActions
     end
 
     if @run.save
+      GradeRunJob.perform_later(@run.id, @run.status == Run::CHECKING ? 1 : nil)
       redirect_to :action => "open_contest", :contest_id => params[:contest_id]
     else
       render :action => "open_contest"
