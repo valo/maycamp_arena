@@ -21,7 +21,7 @@ COPY . /maycamp
 
 RUN bundle exec rake assets:precompile RAILS_ENV=production
 
-RUN mkdir -p /maycamp/tmp
+RUN mkdir -p /maycamp/tmp/pids
 RUN mkdir -p /maycamp/sets
 RUN mkdir -p /maycamp/logs
 RUN chown maycamp:maycamp -R /maycamp

@@ -4,3 +4,4 @@ sets
 log
 tmp
 *.sql.gz
+data

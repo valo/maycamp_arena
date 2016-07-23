@@ -15,3 +15,4 @@ sandbox/*
 config/grader.yml
 .tags
 *.sql.gz
+data
