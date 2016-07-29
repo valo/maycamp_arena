@@ -86,9 +86,12 @@ h1 {
   height: auto;
   background: #eeeeee;
   margin-bottom: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 
-  .space-from-top {
-    margin-top: 5px;
+  .brand {
+    max-width: 60px;
+    max-height: 85px;
   }
 }
 
