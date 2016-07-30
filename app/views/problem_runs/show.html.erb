@@ -2,5 +2,5 @@
 <% if @runs.empty? %>
   Няма решения
 <% else %>
-  <%= render :partial => "runs_list", :locals => { :runs => @runs } %>
+  <%= render partial: 'common/runs_list', locals: { runs: @runs } %>
 <% end %>

@@ -19,7 +19,7 @@
       <% if defined?(practice) %>
         <td><%= problem_runs_count(problem) %></td>
         <td><%= number_with_precision(problem_runs_total_points(problem) / problem_runs_count(problem), :precision => 2) %></td>
-        <td><%= link_to "Решения", problem_runs_path(problem.id) %></td>
+        <td><%= link_to "Решения", problem_run_path(problem.id) %></td>
       <% end %>
     </tr>
   <% end %>

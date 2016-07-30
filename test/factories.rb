@@ -21,7 +21,7 @@ FactoryGirl.define do
     c.duration 120
     c.start_time { 1.hour.ago }
     c.end_time { 1.hour.from_now }
-    c.name "Test contest"
+    c.name 'Test contest'
 
     association :group
   end
@@ -55,19 +55,6 @@ FactoryGirl.define do
     c.contest { |contest| contest.association(:contest) }
 
     association :user
-  end
-
-  factory :external_contest do |c|
-    c.name "Some external contest"
-    c.date 1.day.ago
-  end
-
-  factory :external_contest_result do |r|
-    r.external_contest { |c| c.association(:external_contest) }
-    r.coder_name "Valentin Mihov"
-    r.city "Varna"
-    r.points "100"
-    r.user_id nil
   end
 
   factory :group do

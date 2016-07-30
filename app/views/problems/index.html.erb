@@ -24,7 +24,7 @@
       <% if current_user %>
         <td><%= problem_points %></td>
       <% end %>
-      <td><%= link_to "Решения", problem_runs_path(:id => problem.id) %></td>
+      <td><%= link_to "Решения", problem_run_path(problem.id) %></td>
     </tr>
   <% end %>
 </table>

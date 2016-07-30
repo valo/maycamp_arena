@@ -13,22 +13,6 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    rating_data = @user.rating_changes.map do |change|
-      if change.contest_result
-        {
-          :x => change.contest_result.contest.user_open_time(@user),
-          :y => change.rating.to_f,
-          :name => change.contest_result.contest.name,
-          :color => change.rating_color,
-          :url => url_for(:controller => :main, :action => :results, :contest_id => change.contest_result.contest.id, :contest_type => change.contest_result.class)
-        }
-      else
-        nil
-      end
-    end.compact
-
-    gon.rating_report = rating_data.to_a
-
     gon.daily_submits_report = Run.where("created_at > ? AND user_id = ?", 3.weeks.ago.to_s(:db), @user.id).
                                 select("id").
                                 group("DATE_FORMAT(created_at, '%Y/%m/%d')").
