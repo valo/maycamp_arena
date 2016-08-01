@@ -1,16 +1,20 @@
 <% if pagination %>
   <p><%= will_paginate rankings, renderer: BootstrapPagination::Rails %></p>
 <% end %>
-<table id="rankings" class="table table-bordered">
-  <tr>
-    <th>Място</th>
-    <th>Име</th>
-    <th>Град</th>
-    <th>Общо събрани точки</th>
-    <th>Брой решени задачи за 100 точки</th>
-    <th>Пратени решения</th>
-  </tr>
-  <% rankings.each_with_index do |rank, index| %>
+
+<% if rankings.blank? %>
+  <p>Все още няма участници, които да са пращали решения на арената.</p>
+<% else %>
+  <table id="rankings" class="table table-bordered table-hover">
+    <tr>
+      <th>Място</th>
+      <th>Име</th>
+      <th>Град</th>
+      <th>Общо събрани точки</th>
+      <th>Брой решени задачи <br> за 100 точки</th>
+      <th>Пратени решения</th>
+
+    <% rankings.each_with_index do |rank, index| %>
     <tr>
       <td><%= (rankings.current_page - 1) * rankings.per_page + index + 1 %></td>
       <td><%= link_to rank.user.name, user_path(rank.user) %></td>
@@ -19,8 +23,11 @@
       <td><%= rank.full_solutions %></td>
       <td><%= rank.total_runs %></td>
     </tr>
-  <% end %>
-</table>
+    <% end %>
+
+  </table>
+<% end %>
+
 <% if pagination %>
   <p><%= will_paginate rankings, renderer: BootstrapPagination::Rails %></p>
 <% end %>

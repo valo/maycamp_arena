@@ -1,22 +1,34 @@
-<h2>Предстоящи състезания</h2>
-<br />
-<% if !@upcoming_contests.blank? %>
-<table class="table table-bordered">
-  <tr>
-    <th>Име на състезанието</th>
-    <th>Започва</th>
-    <th>Приключва</th>
-    <th>Продължителност</th>
-  </tr>
-<% for contest in @upcoming_contests do %>
-  <tr>
-    <td><%= contest.name %></td>
-    <td><%= contest.start_time.to_s :long %></td>
-    <td><%= contest.end_time.to_s :long %></td>
-    <td><%= duration_in_words contest.duration.minutes %></td>
-  </tr>
-<% end %>
-</table>
-<% else %>
-Няма предстоящи състезания.
+<% unless @upcoming_contests.blank? %>
+<div class="panel panel-default">
+  <div class="panel-heading" role="tab" id="headingUpcomingContests">
+    <h4 class="panel-title">
+      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseUpcomingContests" aria-expanded="false" aria-controls="collapseUpcomingContests">
+        Предстоящи състезания
+      </a>
+    </h4>
+  </div>
+  <div id="collapseUpcomingContests" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingUpcomingContests">
+    <div class="panel-body">
+      <table class="table table-bordered table-hover">
+        <tr>
+          <th>Име на състезанието</th>
+          <th>Започва</th>
+          <th>Приключва</th>
+          <th>Продължителност</th>
+        </tr>
+      <% for contest in @upcoming_contests do %>
+        <tr>
+          <td><%= contest.name %></td>
+          <td><%= contest.start_time.to_s :long %></td>
+          <td><%= contest.end_time.to_s :long %></td>
+          <td><%= duration_in_words contest.duration.minutes %></td>
+        </tr>
+      <% end %>
+      </table>
+    </div>
+  </div>
+</div>
+
+<br/>
+
 <% end %>

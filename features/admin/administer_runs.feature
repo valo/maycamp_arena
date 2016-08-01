@@ -27,7 +27,7 @@ Feature: Administer runs
     And I select "October 18, 2014 16:21:39" as the "Край:" datetime
     And I select "Content group" from "Група"
     And I press "Създаване"
-    And I follow "Задачи" within "#content"
+    And I follow "Задачи" within "#content-box"
     And I follow "Нова задача"
     And I fill in the following:
       | Име: | A+B problem |
@@ -36,7 +36,7 @@ Feature: Administer runs
 
   Scenario: Submitting a run
     Given I am on the contest list in the admin panel
-    And I follow "Задачи" within "#content"
+    And I follow "Задачи" within "#content-box"
     And I follow "Решения"
     And I follow "Пращане на решение"
     And I fill in the following:
@@ -50,7 +50,7 @@ Feature: Administer runs
 
   Scenario: Viewing all the runs for a given contest
     Given I am on the contest list in the admin panel
-    And I follow "Задачи" within "#content"
+    And I follow "Задачи" within "#content-box"
     And I follow "Решения"
     And I follow "Пращане на решение"
     And I fill in the following:
@@ -65,7 +65,7 @@ Feature: Administer runs
 
   Scenario: Editing a run
     Given I am on the contest list in the admin panel
-    And I follow "Задачи" within "#content"
+    And I follow "Задачи" within "#content-box"
     And I follow "Решения"
     And I follow "Пращане на решение"
     And I fill in the following:

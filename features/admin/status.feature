@@ -17,12 +17,12 @@ Feature: Viewing the status
     And the user "valo" submit a run for problem "Problem A" with attributes:
       | status        | ok ok ok ok ok     |
     When I am on the homepage
-    And I follow "влезете"
+    And I follow "Вход"
     And I fill in the following:
       | login    | valo   |
       | password | secret |
     And I press "Влез"
-    And I am on the status in the admin panel 
+    And I am on the status in the admin panel
     Then I should see "Valentin Mihov"
     And I should see "ok ok ok ok ok"
     And I should see "Разглеждане"

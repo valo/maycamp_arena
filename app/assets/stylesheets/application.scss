@@ -1,3 +1,4 @@
+@import "customized-bootstrap-variables";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "inove";
@@ -13,12 +14,91 @@ body {
   font-size: 13px;
 }
 
+// Body Containers
+#content-box {
+	background:#FFFFFF;
+	min-height:400px;
+}
+
+#outter-wrapper {
+  padding-top: 20px;
+}
+
 label {
   display: block;
 }
 
 h1 {
   margin-top: 0;
+}
+
+// Header styles
+#header {
+  background: #000000;
+
+  .header-title {
+    color: #ffffff;
+
+    a:link,
+    a:visited,
+    a:hover,
+    a:active {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+
+  .header-caption {
+    color: #ffffff;
+  }
+}
+
+// Navigation Styles
+#navigation {
+  a:link,
+  a:visited,
+  a:hover,
+  a:active {
+    color: #000000;
+    text-decoration: none;
+  }
+}
+
+#submenu {
+  .logo {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+// Collapse the navbar after 991px, since the glyphicons break the default responsive configs.
+@media (min-width: 768px) and (max-width: 991px) {
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+    .navbar-collapse.collapse.in {
+        display: block !important;
+    }
+    .navbar-header .collapse, .navbar-toggle {
+        display:block !important;
+    }
+    .navbar-header {
+        float:none;
+    }
+}
+
+// Footer styles
+#footer {
+  height: auto;
+  background: #eeeeee;
+  margin-bottom: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+  .brand {
+    max-width: 60px;
+    max-height: 85px;
+  }
 }
 
 .notice {
@@ -97,27 +177,11 @@ textarea.source_code {
 
 #submenu {
   border-bottom: 1px solid #999;
-	background:#FFF;
+	background: #f8f8f8;
 }
 
-#submenu ul {
-	background:#FFF;
-}
-
-#submenu li {
-	display:block;
-	float: left;
-	list-style:none;
-	padding: 8px;
-}
-
-#submenu li a {
-  font-weight: bold;
-  color: black;
-}
-
-#submenu li:hover {
-  background: #EDEFF0;
+.navbar {
+  margin-bottom: 0px;
 }
 
 form p em {

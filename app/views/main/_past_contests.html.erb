@@ -1,31 +1,44 @@
-<h2>Предишни състезания</h2>
 <% unless @past_contests.blank? %>
-  <%= will_paginate @past_contests, :param_name => :past_contests_page, renderer: BootstrapPagination::Rails %>
-  <table class="table table-bordered">
-    <tr>
-      <th>Име</th>
-      <th>Начало</th>
-      <th>Край</th>
-      <th>Продължителност</th>
-      <th>Резултати</th>
-    </tr>
-    <% for contest in @past_contests do %>
-      <tr>
-        <td><%= contest.name %></td>
-        <td><%= l contest.start_time, format: :long %></td>
-        <td><%= l contest.end_time, format: :long %></td>
-        <td><%= duration_in_words contest.duration.minutes %></td>
-        <td>
-          <% if contest.results_visible? or current_user.andand.admin? %>
-            <%= link_to "Резултати", :action => :results, :contest_id => contest.id %>
-          <% else %>
-            Очаквайте скоро
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-  <%= will_paginate @past_contests, :param_name => :past_contests_page, renderer: BootstrapPagination::Rails %>
-<% else %>
-  Няма предишни състезания.
+<div class="panel panel-default">
+	<div class="panel-heading" role="tab" id="headingPastContests">
+		<h4 class="panel-title">
+			<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePastContests" aria-expanded="false" aria-controls="collapsePastContests">
+				Предишни състезания
+			</a>
+		</h4>
+	</div>
+	<div id="collapsePastContests" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingPastContests">
+		<div class="panel-body">
+			<%= will_paginate @past_contests, :param_name => :past_contests_page, renderer: BootstrapPagination::Rails %>
+			<table class="table table-bordered">
+				<tr>
+					<th>Име</th>
+					<th>Начало</th>
+					<th>Край</th>
+					<th>Продължителност</th>
+					<th>Резултати</th>
+				</tr>
+				<% for contest in @past_contests do %>
+				<tr>
+					<td><%= contest.name %></td>
+					<td><%= l contest.start_time, format: :long %></td>
+					<td><%= l contest.end_time, format: :long %></td>
+					<td><%= duration_in_words contest.duration.minutes %></td>
+					<td>
+						<% if contest.results_visible? or current_user.andand.admin? %>
+						  <%= link_to "Резултати", :action => :results, :contest_id => contest.id %>
+					  <% else %>
+						  Очаквайте скоро
+						<% end %>
+					</td>
+				</tr>
+				<% end %>
+			</table>
+			<%= will_paginate @past_contests, :param_name => :past_contests_page, renderer: BootstrapPagination::Rails %>
+		</div>
+	</div>
+</div>
+
+<br/>
+
 <% end %>

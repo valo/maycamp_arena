@@ -1,9 +1,32 @@
-<h1>Регистрация</h1>
-<em><%= error_messages_for :user %></em>
-<br />
-<%= form_for @user do |f| -%>
-<%= render :partial => 'user_fields', :locals => { :f => f, :update => false } %>
-<p>
-  <%= submit_tag 'Създай нов потребител', class: "btn btn-default" %>
-</p>
-<% end -%>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <h3 class="panel-title">Регистрация</h3>
+      </div>
+
+      <div class="panel-body">
+        <div class="container-fluid">
+          <em><%= error_messages_for :user %></em>
+          <br>
+        </div>
+
+        <%= form_for @user, html: { class: "form-horizontal" } do |f| -%>
+
+          <%= render partial: "user_fields", locals: { f: f, update: false } %>
+
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <%= button_tag type: "submit", class: "btn btn-default" do %>
+                <span class="glyphicon glyphicon-hand-up"></span> Регистрирай се!
+              <% end %>
+            </div>
+          </div>
+
+        <% end -%>
+
+      </div>
+    </div>
+  </div>
+</div>

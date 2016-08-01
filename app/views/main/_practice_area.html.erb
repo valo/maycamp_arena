@@ -1,18 +1,39 @@
-<h2>Практика</h2>
-<p>Тук можете да се упражнявате на вече минали състезания. Използвайте бутоните за да превключвате между групиран изглед и списък от всички състезания</p>
-<% if !contests.blank? %>
-  <button class="btn btn-default btn-lg <%= practice_groups_button_class %>" id="group-view" aria-pressed="true">
-    <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
-  </button>
-  <button class="btn btn-default btn-lg <%= practice_list_button_class %>" id="list-view" aria-pressed="true">
-    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-  </button>
-  <div id="practice-groups" class="<%= practice_groups_class %>">
-    <%= render "groups_list" %>
-  </div>
-  <div id="practice-list" class="<%= practice_list_class %>">
-    <%= render 'practice_list', contests: contests %>
-  </div>
-<% else %>
-  В момента няма състезания, на които да можете да се упражнявате.
-<% end %>
+<div class="panel panel-default">
+	<div class="panel-heading" role="tab" id="headingPracticeArea">
+		<h4 class="panel-title">
+			<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePracticeArea" aria-expanded="true" aria-controls="collapsePracticeArea">
+				Практика
+			</a>
+		</h4>
+	</div>
+	<div id="collapsePracticeArea" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingPracticeArea">
+		<div class="panel-body">
+			<p>
+				Тук можете да се упражнявате на вече минали състезания.
+        Използвайте бутоните, за да превключвате между групиран изглед и списък от всички състезания
+			</p>
+
+      <br/>
+
+			<% if !contests.blank? %>
+			<button class="btn btn-default btn-lg <%= practice_groups_button_class %>" id="group-view" aria-pressed="true">
+				<span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+			</button>
+			<button class="btn btn-default btn-lg <%= practice_list_button_class %>" id="list-view" aria-pressed="true">
+				<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+			</button>
+			<div id="practice-groups" class="<%= practice_groups_class %>">
+				<%= render "groups_list" %>
+			</div>
+			<div id="practice-list" class="<%= practice_list_class %>">
+				<%= render 'practice_list', contests: contests %>
+			</div>
+		  <% else %>
+			  <p>В момента няма състезания, на които да можете да се упражнявате.</p>
+			<% end %>
+
+		</div>
+	</div>
+</div>
+
+<br/>

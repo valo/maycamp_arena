@@ -1,6 +1,19 @@
-<h2>Статус на системата</h2>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
 
-<h3>Последни събмити</h3>
-<% cache ["status", params.fetch(:page, 1), Run.maximum(:updated_at)] do %>
-  <%= render "common/runs_list", runs: @runs %>
-<% end %>
+      <div class="panel-heading">
+        <div class="panel-title">Статус на системата - последни събмити</div>
+      </div>
+
+      <div class="panel-body">
+        <div class="container-fluid">
+          <% cache ["status", params.fetch(:page, 1), Run.maximum(:updated_at)] do %>
+            <%= render "common/runs_list", runs: @runs %>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
