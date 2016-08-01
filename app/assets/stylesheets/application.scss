@@ -64,6 +64,13 @@ h1 {
   }
 }
 
+#submenu {
+  .logo {
+    width: 26px;
+    height: 26px;
+  }
+}
+
 // Collapse the navbar after 991px, since the glyphicons break the default responsive configs.
 @media (min-width: 768px) and (max-width: 991px) {
     .navbar-collapse.collapse {
