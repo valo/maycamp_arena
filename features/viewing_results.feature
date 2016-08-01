@@ -17,7 +17,7 @@ Feature: Viewing results
     And the user "valo" submit a run for problem "Problem A" with attributes:
       | status        | ok ok ok ok ok     |
     When I am on the homepage
-    And I follow "влезете"
+    And I follow "Вход"
     And I fill in the following:
       | login    | valo   |
       | password | secret |
@@ -44,7 +44,7 @@ Feature: Viewing results
       | status        | ok ok ok ok ok     |
     And the contest "Fall contest" is finished
     When I am on the homepage
-    And I follow "влезете"
+    And I follow "Вход"
     And I fill in the following:
       | login    | valo   |
       | password | secret |
@@ -70,7 +70,7 @@ Feature: Viewing results
       | language      | C/C++              |
       | status        | ok ok ok ok ok     |
     When I am on the homepage
-    And I follow "влезете"
+    And I follow "Вход"
     And I fill in the following:
       | login    | valo   |
       | password | secret |
@@ -96,7 +96,7 @@ Feature: Viewing results
       | language      | C/C++              |
       | status        | ok ok ok ok ok     |
     When I am on the homepage
-    And I follow "влезете"
+    And I follow "Вход"
     And I fill in the following:
       | login    | valo   |
       | password | secret |
@@ -118,7 +118,7 @@ Feature: Viewing results
       | language      | C/C++              |
       | status        | ok ok ok ok ok     |
     When I am on the homepage
-    And I follow "влезете"
+    And I follow "Вход"
     And I fill in the following:
       | login    | valo   |
       | password | secret |

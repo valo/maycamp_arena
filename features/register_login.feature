@@ -9,13 +9,13 @@ Feature: Register a user
     And I fill in the following:
       | Потребителско име:         | valo                      |
       | Истинско име:              | Valentin Mihov            |
-      | Email:                     | valentin.mihov@gmail.com  |
       | Град:                      | София                     |
+      | E-mail:                     | valentin.mihov@gmail.com  |
       | Парола:                    | secret                    |
-      | Потвърди паролата:         | secret                    |
-    And I press "Създай нов потребител"
+      | Потвърждение на паролата: | secret                    |
+    And I press "Регистрирай се!"
     Then I should see "Благодаря за регистрацията."
-    And I should see "Valentin Mihov (Изход)"
+    And I should see "Valentin Mihov"
 
   Scenario: Register a new user with missing information
     Given I am not logged in
@@ -23,8 +23,8 @@ Feature: Register a user
     And I fill in the following:
       | Потребителско име:         | valo                      |
       | Истинско име:              | Valentin Mihov            |
-      | Email:                     | valentin.mihov@gmail.com  |
-    And I press "Създай нов потребител"
+      | E-mail:                    | valentin.mihov@gmail.com  |
+    And I press "Регистрирай се!"
     Then I should see "Паролата не може да е без стойност"
     Then I should see "Град не може да е без стойност"
 
@@ -41,7 +41,7 @@ Feature: Register a user
       | login                 | valo                      |
       | password              | secret                    |
     And I press "Влез"
-    Then I should see "Valentin Mihov (Изход)"
+    Then I should see "Valentin Mihov"
 
   Scenario: Login existing user with incomplete data
     Given there is an invalid user with attributes:
@@ -73,6 +73,6 @@ Feature: Register a user
         | login                 | valo                      |
         | password              | secret                    |
       And I press "Влез"
-      And I follow "Valentin Mihov (Изход)"
-      Then I should not see "Valentin Mihov (Изход)"
-      And I should see "Не сте влезли в системата"
+      And I follow "Изход"
+      Then I should not see "Valentin Mihov"
+      And I should see "Вход"

@@ -3,7 +3,7 @@ Feature: Administrator login
   In order to be able to control the system
   As a administrator
   I want to be able to login as an administrator
-  
+
   Scenario: Login to the admin panel
     Given there is an admin user with attributes:
       | login                 | valo                      |
@@ -16,5 +16,5 @@ Feature: Administrator login
       | login                 | valo                      |
       | password              | secret                    |
     And I press "Влез"
-    Then I should see "Valentin Mihov (Изход)"
+    Then I should see "Valentin Mihov"
     And I should be on the homepage
