@@ -1,4 +1,12 @@
+require 'sidekiq/web'
+
 MaycampArena::Application.routes.draw do
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == ENV['SIDEKIQ_USERNAME'] && password == ENV['SIDEKIQ_PASSWORD']
+  end if Rails.env.production?
+
+  mount Sidekiq::Web, at: '/sidekiq'
+
   get '/logout', to: 'sessions#destroy', as: 'logout'
   get '/login', to: 'sessions#new', as: 'login'
   get '/register', to: 'users#create', as: 'register'

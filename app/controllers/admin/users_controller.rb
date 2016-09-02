@@ -59,6 +59,8 @@ class Admin::UsersController < Admin::BaseController
     authorize user
 
     @runs = user.runs.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
+
+    @user.create_level_info unless @user.level_info
   end
 
   def restart_time
