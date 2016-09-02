@@ -36,6 +36,13 @@ h1 {
 #header {
   background: #000000;
 
+  .logo {
+    background: url(image-path('logos/maycamp-logo-64x91.png')) no-repeat;
+    background-size: 80% auto;
+    height: 91px;
+    margin-left: 10px;
+  }
+
   .header-title {
     color: #ffffff;
 
@@ -64,10 +71,9 @@ h1 {
   }
 }
 
-#submenu {
-  .logo {
-    width: 26px;
-    height: 26px;
+@media (max-width: 991px) {
+  #header .logo {
+    display: none !important;
   }
 }
 

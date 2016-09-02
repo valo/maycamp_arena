@@ -41,7 +41,7 @@
   Scenario: Delete task
     Given I am on the contest list in the admin panel
     And I follow "Задачи" within "#content-box"
-    And I follow "Изтриване"
+    And I follow "Изтрий"
     Then I should be on the problem list for contest "Fall contest" in the admin panel
     And I should not see "A+B problem"
 
