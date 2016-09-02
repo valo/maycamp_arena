@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/seuros/capistrano-sidekiq.git
+  revision: 416d1ba6ac29e550b506468c45053b9fe65347b3
+  specs:
+    capistrano-sidekiq (0.5.4)
+      capistrano
+      sidekiq (>= 3.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -272,6 +280,7 @@ DEPENDENCIES
   capistrano-db-tasks
   capistrano-rails
   capistrano-rvm
+  capistrano-sidekiq!
   capistrano3-puma
   capybara
   codemirror-rails

@@ -45,6 +45,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem "capistrano-db-tasks", require: false
+  gem 'capistrano-sidekiq', github: 'seuros/capistrano-sidekiq'
 end
 
 group :test do
