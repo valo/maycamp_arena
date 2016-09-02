@@ -27,7 +27,7 @@
     And I select "October 18, 2014 16:21:39" as the "Край:" datetime
     And I select "Content group" from "Група"
     And I press "Създаване"
-    And I follow "Задачи" within "#content"
+    And I follow "Задачи" within "#content-box"
     And I follow "Нова задача"
     And I fill in the following:
       | Име: | A+B problem |
@@ -40,14 +40,14 @@
 
   Scenario: Delete task
     Given I am on the contest list in the admin panel
-    And I follow "Задачи" within "#content"
-    And I follow "Изтриване"
+    And I follow "Задачи" within "#content-box"
+    And I follow "Изтрий"
     Then I should be on the problem list for contest "Fall contest" in the admin panel
     And I should not see "A+B problem"
 
   Scenario: View task
     Given I am on the contest list in the admin panel
-    And I follow "Задачи" within "#content"
+    And I follow "Задачи" within "#content-box"
     And I follow "Преглед"
     Then I should see "Име: A+B problem"
     And I should see "Time limit: 1.0 sec"
@@ -55,7 +55,7 @@
 
   Scenario: Edit task
     Given I am on the contest list in the admin panel
-    And I follow "Задачи" within "#content"
+    And I follow "Задачи" within "#content-box"
     And I follow "Промяна"
     And I fill in the following:
       | Име:          | A-B problem                                        |
@@ -66,7 +66,7 @@
 
   Scenario: Upload files
     Given I am on the contest list in the admin panel
-    And I follow "Задачи" within "#content"
+    And I follow "Задачи" within "#content-box"
     And I follow "Качване на файлове"
     And I attach the file at "test/fixtures/archive.zip" to "tests_file"
     And I press "Качване"
@@ -77,7 +77,7 @@
 
   Scenario: Purge files files
     Given I am on the contest list in the admin panel
-    And I follow "Задачи" within "#content"
+    And I follow "Задачи" within "#content-box"
     And I follow "Качване на файлове"
     And I attach the file at "test/fixtures/archive.zip" to "tests_file"
     And I press "Качване"
@@ -91,7 +91,7 @@
     Given I am on the contest list in the admin panel
     And there is a category with attributes:
       | name | Динамично |
-    When I follow "Задачи" within "#content"
+    When I follow "Задачи" within "#content-box"
     And I follow "Промяна"
     And I check "Динамично"
     And I press "Обновяване"

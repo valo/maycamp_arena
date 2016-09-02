@@ -20,8 +20,7 @@ Feature: Viewing the system status
   Scenario: Viewing the status without a logged user
     Given I am on the homepage
     When I follow "Статус"
-    Then I should see "Статус на системата"
-    And I should see "Последни събмити"
+    Then I should see "Статус на системата - последни събмити"
     And I should see "Valentin Mihov"
     And I should see "ok ok ok ok ok"
 

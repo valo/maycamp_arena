@@ -1,11 +1,31 @@
-<h1>Активност</h1>
-<p>
-  Класирането е въз основа на сбора от точките на най-доброто решение за всяка
-  една задача на дадения състезател. Ако двама състезателя имат еднакъв брой точки се
-  гледа броя на задачите решени за 100 точки. Ако и този брой е еднакъв се гледа
-  кой има по-малко пратени решения и накрая се гледа по азбучен ред имената.
-</p>
-<h2>По активност през последната седмица</h2>
-<% cache ["activity", Run.last] do %>
-  <%= render :partial => 'rankings', :locals => { :rankings => calc_rankings(:since => 7.days.ago, :only_active => true, :per_page => User.count), :pagination => true } %>
-<% end %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <h3 class="panel-title">Активност през последната седмица</h3>
+      </div>
+
+      <div class="panel-body">
+        <div class="container-fluid">
+          <em>
+            Класирането е въз основа на сбора от точките на най-доброто решение за всяка
+            една задача на дадения състезател. Ако двама състезатели имат еднакъв брой точки, се
+            гледа броят на задачите решени за 100 точки. Ако и този брой е еднакъв, то се взима предвид
+            кой е пратил по-малък брой решения, а накрая се сортира по азбучен ред на имената.
+          </em>
+          <br> <br>
+
+          <% cache ["activity", Run.last] do %>
+            <%= render partial: "rankings", locals: {
+                rankings: calc_rankings(since: 7.days.ago, only_active: true, per_page: User.count),
+                pagination: true
+              }
+            %>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

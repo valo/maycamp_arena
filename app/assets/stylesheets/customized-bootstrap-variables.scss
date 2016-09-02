@@ -1,0 +1,4 @@
+// Customization of the default bootstrap Sass variables,
+// So that the new layout can fit to the old margins
+$grid-gutter-width: 30px;
+$container-large-desktop:	(1000px + $grid-gutter-width);

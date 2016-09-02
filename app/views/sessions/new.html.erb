@@ -1,16 +1,54 @@
-<h1>Вход</h1>
-<br />
-<%= form_tag session_path {}, :class => "new_session" do -%>
-  <p>
-    <%= label_tag 'login', "Потребителско име или Email адрес" %>
-    <%= text_field_tag 'login', @login %>
-    <em>Можете да въведете както потребителското си име, така и email адреса си. Няма значение кое от двете.</em>
-  </p>
-  <br />
-  <p><%= label_tag 'password', "Парола" %>
-  <%= password_field_tag 'password', nil %></p>
-  <br />
-  <p><%= submit_tag 'Влез', class: "btn btn-default" %></p>
-  <p>Нямате акаунт? Можете да си направите ето <%= link_to "тук", new_user_path %></p>
-  <p><%= link_to "Забравена парола?", :controller => :users, :action => "password_forgot" %></p>
-<% end -%>
+<br>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <h3 class="panel-title">Вход</h3>
+      </div>
+
+      <div class="panel-body">
+        <%= form_tag session_path {}, :class=> "form-horizontal" do -%>
+
+          <div class="form-group">
+            <%= label_tag "login", "Потребител", class: "col-sm-3 control-label" %>
+              <div class="col-sm-9">
+                <%= text_field_tag "login", @login, class: "form-control", placeholder: "Email или потребителско име"%>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag "password", "Парола", class: "col-sm-3 control-label" %>
+              <div class="col-sm-9">
+                <%= password_field_tag "password", nil, class: "form-control", placeholder: "Парола" %>
+              </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <%= button_tag type: "submit", class: "btn btn-default" do %>
+                <span class="glyphicon glyphicon-log-in"></span> Влез
+              <% end %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <p>
+                <%= link_to "Забравена парола?", :controller=> :users, :action => "password_forgot" %></p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <p>Нямате акаунт?
+                <%= link_to "Регистрирайте се!", new_user_path %>
+              </p>
+            </div>
+          </div>
+
+          <% end -%>
+      </div>
+    </div>
+  </div>
+</div>

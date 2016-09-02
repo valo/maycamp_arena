@@ -138,7 +138,7 @@ Getting the grader up and running is done with:
 vm$ cd /vagrant
 vm$ gem install god
 vm$ docker build -t grader .
-vm$ printf "vagrant-ubuntu-trusty64:\n rsync: /vagrant/sets" > config/grader.yml
+vm$ printf "vagrant-ubuntu-trusty-64:\n rsync: /vagrant/sets" > config/grader.yml
 ```
 
 and running it with:

@@ -42,14 +42,14 @@ Feature: Administer users
       | Паролата отново:   | secret                 |
       | Град:              | София                  |
     And I press "Създаване"
-    And I follow "Valentin Mihov (Изход)"
+    And I follow "Valentin Mihov"
     And I am on the login page
     And I fill in the following:
       | login | pesho |
       | password | secret |
     And I press "Влез"
     Then I should be on the homepage
-    And I should see "Pesho Peshev (Изход)"
+    And I should see "Pesho Peshev"
 
   Scenario: View a user
     Given there is a running contest named "Fall championship"
@@ -72,4 +72,4 @@ Feature: Administer users
       | password              | secret                    |
     And I press "Влез"
     Then I should be on the homepage
-    And I should see "Pesho Peshev (Изход)"
+    And I should see "Pesho Peshev"
