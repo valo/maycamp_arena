@@ -17,7 +17,7 @@
     <% rankings.each_with_index do |rank, index| %>
     <tr>
       <td><%= (rankings.current_page - 1) * rankings.per_page + index + 1 %></td>
-      <td><%= link_to rank.user.name, user_path(rank.user) %></td>
+      <td><%= render 'common/user_link_with_avatar', user: rank.user.decorate %></td>
       <td><%= rank.user.city %></td>
       <td><%= rank.total_points %></td>
       <td><%= rank.full_solutions %></td>

@@ -41,6 +41,8 @@ class User < ActiveRecord::Base
     CONTESTER
   ]
 
+  after_create :create_level_info
+
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   #
   # uff.  this is really an authorization, not authentication routine.
@@ -174,8 +176,13 @@ class User < ActiveRecord::Base
   end
 
   private
-    def self.encrypt_password(password)
-      return nil unless password
-      Digest::SHA1.hexdigest(password)
-    end
+
+  def self.encrypt_password(password)
+    return nil unless password
+    Digest::SHA1.hexdigest(password)
+  end
+
+  def create_level_info
+    IncreaseExpForUser.new(self, 0).call
+  end
 end

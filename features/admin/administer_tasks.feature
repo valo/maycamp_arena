@@ -56,7 +56,7 @@
   Scenario: Edit task
     Given I am on the contest list in the admin panel
     And I follow "Задачи" within "#content-box"
-    And I follow "Промяна"
+    And I follow "Редакция"
     And I fill in the following:
       | Име:          | A-B problem                                        |
       | Time limit:   | 2                                                  |
@@ -92,7 +92,7 @@
     And there is a category with attributes:
       | name | Динамично |
     When I follow "Задачи" within "#content-box"
-    And I follow "Промяна"
+    And I follow "Редакция"
     And I check "Динамично"
     And I press "Обновяване"
     And I am on the categories list in the admin panel

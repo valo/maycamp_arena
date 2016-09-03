@@ -61,7 +61,7 @@ Feature: Administer users
 
   Scenario: Update a user
     Given I am on the user list in the admin panel
-    When I follow "Промяна"
+    When I follow "Редакция"
     And I fill in the following:
       | Истинско име:      | Pesho Peshev           |
     And I press "Обновяване"

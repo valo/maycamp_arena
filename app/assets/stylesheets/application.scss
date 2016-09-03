@@ -71,6 +71,13 @@ h1 {
   }
 }
 
+.navbar {
+  .navbar-nav a {
+    padding-top: 15px;
+    padding-bottom: 5px;
+  }
+}
+
 @media (max-width: 991px) {
   #header .logo {
     display: none !important;
@@ -184,6 +191,10 @@ textarea.source_code {
 #submenu {
   border-bottom: 1px solid #999;
 	background: #f8f8f8;
+
+  .progress {
+    height: 10px;
+  }
 }
 
 .navbar {
@@ -210,7 +221,11 @@ form p em {
   }
 
   .time, .mem {
-    width: 80px;
+    width: 50px;
+  }
+
+  .name {
+    white-space: nowrap;
   }
 }
 
@@ -265,4 +280,43 @@ form p em {
 
 .progress {
   margin-bottom: 0;
+}
+
+@mixin avatar($size) {
+  position: relative;
+  > img {
+    width: $size;
+    height: $size;
+  }
+  .overlays {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    img {
+      width: $size / 3;
+      height: $size / 3;
+    }
+  }
+}
+
+.avatar_with_level {
+  width: 128px;
+}
+
+.avatar_128 {
+  @include avatar(128px);
+
+  padding: 0;
+  width: 128px;
+  height: 128px;
+}
+
+.avatar_32 {
+  @include avatar(32px);
+
+  display: inline-block;
+  padding: 0;
+  width: 32px;
+  height: 32px;
 }

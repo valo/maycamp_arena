@@ -6,8 +6,8 @@
         <th>Задача</th>
         <th>Потребител</th>
         <th class="status">Статус</th>
-        <th>Max Време</th>
-        <th>Max Памет</th>
+        <th>Време (sec)</th>
+        <th>Памет (KB)</th>
         <% if have_visible?(runs) %>
           <th>Решения</th>
         <% end %>
@@ -17,10 +17,10 @@
         <td class="created_at"><%= l run.created_at, format: :short %></td>
         <td><%= link_to run.problem.contest.name, :controller => :practice, :action => :open_contest, :contest_id => run.problem.contest.id %></td>
         <td><%= link_to run.problem.name, :controller => :practice, :action => :get_problem_description, :contest_id => run.problem.contest.id, :problem_id => run.problem.id %></td>
-        <td><%= link_to run.user.name, user_path(run.user) %></td>
+        <td class="name"><%= render 'common/user_link_with_avatar', user: run.user.decorate %></td>
         <td class="status"><%= run.status %></td>
-        <td class="time"><%= run.max_time.to_f %> sec.</td>
-        <td class="mem"><%= run.max_memory.to_i / 1024 %> KB</td>
+        <td class="time"><%= run.max_time.to_f %></td>
+        <td class="mem"><%= run.max_memory.to_i / 1024 %></td>
         <% if have_visible?(runs) %>
           <td>
             <% if policy(run).show? %>

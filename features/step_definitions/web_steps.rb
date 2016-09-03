@@ -50,15 +50,15 @@ When /^(?:|I )go to (.+)$/ do |page_name|
 end
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
-  click_button(button)
+  click_on button
 end
 
 When /^(?:|I )press the first "([^\"]*)"$/ do |button|
-  first(:button, button).click
+  click_on button, match: :first
 end
 
 When /^(?:|I )follow "([^\"]*)"$/ do |link|
-  first(:link, link).click
+  click_on link, match: :first
 end
 
 When /^(?:|I )fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
