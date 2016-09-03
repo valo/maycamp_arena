@@ -1,8 +1,8 @@
 ---
-:concurrency: 10
+:concurrency: 5
 :pidfile: tmp/pids/sidekiq.pid
 production:
-  :concurrency: 20
+  :concurrency: 5
 :queues:
   - default
   - leveling
