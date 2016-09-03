@@ -7,9 +7,9 @@ class UserDecorator < Draper::Decorator
 
   def avatar_overlays
     case user.level_info.level - avatar_icon_level
-    when 2
-      ['icons/badge.png']
     when 1
+      ['icons/badge.png']
+    when 2
       ['icons/crown.png']
     else
       []
