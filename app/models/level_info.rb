@@ -10,7 +10,15 @@ class LevelInfo < ActiveRecord::Base
     current_exp + (level - 1) * level / 2 * BASE_LEVEL_MULTIPLIER
   end
 
+  def next_level_total_exp
+    level * (level + 1) / 2 * BASE_LEVEL_MULTIPLIER
+  end
+
   def next_level_exp
     level * LevelInfo::BASE_LEVEL_MULTIPLIER
+  end
+
+  def percent_complete
+    100.0 * current_exp / next_level_exp
   end
 end

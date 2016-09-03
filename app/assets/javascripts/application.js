@@ -9,6 +9,8 @@
 //= require_tree ./main
 
 $(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+
   if (gon.daily_submits_report) {
     $('#daily_submits_report').highcharts({
        chart: {

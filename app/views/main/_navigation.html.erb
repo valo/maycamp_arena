@@ -25,115 +25,123 @@
 </div>
 
 <div id="submenu">
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="<%= root_path %>">Arena</a>
-    </div>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="<%= root_path %>">Arena</a>
+      </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <!-- Begin of main menu -->
-      <ul class="nav navbar-nav">
-        <li>
-          <%= link_to  root_path do %>
-            <span class="glyphicon glyphicon-education"></span> Начало
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <!-- Begin of main menu -->
+        <ul class="nav navbar-nav">
+          <li>
+            <%= link_to  root_path do %>
+              <span class="glyphicon glyphicon-education"></span> Начало
+            <% end %>
+          </li>
+          <li>
+            <%= link_to activity_path do %>
+              <span class="glyphicon glyphicon-scale"></span> Активност
+            <% end %>
+          </li>
+          <li>
+            <%= link_to rankings_practice_path do %>
+              <span class="glyphicon glyphicon-stats"></span> Класиране
+            <% end %>
+          </li>
+          <li>
+            <%= link_to status_path do %>
+              <span class="glyphicon glyphicon-eye-open"></span> Статус
+            <% end %>
+          </li>
+          <li>
+            <%= link_to problems_path do %>
+              <span class="glyphicon glyphicon-folder-open"></span> Задачи
+            <% end %>
+          </li>
+
+          <!-- Administration menu -->
+          <% if policy(:admin_status).show? %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-wrench"></span> Администрация <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <% if policy(:contest).index? %>
+                <li><%= link_to "Състезания", admin_contests_path %></li>
+              <% end %>
+
+              <% if policy(:group).index? %>
+                <li><%= link_to "Групи", admin_groups_path %></li>
+              <% end %>
+
+              <% if policy(:report).show? %>
+                <li><%= link_to "Доклади", admin_reports_path %></li>
+              <% end %>
+
+              <% if policy(:user).index? %>
+                <li><%= link_to "Потребители", admin_users_path %></li>
+              <% end %>
+
+              <% if policy(:admin_status).show? %>
+                <li><%= link_to "Админ Статус", admin_status_path %></li>
+              <% end %>
+
+              <% if policy(:category).index? %>
+                <li><%= link_to "Категории", admin_categories_path %></li>
+              <% end %>
+
+            </ul>
+          </li> <!-- /Administration menu -->
           <% end %>
-        </li>
-        <li>
-          <%= link_to activity_path do %>
-            <span class="glyphicon glyphicon-scale"></span> Активност
-          <% end %>
-        </li>
-        <li>
-          <%= link_to rankings_practice_path do %>
-            <span class="glyphicon glyphicon-stats"></span> Класиране
-          <% end %>
-        </li>
-        <li>
-          <%= link_to status_path do %>
-            <span class="glyphicon glyphicon-eye-open"></span> Статус
-          <% end %>
-        </li>
-        <li>
-          <%= link_to problems_path do %>
-            <span class="glyphicon glyphicon-folder-open"></span> Задачи
-          <% end %>
-        </li>
+        </ul>
+        <!-- End of main menu -->
 
-        <!-- Administration menu -->
-        <% if policy(:admin_status).show? %>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-wrench"></span> Администрация <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <% if policy(:contest).index? %>
-              <li><%= link_to "Състезания", admin_contests_path %></li>
-            <% end %>
-
-            <% if policy(:group).index? %>
-              <li><%= link_to "Групи", admin_groups_path %></li>
-            <% end %>
-
-            <% if policy(:report).show? %>
-              <li><%= link_to "Доклади", admin_reports_path %></li>
-            <% end %>
-
-            <% if policy(:user).index? %>
-              <li><%= link_to "Потребители", admin_users_path %></li>
-            <% end %>
-
-            <% if policy(:admin_status).show? %>
-              <li><%= link_to "Админ Статус", admin_status_path %></li>
-            <% end %>
-
-            <% if policy(:category).index? %>
-              <li><%= link_to "Категории", admin_categories_path %></li>
-            <% end %>
-
-          </ul>
-        </li> <!-- /Administration menu -->
-        <% end %>
-      </ul>
-      <!-- End of main menu -->
-
-      <!-- Begin of user submenu -->
-      <ul class="nav navbar-nav navbar-right">
-        <% if current_user %>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <%= current_user.name %> <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><%= link_to "Профил", edit_user_path(current_user) %></li>
-            <li role="separator" class="divider"></li>
+        <!-- Begin of user submenu -->
+        <ul class="nav navbar-nav navbar-right">
+          <% if current_user %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= render 'common/small_avatar', user: current_user.decorate %> <%= current_user.name %> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Профил", user_path(current_user) %></li>
+              <li><%= link_to "Промяна на профил", edit_user_path(current_user) %></li>
+              <li role="separator" class="divider"></li>
+              <li>
+                <%= link_to logout_path do %>
+                  <span class="glyphicon glyphicon-log-out"></span> Изход
+                <% end %>
+              </li>
+            </ul>
+          </li>
+          <% else %>
             <li>
-              <%= link_to logout_path do %>
-                <span class="glyphicon glyphicon-log-out"></span> Изход
+              <%= link_to new_user_path do %>
+                <span class="glyphicon glyphicon-hand-up"></span> Регистрация
               <% end %>
             </li>
-          </ul>
-        </li>
-        <% else %>
-          <li>
-            <%= link_to new_user_path do %>
-              <span class="glyphicon glyphicon-hand-up"></span> Регистрация
-            <% end %>
-          </li>
-          <li>
-            <%= link_to login_path do %>
-              <span class="glyphicon glyphicon-log-in"></span> Вход
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-      <!-- End of user submenu -->
+            <li>
+              <%= link_to login_path do %>
+                <span class="glyphicon glyphicon-log-in"></span> Вход
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+        <!-- End of user submenu -->
 
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  <% if current_user %>
+    <div class="progress" data-toggle="tooltip" data-placement="bottom" title="Текущ прогрес до следващото ниво: <%= current_user.level_info.percent_complete.to_i %>%">
+      <div class="progress-bar" role="progressbar" aria-valuenow="<%= current_user.level_info.percent_complete %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= current_user.level_info.percent_complete %>%;">
+        <span class="sr-only"><%= current_user.level_info.percent_complete %>% Complete</span>
+      </div>
+    </div>
+  <% end %>
 </div>

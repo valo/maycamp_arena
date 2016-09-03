@@ -31,7 +31,7 @@
       <td>
         <%= link_to "Админ преглед", admin_user_path(user) %>
         <%= link_to "Преглед", user_path(user) %>
-        <%= link_to "Промяна", edit_admin_user_path(user) %>
+        <%= link_to "Редакция", edit_admin_user_path(user) %>
         <%= link_to "Логин", impersonate_admin_user_path(user), method: :post %>
         <%= link_to "Изтриване", admin_user_path(user), :data => { :confirm => "Сигурни ли сте, че искате да изтриете този потребител?" }, :method => :delete %>
       </td>

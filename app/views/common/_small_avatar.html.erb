@@ -1,0 +1,10 @@
+<div class="avatar_32">
+  <%= image_tag user.avatar_image_path %>
+  <% if user.avatar_overlays.present? %>
+    <div class="overlays">
+      <% user.avatar_overlays.each do |overlay| %>
+        <%= image_tag overlay %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

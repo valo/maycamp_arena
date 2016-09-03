@@ -56,7 +56,7 @@ Feature: Administer contests
     And I select "October 16, 2014 16:21:39" as the "Начало:" datetime
     And I select "October 18, 2014 16:21:39" as the "Край:" datetime
     And I press "Създаване"
-    And I follow "Промяна"
+    And I follow "Редакция"
     And I fill in the following:
       | Име: | Spring contest |
       | Продължителност: | 180 |
@@ -73,7 +73,7 @@ Feature: Administer contests
     And I select "October 16, 2014 16:21:39" as the "Начало:" datetime
     And I select "October 18, 2014 16:21:39" as the "Край:" datetime
     And I press "Създаване"
-    And I follow "Промяна"
+    And I follow "Редакция"
     And I fill in the following:
       | Име: | Spring contest |
       | Продължителност: | 180 |

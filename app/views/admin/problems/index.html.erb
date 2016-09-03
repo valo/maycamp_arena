@@ -16,7 +16,7 @@
         <%= link_to "Преглед", admin_contest_problem_path(@contest, problem) %> |
         <%= link_to "Изтриване на файловете", purge_files_admin_contest_problem_path(@contest, problem) %> |
         <%= link_to "Качване на файлове", upload_file_admin_contest_problem_path(@contest, problem) %> |
-        <%= link_to "Промяна", edit_admin_contest_problem_path(@contest, problem) %> |
+        <%= link_to "Редакция", edit_admin_contest_problem_path(@contest, problem) %> |
         <%= link_to "Изтрий", admin_contest_problem_path(@contest, problem), :method => :delete, :data => { :confirm => "Are you sure you want to delete this problem?" } %>
       </td>
     </tr>

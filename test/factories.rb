@@ -62,6 +62,5 @@ FactoryGirl.define do
   end
 
   factory :level_info do
-    association :user
   end
 end

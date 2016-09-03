@@ -1,11 +1,30 @@
-<h1><%= @user.name %> <%= @user.city.blank? ? "" : "(#{@user.city})" %></h1>
-<h2>Статистика</h2>
-<ul class="no_bullets">
-  <li><strong>Общ брой точки:</strong> <%= @user.total_points %></li>
-  <li><strong>Пратени решения:</strong> <%= @user.runs.count %></li>
-  <li><strong>Решения за 100 точки:</strong> <%= @user.full_tasks %></li>
-  <li><strong>Участия в състезания:</strong> <%= @user.contest_start_events.count %></li>
-</ul>
+<div class="row">
+  <div class="col-sm-2">
+    <div class="avatar_with_level text-center">
+      <div class="avatar_128">
+        <%= image_tag user.avatar_image_path %>
+        <% if user.avatar_overlays.present? %>
+          <div class="overlays">
+            <% user.avatar_overlays.each do |overlay| %>
+              <%= image_tag overlay %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <h4>Ниво <%= user.level_info.level %> <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Когато решавате задачи, трупате опит и качвате нива"></span></h4>
+    </div>
+  </div>
+  <div class="col-sm-10">
+    <h2><%= @user.name %> <%= @user.city.blank? ? "" : "(#{@user.city})" %></h2>
+    <h3>Статистика</h3>
+    <ul class="no_bullets">
+      <li><strong>Опит:</strong> <%= @user.level_info.total_exp %>/<%= @user.level_info.next_level_total_exp %> <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="right" title="Когато решавате задачи, трупате опит. Всяко следващо ниво изисква повече опит."></span></li>
+      <li><strong>Пратени решения:</strong> <%= @user.runs.count %></li>
+      <li><strong>Решения за 100 точки:</strong> <%= @user.full_tasks %></li>
+      <li><strong>Участия в състезания:</strong> <%= @user.contest_start_events.count %></li>
+    </ul>
+  </div>
+</div>
 <div id="daily_submits_report"></div>
 <div id="total_submits_report"></div>
 <h2>Последно пратени решения</h2>

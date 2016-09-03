@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   before_filter :login_required_without_data_check, :only => [:update, :edit]
   layout "main"
 
+  decorates_assigned :user
+
   def new
     @user = User.new
   end
