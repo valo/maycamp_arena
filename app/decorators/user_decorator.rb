@@ -6,10 +6,10 @@ class UserDecorator < Draper::Decorator
   end
 
   def avatar_overlays
-    case user.level_info.level - avatar_icon_level
-    when 1
-      ['icons/badge.png']
+    case user.level_info.level % 3
     when 2
+      ['icons/badge.png']
+    when 0
       ['icons/crown.png']
     else
       []
@@ -19,6 +19,8 @@ class UserDecorator < Draper::Decorator
   private
 
   def avatar_icon_level
-    (user.level_info.level / 3).to_i * 3 + 1
+    level = (user.level_info.level / 3).to_i * 3 + 1
+    level -= 3 if user.level_info.level % 3 == 0
+    level
   end
 end
