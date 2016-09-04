@@ -14,7 +14,7 @@ describe IncreaseExpForUser do
     end
 
     context 'when increasing level' do
-      let(:exp) { 1000 }
+      let(:exp) { 500 }
 
       it 'keeps the overflowing exp' do
         increase_exp_for_user.call
@@ -41,7 +41,7 @@ describe IncreaseExpForUser do
       it 'increases the level of the user' do
         increase_exp_for_user.call
 
-        expect(user.level_info.level).to be(3)
+        expect(user.level_info.level).to be(4)
       end
     end
   end
