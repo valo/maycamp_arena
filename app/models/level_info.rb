@@ -1,5 +1,5 @@
 class LevelInfo < ActiveRecord::Base
-  BASE_LEVEL_MULTIPLIER = 1000
+  BASE_LEVEL_MULTIPLIER = 500
 
   belongs_to :user
 
