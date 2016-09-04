@@ -1,7 +1,7 @@
 describe RunPolicy do
   let(:run) { create(:run) }
   let(:coach_run) { create(:run, user_id: coach.id, problem: coach_problem) }
-  
+
   let(:problem_with_visible_runs) { create(:problem, runs_visible: true) }
   let(:problem_without_visible_runs) { create(:problem, runs_visible: false) }
   let(:coach_problem) { create(:problem, runs_visible: false) }
@@ -66,8 +66,8 @@ describe RunPolicy do
       expect(RunPolicy).not_to permit(nil, run)
     end
 
-    it "allows access to contesters if the run is visible for them" do
-      expect(RunPolicy).to permit(contester, public_run)
+    it "denies access to contesters if the run is visible for them" do
+      expect(RunPolicy).not_to permit(contester, public_run)
     end
 
     it "denies access to contesters if the run is not visible for them" do
@@ -80,13 +80,12 @@ describe RunPolicy do
     end
 
     it "allows access to coaches if they created the run or if it's visible to them" do
-      expect(RunPolicy).to permit(coach, coach_run) 
-      expect(RunPolicy).to permit(coach, public_run)
+      expect(RunPolicy).to permit(coach, coach_run)
+      expect(RunPolicy).not_to permit(coach, public_run)
     end
 
-    it "denies access to coacehs if the didn't created the run and isn't visible to them" do
-      expect(RunPolicy).not_to permit(coach, private_run) 
+    it "denies access to coaches if the didn't created the run and isn't visible to them" do
+      expect(RunPolicy).not_to permit(coach, private_run)
     end
-
   end
 end
