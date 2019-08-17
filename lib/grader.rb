@@ -1,6 +1,7 @@
 class Grader
-  def initialize
-    @tests_updated_at = SyncTests.new(Time.at(0)).call
+  def initialize(sync=true)
+    @sync = sync
+    @tests_updated_at = SyncTests.new(Time.at(0)).call if @sync
   end
 
   def run
@@ -15,7 +16,7 @@ class Grader
         end
       end
 
-      @tests_updated_at = SyncTests.new(@tests_updated_at).call
+      @tests_updated_at = SyncTests.new(@tests_updated_at).call if @sync
 
       sleep 1 unless find_and_grade_run
     end

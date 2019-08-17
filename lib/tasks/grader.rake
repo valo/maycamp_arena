@@ -8,7 +8,7 @@ namespace :grader do
 
   desc "Start the grader without sync"
   task :start_nosync => :environment do
-    Grader.new.run
+    Grader.new(false).run
   end
 
   desc "Syncronize the local tests with the remote tests"
