@@ -7,12 +7,14 @@ services:
     environment:
     - RAILS_ENV=production
     - DATABASE_URL=mysql2://arena:arena@mysql:3306/arena?encoding=utf8&collation=utf8_general_ci
-    - SECRET_KEY_BASE=cc8aa5eba1ab517a3b6d08eb72652cf8cbe7ba2e6da67090932fb66daf4b45e413c9c5994dea2f566d3f705341e32637bffd69824277ab189c83988826ec06a8
-    - SECRET_TOKEN=5b7fb3a584b436a54ae5cec3b5ccfa393575900ffcc869cc37da4632f4023f80
     - REDIS_PROVIDER=redis://redis:6379
     - MEMCACHE_URL=memcached:11211
+    - SECRET_KEY_BASE
+    - SECRET_TOKEN
     - SIDEKIQ_USERNAME=arena
-    - SIDEKIQ_PASSWORD=arena
+    - SIDEKIQ_PASSWORD
+    - MAILGUN_KEY
+    - MAILGUN_DOMAIN
     links:
     - redis
     - mysql
