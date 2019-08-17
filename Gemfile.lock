@@ -160,7 +160,7 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.11.2)
     multi_test (0.1.2)
-    mysql2 (0.4.2)
+    mysql2 (0.5.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.0.2)

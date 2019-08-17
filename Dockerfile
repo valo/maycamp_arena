@@ -8,7 +8,7 @@ WORKDIR /app
 ADD Gemfile /app
 ADD Gemfile.lock /app
 
-RUN bundle install --without development test
+RUN bundle install
 
 COPY . /app
 
