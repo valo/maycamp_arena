@@ -3,3 +3,4 @@ sets
 .vagrant
 log
 tmp
+data

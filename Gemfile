@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails'
+gem 'rails', '~> 4.2'
 
 # Use unicorn as the web server
 gem 'puma'

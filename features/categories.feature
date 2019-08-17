@@ -1,5 +1,5 @@
 @categories
-Feature: Categires
+Feature: Categories
 In order to be able to categorize the task
 As a regular user
 I want to be able to use categories
