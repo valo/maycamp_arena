@@ -30,8 +30,6 @@ class GradeRun
 
           run.update_attributes(:status => status, :log => File.read("grader.log")) unless dry_run
         end
-
-        docker_cleanup
       end
     end
   end
@@ -88,10 +86,12 @@ class GradeRun
           when 127
             "ml"
           when 0
+            `docker cp #{container_id}:/sandbox/output output`
             check_output(run, answer_file, input_file)
           else
             "re"
         end
+        `docker rm #{container_id}`
       }.join(" ")
     end
 
@@ -208,9 +208,5 @@ class GradeRun
 
     def docker_logs(container_id)
       `docker logs #{container_id}`.strip
-    end
-
-    def docker_cleanup
-      `docker rm $(docker ps -aq)`
     end
 end
