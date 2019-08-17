@@ -70,7 +70,7 @@ class GradeRun
           -u grader -d --net=none grader\
           ruby /sandbox/runner_fork.rb -i /sandbox/input -o /sandbox/output -p 50 -m #{memory_limit} -t #{ timeout } -- #{ executable }}
         puts command
-        container_id = %x{#{ command }}
+        container_id = %x{#{ command }}.strip
         puts "Running #{ executable } in container #{ container_id }"
 
         exit_status = wait_while_finish(container_id)
