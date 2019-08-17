@@ -132,6 +132,8 @@ class GradeRun
       case(run.language)
       when Run::LANG_JAVA
         "#{ run.public_class_name }"
+      when Run::LANG_C_CPP
+        "program"
       else
         "program#{Run::EXTENSIONS[run.language]}"
       end
