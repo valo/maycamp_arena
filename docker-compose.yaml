@@ -11,12 +11,25 @@ services:
     - SECRET_TOKEN=5b7fb3a584b436a54ae5cec3b5ccfa393575900ffcc869cc37da4632f4023f80
     - REDIS_PROVIDER=redis://redis:6379
     - MEMCACHE_URL=memcached:11211
+    - SIDEKIQ_USERNAME=arena
+    - SIDEKIQ_PASSWORD=arena
     links:
     - redis
     - mysql
     - memcached
     ports: 
     - 8080:8080
+    tmpfs:
+    - /app/tmp
+  sidekiq:
+    build: .
+    command: "sidekiq --P /app/tmp/sidekiq.pid"
+    environment:
+    - RAILS_ENV=production
+    - DATABASE_URL=mysql2://arena:arena@mysql:3306/arena?encoding=utf8&collation=utf8_general_ci
+    - REDIS_PROVIDER=redis://redis:6379
+    tmpfs:
+    - /app/tmp
   redis:
     image: redis:alpine
   memcached:
