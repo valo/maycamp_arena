@@ -70,7 +70,7 @@ class GradeRun
           -m #{docker_memory_limit}\
           --cpuset-cpus=0\
           -u grader -d --net=none grader\
-           /sandbox/runner_fork.rb -i /sandbox/input -o /sandbox/output -p 50 -m #{memory_limit} -t #{ timeout } -- #{ executable }}
+          ruby /sandbox/runner_fork.rb -i /sandbox/input -o /sandbox/output -p 50 -m #{memory_limit} -t #{ timeout } -- #{ executable }}
         puts command
         container_id = %x{#{ command }}
         puts "Running #{ executable } in container #{ container_id }"
@@ -97,12 +97,10 @@ class GradeRun
 
     def mappings(input_file)
       {
-        "#{Rails.root}/sandbox" => "/sandbox",
-        "#{Rails.root}/ext/runner_args.rb" => "/sandbox/runner_args.rb",
-        "#{Rails.root}/ext/runner_fork.rb" => "/sandbox/runner_fork.rb",
+        "#{Rails.root}/sandbox/#{compiled_binary}" => "/sandbox/#{compiled_binary}",
         "#{input_file}" => "/sandbox/input"
       }.map do |from, to|
-        "-v #{from}:#{to}"
+        "-v #{from}:#{to}:ro"
       end.join(" ")
     end
 
@@ -130,16 +128,25 @@ class GradeRun
       end
     end
 
+    def compiled_binary
+      case(run.language)
+      when Run::LANG_JAVA
+        "#{ run.public_class_name }"
+      else
+        "program#{Run::EXTENSIONS[run.language]}"
+      end
+    end
+
     def executable
       case(run.language)
       when Run::LANG_JAVA
-        "/usr/bin/java -Xmx512m #{ run.public_class_name }"
+        "/usr/bin/java -Xmx512m #{ compiled_binary }"
       when Run::LANG_C_CPP
-        "/sandbox/program"
+        "/sandbox/#{ compiled_binary }"
       when Run::LANG_PYTHON2
-        "/usr/bin/python2.7 program#{ Run::EXTENSIONS[run.language] }"
+        "/usr/bin/python2.7 #{ compiled_binary }"
       when Run::LANG_PYTHON3
-        "/usr/bin/python3.4 program#{ Run::EXTENSIONS[run.language] }"
+        "/usr/bin/python3.4 #{ compiled_binary }"
       end
     end
 
