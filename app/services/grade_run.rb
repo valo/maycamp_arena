@@ -80,7 +80,7 @@ class GradeRun
 
         exit_status = 127 if docker_oomkilled(container_id)
 
-        case exit_status
+        result = case exit_status
           when 9
             "tl"
           when 127
@@ -91,7 +91,10 @@ class GradeRun
           else
             "re"
         end
+
         `docker rm #{container_id}`
+
+        result
       }.join(" ")
     end
 
