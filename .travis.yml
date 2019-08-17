@@ -2,7 +2,7 @@ language: ruby
 services:
   - mysql
 rvm:
-  - 2.3.1
+  - 2.5
 before_script:
   - mysql -e 'create database spoj0_test;'
 sudo: false
