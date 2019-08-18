@@ -68,7 +68,7 @@ MaycampArena::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  config.action_mailer.default_url_options = { :host => "arena.maycamp.com" }
+  config.action_mailer.default_url_options = { :host => (ENV["SITE_DOMAIN"] || "arena.maycamp.com") }
 
   # Active Job config
   config.active_job.queue_adapter = :sidekiq

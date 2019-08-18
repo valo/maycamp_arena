@@ -2,6 +2,7 @@ version: '3'
 services:
   web:
     image: valo/maycamp_arena:latest
+    build: .
     volumes:
     - ./sets:/app/sets
     environment:
@@ -25,6 +26,7 @@ services:
     - /app/tmp
   sidekiq:
     image: valo/maycamp_arena:latest
+    build: .
     command: "sidekiq --P /app/tmp/sidekiq.pid"
     environment:
     - RAILS_ENV=production
@@ -34,6 +36,7 @@ services:
     - /app/tmp
   grader:
     image: valo/maycamp_arena:latest
+    build: .
     command: "rake grader:start_nosync"
     environment:
     - RAILS_ENV=production
