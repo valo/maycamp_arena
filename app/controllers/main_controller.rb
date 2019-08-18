@@ -3,8 +3,9 @@ require 'ostruct'
 
 class MainController < ApplicationController
   layout 'main', except: :results
-  before_filter :check_user_profile
+  before_action :check_user_profile
   decorates_assigned :practice_contests, :groups
+  helper_method :calc_rankings
 
   def index
     @past_contests = Contest.finished.paginate(page: params.fetch(:past_contests_page, 1), per_page: 20)
@@ -51,7 +52,6 @@ class MainController < ApplicationController
 
   private
 
-  helper_method :calc_rankings
   def calc_rankings(options = {})
     WillPaginate::Collection.create(options[:page] || 1, options[:per_page] || 10) do |pager|
       rankings = User.generate_ranklist(options.merge(offset: pager.offset, limit: pager.per_page)).map do |row|

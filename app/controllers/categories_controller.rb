@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   layout "main"
-  before_filter :check_user_profile
+  before_action :check_user_profile
 
   def index
     @categories = Category.all.sort {|x, y| x.name.casecmp(y.name) }
