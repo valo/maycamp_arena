@@ -13,3 +13,5 @@ class ActiveSupport::TestCase
 
   include FactoryGirl::Syntax::Methods
 end
+
+require 'mocha/minitest'

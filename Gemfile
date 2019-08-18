@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2'
+gem 'rails'
 
 # Use unicorn as the web server
 gem 'puma'
@@ -48,6 +48,7 @@ group :development do
 end
 
 group :test do
+  gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'shoulda-matchers', '~> 3.0'
   gem 'factory_girl_rails'

@@ -7,7 +7,7 @@ class Configuration < ActiveRecord::Base
 
   validates_inclusion_of :value_type, :in => %w{string int float bool datetime}
   validates_presence_of :key
-  validates_uniqueness_of :key
+  validates_uniqueness_of :key, case_sensitive: true
 
   def to_value
     return nil if self.value.nil?

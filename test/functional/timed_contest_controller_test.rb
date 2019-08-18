@@ -11,7 +11,7 @@ class TimedContestControllerTest < ActionController::TestCase
 
     @request.session[:user_id] = user.id
 
-    get :open_contest, :contest_id => contest.id
+    get :open_contest, params: { contest_id:  contest.id }
 
     assert_response :success
     assert_template "open_contest"
@@ -26,7 +26,7 @@ class TimedContestControllerTest < ActionController::TestCase
 
     @request.session[:user_id] = user.id
 
-    get :open_contest, :contest_id => contest.id
+    get :open_contest, params: { contest_id: contest.id }
 
     assert_response :success
     assert_template "open_contest"
@@ -44,11 +44,13 @@ class TimedContestControllerTest < ActionController::TestCase
 
     assert_difference "Run.count", 1 do
       post :submit_solution,
-           :contest_id => contest.id,
-           :run => {
-             :problem_id => problem.id,
-             :language => Run.languages.first,
-             :source_code => "test"
+           params: {
+            contest_id: contest.id,
+            run: {
+              problem_id: problem.id,
+              language: Run.languages.first,
+              source_code: "test"
+            }
            }
       assert_redirected_to :action => :open_contest, :contest_id => contest.id
     end
@@ -67,11 +69,13 @@ class TimedContestControllerTest < ActionController::TestCase
 
     assert_difference "Run.count", 0 do
       post :submit_solution,
-           :contest_id => contest.id,
-           :run => {
-             :problem_id => problem.id,
-             :language => Run.languages.first,
-             :source_code => "test"
+           params: {
+            contest_id: contest.id,
+            run: {
+              problem_id: problem.id,
+              language: Run.languages.first,
+              source_code: "test"
+            }
            }
       assert_redirected_to root_path
     end
@@ -90,12 +94,14 @@ class TimedContestControllerTest < ActionController::TestCase
 
     assert_difference "Run.count", 0 do
       post :submit_solution,
-           :contest_id => contest.id,
-           :run => {
-             :problem_id => problem.id,
-             :language => Run.languages.first,
-             :source_code => "test"
-           }
+           params: {
+            contest_id: contest.id,
+            run: {
+              problem_id: problem.id,
+              language: Run.languages.first,
+              source_code: "test"
+            }
+          }
 
       assert_redirected_to root_path
     end
