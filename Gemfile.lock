@@ -82,13 +82,6 @@ GEM
     codemirror-rails (5.6)
       railties (>= 3.0, < 5)
     coderay (1.1.0)
-    coffee-rails (4.1.1)
-      coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.1.x)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.10.0)
     concurrent-ruby (1.1.5)
     connection_pool (2.2.0)
     crass (1.0.4)
@@ -290,7 +283,6 @@ DEPENDENCIES
   capybara
   codemirror-rails
   coderay
-  coffee-rails
   connection_pool
   cucumber-rails
   dalli
