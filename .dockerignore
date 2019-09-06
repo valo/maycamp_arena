@@ -3,3 +3,6 @@ sets
 .vagrant
 log
 tmp
+data
+docker-compose*
+*Dockerfile

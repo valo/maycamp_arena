@@ -1,0 +1,59 @@
+version: '3'
+services:
+  web:
+    image: valo/maycamp_arena:latest
+    volumes:
+    - ./sets:/app/sets
+    environment:
+    - RAILS_ENV=production
+    - DATABASE_URL=mysql2://arena:arena@mysql:3306/arena?encoding=utf8&collation=utf8_general_ci
+    - REDIS_PROVIDER=redis://redis:6379
+    - MEMCACHE_URL=memcached:11211
+    - SECRET_KEY_BASE
+    - SECRET_TOKEN
+    - SIDEKIQ_USERNAME=arena
+    - SIDEKIQ_PASSWORD
+    - MAILGUN_KEY
+    - MAILGUN_DOMAIN
+    links:
+    - redis
+    - mysql
+    - memcached
+    ports:
+    - 8080:8080
+    tmpfs:
+    - /app/tmp
+  sidekiq:
+    image: valo/maycamp_arena:latest
+    command: "sidekiq --P /app/tmp/sidekiq.pid"
+    environment:
+    - RAILS_ENV=production
+    - DATABASE_URL=mysql2://arena:arena@mysql:3306/arena?encoding=utf8&collation=utf8_general_ci
+    - REDIS_PROVIDER=redis://redis:6379
+    tmpfs:
+    - /app/tmp
+  grader:
+    image: valo/maycamp_arena:latest
+    command: "rake grader:start_nosync"
+    environment:
+    - RAILS_ENV=production
+    - DATABASE_URL=mysql2://arena:arena@mysql:3306/arena?encoding=utf8&collation=utf8_general_ci
+    - REDIS_PROVIDER=redis://redis:6379
+    volumes:
+    - ./sets:/app/sets:ro
+    - ./sandbox:/app/sandbox
+    - /var/run/docker.sock:/var/run/docker.sock
+  redis:
+    image: redis:alpine
+  memcached:
+    image: memcached:alpine
+  mysql:
+    image: mariadb
+    volumes:
+    - ./data/db:/var/lib/mysql
+    environment:
+    - MYSQL_DATABASE=arena
+    - MYSQL_USER=arena
+    - MYSQL_PASSWORD=arena
+    - MYSQL_ROOT_PASSWORD=arena
+    command: "--collation-server=utf8_general_ci --character-set-server=utf8"

@@ -25,22 +25,4 @@ describe Grader do
 
     Grader.new.find_and_grade_run
   end
-
-  it "grades two runs simultaniously" do
-    run1 = create(:run, status: Run::WAITING)
-    run2 = create(:run, status: Run::WAITING)
-
-    pid1 = fork { Grader.new.find_and_grade_run }
-    pid2 = fork { Grader.new.find_and_grade_run }
-
-    Process.waitall
-
-    # Make sure the second run will be judged if the 2 runs above fight for the first run
-    pid3 = fork { Grader.new.find_and_grade_run }
-
-    Process.waitall
-
-    expect(run1.reload.status).to eq('')
-    expect(run2.reload.status).to eq('')
-  end
 end

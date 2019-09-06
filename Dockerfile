@@ -1,7 +1,20 @@
-FROM ubuntu:14.04
-MAINTAINER Valentin Mihov <valentin.mihov@gmail.com>
-RUN useradd -m -d /sandbox -p grader grader && chsh -s /bin/bash grader
-RUN apt-get update && apt-get install -y openjdk-7-jre-headless ruby ruby-dev make python2.7 python3
-RUN gem install rprocfs
+FROM ruby:2.5
+LABEL maintainer="Valentin Mihov <valentin.mihov@gmail.com>"
 
-WORKDIR /sandbox
+RUN apt-get update \
+  && apt-get -y install nodejs docker.io g++ default-jdk \
+  && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+ADD Gemfile /app
+ADD Gemfile.lock /app
+
+RUN bundle install
+
+COPY . /app
+
+ENV RAILS_ENV=production
+RUN rake assets:precompile
+
+CMD ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:8080"]

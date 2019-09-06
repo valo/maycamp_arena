@@ -39,11 +39,11 @@ MaycampArena::Application.configure do
   config.logger = Syslog::Logger.new 'maycamp_arena'
 
   # Use a different cache store in production
-  config.cache_store = :dalli_store, "localhost", { :pool_size => 8, :threadsafe => true }
+  config.cache_store = :dalli_store, (ENV['MEMCACHE_URL'] || 'localhost'), { :pool_size => 8, :threadsafe => true }
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
-  config.serve_static_files = false
+  config.serve_static_files = true
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -60,7 +60,7 @@ MaycampArena::Application.configure do
   # config.threadsafe!
 
   # Require HTTPS
-  config.force_ssl = true
+  config.force_ssl = false
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)

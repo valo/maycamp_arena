@@ -1,5 +1,4 @@
 # Maycamp Arena
-### Spoj0 for students
 
 --------------
 
@@ -11,15 +10,21 @@
 ------------------
 
 ## Table of Contents
-* [Description](#description)
-* [Features](#features)
-* [Installation](#installation)
-	* [Dependencies](#dependecies)
-	* [Setup](#setup)
-		* [Web Part](#web-part)
-		* [Grader](#grader)
-	* [Running the tests](#running-the-tests)
-	* [Access](#access)
+- [Maycamp Arena](#maycamp-arena)
+	- [Status](#status)
+	- [Table of Contents](#table-of-contents)
+	- [Description](#description)
+	- [Features](#features)
+	- [Installation](#installation)
+		- [Dependencies](#dependencies)
+			- [General](#general)
+			- [Additional](#additional)
+		- [Setup](#setup)
+			- [Web part](#web-part)
+		- [Grader](#grader)
+		- [Running the tests](#running-the-tests)
+		- [Access](#access)
+	- [Deployment](#deployment)
 
 ------------------
 
@@ -158,10 +163,32 @@ $ bundle exec cucumber
 After you have successfully set up the project you can log in
 with the dummy admin account:
 ```
-username: admin
+username: root
 password: 123123
 ```
 [Go back](#table-of-contents)
 
 [IOI]: http://olympiads.win.tue.nl/ioi/
 [Install]: https://github.com/valo/maycamp_arena/wiki/Installation
+
+
+## Deployment
+
+Deployment is done using docker stack. Follow these steps:
+
+- Provision a machine with docker
+- Checkout the code of the repository in `/app`. This is **important** as the location of the app in the deployment should be the same as on the host machine.
+- Init docker swarm by running `docker swarm init`
+- Generate new SECRET_KEY_BASE and SECRET_TOKEN and put them in docker-compose.yaml. Use `openssl rand --hex 64` to generate the secrets
+- Change the SIDEKIQ_USERNAME and SIDEKIQ_PASSWORD to something more secure
+- Set the mailgun key and domain so that the system can send emails
+- Generate the docker image used for grading by running `docker build -f grader.Dockerfile -t grader .`
+- Run `docker stack deploy maycamp --compose-file docker-compose.yaml` to deploy the app
+- Find the ID of the `maycamp_web` container by running `docker ps` and init the DB `docker exec <container_id> rake db:setup`
+
+The app should be accessible from the IP address of the provisioned machine. By default it binds on port 80.
+
+**WARNING:** The current deployment has some limitations:
+
+* It runs only on a single node clusters. This is because it uses shared volumes to communicate between the different services
+* It requires to checkout the code in the `/app` folder on the host machine. This is because the grader service connects directly to the docker host server and spawns the grading containers with volumes mounted to the host machine. Once the communication between the container based on volumes is removed, this limitation will be removed.

@@ -6,7 +6,6 @@ tmp/*
 .DS_Store
 vendor/bundle
 sets
-config/secrets.yml
 public/assets
 sandbox/*
 *.sublime*

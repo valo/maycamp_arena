@@ -30,8 +30,6 @@ class GradeRun
 
           run.update_attributes(:status => status, :log => File.read("grader.log")) unless dry_run
         end
-
-        docker_cleanup
       end
     end
   end
@@ -70,9 +68,9 @@ class GradeRun
           -m #{docker_memory_limit}\
           --cpuset-cpus=0\
           -u grader -d --net=none grader\
-           /sandbox/runner_fork.rb -i /sandbox/input -o /sandbox/output -p 50 -m #{memory_limit} -t #{ timeout } -- #{ executable }}
+          ruby /sandbox/runner_fork.rb -i /sandbox/input -o /sandbox/output -p 50 -m #{memory_limit} -t #{ timeout } -- #{ executable }}
         puts command
-        container_id = %x{#{ command }}
+        container_id = %x{#{ command }}.strip
         puts "Running #{ executable } in container #{ container_id }"
 
         exit_status = wait_while_finish(container_id)
@@ -82,27 +80,30 @@ class GradeRun
 
         exit_status = 127 if docker_oomkilled(container_id)
 
-        case exit_status
+        result = case exit_status
           when 9
             "tl"
           when 127
             "ml"
           when 0
+            `docker cp #{container_id}:/sandbox/output output`
             check_output(run, answer_file, input_file)
           else
             "re"
         end
+
+        `docker rm #{container_id}`
+
+        result
       }.join(" ")
     end
 
     def mappings(input_file)
       {
-        "#{Rails.root}/sandbox" => "/sandbox",
-        "#{Rails.root}/ext/runner_args.rb" => "/sandbox/runner_args.rb",
-        "#{Rails.root}/ext/runner_fork.rb" => "/sandbox/runner_fork.rb",
+        "#{Rails.root}/sandbox/#{compiled_binary}" => "/sandbox/#{compiled_binary}",
         "#{input_file}" => "/sandbox/input"
       }.map do |from, to|
-        "-v #{from}:#{to}"
+        "-v #{from}:#{to}:ro"
       end.join(" ")
     end
 
@@ -130,16 +131,27 @@ class GradeRun
       end
     end
 
+    def compiled_binary
+      case(run.language)
+      when Run::LANG_JAVA
+        "#{ run.public_class_name }"
+      when Run::LANG_C_CPP
+        "program"
+      else
+        "program#{Run::EXTENSIONS[run.language]}"
+      end
+    end
+
     def executable
       case(run.language)
       when Run::LANG_JAVA
-        "/usr/bin/java -Xmx512m #{ run.public_class_name }"
+        "/usr/bin/java -Xmx512m #{ compiled_binary }"
       when Run::LANG_C_CPP
-        "/sandbox/program"
+        "/sandbox/#{ compiled_binary }"
       when Run::LANG_PYTHON2
-        "/usr/bin/python2.7 program#{ Run::EXTENSIONS[run.language] }"
+        "/usr/bin/python2.7 #{ compiled_binary }"
       when Run::LANG_PYTHON3
-        "/usr/bin/python3.4 program#{ Run::EXTENSIONS[run.language] }"
+        "/usr/bin/python3.4 #{ compiled_binary }"
       end
     end
 
@@ -199,9 +211,5 @@ class GradeRun
 
     def docker_logs(container_id)
       `docker logs #{container_id}`.strip
-    end
-
-    def docker_cleanup
-      `docker rm $(docker ps -aq)`
     end
 end
