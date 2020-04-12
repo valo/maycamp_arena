@@ -16,14 +16,14 @@ describe Admin::UsersController do
 
     describe "#create" do
       let(:user_params) { attributes_for(:user) }
-      before { post :create, user: user_params }
+      before { post :create, params: { user: user_params } }
 
       it { is_expected.to redirect_to(new_session_path) }
     end
 
     describe "#edit" do
       let(:user) { create(:user) }
-      before { get :edit, id: user.id }
+      before { get :edit, params: { id: user.id } }
 
       it { is_expected.to redirect_to(new_session_path) }
     end
@@ -31,21 +31,21 @@ describe Admin::UsersController do
     describe "#update" do
       let(:user) { create(:user) }
       let(:new_name) { "test test test" }
-      before { put :update, id: user.id, user: { name: new_name } }
+      before { put :update, params: { id: user.id, user: { name: new_name } } }
 
       it { is_expected.to redirect_to(new_session_path) }
     end
 
     describe "#restart_time" do
       let(:user) { create(:user) }
-      before { get :restart_time, id: user.id }
+      before { get :restart_time, params: { id: user.id } }
 
       it { is_expected.to redirect_to(new_session_path) }
     end
 
     describe "#destroy" do
       let(:user) { create(:user) }
-      before { delete :destroy, id: user.id }
+      before { delete :destroy, params: { id: user.id } }
 
       it { is_expected.to redirect_to(new_session_path) }
     end
@@ -53,7 +53,7 @@ describe Admin::UsersController do
     describe "#impersonate" do
       let(:user) { create(:user) }
 
-      before { post :impersonate, id: user.id }
+      before { post :impersonate, params: { id: user.id } }
 
       it { is_expected.to redirect_to(new_session_path) }
     end
@@ -76,14 +76,14 @@ describe Admin::UsersController do
 
     describe "#create" do
       let(:user_params) { attributes_for(:user) }
-      before { post :create, user: user_params }
+      before { post :create, params: { user: user_params } }
 
       it { is_expected.to redirect_to(admin_users_path) }
     end
 
     describe "#edit" do
       let(:user) { create(:user) }
-      before { get :edit, id: user.id }
+      before { get :edit, params: { id: user.id } }
 
       it { is_expected.to respond_with(:success) }
     end
@@ -91,7 +91,7 @@ describe Admin::UsersController do
     describe "#update" do
       let(:user) { create(:user) }
       let(:new_name) { "test test test" }
-      before { put :update, id: user.id, user: { name: new_name } }
+      before { put :update, params: { id: user.id, user: { name: new_name } } }
 
       it { is_expected.to redirect_to(admin_users_path) }
 
@@ -102,7 +102,7 @@ describe Admin::UsersController do
 
     describe "#destroy" do
       let(:user) { create(:user) }
-      before { delete :destroy, id: user.id }
+      before { delete :destroy, params: { id: user.id } }
 
       it { is_expected.to redirect_to(admin_users_path) }
 
@@ -114,7 +114,7 @@ describe Admin::UsersController do
     describe "#restart_time" do
       let(:user) { create(:user) }
       let(:contest) { create(:contest) }
-      before { get :restart_time, id: user.id, contest_id: contest.id }
+      before { get :restart_time, params: { id: user.id, contest_id: contest.id } }
 
       it { is_expected.to redirect_to(admin_user_path(user)) }
     end
@@ -122,7 +122,7 @@ describe Admin::UsersController do
     describe "#impersonate" do
       let(:user) { create(:user) }
 
-      before { post :impersonate, id: user.id }
+      before { post :impersonate, params: { id: user.id } }
 
       it { is_expected.to redirect_to(root_path) }
 

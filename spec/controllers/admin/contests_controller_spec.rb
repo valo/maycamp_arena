@@ -12,7 +12,7 @@ describe Admin::ContestsController do
       let(:contest) { create(:contest) }
 
       before do
-        get :download_sources, id: contest.id
+        get :download_sources, params: { id: contest.id }
       end
 
       it { is_expected.to redirect_to(new_session_path) }
@@ -34,7 +34,7 @@ describe Admin::ContestsController do
 
     describe "#show" do
       let(:contest) { create(:contest) }
-      before { get :show, id: contest.id }
+      before { get :show, params: { id: contest.id } }
 
       it { is_expected.to redirect_to(admin_contest_problems_path(contest.id)) }
     end
@@ -44,7 +44,7 @@ describe Admin::ContestsController do
       let(:contest_params) { attributes_for(:contest).merge(group_id: group.id) }
 
       before do
-        post :create, contest: contest_params
+        post :create, params: { contest: contest_params }
       end
 
       it { is_expected.to redirect_to(admin_contests_path) }
@@ -52,7 +52,7 @@ describe Admin::ContestsController do
 
     describe "#edit" do
       let(:contest) { create(:contest) }
-      before { get :edit, id: contest.id }
+      before { get :edit, params: { id: contest.id } }
 
       it { is_expected.to respond_with(:success) }
     end
@@ -60,7 +60,7 @@ describe Admin::ContestsController do
     describe "#update" do
       let(:contest) { create(:contest) }
       let(:new_name) { "test test test" }
-      before { put :update, id: contest.id, contest: { name: new_name } }
+      before { put :update, params: { id: contest.id, contest: { name: new_name } } }
 
       it { is_expected.to redirect_to(edit_admin_contest_path(contest)) }
 
@@ -71,7 +71,7 @@ describe Admin::ContestsController do
 
     describe "#destroy" do
       let(:contest) { create(:contest) }
-      before { delete :destroy, id: contest.id }
+      before { delete :destroy, params: { id: contest.id } }
 
       it { is_expected.to redirect_to(admin_contests_path) }
 
@@ -92,10 +92,9 @@ describe Admin::ContestsController do
       let(:contest) { create(:contest) }
 
       before do
-        expect(controller).to receive(:send_file)
-        expect(controller).to receive(:render)
+        expect(controller).to receive(:send_file) { controller.head :ok }
 
-        get :download_sources, id: contest.id
+        get :download_sources, params: { id: contest.id }
       end
 
       it { is_expected.to respond_with(:success) }
@@ -114,7 +113,7 @@ describe Admin::ContestsController do
       let(:contest) { create(:contest) }
 
       before do
-        get :download_sources, id: contest.id
+        get :download_sources, params: { id: contest.id }
       end
 
       it { is_expected.to redirect_to(new_session_path) }

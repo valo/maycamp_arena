@@ -49,9 +49,9 @@ end
 
 group :test do
   gem 'rails-controller-testing'
-  gem 'rspec-rails'
-  gem 'shoulda-matchers', '~> 3.0'
-  gem 'factory_girl_rails'
+  gem 'rspec-rails', '~> 4.0.0'
+  gem 'shoulda-matchers'
+  gem 'factory_bot_rails'
   gem 'mocha', :require => 'mocha/api'
   gem 'capybara'
   gem 'database_cleaner'

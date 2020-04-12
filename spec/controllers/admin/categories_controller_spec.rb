@@ -26,14 +26,14 @@ describe Admin::CategoriesController do
 
     describe "#create" do
       let(:category_params) { attributes_for(:category) }
-      before { post :create, category: category_params }
+      before { post :create, params: { category: category_params } }
 
       it { is_expected.to redirect_to(admin_categories_path) }
     end
 
     describe "#edit" do
       let(:category) { create(:category) }
-      before { get :edit, id: category.id }
+      before { get :edit, params: { id: category.id } }
 
       it { is_expected.to respond_with(:success) }
     end
@@ -41,7 +41,7 @@ describe Admin::CategoriesController do
     describe "#update" do
       let(:category) { create(:category) }
       let(:new_name) { "test test test" }
-      before { put :update, id: category.id, category: { name: new_name } }
+      before { put :update, params: { id: category.id, category: { name: new_name } } }
 
       it { is_expected.to redirect_to(admin_categories_path) }
 
@@ -52,7 +52,7 @@ describe Admin::CategoriesController do
 
     describe "#destroy" do
       let(:category) { create(:category) }
-      before { delete :destroy, id: category.id }
+      before { delete :destroy, params: { id: category.id } }
 
       it { is_expected.to redirect_to(admin_categories_path) }
 
