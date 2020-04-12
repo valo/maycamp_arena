@@ -11,17 +11,13 @@ services:
       - DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL=true
       - REDIS_PROVIDER=redis://redis:6379
       - MEMCACHE_URL=memcached:11211
-      - SIDEKIQ_USERNAME=arena
-      - SIDEKIQ_PASSWORD
-      - MAILGUN_KEY
-      - MAILGUN_DOMAIN
     links:
       - redis
       - mysql
       - memcached
     tmpfs:
       - /app/tmp
-    command: ["bundle", "exec", "rake"]
+    command: ["bundle", "exec", "rails"]
   redis:
     image: redis:alpine
   memcached:

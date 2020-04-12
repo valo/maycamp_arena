@@ -122,7 +122,7 @@ $(function () {
 
   // CodeMirror
   if (document.getElementById("run_source_code")) {
-    var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("run_source_code"), {
+    CodeMirror.fromTextArea(document.getElementById("run_source_code"), {
       lineNumbers: true
     });
   }

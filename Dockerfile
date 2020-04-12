@@ -14,7 +14,10 @@ RUN bundle install
 
 COPY . /app
 
-ENV RAILS_ENV=production
+ARG SECRET_TOKEN
+ARG SECRET_KEY_BASE
+ARG RAILS_ENV
+
 RUN rake assets:precompile
 
 CMD ["bundle", "exec", "puma", "-b", "tcp://0.0.0.0:8080"]

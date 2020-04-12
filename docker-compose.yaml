@@ -2,7 +2,13 @@ version: "3"
 services:
   web:
     image: valo/maycamp_arena:latest
-    build: .
+    build:
+      context: .
+      args:
+        - SECRET_KEY_BASE=123
+        - SECRET_TOKEN=123
+        - RAILS_ENV=development
+    command: "rails server -b 0.0.0.0"
     volumes:
       # - ./sets:/app/sets
       - ./:/app
@@ -22,12 +28,17 @@ services:
       - mysql
       - memcached
     ports:
-      - 8080:8080
+      - 3000:3000
     tmpfs:
       - /app/tmp
   sidekiq:
     image: valo/maycamp_arena:latest
-    build: .
+    build:
+      context: .
+      args:
+        - SECRET_KEY_BASE=123
+        - SECRET_TOKEN=123
+        - RAILS_ENV=development
     command: "sidekiq --P /app/tmp/sidekiq.pid"
     environment:
       - RAILS_ENV=development
@@ -37,7 +48,12 @@ services:
       - /app/tmp
   grader:
     image: valo/maycamp_arena:latest
-    build: .
+    build:
+      context: .
+      args:
+        - SECRET_KEY_BASE=123
+        - SECRET_TOKEN=123
+        - RAILS_ENV=development
     command: "rake grader:start_nosync"
     environment:
       - RAILS_ENV=development

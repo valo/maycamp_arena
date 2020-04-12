@@ -11,8 +11,6 @@ services:
       - DATABASE_URL=mysql2://arena:arena@mysql:3306/arena?encoding=utf8&collation=utf8_general_ci
       - REDIS_PROVIDER=redis://redis:6379
       - MEMCACHE_URL=memcached:11211
-      - SECRET_KEY_BASE=123
-      - SECRET_TOKEN=123
       - SIDEKIQ_USERNAME=arena
       - SIDEKIQ_PASSWORD
       - MAILGUN_KEY
