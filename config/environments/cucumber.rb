@@ -3,7 +3,7 @@ MaycampArena::Application.configure do
   # in the future when you upgrade to a newer version of Cucumber.
 
   # IMPORTANT: Setting config.cache_classes to false is known to
-  # break Cucumber's use_transactional_tests method.
+  # break Cucumber's use_transactional_fixtures method.
   # For more information see https://rspec.lighthouseapp.com/projects/16211/tickets/165
   config.cache_classes = true
 
