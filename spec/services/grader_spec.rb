@@ -1,7 +1,7 @@
 require 'grader'
 
 describe Grader do
-  self.use_transactional_fixtures = false
+  self.use_transactional_tests = false
 
   let(:grade_run) { double(GradeRun) }
   let(:sync_tests) { double(SyncTests) }
