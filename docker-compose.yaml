@@ -8,7 +8,7 @@ services:
         - SECRET_KEY_BASE=123
         - SECRET_TOKEN=123
         - RAILS_ENV=development
-    command: "rails server -b 0.0.0.0"
+    command: "bundle exec rails server -b 0.0.0.0"
     volumes:
       # - ./sets:/app/sets
       - ./:/app
@@ -39,7 +39,7 @@ services:
         - SECRET_KEY_BASE=123
         - SECRET_TOKEN=123
         - RAILS_ENV=development
-    command: "sidekiq --P /app/tmp/sidekiq.pid"
+    command: "bundle exec sidekiq --P /app/tmp/sidekiq.pid"
     environment:
       - RAILS_ENV=development
       - DATABASE_URL=mysql2://arena:arena@mysql:3306/arena?encoding=utf8&collation=utf8_general_ci
