@@ -3,9 +3,9 @@ require 'common_contest_actions'
 class TimedContestController < ApplicationController
   include CommonContestActions
 
-  before_filter :login_required
-  before_filter :verify_contest
-  before_filter :track_contest_open_time
+  before_action :login_required
+  before_action :verify_contest
+  before_action :track_contest_open_time
 
   def open_contest
     @run = Run.new

@@ -29,7 +29,7 @@ describe Admin::GroupsController do
 
     describe '#edit' do
       before do
-        get :edit, id: group.id
+        get :edit, params: { id: group.id }
       end
 
       it { is_expected.to redirect_to(new_session_path) }
@@ -39,7 +39,7 @@ describe Admin::GroupsController do
       let(:group) { create(:group) }
 
       before do
-        put :update, id: group.id, group: group_attributes
+        put :update, params: { id: group.id, group: group_attributes }
       end
 
       it { is_expected.to redirect_to(new_session_path) }
@@ -49,7 +49,7 @@ describe Admin::GroupsController do
       let(:group) { create(:group) }
 
       before do
-        delete :destroy, id: group.id
+        delete :destroy, params: { id: group.id }
       end
 
       it { is_expected.to redirect_to(new_session_path) }
@@ -81,7 +81,7 @@ describe Admin::GroupsController do
 
     describe '#create' do
       before do
-        post :create, group: group_attributes
+        post :create, params: { group: group_attributes }
       end
 
       it { is_expected.to redirect_to(admin_groups_path) }
@@ -89,7 +89,7 @@ describe Admin::GroupsController do
 
     describe '#edit' do
       before do
-        get :edit, id: group.id
+        get :edit, params: { id: group.id }
       end
 
       it { is_expected.to respond_with(:success) }
@@ -99,7 +99,7 @@ describe Admin::GroupsController do
       let(:group) { create(:group) }
 
       before do
-        put :update, id: group.id, group: group_attributes
+        put :update, params: { id: group.id, group: group_attributes }
       end
 
       it { is_expected.to redirect_to(admin_groups_path) }
@@ -109,7 +109,7 @@ describe Admin::GroupsController do
       let(:group) { create(:group) }
 
       before do
-        delete :destroy, id: group.id
+        delete :destroy, params: { id: group.id }
       end
 
       it { is_expected.to redirect_to(admin_groups_path) }

@@ -13,9 +13,9 @@ describe ProcessUploadedFile do
   let(:contest) { create(:contest) }
   describe "extract" do
     let(:problem) { create(:problem, contest: contest) }
-    let(:file_in) { fixture_file_upload("task_input.in00") }
-    let(:file_ans) { fixture_file_upload("test.ans") }
-    let(:file_zip) { fixture_file_upload("archive.zip") }
+    let(:file_in) { fixture_file_upload(file_fixture("task_input.in00")) }
+    let(:file_ans) { fixture_file_upload(file_fixture("test.ans")) }
+    let(:file_zip) { fixture_file_upload(file_fixture("archive.zip")) }
 
     it "extracts non-zip files and converting new lines to unix format" do
       ProcessUploadedFile.new(file_in, problem).extract

@@ -1,37 +1,37 @@
 @admin @problems
-  Feature: Administer tasks
+Feature: Administer tasks
   In order to be able to control the system
   As a administrator
   I want to be able to administer the tasks
 
   Background:
     Given there is an admin user with attributes:
-      | login                 | valo                      |
-      | name                  | Valentin Mihov            |
-      | email                 | valentin.mihov@gmail.com  |
-      | unencrypted_password  | secret                    |
+      | login                | valo                     |
+      | name                 | Valentin Mihov           |
+      | email                | valentin.mihov@gmail.com |
+      | unencrypted_password | secret                   |
     And there is a group with attributes:
       | name | Content group |
     And I am not logged in
     When I am on the login page
     And I fill in the following:
-      | login                 | valo                      |
-      | password              | secret                    |
+      | login    | valo   |
+      | password | secret |
     And I press "Влез"
     And I follow "Състезания"
     And I follow "Ново състезание"
     And I fill in the following:
-      | Име: | Fall contest |
-      | Продължителност: | 120 |
-    And I select "October 16, 2014 16:21:39" as the "Начало:" datetime
-    And I select "October 18, 2014 16:21:39" as the "Край:" datetime
+      | Име:                         | Fall contest |
+      | Продължителност: | 120          |
+    And I select "October 16, 2020 16:21:39" as the "Начало:" datetime
+    And I select "October 18, 2020 16:21:39" as the "Край:" datetime
     And I select "Content group" from "Група"
     And I press "Създаване"
     And I follow "Задачи" within "#content-box"
     And I follow "Нова задача"
     And I fill in the following:
-      | Име: | A+B problem |
-      | Time limit: | 1.0 |
+      | Име:     | A+B problem |
+      | Time limit: | 1.0         |
     And I press "Създаване"
 
   Scenario: Create new task
@@ -58,9 +58,9 @@
     And I follow "Задачи" within "#content-box"
     And I follow "Редакция"
     And I fill in the following:
-      | Име:          | A-B problem                                        |
-      | Time limit:   | 2                                                  |
-      | Memory limit: | 1048576                                            |
+      | Име:       | A-B problem |
+      | Time limit:   | 2           |
+      | Memory limit: | 1048576     |
     And I press "Обновяване"
     Then I should see "A-B problem"
 

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2'
+gem 'rails'
 
 # Use unicorn as the web server
 gem 'puma'
@@ -25,7 +25,6 @@ gem 'highcharts-rails'
 gem 'gon'
 gem 'js_cookie_rails'
 gem 'sass-rails'
-gem 'coffee-rails'
 gem 'draper'
 gem 'sidekiq'
 
@@ -49,9 +48,10 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails'
-  gem 'shoulda-matchers', '~> 3.0'
-  gem 'factory_girl_rails'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails', '~> 4.0.0'
+  gem 'shoulda-matchers'
+  gem 'factory_bot_rails'
   gem 'mocha', :require => 'mocha/api'
   gem 'capybara'
   gem 'database_cleaner'

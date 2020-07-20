@@ -15,7 +15,7 @@ describe TimedContestController do
 
       before do
         sign_in user
-        get :open_contest, contest_id: contest.id
+        get :open_contest, params: { contest_id: contest.id }
       end
 
       it { is_expected.to redirect_to(root_path) }
@@ -26,7 +26,7 @@ describe TimedContestController do
 
       before do
         sign_in user
-        get :open_contest, contest_id: contest.id
+        get :open_contest, params: { contest_id: contest.id }
       end
 
       it { is_expected.to respond_with(:success) }
@@ -45,7 +45,7 @@ describe TimedContestController do
 
       before do
         sign_in user
-        get :open_contest, contest_id: contest.id
+        get :open_contest, params: { contest_id: contest.id }
       end
 
       it { is_expected.to respond_with(:success) }

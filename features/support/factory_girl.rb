@@ -1,1 +1,1 @@
-World(FactoryGirl::Syntax::Methods)
+World(FactoryBot::Syntax::Methods)

@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
-  validates_uniqueness_of   :login
+  validates_uniqueness_of   :login, case_sensitive: true
 
   validates_length_of       :name,     :maximum => 100
   validates_presence_of     :name

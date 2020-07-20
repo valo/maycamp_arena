@@ -20,7 +20,7 @@ class Admin::RunsController < Admin::BaseController
     @runs = @runs.where(:id => params[:id]) unless params[:id].blank?
     @runs = @runs.where(:problems => { :contest_id => params[:contest_id] }) unless params[:contest_id].blank?
     @runs.each { |run| run.update_attributes(:status => Run::WAITING) }
-    redirect_to :back
+    redirect_back(fallback_location: { action: :index })
   end
 
   def show
@@ -43,7 +43,7 @@ class Admin::RunsController < Admin::BaseController
   def update
     authorize run
 
-    if run.update_attributes(params.require(:run).permit!)
+    if run.update(params.require(:run).permit!)
       redirect_to(admin_contest_problem_run_path(@run.problem.contest, @run.problem, @run))
     else
       render :action => "edit"

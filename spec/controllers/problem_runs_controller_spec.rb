@@ -5,7 +5,7 @@ describe ProblemRunsController do
       let(:problem) { create(:problem, contest: contest) }
 
       it 'raises a not found error' do
-        expect { get :show, id: problem.id }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { get :show, params: { id: problem.id } }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -14,7 +14,7 @@ describe ProblemRunsController do
       let(:problem) { create(:problem, contest: contest) }
 
       before do
-        get :show, id: problem.id
+        get :show, params: { id: problem.id }
       end
 
       it { is_expected.to respond_with(:success) }

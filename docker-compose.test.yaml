@@ -1,0 +1,34 @@
+version: "3"
+services:
+  tests:
+    image: valo/maycamp_arena:latest
+    build: .
+    volumes:
+      - ./:/app
+    environment:
+      - RAILS_ENV=test
+      - DATABASE_URL=mysql2://arena:arena@mysql:3306/arena?encoding=utf8&collation=utf8_general_ci
+      - DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL=true
+      - REDIS_PROVIDER=redis://redis:6379
+      - MEMCACHE_URL=memcached:11211
+    links:
+      - redis
+      - mysql
+      - memcached
+    tmpfs:
+      - /app/tmp
+    command: ["bundle", "exec", "rails"]
+  redis:
+    image: redis:alpine
+  memcached:
+    image: memcached:alpine
+  mysql:
+    image: mariadb
+    volumes:
+      - ./data/db:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=arena
+      - MYSQL_USER=arena
+      - MYSQL_PASSWORD=arena
+      - MYSQL_ROOT_PASSWORD=arena
+    command: "--collation-server=utf8_general_ci --character-set-server=utf8"

@@ -6,27 +6,27 @@ Feature: Administer contests
 
   Background:
     Given there is an admin user with attributes:
-      | login                 | valo                      |
-      | name                  | Valentin Mihov            |
-      | email                 | valentin.mihov@gmail.com  |
-      | unencrypted_password  | secret                    |
+      | login                | valo                     |
+      | name                 | Valentin Mihov           |
+      | email                | valentin.mihov@gmail.com |
+      | unencrypted_password | secret                   |
     And there is a group with attributes:
       | name | Content group |
     And I am not logged in
     And I am on the login page
     And I fill in the following:
-      | login                 | valo                      |
-      | password              | secret                    |
+      | login    | valo   |
+      | password | secret |
     And I press "Влез"
 
   Scenario: Create new contest
     Given I am on the contest list in the admin panel
     And I follow "Ново състезание"
     And I fill in the following:
-      | Име: | Fall contest |
-      | Продължителност: | 120 |
-    And I select "October 16, 2014 16:21:39" as the "Начало:" datetime
-    And I select "October 18, 2014 16:21:39" as the "Край:" datetime
+      | Име:                         | Fall contest |
+      | Продължителност: | 120          |
+    And I select "October 16, 2020 16:21:39" as the "Начало:" datetime
+    And I select "October 18, 2020 16:21:39" as the "Край:" datetime
     And I select "Content group" from "Група"
     And I press "Създаване"
     Then I should be on the contest list in the admin panel
@@ -37,10 +37,10 @@ Feature: Administer contests
     Given I am on the contest list in the admin panel
     And I follow "Ново състезание"
     And I fill in the following:
-      | Име: | Fall contest |
-      | Продължителност: | 120 |
-    And I select "October 16, 2014 16:21:39" as the "Начало:" datetime
-    And I select "October 18, 2014 16:21:39" as the "Край:" datetime
+      | Име:                         | Fall contest |
+      | Продължителност: | 120          |
+    And I select "October 16, 2020 16:21:39" as the "Начало:" datetime
+    And I select "October 18, 2020 16:21:39" as the "Край:" datetime
     And I press "Създаване"
     And I follow "Изтриване"
     Then I should be on the contest list in the admin panel
@@ -51,15 +51,15 @@ Feature: Administer contests
     Given I am on the contest list in the admin panel
     And I follow "Ново състезание"
     And I fill in the following:
-      | Име: | Fall contest |
-      | Продължителност: | 120 |
-    And I select "October 16, 2014 16:21:39" as the "Начало:" datetime
-    And I select "October 18, 2014 16:21:39" as the "Край:" datetime
+      | Име:                         | Fall contest |
+      | Продължителност: | 120          |
+    And I select "October 16, 2020 16:21:39" as the "Начало:" datetime
+    And I select "October 18, 2020 16:21:39" as the "Край:" datetime
     And I press "Създаване"
     And I follow "Редакция"
     And I fill in the following:
-      | Име: | Spring contest |
-      | Продължителност: | 180 |
+      | Име:                         | Spring contest |
+      | Продължителност: | 180            |
     And I press "Обновяване"
     Then I should be on the contest edit page for contest "Spring contest" in the admin panel
     And I should see "Състезанието е обновено успешно."
@@ -68,15 +68,15 @@ Feature: Administer contests
     Given I am on the contest list in the admin panel
     And I follow "Ново състезание"
     And I fill in the following:
-      | Име: | Fall contest |
-      | Продължителност: | 120 |
-    And I select "October 16, 2014 16:21:39" as the "Начало:" datetime
-    And I select "October 18, 2014 16:21:39" as the "Край:" datetime
+      | Име:                         | Fall contest |
+      | Продължителност: | 120          |
+    And I select "October 16, 2020 16:21:39" as the "Начало:" datetime
+    And I select "October 18, 2020 16:21:39" as the "Край:" datetime
     And I press "Създаване"
     And I follow "Редакция"
     And I fill in the following:
-      | Име: | Spring contest |
-      | Продължителност: | 180 |
+      | Име:                         | Spring contest |
+      | Продължителност: | 180            |
     And I press "Обновяване"
     And I follow "Отказ"
     Then I should be on the contest list in the admin panel

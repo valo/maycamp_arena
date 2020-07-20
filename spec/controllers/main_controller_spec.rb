@@ -7,7 +7,7 @@ describe Admin::MainController do
       let(:contest) { create(:contest, start_time: 2.days.ago, end_time: 1.day.ago, results_visible: false) }
 
       before do
-        get :results, contest_id: contest.id
+        get :results, params: { contest_id: contest.id }
       end
 
       it { is_expected.to respond_with(:success) }
@@ -19,7 +19,7 @@ describe Admin::MainController do
       let(:contest) { create(:contest, start_time: 2.days.ago, end_time: 1.day.ago, results_visible: false) }
 
       before do
-        get :results, contest_id: contest.id
+        get :results, params: { contest_id: contest.id }
       end
 
       it { is_expected.to redirect_to(root_path) }
@@ -29,7 +29,7 @@ describe Admin::MainController do
       let(:contest) { create(:contest, start_time: 2.days.ago, end_time: 1.day.ago, results_visible: true) }
 
       before do
-        get :results, contest_id: contest.id
+        get :results, params: { contest_id: contest.id }
       end
 
       it { is_expected.to respond_with(:success) }
