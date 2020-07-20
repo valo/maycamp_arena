@@ -277,7 +277,7 @@ GEM
       rspec-support (~> 3.9)
     rspec-support (3.9.2)
     rubystats (0.3.0)
-    rubyzip (1.2.3)
+    rubyzip (2.3.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.0.1)
