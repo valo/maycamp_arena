@@ -36,4 +36,7 @@ MaycampArena::Application.configure do
 
   # Active Job config
   config.active_job.queue_adapter = :sidekiq
+
+  # Active Storage config
+  config.active_storage.service = :local
 end

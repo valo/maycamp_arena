@@ -30,6 +30,7 @@ gem 'sidekiq'
 
 group :production do
   gem 'SyslogLogger'
+  gem "aws-sdk-s3", require: false
 end
 
 group :development do
