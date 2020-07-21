@@ -37,4 +37,7 @@ MaycampArena::Application.configure do
 
   # Active Job config
   config.active_job.queue_adapter = :inline
+
+  # Store uploaded files on the local file system in a temporary directory.
+  config.active_storage.service = :test
 end

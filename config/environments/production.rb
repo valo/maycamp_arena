@@ -72,4 +72,7 @@ MaycampArena::Application.configure do
 
   # Active Job config
   config.active_job.queue_adapter = :sidekiq
+
+  # Store files on Amazon S3.
+  config.active_storage.service = :amazon
 end
