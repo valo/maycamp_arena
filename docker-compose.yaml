@@ -17,6 +17,9 @@ services:
       - DATABASE_URL=mysql2://arena:arena@mysql:3306/arena?encoding=utf8&collation=utf8_general_ci
       - REDIS_PROVIDER=redis://redis:6379
       - MEMCACHE_URL=memcached:11211
+      - AWS_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE
+      - AWS_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+      - AWS_REGION=us-east-1
       - SECRET_KEY_BASE=123
       - SECRET_TOKEN=123
       - SIDEKIQ_USERNAME=arena
@@ -44,6 +47,9 @@ services:
       - RAILS_ENV=development
       - DATABASE_URL=mysql2://arena:arena@mysql:3306/arena?encoding=utf8&collation=utf8_general_ci
       - REDIS_PROVIDER=redis://redis:6379
+      - AWS_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE
+      - AWS_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+      - AWS_REGION=us-east-1
     tmpfs:
       - /app/tmp
   grader:
@@ -59,6 +65,9 @@ services:
       - RAILS_ENV=development
       - DATABASE_URL=mysql2://arena:arena@mysql:3306/arena?encoding=utf8&collation=utf8_general_ci
       - REDIS_PROVIDER=redis://redis:6379
+      - AWS_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE
+      - AWS_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+      - AWS_REGION=us-east-1
     volumes:
       - ./sets:/app/sets:ro
       - ./sandbox:/app/sandbox
@@ -67,6 +76,16 @@ services:
     image: redis:alpine
   memcached:
     image: memcached:alpine
+  minio:
+    image: minio/minio
+    environment:
+      - MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE
+      - MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+    ports:
+      - 9000:9000
+    command: "server /data"
+    volumes:
+      - ./sets:/data
   mysql:
     image: mariadb
     volumes:
