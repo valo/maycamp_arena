@@ -1,0 +1,13 @@
+local:
+  service: Disk
+  root: <%= Rails.root.join("storage") %>
+
+test:
+  service: Disk
+  root: <%= Rails.root.join("tmp/storage") %>
+
+minio:
+  service: S3
+  bucket: "maycamp-files"
+  endpoint: http://minio:9000
+  force_path_style: true
