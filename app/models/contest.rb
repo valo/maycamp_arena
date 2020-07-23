@@ -18,7 +18,7 @@ class Contest < ActiveRecord::Base
   scope :practicable, -> { where(:practicable => true) }
   scope :visible, -> { where(:visible => true) }
 
-  validates_presence_of :name, :duration, :start_time
+  validates_presence_of :name, :duration, :start_time, :end_time
   validates_numericality_of :duration
 
   validates_inclusion_of :runner_type, :in => RUNNER_TYPES

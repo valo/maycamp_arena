@@ -8,6 +8,8 @@ class Problem < ActiveRecord::Base
   has_and_belongs_to_many :categories
   has_one :problem_stats, dependent: :destroy
 
+  has_many_attached :assets
+
   validates_presence_of :name, :time_limit
   validates_numericality_of :time_limit, :memory_limit, :greater_than => 0
 
